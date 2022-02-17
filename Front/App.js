@@ -7,7 +7,7 @@ export default function App() {
     <View style={styles.container}>
       <Text>Welcome to ALZH</Text>
       <CheckNotes/>
-
+<Text>save for github</Text>
       
       <StatusBar style="auto" />
     </View>
