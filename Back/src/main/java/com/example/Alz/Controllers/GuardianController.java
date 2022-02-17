@@ -35,6 +35,13 @@ return new ResponseEntity("Saved", HttpStatus.OK);
     return new ResponseEntity(    guardianRepository.findAll(), HttpStatus.OK);
   }
 
+  @GetMapping("/get/{Gid}")
+  public ResponseEntity getGuardianbyid(@PathVariable("Gid") String gid){
+    return new ResponseEntity(    guardianRepository.findById(gid), HttpStatus.OK);
+  }
+
+
+
   @PostMapping("/adddem/{gid}/{did}")
   public ResponseEntity adddem(@PathVariable("gid") String gid,@PathVariable("did") String did){
    Guardian guardiantochange = guardianRepository.findById(gid).get();
