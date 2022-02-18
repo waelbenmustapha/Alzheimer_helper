@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker,Circle } from 'react-native-maps';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import * as Location from 'expo-location';
+import axios from 'axios';
 
 const CheckMyLocation = () => {
 
-  
+  function postLocation(latitude,longitude){
+    console.log("**********************************")
+    console.log(latitude+"and "+longitude),
+    console.log("**********************************")
+    axios.post(`http://192.168.1.60:8090/demantia/post-location/4028b8817f092fe7017f0931962d0001/${latitude.toFixed(7)}/${longitude.toFixed(7)}`).then((res)=>console.log(res.data)).catch((err)=>console.log("ell error"+err))
+  }
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   function getlocation(){
+    
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
@@ -17,7 +24,7 @@ const CheckMyLocation = () => {
       }
 
       let location = await Location.getCurrentPositionAsync({});
-      console.log(location.coords.latitude);
+      postLocation(location.coords.latitude,location.coords.longitude);
       setLocation(location);
     })();
   }
@@ -53,7 +60,7 @@ const CheckMyLocation = () => {
       longitudeDelta: 0.005,
     }} 
     >
-
+<Circle center={{latitude:36.7399988,longitude:10.2324613}} radius={300}/>
 <Marker
   coordinate={{ latitude: location.coords.latitude,
     longitude: location.coords.longitude, }}

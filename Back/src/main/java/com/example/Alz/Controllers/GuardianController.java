@@ -1,5 +1,8 @@
 package com.example.Alz.Controllers;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +32,20 @@ public class GuardianController {
 guardianRepository.save(guardian);
 return new ResponseEntity("Saved", HttpStatus.OK);
   }
+
+  @GetMapping("/getMyDemantiaLocation/{gid}")
+  public ResponseEntity getMyDemantiaLocation(@PathVariable("gid") String gid){
+
+   Guardian guardian= guardianRepository.findById(gid).get();
+    HashMap<String, BigDecimal> map = new HashMap<String,BigDecimal>();
+
+    map.put("latitude",guardian.getDemantia().getLatitude());
+    map.put("longitude",guardian.getDemantia().getLongitude());
+
+    return new ResponseEntity(map,HttpStatus.OK);
+
+  }
+
 
   @GetMapping("/get")
   public ResponseEntity findguardians(){

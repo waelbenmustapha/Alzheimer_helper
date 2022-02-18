@@ -1,8 +1,11 @@
 package com.example.Alz.Controllers;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +35,19 @@ public class DemantiaController {
  demantiaRepository.save(demantia);
 guardianRepository.save(guardian);
   return new ResponseEntity("okah", HttpStatus.OK);
+}
+
+
+@PostMapping("/post-location/{demid}/{latitude}/{longitude}")
+    public ResponseEntity postlocation(@PathVariable("demid") String demid,@PathVariable("latitude") BigDecimal latitude,@PathVariable("longitude") BigDecimal longitude){
+
+    Demantia demantia = demantiaRepository.findById(demid).get();
+    demantia.setLatitude(latitude);
+    demantia.setLongitude(longitude);
+    demantiaRepository.save(demantia);
+    return new ResponseEntity("Position Updated",HttpStatus.OK);
+
+
 }
 
 }

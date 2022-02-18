@@ -1,9 +1,9 @@
-import { View, Text,Button } from 'react-native'
+import { View, Text,Button, StyleSheet,SafeAreaView,StatusBar } from 'react-native'
 import React from 'react'
 
 const Home = ({ navigation }) => {
   return (
-    <View>
+    <SafeAreaView style={styles.container}>
      <Button
       title="Go check my demantia location"
       onPress={() =>
@@ -16,8 +16,12 @@ const Home = ({ navigation }) => {
         navigation.navigate('DemantiaLocation')
       }
     />
-    </View>
+    </SafeAreaView>
   )
 }
-
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        marginTop:StatusBar.currentHeight
+    }});
 export default Home
