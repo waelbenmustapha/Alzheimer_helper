@@ -10,6 +10,7 @@ import {
   View,
   Dimensions,
   TouchableOpacity,
+  Button,
 } from "react-native";
 import * as Location from "expo-location";
 import axios from "axios";
@@ -21,11 +22,12 @@ const CheckMyDemantiasLocation = () => {
     longitude: 10.2324613,
   });
   const [location, setLocation] = useState(null);
-  function goToLocation(latitude, longitude) {
+  function goToLocation() {
     mapRef.current.animateToRegion({
-      latitude: latitude,
-      longitude: longitude,
-    
+      latitude: location.latitude,
+      longitude: location.longitude,
+      latitudeDelta: 0.004,
+      longitudeDelta: 0.005,
     });
   }
 
@@ -38,7 +40,6 @@ const CheckMyDemantiasLocation = () => {
       )
       .then((res) => {
         setLocation(res.data);
-        goToLocation(res.data.latitude, res.data.longitude);
         console.log(res.data);
         console.log("el distance between them");
         if (
@@ -133,8 +134,9 @@ const CheckMyDemantiasLocation = () => {
               }}>
 Safe
             </Text>}
-          </View>
+</View>
         </MapView>
+        <TouchableOpacity  onPress={()=>goToLocation()}><Text >Go to location</Text></TouchableOpacity>
       </View>
     );
   }
@@ -142,6 +144,7 @@ Safe
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    position:'relative',
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
