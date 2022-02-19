@@ -45,7 +45,9 @@ public class NotesController {
   public ResponseEntity editnote(@PathVariable("id") String id, @RequestBody Notes note) {
 
     Notes noteToEdit = notesRepository.findById(id).get();
-    noteToEdit.setText(note.getText());
+    noteToEdit.setDescription(note.getDescription());
+    noteToEdit.setDate(note.getDate());
+    noteToEdit.setTitle(note.getTitle());
     notesRepository.save(noteToEdit);
     return new ResponseEntity("Edited", HttpStatus.OK);
 
