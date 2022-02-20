@@ -17,6 +17,7 @@ export default function App() {
 
 <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
 <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
+
       </Stack.Navigator>
     </NavigationContainer>
   
