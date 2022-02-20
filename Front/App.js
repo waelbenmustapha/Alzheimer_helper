@@ -6,21 +6,22 @@ import CheckMyDemantiasLocation from './Src/Views/Guardian/CheckMyDemantiasLocat
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './Src/Views/Home';
+import CheckNote from './Src/Views/CheckNote';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
 
   return (
-<NavigationContainer>
+    <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Home" component={Home} />
-
-<Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
-<Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="CheckNote" component={CheckNote} />
+        <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
+        <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
       </Stack.Navigator>
     </NavigationContainer>
-  
-    
+
+
   )
 }
 
@@ -28,6 +29,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    
+
   },
 });
