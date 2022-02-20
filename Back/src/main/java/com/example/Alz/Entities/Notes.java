@@ -1,5 +1,6 @@
 package com.example.Alz.Entities;
 
+import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -26,7 +27,10 @@ public class Notes {
   private String id;
 
 
-  private String text;
+  private String description;
+  private String title;
+
+  private Date date;
 
   @ManyToOne
   @JsonIgnore
