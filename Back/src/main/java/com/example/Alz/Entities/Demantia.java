@@ -1,5 +1,6 @@
 package com.example.Alz.Entities;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Digits;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -34,6 +36,10 @@ public class Demantia {
   @OneToMany(mappedBy="demantia")
   private List<Notes> notes;
 
+  @Digits(integer=2, fraction=7)
+  private BigDecimal latitude;
+  @Digits(integer=2, fraction=7)
+  private BigDecimal longitude;
 
   @OneToOne(mappedBy = "demantia")
   @JsonIgnore
