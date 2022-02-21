@@ -1,11 +1,11 @@
-import { View,Text,Button, StyleSheet,SafeAreaView,StatusBar,Image,TextInput } from 'react-native'
+import { View,Text,Button, StyleSheet,SafeAreaView,StatusBar,Image,TextInput, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Icon } from 'react-native-elements';
 
 const Home = ({ navigation }) => {
   return (  
     <SafeAreaView style={styles.container}>
-      <View style={{ flexDirection:'row',margin:10,marginTop:20}}>      
+      <View style={{ flexDirection:'row',margin:10,marginTop:20}}>        
         <Image source={require('./../../assets/profile.png')} style={{width:150,height:150,borderRadius:40/ 2 }}></Image>
         <View style={{justifyContent:'center',alignItems:'flex-end',marginLeft:10,height:100}}>
           <Text style={styles.Title}>Welcome Alex Ten Napel</Text>
@@ -22,31 +22,33 @@ const Home = ({ navigation }) => {
     />
 </View>
       <View style={styles.imageLink} >
-      <View style={{alignItems:'center'}}>
+      <TouchableOpacity style={{alignItems:'center'}}>
           <Image source={require('./../../assets/Contact.png')} style={{    width:180,height:280,borderRadius:40/ 2,marginTop:10 }}></Image>
           <Text style={styles.Title2}>Contact</Text>
-        </View>
-        <View style={{alignItems:'center'}}>
+        </TouchableOpacity>
+        <TouchableOpacity style={{alignItems:'center'}} onPress={() =>
+        navigation.navigate('Location')}>
           <Image source={require('./../../assets/map.png')} style={{    width:180,height:200,borderRadius:60/ 2 ,marginTop:10,marginLeft:10}}></Image>
         <Text style={styles.Title2}>Location</Text>
 
-</View>
+</TouchableOpacity>
 
 
 
       </View>
       
       <View style={styles.imageLink} >
-      <View style={{alignItems:'center'}}>
+      <TouchableOpacity style={{alignItems:'center'}}>
       <Image source={require('./../../assets/profile.png')} style={{    width:180,height:200,borderRadius:40/ 2,marginTop:80 }}></Image>
       <Text style={styles.Title2}>History</Text>
 
-</View>
-<View style={{alignItems:'center'}}>
+</TouchableOpacity>
+<TouchableOpacity style={{alignItems:'center'}} onPress={() =>
+        navigation.navigate('CheckNote')}>
       <Image source={require('./../../assets/Note.png')} style={{    width:180,height:280,borderRadius:40/ 2 ,marginTop:10,marginLeft:10}}></Image>
       <Text style={styles.Title2}>Notes</Text>
 
-</View>
+</TouchableOpacity>
 
       </View>
      {/* <Button
