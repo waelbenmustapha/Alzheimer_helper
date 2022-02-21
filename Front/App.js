@@ -1,5 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import AddNotes from './Src/Views/AddNotes';
+import CheckNotes from './Src/Views/CheckNotes';
 import CheckMyLocation from './Src/Views/Demantia/CheckMyLocation';
 import CheckMyDemantiasLocation from './Src/Views/Guardian/CheckMyDemantiasLocation';
 import { NavigationContainer } from '@react-navigation/native';
