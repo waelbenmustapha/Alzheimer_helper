@@ -32,7 +32,7 @@ const CheckNotes = () => {
         </TouchableOpacity>
         <View style={styles.items}>
           <Text>Check Note</Text>
-          <Image source={require('../../assets')} />
+          <Image source={require('../../assets/Note.png')} />
           <View style={styles.item}>
             <Text>Note name</Text>
             <Text>  Time, Date</Text>

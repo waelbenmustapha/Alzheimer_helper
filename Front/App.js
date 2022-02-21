@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import CheckNotes from './Src/Views/CheckNotes';
 import CheckMyLocation from './Src/Views/Demantia/CheckMyLocation';
 import CheckMyDemantiasLocation from './Src/Views/Guardian/CheckMyDemantiasLocation';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './Src/Views/Home';
 import CheckNote from './Src/Views/CheckNote';
+import Location from './Src/Views/Location';
+
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -18,6 +19,8 @@ export default function App() {
         <Stack.Screen name="CheckNote" component={CheckNote} />
         <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
         <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
+        <Stack.Screen name="Location" component={Location} />
+
       </Stack.Navigator>
     </NavigationContainer>
 
