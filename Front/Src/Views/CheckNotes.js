@@ -6,7 +6,7 @@ import { AntDesign } from '@expo/vector-icons';
 import axios from "axios";
 
 
-const CheckNotes = () => {
+const CheckNotes = ({navigation}) => {
   const [notes, setNotes] = useState([]);
 
   function getData() {
@@ -32,11 +32,12 @@ const CheckNotes = () => {
         </TouchableOpacity>
         <View style={styles.items}>
           <Text>Check Note</Text>
-          <Image source={require('../../assets/Note.png')} />
           <View style={styles.item}>
             <Text>Note name</Text>
             <Text>  Time, Date</Text>
           </View>
+          <TouchableOpacity onPress={()=> navigation.navigate('AddNote')}><Text>Add note</Text></TouchableOpacity>
+          <TouchableOpacity onPress={()=> navigation.navigate('CheckNote')}><Text>Check note</Text></TouchableOpacity>
         </View>
       </View>
 
