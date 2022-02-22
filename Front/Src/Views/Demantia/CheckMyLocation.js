@@ -3,6 +3,7 @@ import MapView, { Marker,Circle } from 'react-native-maps';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import * as Location from 'expo-location';
 import axios from 'axios';
+import {URL} from "@env"
 
 const CheckMyLocation = () => {
 
@@ -10,7 +11,7 @@ const CheckMyLocation = () => {
     console.log("**********************************")
     console.log(latitude+"and "+longitude),
     console.log("**********************************")
-    axios.post(`http://172.16.17.28:8090/demantia/post-location/4028b8817f092fe7017f0931962d0001/${latitude.toFixed(7)}/${longitude.toFixed(7)}`).then((res)=>console.log(res.data)).catch((err)=>console.log("ell error"+err))
+    axios.post(`${URL}/demantia/post-location/4028b8817f092fe7017f0931962d0001/${latitude.toFixed(7)}/${longitude.toFixed(7)}`).then((res)=>console.log(res.data)).catch((err)=>console.log("ell error"+err))
   }
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);

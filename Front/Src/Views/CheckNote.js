@@ -8,12 +8,13 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
+import {URL} from "@env"
 
 const CheckNote = ({ route, navigation }) => {
   function deltenote() {
     axios
       .delete(
-        `http://172.16.17.28:8090/notes/delete-note/${route.params.el.id}`
+        `${URL}/notes/delete-note/${route.params.el.id}`
       )
       .then((res) => navigation.navigate("CheckNotes"));
   }

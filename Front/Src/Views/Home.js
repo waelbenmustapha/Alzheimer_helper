@@ -12,8 +12,17 @@ import {
 } from "react-native";
 import React, { useEffect } from "react";
 import { Icon } from "react-native-elements";
+import axios from "axios";
+import {URL} from "@env"
 
 const Home = ({ navigation }) => {
+
+
+
+  useEffect(() => {
+console.log(`${URL}/guardian/get`);
+axios.get(`${URL}/guardian/get`).then((res)=>console.log(res)).catch((err)=>console.log(err))}, [])
+  
   return (
     
 

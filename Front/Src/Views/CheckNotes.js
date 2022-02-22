@@ -9,6 +9,7 @@ import {
 import React, { useState, useEffect } from "react";
 import NoteElement from "../Components/NoteElement";
 import { AntDesign } from "@expo/vector-icons";
+import {URL} from "@env"
 
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
@@ -21,7 +22,7 @@ const CheckNotes = ({ navigation }) => {
   function getData() {
     axios
       .get(
-        "http://172.16.17.28:8090/notes/get-notes-by-dementia-id/4028b8817f092fe7017f0931962d0001"
+        `${URL}/notes/get-notes-by-dementia-id/4028b8817f092fe7017f0931962d0001`
       )
       .then((res) => {
         console.log("************************");

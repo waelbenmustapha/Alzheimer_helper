@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import heure from '../../assets/heure.png'
 import axios from 'axios';
+import {URL} from "@env"
 
 const AddNotes = ({navigation}) => {
   const [date, setDate] = useState(new Date(1598051730000));
@@ -13,7 +14,7 @@ const AddNotes = ({navigation}) => {
 
 function AddNote(){
 
-  axios.post("http://172.16.17.28:8090/notes/add-note/4028b8817f092fe7017f0931962d0001",{description:description,title:title,date:date}).then((res)=>navigation.navigate("CheckNotes"))
+  axios.post(`${URL}/notes/add-note/4028b8817f092fe7017f0931962d0001`,{description:description,title:title,date:date}).then((res)=>navigation.navigate("CheckNotes"))
 }
 
   const onChange = (event, selectedDate) => {

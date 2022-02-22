@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import MapView, { Marker, Circle } from "react-native-maps";
 import { getDistance } from "geolib";
+import {URL} from "@env"
+
 import alarm from '../../../images/alarm.png'
 import demloc from '../../../images/demloc.png'
 import {
@@ -36,7 +38,7 @@ const CheckMyDemantiasLocation = () => {
   function getDemantiaLocation() {
     axios
       .get(
-        `http://172.16.17.28:8090/guardian/getMyDemantiaLocation/4028b8817f092fe7017f093140e80000`
+        `${URL}/guardian/getMyDemantiaLocation/4028b8817f092fe7017f093140e80000`
       )
       .then((res) => {
         setLocation(res.data);
