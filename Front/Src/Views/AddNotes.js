@@ -2,15 +2,24 @@ import { View, Text,StyleSheet,TextInput,TouchableOpacity,Image,Button } from 'r
 import React, { useState } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import heure from '../../assets/heure.png'
+import axios from 'axios';
 
-const AddNotes = () => {
+const AddNotes = ({navigation}) => {
   const [date, setDate] = useState(new Date(1598051730000));
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
+  const [description,setDescription]=useState("");
+  const [title,setTitle]=useState("");
+
+function AddNote(){
+
+  axios.post("http://172.16.17.28:8090/notes/add-note/4028b8817f092fe7017f0931962d0001",{description:description,title:title,date:date}).then((res)=>navigation.navigate("CheckNotes"))
+}
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
+
     setDate(currentDate);
     if(mode=="date"){
       setMode("time");
@@ -35,10 +44,9 @@ const AddNotes = () => {
   return (
     
     <View style={styles.container}>
-      <Text>Current date:{JSON.stringify(date)}</Text>
       <Text style={[styles.setFontSize,styles.setColorGreen]}>Add Note</Text>
-      <TextInput style={styles.input} placeholder="Name note" />
-      <TextInput style={styles.inputDesc} placeholder="Description" />
+      <TextInput onChangeText={(text)=>setTitle(text)} style={styles.input} placeholder="Note title" />
+      <TextInput onChangeText={(text)=>setDescription(text)} style={styles.inputDesc} placeholder="Description" />
       <View>
       <View>
         <TouchableOpacity onPress={showDatepicker}><Image style={styles.DateTimePicker}source ={heure}/></TouchableOpacity>
@@ -55,7 +63,7 @@ const AddNotes = () => {
         />
       )}
     </View>
-      <TouchableOpacity style={styles.btnVal}><Text style={styles.txtVal}>Save</Text></TouchableOpacity>     
+      <TouchableOpacity onPress={()=>{AddNote()}} style={styles.btnVal}><Text style={styles.txtVal}>Save</Text></TouchableOpacity>     
     </View>
 
   );

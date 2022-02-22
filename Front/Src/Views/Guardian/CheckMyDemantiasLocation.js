@@ -18,8 +18,8 @@ import axios from "axios";
 const CheckMyDemantiasLocation = () => {
   const[Danger, setDanger] = useState(false);
   const [safe, setSafeArea] = useState({
-    latitude: 36.7399988,
-    longitude: 10.2324613,
+    latitude: 36.760228,
+    longitude: 10.270014,
   });
   const [location, setLocation] = useState(null);
   function goToLocation() {
@@ -36,7 +36,7 @@ const CheckMyDemantiasLocation = () => {
   function getDemantiaLocation() {
     axios
       .get(
-        `http://192.168.1.60:8090/guardian/getMyDemantiaLocation/4028b8817f092fe7017f093140e80000`
+        `http://172.16.17.28:8090/guardian/getMyDemantiaLocation/4028b8817f092fe7017f093140e80000`
       )
       .then((res) => {
         setLocation(res.data);
@@ -136,7 +136,7 @@ Safe
             </Text>}
 </View>
         </MapView>
-        <TouchableOpacity  onPress={()=>goToLocation()}><Text >Go to location</Text></TouchableOpacity>
+        <TouchableOpacity style={{backgroundColor:'blue',padding:10}}  onPress={()=>goToLocation()}><Text style={{color:"white"}} >Go to location</Text></TouchableOpacity>
       </View>
     );
   }
