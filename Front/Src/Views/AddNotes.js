@@ -14,7 +14,7 @@ const AddNotes = ({navigation}) => {
 
 function AddNote(){
 
-  axios.post(`http://172.16.23.91:8090/notes/add-note/4028b8817f092fe7017f0931962d0001`,{description:description,title:title,date:date}).then((res)=>navigation.navigate("CheckNotes"))
+  axios.post(`http://192.168.1.14:8090/notes/add-note/402881907f190703017f1909a0080001`,{description:description,title:title,date:date}).then((res)=>navigation.navigate("CheckNotes"))
 }
 
   const onChange = (event, selectedDate) => {
