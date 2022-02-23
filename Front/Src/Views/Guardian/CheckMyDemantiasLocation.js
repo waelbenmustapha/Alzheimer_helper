@@ -38,7 +38,7 @@ const CheckMyDemantiasLocation = () => {
   function getDemantiaLocation() {
     axios
       .get(
-        `${URL}/guardian/getMyDemantiaLocation/4028b8817f092fe7017f093140e80000`
+        `http://172.16.23.91:8090/guardian/getMyDemantiaLocation/4028b8817f092fe7017f093140e80000`
       )
       .then((res) => {
         setLocation(res.data);

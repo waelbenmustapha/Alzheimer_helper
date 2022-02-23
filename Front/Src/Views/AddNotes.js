@@ -14,7 +14,7 @@ const AddNotes = ({navigation}) => {
 
 function AddNote(){
 
-  axios.post(`${URL}/notes/add-note/4028b8817f092fe7017f0931962d0001`,{description:description,title:title,date:date}).then((res)=>navigation.navigate("CheckNotes"))
+  axios.post(`http://172.16.23.91:8090/notes/add-note/4028b8817f092fe7017f0931962d0001`,{description:description,title:title,date:date}).then((res)=>navigation.navigate("CheckNotes"))
 }
 
   const onChange = (event, selectedDate) => {
@@ -45,7 +45,6 @@ function AddNote(){
   return (
     
     <View style={styles.container}>
-      <Text style={[styles.setFontSize,styles.setColorGreen]}>Add Note</Text>
       <TextInput onChangeText={(text)=>setTitle(text)} style={styles.input} placeholder="Note title" />
       <TextInput onChangeText={(text)=>setDescription(text)} style={styles.inputDesc} placeholder="Description" />
       <View>
