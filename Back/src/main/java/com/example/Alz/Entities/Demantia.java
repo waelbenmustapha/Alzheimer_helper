@@ -1,6 +1,7 @@
 package com.example.Alz.Entities;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,7 +32,17 @@ public class Demantia {
   private String id;
 
 
+  @Digits(integer=2, fraction=7)
+  private BigDecimal safePlaceLatitude;
+  @Digits(integer=2, fraction=7)
+  private BigDecimal safePlaceLongitude;
+
+  private int diameter;
   private String name;
+  private Date birthdate;
+  private String email;
+  private String password;
+private String type = "dementia";
 
   @OneToMany(mappedBy="demantia")
   private List<Notes> notes;
