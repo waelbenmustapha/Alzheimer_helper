@@ -9,4 +9,6 @@ import com.example.Alz.Entities.Demantia;
 @Repository
 public interface DemantiaRepository extends JpaRepository<Demantia, String> {
 public Demantia findByName(String s);
+
+ public Demantia findByEmail(String email);
 }
