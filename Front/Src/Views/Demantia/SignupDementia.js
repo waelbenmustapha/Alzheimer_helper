@@ -4,6 +4,37 @@ import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const SignupDementia = ({ navigation }) => {
 
+  const [userName, setUserName] = useState('');
+  const [age, setAge] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [userPassword, setUserPassword] = useState('');
+  const [guardianEmail, setGuardianEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+
+  const handleSubmitPress = async (event) => {
+    if (!userEmail.trim() || !userPassword.trim() || !userName.trim() || !age.trim() || !guardianEmail.trim()) {
+      alert("Please fill in all fields are required ");
+      return;
+    } /* setIsLoading(true);
+    try {
+      const response = await axios.post(`http://192.168.1.14:8090/demantia/SignUp/${email}`, {
+        userEmail,
+        userPassword,
+      });
+      if (response.status === 201) {
+        alert(` You have created: ${JSON.stringify(response.data)}`);
+        setIsLoading(false);
+        setUserEmail('');
+        setUserPassword('');
+      } else {
+        throw new Error("An error has occurred");
+      }
+    } catch (error) {
+      alert("An error has occurred !");
+      setIsLoading(false);
+    } */
+  }
 
   return (
     <View style={styles.container}>
@@ -18,18 +49,21 @@ const SignupDementia = ({ navigation }) => {
               placeholder='User name'
               autoCapitalize="none"
               placeholderTextColor='#00000080'
+              onChangeText={(UserName) => setUserName(UserName)}
             />
             <TextInput
               style={styles.input}
               placeholder='Age'
               autoCapitalize="none"
               placeholderTextColor='#00000080'
+              onChangeText={(Age) => setAge(Age)}
             />
             <TextInput
               style={styles.input}
               placeholder='Email'
               autoCapitalize="none"
               placeholderTextColor='#00000080'
+              onChangeText={(UserEmail) => setUserEmail(UserEmail)}
             />
             <TextInput
               style={styles.input}
@@ -37,6 +71,7 @@ const SignupDementia = ({ navigation }) => {
               autoCapitalize="none"
               secureTextEntry={true}
               placeholderTextColor='#00000080'
+              onChangeText={(UserPassword) => setUserPassword(UserPassword)}
             />
             <TextInput
               style={styles.input}
@@ -44,18 +79,18 @@ const SignupDementia = ({ navigation }) => {
               autoCapitalize="none"
               secureTextEntry={true}
               placeholderTextColor='#00000080'
-
+              onChangeText={(UserPassword) => setUserPassword(UserPassword)}
             />
             <TextInput
               style={styles.input}
               placeholder='Guardian Email'
               autoCapitalize="none"
               placeholderTextColor='#00000080'
-
+              onChangeText={(GuardianEmail) => setGuardianEmail(GuardianEmail)}
             />
-            {/* onChangeText={val => this.onChangeText('guardian_email', val)} */}
+
           </View>
-          <TouchableOpacity style={styles.Signupbutton}>
+          <TouchableOpacity style={styles.Signupbutton} onPress={handleSubmitPress}>
             <AntDesign name="arrowright" style={styles.arrow} size={44} />
           </TouchableOpacity>
 
