@@ -51,7 +51,8 @@ const AddNotes = ({ navigation }) => {
             <TextInput onChangeText={(text) => setTitle(text)} style={styles.square} placeholder="Note title" />
 
             <View style={styles.item}>
-              <TextInput onChangeText={(text) => setDescription(text)} style={styles.squareDecription} placeholder="Description" />
+              <TextInput onChangeText={(text) => setDescription(text)} style={styles.squareDecription} multiline={true}
+     numberOfLines={10} placeholder="Description" />
             </View>
             <TouchableOpacity onPress={showDatepicker}><Image style={styles.DateTimePicker} source={heure} /></TouchableOpacity>
             {show && (
@@ -137,7 +138,6 @@ const styles = StyleSheet.create({
   },
   squareDecription: {
     width: 300,
-    paddingBottom: 200,
     backgroundColor: "#fff",
     borderRadius: 20,
     padding: 15,
