@@ -1,101 +1,152 @@
-import React from 'react'
+import React, { useEffect, useState }  from 'react'
 import { View, ScrollView, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 
+const SignupDementia = ({ navigation }) => {
 
-export default class SignUp extends React.Component {
-  state = {
-    username: '', age: '', email: '', password: '', confirm_password: '', guardian_email: ''
-  }
-  onChangeText = (key, val) => {
-    this.setState({ [key]: val })
-  }
-  signUp = async () => {
-    const { username, age, email, password, guardian_email } = this.state
-    try {
-      // here place your signup logic
-      console.log('user successfully signed up!: ', success)
-    } catch (err) {
-      console.log('error signing up: ', err)
+ /* const [userEmail, setUserEmail] = useState('');
+  const [userPassword, setUserPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [errortext, setErrortext] = useState('');
+
+  const passwordInputRef = createRef();
+
+   const handleSubmitPress = () => {
+    setErrortext('');
+    if (!userEmail) {
+      alert('Please fill Email');
+      return;
     }
-  }
+    if (!userPassword) {
+      alert('Please fill Password');
+      return;
+    }
+    setLoading(true);
+    let dataToSend = { email: userEmail, password: userPassword };
+    let formBody = [];
+    for (let key in dataToSend) {
+      let encodedKey = encodeURIComponent(key);
+      let encodedValue = encodeURIComponent(dataToSend[key]);
+      formBody.push(encodedKey + '=' + encodedValue);
+    }
+    formBody = formBody.join('&');
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <ScrollView style={styles.scrollView}>
+    fetch('http://localhost:3000/api/user/login', {
+      method: 'POST',
+      body: formBody,
+      headers: {
+        //Header Defination
+        'Content-Type':
+          'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        //Hide Loader
+        setLoading(false);
+        console.log(responseJson);
+        // If server response message same as Data Matched
+        if (responseJson.status === 'success') {
+          AsyncStorage.setItem('user_id', responseJson.data.email);
+          console.log(responseJson.data.email);
+          navigation.replace('DrawerNavigationRoutes');
+        } else {
+          setErrortext(responseJson.msg);
+          console.log('Please check your email id or password');
+        }
+      })
+      .catch((error) => {
+        //Hide Loader
+        setLoading(false);
+        console.error(error);
+      });
+  }; */
 
-          <View style={{ flex: 1 }} >
-            <View style={styles.form} >
-              <Text style={styles.tilte}>Glad to see you here</Text>
 
-              <TextInput
-                style={styles.input}
-                placeholder='User name'
-                autoCapitalize="none"
-                placeholderTextColor='#00000080'
-                onChangeText={val => this.onChangeText('username', val)}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder='Age'
-                autoCapitalize="none"
-                placeholderTextColor='#00000080'
-                onChangeText={val => this.onChangeText('age', val)}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder='Email'
-                autoCapitalize="none"
-                placeholderTextColor='#00000080'
-                onChangeText={val => this.onChangeText('email', val)}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder='Password'
-                autoCapitalize="none"
-                secureTextEntry={true}
-                placeholderTextColor='#00000080'
-                onChangeText={val => this.onChangeText('password', val)}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder='Confirm Password'
-                autoCapitalize="none"
-                secureTextEntry={true}
-                placeholderTextColor='#00000080'
-                onChangeText={val => this.onChangeText('password', val)}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder='Guardian Email'
-                autoCapitalize="none"
-                placeholderTextColor='#00000080'
-                onChangeText={val => this.onChangeText('guardian_email', val)}
-              />
+  return (
+    <View style={styles.container}>
+      <ScrollView style={styles.scrollView}>
 
-            </View>
-            <TouchableOpacity style={styles.Signupbutton} onPress={this.signUp}>
-              <AntDesign name="arrowright" style={styles.arrow} size={44} />
-            </TouchableOpacity>
+        <View style={{ flex: 1 }} >
+          <View style={styles.form} >
+            <Text style={styles.title}>Glad to see you here</Text>
 
+            <TextInput
+              style={styles.input}
+              placeholder='User name'
+              autoCapitalize="none"
+              placeholderTextColor='#00000080'
+            />
+            <TextInput
+              style={styles.input}
+              placeholder='Age'
+              autoCapitalize="none"
+              placeholderTextColor='#00000080'
+            />
+            <TextInput
+              style={styles.input}
+              placeholder='Email'
+              autoCapitalize="none"
+              placeholderTextColor='#00000080'
+            />
+            <TextInput
+              style={styles.input}
+              placeholder='Password'
+              autoCapitalize="none"
+              secureTextEntry={true}
+              placeholderTextColor='#00000080'
+            />
+            <TextInput
+              style={styles.input}
+              placeholder='Confirm Password'
+              autoCapitalize="none"
+              secureTextEntry={true}
+              placeholderTextColor='#00000080'
+             
+            />
+            <TextInput
+              style={styles.input}
+              placeholder='Guardian Email'
+              autoCapitalize="none"
+              placeholderTextColor='#00000080'
+              
+            />
+{/* onChangeText={val => this.onChangeText('guardian_email', val)} */}
           </View>
-          <View style={styles.textCenter}>
-            <TouchableOpacity style={{Color: "#4A0D66"}}>
-              <Text>Forgot password?</Text>
-            </TouchableOpacity>
-            <Text>Or login with</Text>
-          </View>
+          <TouchableOpacity style={styles.Signupbutton}>
+            <AntDesign name="arrowright" style={styles.arrow} size={44}/>
+          </TouchableOpacity>
 
-        </ScrollView>
-      </View>
-    )
-  }
+        </View>
+        <View style={styles.textCenter}>
+          <TouchableOpacity>
+            <Text style={styles.textCenter}>Forgot password?</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={[styles.title2], { color: '#359A8E' }}
+              >
+              Already have an account</Text>
+          </TouchableOpacity>
+          <Text style={styles.textCenter}>Or login with</Text>
+
+          <View style={styles.containerLogo}>
+            <TouchableOpacity style={styles.textCenter}><MaterialCommunityIcons name="gmail" size={50} color="black" /></TouchableOpacity>
+            <TouchableOpacity style={styles.textCenter}><AntDesign name="apple1" size={44} color="black" /></TouchableOpacity>
+            <TouchableOpacity style={styles.textCenter}><AntDesign name="twitter" size={44} color="black" /></TouchableOpacity>
+          </View>
+        </View>
+      </ScrollView>
+    </View>
+  )
 }
+
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row"
+  },
+  containerLogo: {
+    flexDirection: "row",
   },
   form: {
     alignItems: "center"
@@ -121,14 +172,19 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  tilte: {
-    marginTop: 18,
+  title: {
+    marginTop: 12,
     marginBottom: 18,
     fontSize: 24,
     color: '#359A8E'
   },
+  tilte2: {
+    marginTop: 12,
+    marginBottom: 18,
+    fontSize: 18,
+  },
   Signupbutton: {
-    margin: 20,
+    margin: 10,
     marginLeft: 250,
     backgroundColor: '#359A8E',
     width: 70,
@@ -149,10 +205,11 @@ const styles = StyleSheet.create({
     color: "white"
   },
   textCenter: {
-    textAlign:'center',
+    textAlign: 'center',
     alignItems: "center",
-    margin:20
-
+    margin: 5
   }
 
 })
+
+export default SignupDementia;

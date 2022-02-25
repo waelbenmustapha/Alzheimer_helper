@@ -29,7 +29,8 @@ export default function App() {
 
 
         
-        <Stack.Screen name="SignupDementia" component={SignupDementia} />
+        <Stack.Screen name="SignupDementia" component={SignupDementia}/>
+
 
       </Stack.Navigator>
     </NavigationContainer>
