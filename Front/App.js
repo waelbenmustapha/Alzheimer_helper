@@ -9,6 +9,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './Src/Views/Home';
 import CheckNote from './Src/Views/CheckNote';
 import Location from './Src/Views/Location';
+import SignupDementia from './Src/Views/Demantia/SignupDementia';
 
 
 export default function App() {
@@ -25,6 +26,10 @@ export default function App() {
         <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
         <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
         <Stack.Screen name="Location" component={Location} />
+
+
+        
+        <Stack.Screen name="SignupDementia" component={SignupDementia} />
 
       </Stack.Navigator>
     </NavigationContainer>

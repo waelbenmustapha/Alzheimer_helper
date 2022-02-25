@@ -39,7 +39,7 @@ const Home = ({ navigation }) => {
             <Text style={styles.Title}>Your age is 80 </Text>
           </View>
         </View>
-        
+
         <View style={{ flex: 0, flexDirection: "column" }}>
           <View style={styles.searchSection}>
             <Icon style={styles.searchIcon} name="search" size={20} color="#000" />
@@ -67,17 +67,18 @@ const Home = ({ navigation }) => {
                   height: 250,
                   borderRadius: 40 / 2,
                   marginTop: 10,
-                }}/>
+                }} />
               <Text style={styles.Title2}>Contact</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={{ alignItems: "center" }}>
+            <TouchableOpacity style={{ alignItems: "center" }}
+              onPress={() => navigation.navigate("SignupDementia")}>
               <Image
                 source={require("./../../assets/profile.png")}
                 style={{
                   width: 150,
                   height: 180,
                   borderRadius: 40 / 2,
-                }}/>
+                }} />
               <Text style={styles.Title2}>History</Text>
             </TouchableOpacity>
           </View>
@@ -94,7 +95,7 @@ const Home = ({ navigation }) => {
                   height: 180,
                   borderRadius: 40 / 2,
                   marginTop: 10,
-                }}/>
+                }} />
               <Text style={styles.Title2}>Location</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -106,7 +107,7 @@ const Home = ({ navigation }) => {
                   width: 150,
                   height: 250,
                   borderRadius: 40 / 2,
-                }}/>
+                }} />
               <Text style={styles.Title2}>Notes</Text>
             </TouchableOpacity>
           </View>
