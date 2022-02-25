@@ -10,6 +10,7 @@ import Home from './Src/Views/Home';
 import CheckNote from './Src/Views/CheckNote';
 import Location from './Src/Views/Location';
 import SignupDementia from './Src/Views/Demantia/SignupDementia';
+import SigninDementia from './Src/Views/Demantia/SigninDementia';
 
 
 export default function App() {
@@ -30,6 +31,7 @@ export default function App() {
 
         
         <Stack.Screen name="SignupDementia" component={SignupDementia}/>
+        <Stack.Screen name="SigninDementia" component={SigninDementia}/>
 
 
       </Stack.Navigator>
