@@ -15,152 +15,141 @@ const SigninDementia = ({ navigation }) => {
 
   const handleSubmitPress = async (event) => {
     if (!userEmail.trim() || !userPassword.trim()) {
-      alert("Name or Email is invalid");
+      alert("Please fill Email or Password");
       return;
     } setIsLoading(true);
     try {
-      const response = await axios.post(`http://192.168.1.14:8090/api/users/${userId}`, {
+      const response = await axios.post(`http://192.168.1.14:8090/demantia/SignUp/${email}`, {
         userEmail,
         userPassword,
       });
-
-      /*   const onSubmitFormHandler = async (event) => {
-          if (!userEmail.trim() || !userPassword.trim()) {
-            alert("Name or Email is invalid");
-            return;
-          }
-          setIsLoading(true);
-          try {
-            const response = await axios.post(``, {
-              userEmail,
-              userPassword,
-            });
-            if (response.status === 201) {
-              alert(` You have created: ${JSON.stringify(response.data)}`);
-              setIsLoading(false);
-              setUserEmail('');
-              setUserPassword('');
-            } else {
-              throw new Error("An error has occurred");
-            }
-          } catch (error) {
-            alert("An error has occurred");
-            setIsLoading(false);
-          }
-        };
-     */
+      if (response.status === 201) {
+        alert(` You have created: ${JSON.stringify(response.data)}`);
+        setIsLoading(false);
+        setUserEmail('');
+        setUserPassword('');
+      } else {
+        throw new Error("An error has occurred Name or Email is invalid");
+      }
+    } catch (error) {
+      alert("An error has occurred Name or Email is invalid");
+      setIsLoading(false);
     }
 
-  return (
-      <View style={styles.container}>
 
-        <Text style={styles.title}>Glad to see you here</Text>
 
-        <View>
-          <View style={styles.form} >
-            <TextInput
-              style={styles.input}
-              placeholder='Email'
-              autoCapitalize="none"
-              placeholderTextColor='#00000080'
-              onChangeText={(UserEmail) => setUserEmail(UserEmail)}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder='Password'
-              autoCapitalize="none"
-              secureTextEntry={true}
-              placeholderTextColor='#00000080'
-              onChangeText={(userPassword) => setUserPassword(userPassword)}
-            />
-          </View>
-          <View>
-            <View style={styles.textCenter}>
-              <TouchableOpacity>
-                <Text>Forgot password?</Text>
-              </TouchableOpacity>
-            </View>
-
-            <TouchableOpacity style={styles.Signupbutton} onPress={handleSubmitPress}>
-              <AntDesign name="arrowright" style={styles.arrow} size={44} />
-            </TouchableOpacity>
-
-          </View>
-        </View>
-
-      </View>
-    )
   }
 
+  return (
+    <View style={styles.container}>
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: "center",
-    },
+      <Text style={styles.title}>Glad to see you here</Text>
 
-    form: {
-      alignItems: "center",
-      padding: 20
-    },
-    input: {
-      alignItems: 'center',
-      width: 300,
-      height: 50,
-      backgroundColor: '#fff',
-      borderColor: '#4A0D66',
-      color: 'black',
-      margin: 10,
-      padding: 8,
-      borderRadius: 10,
-      fontSize: 18,
-      fontWeight: '500',
-      shadowColor: "#4A0D66",
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-      elevation: 5,
-    },
-    title: {
-      marginTop: 12,
-      marginBottom: 18,
-      fontSize: 24,
-      color: '#359A8E'
-    },
-    tilte2: {
-      marginTop: 12,
-      marginBottom: 18,
-      fontSize: 18,
-    },
-    Signupbutton: {
-      margin: 10,
-      marginLeft: 250,
-      backgroundColor: '#359A8E',
-      width: 70,
-      height: 49,
-      borderRadius: 20,
-      marginEnd: 80,
-      shadowColor: "#000000",
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-      elevation: 5,
-    },
-    arrow: {
-      marginLeft: 13,
-      color: "white"
-    },
-    textCenter: {
-      alignItems: "center",
-      margin: 5
-    }
+      <View>
+        <View style={styles.form} >
+          <TextInput
+            style={styles.input}
+            placeholder='Email'
+            autoCapitalize="none"
+            placeholderTextColor='#00000080'
+            onChangeText={(UserEmail) => setUserEmail(UserEmail)}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder='Password'
+            autoCapitalize="none"
+            secureTextEntry={true}
+            placeholderTextColor='#00000080'
+            onChangeText={(userPassword) => setUserPassword(userPassword)}
+          />
+        </View>
+        <View>
+          <View style={styles.textCenter}>
+            <TouchableOpacity>
+              <Text>Forgot password?</Text>
+            </TouchableOpacity>
+          </View>
 
-  })
+          <TouchableOpacity style={styles.Signupbutton} onPress={handleSubmitPress}>
+            <AntDesign name="arrowright" style={styles.arrow} size={44} />
+          </TouchableOpacity>
 
-  export default SigninDementia;
+        </View>
+      </View>
+
+    </View>
+  )
+}
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+  },
+
+  form: {
+    alignItems: "center",
+    padding: 20
+  },
+  input: {
+    alignItems: 'center',
+    width: 300,
+    height: 50,
+    backgroundColor: '#fff',
+    borderColor: '#4A0D66',
+    color: 'black',
+    margin: 10,
+    padding: 8,
+    borderRadius: 10,
+    fontSize: 18,
+    fontWeight: '500',
+    shadowColor: "#4A0D66",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  title: {
+    marginTop: 12,
+    marginBottom: 18,
+    fontSize: 24,
+    color: '#359A8E'
+  },
+  tilte2: {
+    marginTop: 12,
+    marginBottom: 18,
+    fontSize: 18,
+  },
+  Signupbutton: {
+    margin: 10,
+    marginLeft: 250,
+    backgroundColor: '#359A8E',
+    width: 70,
+    height: 49,
+    borderRadius: 20,
+    marginEnd: 80,
+    shadowColor: "#000000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  arrow: {
+    marginLeft: 13,
+    color: "white"
+  },
+  textCenter: {
+    alignItems: "center",
+    margin: 5
+  }
+
+})
+
+export default SigninDementia;
