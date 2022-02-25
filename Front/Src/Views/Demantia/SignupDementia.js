@@ -16,24 +16,28 @@ const SignupDementia = ({ navigation }) => {
     if (!userEmail.trim() || !userPassword.trim() || !userName.trim() || !age.trim() || !guardianEmail.trim()) {
       alert("Please fill in all fields are required ");
       return;
-    } /* setIsLoading(true);
+    } setIsLoading(true);
     try {
       const response = await axios.post(`http://192.168.1.14:8090/demantia/SignUp/${email}`, {
+        userName,
+        age,
         userEmail,
         userPassword,
+        guardianEmail,
       });
       if (response.status === 201) {
         alert(` You have created: ${JSON.stringify(response.data)}`);
         setIsLoading(false);
+        setUserName('');
+        setAge('');
         setUserEmail('');
         setUserPassword('');
-      } else {
-        throw new Error("An error has occurred");
-      }
+        setGuardianEmail('');
+      } 
     } catch (error) {
       alert("An error has occurred !");
       setIsLoading(false);
-    } */
+    }
   }
 
   return (
