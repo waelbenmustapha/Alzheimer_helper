@@ -11,6 +11,7 @@ import CheckNote from './Src/Views/CheckNote';
 import Location from './Src/Views/Location';
 import SignupDementia from './Src/Views/Demantia/SignupDementia';
 import SigninDementia from './Src/Views/Demantia/SigninDementia';
+import SignIn from './Src/Views/Guardian/SignIn';
 
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
 
+      <Stack.Screen name="SignInGuardian" component={SignIn} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="CheckNotes" component={CheckNotes} />
         <Stack.Screen name="CheckNote" component={CheckNote} />
