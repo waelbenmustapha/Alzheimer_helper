@@ -46,7 +46,6 @@ export default class SignUp extends React.Component {
               <TextInput
                 style={styles.input}
                 placeholder='Email'
-                secureTextEntry={true}
                 autoCapitalize="none"
                 placeholderTextColor='#00000080'
                 onChangeText={val => this.onChangeText('email', val)}
@@ -55,6 +54,7 @@ export default class SignUp extends React.Component {
                 style={styles.input}
                 placeholder='Password'
                 autoCapitalize="none"
+                secureTextEntry={true}
                 placeholderTextColor='#00000080'
                 onChangeText={val => this.onChangeText('password', val)}
               />
@@ -62,6 +62,7 @@ export default class SignUp extends React.Component {
                 style={styles.input}
                 placeholder='Confirm Password'
                 autoCapitalize="none"
+                secureTextEntry={true}
                 placeholderTextColor='#00000080'
                 onChangeText={val => this.onChangeText('password', val)}
               />
@@ -74,12 +75,18 @@ export default class SignUp extends React.Component {
               />
 
             </View>
-            <TouchableOpacity style={styles.Signupbutton}>
+            <TouchableOpacity style={styles.Signupbutton} onPress={this.signUp}>
               <AntDesign name="arrowright" style={styles.arrow} size={44} />
             </TouchableOpacity>
 
           </View>
-          
+          <View style={styles.textCenter}>
+            <TouchableOpacity style={{Color: "#4A0D66"}}>
+              <Text>Forgot password?</Text>
+            </TouchableOpacity>
+            <Text>Or login with</Text>
+          </View>
+
         </ScrollView>
       </View>
     )
@@ -140,6 +147,12 @@ const styles = StyleSheet.create({
   arrow: {
     marginLeft: 13,
     color: "white"
+  },
+  textCenter: {
+    textAlign:'center',
+    alignItems: "center",
+    margin:20
+
   }
 
 })
