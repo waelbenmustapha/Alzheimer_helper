@@ -25,7 +25,7 @@ const SigninDementia = ({ navigation }) => {
         if (response.status === 200) {
           navigation.navigate("Home")
         } 
-      }).catch((error) => { console.log(error); setIsLoading(false); })
+      }).catch((error) => { alert("Email or Password is wrong ");console.log("error"); setIsLoading(false); })
     
   }
 

@@ -29,7 +29,14 @@ const SignupDementia = ({ navigation }) => {
     }).then((response) => {
       console.log(response.status)
       if (response.status === 200) {
-        navigation.navigate("SigninDementia")
+        alert(` You have created: ${JSON.stringify(response.data)}`);
+        setIsLoading(false);
+        setUserName('');
+        setAge('');
+        setUserEmail('');
+        setUserPassword('');
+        setConfirmUserPassword('');
+        setGuardianEmail('');
       }
     }).catch((error) => { alert(error); setIsLoading(false); })
   }
