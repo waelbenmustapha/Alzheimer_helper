@@ -11,8 +11,9 @@ import CheckNote from './Src/Views/CheckNote';
 import Location from './Src/Views/Location';
 import SignIn from './Src/Views/Guardian/SignIn';
 import introSlider from './Src/Views/Guardian/introSlider';
-import signUp from './Src/Views/Guardian/signUp';
 
+import SignupDementia from './Src/Views/Demantia/SignupDementia';
+import SigninDementia from './Src/Views/Demantia/SigninDementia';
 
 
 export default function App() {
@@ -25,7 +26,10 @@ export default function App() {
         <Stack.Screen name="introSlider" options={{headerShown: false}} component={introSlider}/>
                 {/* <Stack.Screen name="SignInGuardian" component={SignIn} /> */}
 
-        <Stack.Screen name="SignUpGuardian" component={signUp} />
+        {/* <Stack.Screen name="SignUpGuardian" component={signUp} /> */}
+        <Stack.Screen name="SignupDementia" component={SignupDementia}/>
+        <Stack.Screen name="SigninDementia" component={SigninDementia}/>
+      <Stack.Screen name="SignInGuardian" component={SignIn} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="CheckNotes" component={CheckNotes} />
         <Stack.Screen name="CheckNote" component={CheckNote} />
@@ -33,6 +37,10 @@ export default function App() {
         <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
         <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
         <Stack.Screen name="Location" component={Location} />
+
+
+        
+
 
       </Stack.Navigator>
     </NavigationContainer>
