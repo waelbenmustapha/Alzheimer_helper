@@ -127,7 +127,7 @@ const CheckMyDemantiasLocation = () => {
               }}
             >
               Danger
-            </Text >:<Text style={{
+            </Text>:<Text style={{
                 position: "absolute",
                 borderColor: "green",
                 fontSize:25,
