@@ -5,6 +5,22 @@ import heure from '../../assets/heure.png'
 import axios from 'axios';
 import { URL } from "@env"
 
+
+
+
+
+const UselessTextInput = (props) => {
+  return (
+    <TextInput
+      {...props} // Inherit any props passed to it; e.g., multiline, numberOfLines below
+      editable
+      maxLength={40}
+    />
+  );
+}
+
+
+
 const AddNotes = ({ navigation }) => {
   const [date, setDate] = useState(new Date(1598051730000));
   const [mode, setMode] = useState('date');
@@ -42,13 +58,20 @@ const AddNotes = ({ navigation }) => {
   const showTimepicker = () => {
     showMode('time');
   };
+
+  const [value, onChangeText] = React.useState('Useless Multiline Placeholder');
+
+
+
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <View style={styles.item}>
 
           <View style={styles.item}>
-            <TextInput onChangeText={(text) => setTitle(text)} style={styles.square} placeholder="Note title" />
+            <TextInput onChangeText={(text) => setTitle(text)} style={styles.square}  multiline={true}
+     numberOfLines={1} placeholder="Note title" />
 
             <View style={styles.item}>
               <TextInput onChangeText={(text) => setDescription(text)} style={styles.squareDecription} multiline={true}
@@ -128,6 +151,7 @@ const styles = StyleSheet.create({
   square: {
     width: 300,
     backgroundColor: "#fff",
+    color:'black',
     borderRadius: 20,
     padding: 15,
     alignSelf: "center",
@@ -139,6 +163,7 @@ const styles = StyleSheet.create({
   squareDecription: {
     width: 300,
     backgroundColor: "#fff",
+    color:'black',
     borderRadius: 20,
     padding: 15,
     alignSelf: "center",
