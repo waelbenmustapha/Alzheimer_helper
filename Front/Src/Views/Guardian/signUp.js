@@ -1,4 +1,6 @@
-import { View, Text, TextInput } from 'react-native'
+import { View, Text, TextInput ,TouchableOpacity } from 'react-native'
+import DateTimePicker from '@react-native-community/datetimepicker';
+
 import React, { useState } from 'react'
 
 const signUp = () => {
@@ -32,7 +34,11 @@ const signUp = () => {
   return (
     <View>
         <TextInput placeholder='Name'/>
-        <TouchableOpacity onPress={showDatepicker}><Text>aaaaa</Text></TouchableOpacity>
+        <TextInput placeholder='Email'/>
+
+        <TextInput placeholder='PassWord' secureTextEntry={true}/>
+
+        <TouchableOpacity onPress={showDatepicker}><Text>Birthday</Text></TouchableOpacity>
 
         {show && (
         <DateTimePicker
