@@ -9,7 +9,7 @@ import {
 import React, { useState, useEffect } from "react";
 import NoteElement from "../Components/NoteElement";
 import { AntDesign } from "@expo/vector-icons";
-import {URL} from "@env"
+import { URL } from "@env"
 
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
@@ -35,59 +35,85 @@ const CheckNotes = ({ navigation }) => {
   }, [isFocused]);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.items}>
-        <View style={styles.items}>
-          <ScrollView style={styles.scrollView}>
-            {notes.map((el) => (
-              <TouchableOpacity
-                onPress={() => navigation.navigate("CheckNote", { el })}
-                style={styles.item}
-              >
-                <Text>Title : {el.title}</Text>
-                <Text>Date : {el.date}</Text>
-                <Text>Description : {el.description}</Text>
-              </TouchableOpacity>
-            ))}
-            <TouchableOpacity
-              onPress={() => navigation.navigate("AddNote")}
-              style={styles.donebutton}
-            >
-              <Text>Add note</Text>
-            </TouchableOpacity>
-          </ScrollView>
+
+    <View style={[styles.container, { flex: 3, flexDirection: "column" }]}>
+      <View style={{ flex: 1, padding: '5%' }}>
+
+        <View style={{ flex: 1, flexDirection: "row" }}>
+          <Image
+            source={require("./../../assets/profile.png")}
+            style={styles.image}
+          ></Image>
+          <View style={styles.firstItem}>
+            <Text style={styles.Title}>Welcome Alex Ten Napel </Text>
+            <Text style={styles.Title}>Your age is 80 </Text>
+          </View>
         </View>
+
       </View>
 
-      {/* <View>
-        <Text>{number}</Text>
-        {notes.map((el) => <NoteElement key={el.id} element={el} />)}
-        <TouchableOpacity onPress={() => { console.log("it's working hhh : " + number); numberPlus() }} style={{ padding: 25, backgroundColor: "blue" }}>
-          <Text>Add plus 1</Text>
-        </TouchableOpacity>
 
 
-      </View> */}
+      <View style={[styles.container, { flex: 5, flexDirection: "column" }]}>
+        <View style={[styles.container, { flexDirection: "row" }]}>
+
+          <View style={styles.barre} />
+
+          <View style={[styles.container, { flex: 10, flexDirection: "column" }]}>
+
+            <View style={{ flex: 1 }}>
+              <View >
+
+                <ScrollView style={styles.scrollView}>
+                  {notes.map((el) => (<TouchableOpacity
+                    onPress={() => navigation.navigate("CheckNote", { el })} style={styles.item}>
+                    <Text>Title : {el.title}</Text>
+                    <Text>Date : {el.date}</Text>
+                    <Text>Description : {el.description}</Text>
+                  </TouchableOpacity>))}
+                </ScrollView>
+              </View>
+            </View>
+          </View>
+          <View style={styles.container1}>
+            <TouchableOpacity onPress={() => navigation.navigate("AddNote")}>
+              <AntDesign name="pluscircleo" size={50} color="#4A0D66" />
+            </TouchableOpacity>
+          </View>
+
+
+        </View>
+      </View>
     </View>
   );
 };
 
+
+
+
 const styles = StyleSheet.create({
   items: {
-    padding: 5,
+    padding: 0,
   },
   item: {
     backgroundColor: "#fff",
-    margin: 20,
+    margin: 5,
     padding: 5,
     paddingStart: 20,
     borderRadius: 10,
-    justifyContent: "space-between",
-    marginBottom: 20,
   },
   container: {
     flex: 1,
     backgroundColor: "#fff",
+
+  },
+  container1:
+  {
+    position: "relative",
+    justifyContent: "flex-end",
+    flex: 2,
+    flexDirection: "column",
+    paddingBottom: 20
   },
   scrollView: {
     marginHorizontal: 5,
@@ -109,7 +135,6 @@ const styles = StyleSheet.create({
   },
   donebutton: {
     alignItems: "center",
-    justifyContent: "center",
     margin: 5,
     paddingVertical: 12,
     paddingHorizontal: 32,
@@ -122,6 +147,25 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
     elevation: 5,
   },
+  Title: {
+    fontWeight: "bold",
+    fontSize: 20,
+  }, firstItem: {
+    alignItems: "flex-end",
+    justifyContent: "center",
+    marginLeft: 10,
+  }, image: {
+    width: 100,
+    height: 100,
+    borderRadius: 40 / 2,
+  },
+  barre: {
+    flex: 0,
+    backgroundColor: "#4A0D66",
+    padding: 1,
+    marginLeft: 40,
+
+  }
 });
 
 export default CheckNotes;
