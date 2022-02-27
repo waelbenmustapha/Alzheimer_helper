@@ -14,7 +14,8 @@ import React, { useEffect } from "react";
 import { Icon } from "react-native-elements";
 import axios from "axios";
 import { URL } from "@env"
-
+/* import Modal from 'react-bootstrap/Modal'
+ */
 const Home = ({ navigation }) => {
 
 
@@ -98,6 +99,21 @@ const Home = ({ navigation }) => {
                 }} />
               <Text style={styles.Title2}>Location</Text>
             </TouchableOpacity>
+
+           {/*  <Modal.Dialog>
+              <Modal.Body>
+                <TouchableOpacity style={styles.donebutton}
+                  onPress={() => navigation.navigate('CheckDemantiaLocation')}>
+                  <Text>Go check my demantia location</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.donebutton}
+                  onPress={() => navigation.navigate('DemantiaLocation')}>
+                  <Text>Go my location</Text>
+                </TouchableOpacity>
+              </Modal.Body>
+            </Modal.Dialog> */}
+
+
             <TouchableOpacity
               style={{ alignItems: "center" }}
               onPress={() => navigation.navigate("CheckNotes")}>
@@ -173,6 +189,21 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     color: "#424242",
   },
+  donebutton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 5,
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 10,
+    elevation: 3,
+    borderColor: '#093F38',
+    backgroundColor: '#fff',
+    shadowColor: '#093F38',
+    shadowOpacity: 0.55,
+    shadowRadius: 2.22,
+    elevation: 11,
+  }
 
 
 });
