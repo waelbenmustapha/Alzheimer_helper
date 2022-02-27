@@ -4,19 +4,20 @@ import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios';
 
 
-/*const [email,getEmail]=useState("");
-const [password,getPassword]=useState("");*/
+const [email,getEmail]=useState("");
+const [password,getPassword]=useState("");
 
 function Login(){
+  axios.post(`http://192.168.8.100:8090/guardian/SignUp/`,{email:email,password:password}).then((res)=>navigation.navigate("Home"))
 
 }
 
 const SignIn =  ({navigation}) => {
-  return (
+  return (  
     <View style={styles.container}>
         <Text style={styles.title}> Glad to see you here again</Text>
-        <TextInput style={styles.input} placeholder='Email adress'  placeholderTextColor='#00000080'onChangeText={(text)=>setmail(text)}/>
-        <TextInput style={styles.input} placeholder='Password' placeholderTextColor='#00000080'onChangeText={(text)=>setPassword(text)} />        
+        <TextInput style={styles.input} placeholder='Email adress'  placeholderTextColor='#00000080'onChangeText={(text)=>getEmail(text)}/>
+        <TextInput style={styles.input} placeholder='Password' placeholderTextColor='#00000080'onChangeText={(text)=>getPassword(text)} />        
         <Text style={styles.fpass}>Forgot password?</Text>
         <TouchableOpacity style={styles.Signinbutton} onPress={()=>{Login()}}><AntDesign name="arrowright" style={styles.arrow} size={44}  /></TouchableOpacity>
     </View>
