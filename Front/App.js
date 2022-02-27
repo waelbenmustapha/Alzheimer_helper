@@ -21,6 +21,8 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
 
+        <Stack.Screen name="SignupDementia" component={SignupDementia}/>
+        <Stack.Screen name="SigninDementia" component={SigninDementia}/>
       <Stack.Screen name="SignInGuardian" component={SignIn} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="CheckNotes" component={CheckNotes} />
@@ -32,8 +34,6 @@ export default function App() {
 
 
         
-        <Stack.Screen name="SignupDementia" component={SignupDementia}/>
-        <Stack.Screen name="SigninDementia" component={SigninDementia}/>
 
 
       </Stack.Navigator>

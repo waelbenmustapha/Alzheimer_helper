@@ -1,44 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import { View, ScrollView, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
-
+import axios from 'axios';
 const SignupDementia = ({ navigation }) => {
 
   const [userName, setUserName] = useState('');
   const [age, setAge] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
+  const [userConfirmPassword, setConfirmUserPassword] = useState('');
   const [guardianEmail, setGuardianEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
 
   const handleSubmitPress = async (event) => {
-    if (!userEmail.trim() || !userPassword.trim() || !userName.trim() || !age.trim() || !guardianEmail.trim()) {
+    if (!userEmail.trim() || !userPassword.trim() || !age.trim() || !userName.trim() || !guardianEmail.trim()) {
       alert("Please fill in all fields are required ");
       return;
     } setIsLoading(true);
-    try {
-      const response = await axios.post(`http://192.168.1.14:8090/demantia/SignUp/${email}`, {
-        userName,
-        age,
-        userEmail,
-        userPassword,
-        guardianEmail,
-      });
-      if (response.status === 201) {
-        alert(` You have created: ${JSON.stringify(response.data)}`);
-        setIsLoading(false);
-        setUserName('');
-        setAge('');
-        setUserEmail('');
-        setUserPassword('');
-        setGuardianEmail('');
-      } 
-    } catch (error) {
-      alert("An error has occurred !");
-      setIsLoading(false);
-    }
+
+    axios.post(`http://192.168.1.14:8090/demantia/SignUp/${guardianEmail}`, {
+      name: userName,
+      email: userEmail,
+      password: userPassword,
+      comfirmPassword: userConfirmPassword,
+      age: age,
+      birthdate: "2022-02-27T19:59:52.278+00:00"
+    }).then((response) => {
+      console.log(response.status)
+      if (response.status === 200) {
+        navigation.navigate("SigninDementia")
+      }
+    }).catch((error) => { alert(error); setIsLoading(false); })
   }
+
 
   return (
     <View style={styles.container}>
@@ -50,6 +45,7 @@ const SignupDementia = ({ navigation }) => {
 
             <TextInput
               style={styles.input}
+              value={userName}
               placeholder='User name'
               autoCapitalize="none"
               placeholderTextColor='#00000080'
@@ -57,6 +53,7 @@ const SignupDementia = ({ navigation }) => {
             />
             <TextInput
               style={styles.input}
+              value={age}
               placeholder='Age'
               autoCapitalize="none"
               placeholderTextColor='#00000080'
@@ -65,7 +62,8 @@ const SignupDementia = ({ navigation }) => {
             <TextInput
               style={styles.input}
               placeholder='Email'
-              autoCapitalize="none"
+              autoCapitalize="none" 
+              value={userEmail}
               placeholderTextColor='#00000080'
               onChangeText={(UserEmail) => setUserEmail(UserEmail)}
             />
@@ -73,6 +71,7 @@ const SignupDementia = ({ navigation }) => {
               style={styles.input}
               placeholder='Password'
               autoCapitalize="none"
+              value={userPassword}
               secureTextEntry={true}
               placeholderTextColor='#00000080'
               onChangeText={(UserPassword) => setUserPassword(UserPassword)}
@@ -81,13 +80,15 @@ const SignupDementia = ({ navigation }) => {
               style={styles.input}
               placeholder='Confirm Password'
               autoCapitalize="none"
+              value={userConfirmPassword}
               secureTextEntry={true}
               placeholderTextColor='#00000080'
-              onChangeText={(UserPassword) => setUserPassword(UserPassword)}
+              onChangeText={(UserConfirmPassword) => setConfirmUserPassword(UserConfirmPassword)}
             />
             <TextInput
               style={styles.input}
               placeholder='Guardian Email'
+              value={guardianEmail}
               autoCapitalize="none"
               placeholderTextColor='#00000080'
               onChangeText={(GuardianEmail) => setGuardianEmail(GuardianEmail)}

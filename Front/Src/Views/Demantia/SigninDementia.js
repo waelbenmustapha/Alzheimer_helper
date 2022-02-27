@@ -18,27 +18,19 @@ const SigninDementia = ({ navigation }) => {
       alert("Please fill Email or Password");
       return;
     } setIsLoading(true);
-    try {
-      const response = await axios.post(`http://192.168.1.14:8090/demantia/SignUp/${email}`, {
-        userEmail,
-        userPassword,
-      });
-      if (response.status === 201) {
-        alert(` You have created: ${JSON.stringify(response.data)}`);
-        setIsLoading(false);
-        setUserEmail('');
-        setUserPassword('');
-      } else {
-        throw new Error("An error has occurred Name or Email is invalid");
-      }
-    } catch (error) {
-      alert("An error has occurred Name or Email is invalid");
-      setIsLoading(false);
-    }
-
-
-
+      axios.post(`http://192.168.1.14:8090/auth/login`, {
+       email: userEmail,
+      password: userPassword,
+      }).then((response) => {
+        if (response.status === 200) {
+          navigation.navigate("Home")
+        } 
+      }).catch((error) => { console.log(error); setIsLoading(false); })
+    
   }
+
+
+
 
   return (
     <View style={styles.container}>
