@@ -28,7 +28,7 @@ const CheckNote = ({ route, navigation }) => {
         <View style={styles.items}>
           <View style={styles.item}>
             <Text>{note.title}</Text>
-            <Text> {note.date}</Text>
+            <Text>{note.date}</Text>
           </View>
         </View>
       </View>
@@ -67,11 +67,11 @@ const styles = StyleSheet.create({
   },
   item: {
     backgroundColor: "#fff",
-    margin: 20,
+    margin: 10,
     padding: 5,
     borderRadius: 10,
     justifyContent: "space-between",
-    marginBottom: 20,
+    marginBottom: 0,
   },
   container: {
     flex: 1,
@@ -98,7 +98,6 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
     elevation: 8,
   },
-
   backarrow: {
     paddingLeft: 50,
     paddingTop: 50,
@@ -109,7 +108,6 @@ const styles = StyleSheet.create({
   },
   deletebutton: {
     alignItems: "center",
-    justifyContent: "center",
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 10,
@@ -138,8 +136,9 @@ const styles = StyleSheet.create({
   fixToText: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingLeft: 100,
+    paddingLeft: 150,
     paddingRight: 30,
+    paddingTop: 30,
     paddingBottom: 30,
   },
 });

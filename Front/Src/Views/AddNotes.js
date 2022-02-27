@@ -43,6 +43,12 @@ const AddNotes = ({ navigation }) => {
   const showTimepicker = () => {
     showMode('time');
   };
+
+  const [value, onChangeText] = React.useState('Useless Multiline Placeholder');
+
+
+
+
   return (
 
     <View style={styles.container}>
@@ -66,6 +72,27 @@ const AddNotes = ({ navigation }) => {
       </View>
       <TouchableOpacity onPress={() => { AddNote() }} style={styles.btnVal}><Text style={styles.txtVal}>Save</Text></TouchableOpacity>
     </View>
+    /*  <View style={styles.container}>
+        <TextInput onChangeText={(text) => setTitle(text)} style={styles.input} placeholder="Note title" />
+        <TextInput onChangeText={(text) => setDescription(text)} style={styles.inputDesc} placeholder="Description" />
+        <View>
+          <View>
+            <TouchableOpacity onPress={showDatepicker}><Image style={styles.DateTimePicker} source={heure} /></TouchableOpacity>
+          </View>
+
+          {show && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode={mode}
+              is24Hour={true}
+              display="default"
+              onChange={onChange}
+            />
+          )}
+        </View>
+        <TouchableOpacity onPress={() => { AddNote() }} style={styles.btnVal}><Text style={styles.txtVal}>Save</Text></TouchableOpacity>
+      </View> */
 
   );
 };
