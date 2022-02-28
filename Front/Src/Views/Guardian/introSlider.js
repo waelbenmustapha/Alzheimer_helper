@@ -44,7 +44,9 @@ const IntroSlider = ({ navigation }) => {
 
 </View>
 </Swiper>
-<TouchableOpacity style={styles.button}><Text style={styles.titlebutton}>Login</Text></TouchableOpacity>
+<TouchableOpacity style={styles.button}     onPress={() =>
+        navigation.navigate('IntroSliderScreen')
+      }><Text style={styles.titlebutton}>Login</Text></TouchableOpacity>
 
     </View>
 

@@ -15,6 +15,7 @@ import IntroSlider from './Src/Views/Guardian/IntroSlider';
 import SignupDementia from './Src/Views/Demantia/SignupDementia';
 import SigninDementia from './Src/Views/Demantia/SigninDementia';
 import IntroSliderScreen from './Src/Views/Guardian/IntroSliderScreen';
+import Signup from './Src/Views/Guardian/SignUp';
 
 
 export default function App() {
@@ -23,12 +24,13 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      {/* <Stack.Screen name="introSliderScreen" options={{headerShown: false}} component={IntroSliderScreen}/> */}
+      <Stack.Screen name="IntroSlider" options={{headerShown: false}} component={IntroSlider}/>
 
-        <Stack.Screen name="introSlider" options={{headerShown: false}} component={IntroSlider}/>
-                {/* <Stack.Screen name="SignInGuardian" component={SignIn} /> */}
+      <Stack.Screen name="SignUpGuardian" component={Signup} />
 
-        {/* <Stack.Screen name="SignUpGuardian" component={signUp} /> */}
+      <Stack.Screen name="IntroSliderScreen" options={{headerShown: false}} component={IntroSliderScreen}/>
+
+
         <Stack.Screen name="SignupDementia" component={SignupDementia}/>
         <Stack.Screen name="SigninDementia" component={SigninDementia}/>
       <Stack.Screen name="SignInGuardian" component={SignIn} />
