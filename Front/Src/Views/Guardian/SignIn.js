@@ -50,7 +50,7 @@ const SignIn =  ({navigation}) => {
   return (
     <View style={styles.container}>
         <Text style={styles.title}> Glad to see you here again</Text>
-        <TextInput style={styles.input} placeholder='Email adress'  placeholderTextColor='#00000080'onChangeText={(text)=>setmail(text)}/>
+        <TextInput style={styles.input} placeholder='Email adress'  placeholderTextColor='#00000080'onChangeText={(text)=>setEmail(text)}/>
         <TextInput style={styles.input} placeholder='Password' placeholderTextColor='#00000080'onChangeText={(text)=>setPassword(text)} />        
         <Text style={styles.fpass}>Forgot password?</Text>
         <TouchableOpacity style={styles.Signinbutton} onPress={()=>{handleSubmitPress()}}><AntDesign name="arrowright" style={styles.arrow} size={44}  /></TouchableOpacity>
@@ -62,7 +62,7 @@ export default SignIn
 
 const styles = StyleSheet.create({
     container: {
-        position: 'absolute',
+      position: 'absolute',
         left: 37,
         top:84, 
     },
