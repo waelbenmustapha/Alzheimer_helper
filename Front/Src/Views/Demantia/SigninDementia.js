@@ -6,8 +6,6 @@ import axios from 'axios';
 
 const SigninDementia = ({ navigation }) => {
 
-
-
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -23,9 +21,10 @@ const SigninDementia = ({ navigation }) => {
       password: userPassword,
       }).then((response) => {
         if (response.status === 200) {
+          console.log('done');
           navigation.navigate("Home")
         } 
-      }).catch((error) => { alert("Email or Password is wrong ");console.log("error"); setIsLoading(false); })
+      }).catch((error) => { alert("Email or Password is wrong ");console.log("tt"); setIsLoading(false); })
     
   }
 
@@ -52,7 +51,7 @@ const SigninDementia = ({ navigation }) => {
             autoCapitalize="none"
             secureTextEntry={true}
             placeholderTextColor='#00000080'
-            onChangeText={(userPassword) => setUserPassword(userPassword)}
+            onChangeText={(UserPassword) => setUserPassword(UserPassword)}
           />
         </View>
         <View>
