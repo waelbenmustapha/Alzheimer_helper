@@ -14,7 +14,8 @@ import React, { useEffect } from "react";
 import { Icon } from "react-native-elements";
 import axios from "axios";
 import { URL } from "@env"
-
+/* import Modal from 'react-bootstrap/Modal'
+ */
 const Home = ({ navigation }) => {
 
 
@@ -39,7 +40,7 @@ const Home = ({ navigation }) => {
             <Text style={styles.Title}>Your age is 80 </Text>
           </View>
         </View>
-        
+
         <View style={{ flex: 0, flexDirection: "column" }}>
           <View style={styles.searchSection}>
             <Icon style={styles.searchIcon} name="search" size={20} color="#000" />
@@ -67,7 +68,7 @@ const Home = ({ navigation }) => {
                   height: 250,
                   borderRadius: 40 / 2,
                   marginTop: 10,
-                }}/>
+                }} />
               <Text style={styles.Title2}>Contact</Text>
             </TouchableOpacity>
             <TouchableOpacity style={{ alignItems: "center" }}>
@@ -77,7 +78,7 @@ const Home = ({ navigation }) => {
                   width: 150,
                   height: 180,
                   borderRadius: 40 / 2,
-                }}/>
+                }} />
               <Text style={styles.Title2}>History</Text>
             </TouchableOpacity>
           </View>
@@ -94,9 +95,24 @@ const Home = ({ navigation }) => {
                   height: 180,
                   borderRadius: 40 / 2,
                   marginTop: 10,
-                }}/>
+                }} />
               <Text style={styles.Title2}>Location</Text>
             </TouchableOpacity>
+
+           {/*  <Modal.Dialog>
+              <Modal.Body>
+                <TouchableOpacity style={styles.donebutton}
+                  onPress={() => navigation.navigate('CheckDemantiaLocation')}>
+                  <Text>Go check my demantia location</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.donebutton}
+                  onPress={() => navigation.navigate('DemantiaLocation')}>
+                  <Text>Go my location</Text>
+                </TouchableOpacity>
+              </Modal.Body>
+            </Modal.Dialog> */}
+
+
             <TouchableOpacity
               style={{ alignItems: "center" }}
               onPress={() => navigation.navigate("CheckNotes")}>
@@ -106,7 +122,7 @@ const Home = ({ navigation }) => {
                   width: 150,
                   height: 250,
                   borderRadius: 40 / 2,
-                }}/>
+                }} />
               <Text style={styles.Title2}>Notes</Text>
             </TouchableOpacity>
           </View>
@@ -172,6 +188,21 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     color: "#424242",
   },
+  donebutton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 5,
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 10,
+    elevation: 3,
+    borderColor: '#093F38',
+    backgroundColor: '#fff',
+    shadowColor: '#093F38',
+    shadowOpacity: 0.55,
+    shadowRadius: 2.22,
+    elevation: 11,
+  }
 
 
 });

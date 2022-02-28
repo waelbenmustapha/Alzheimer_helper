@@ -47,7 +47,7 @@ public class AuthController {
       }
 
     }
-    return new ResponseEntity("Wrong Info", HttpStatus.OK);
+    return new ResponseEntity("Wrong Info", HttpStatus.FORBIDDEN);
   }
 
   }

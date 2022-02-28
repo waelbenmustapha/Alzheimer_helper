@@ -3,23 +3,57 @@ import React,{ useState } from 'react'
 import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios';
 
+
+
+
 const SignIn =  ({navigation}) => {
 
-const [email,setEmail]=useState("");
-const [password,setPassword]=useState("");
 
-function Login(){
-  axios.post(`http://192.168.8.100:8090/auth/login`,{email:email,password:password}).then((res)=>navigation.navigate("Home")).catch((er)=> alert("Error, check your cords"))
+  const [userEmail, setmail] = useState('');
+  const [userPassword, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-}
 
-  return (  
+  const handleSubmitPress = async (event) => {
+    if (!userEmail.trim() || !userPassword.trim()) {
+      alert("Please fill Email or Password");
+      return;
+    } setIsLoading(true);
+    try {
+      const response = await axios.post(`http://192.168.1.14:8090/guardian/SignIn/${email}`, {
+        userEmail,
+        userPassword,
+      });
+      if (response.status === 201) {
+        alert(` You have created: ${JSON.stringify(response.data)}`);
+        setIsLoading(false);
+        setmail('');
+        setPassword('');
+      } else {
+        throw new Error("An error has occurred Name or Email is invalid");
+      }
+    } catch (error) {
+      alert("An error has occurred Name or Email is invalid");
+      setIsLoading(false);
+    }
+
+
+
+  }
+
+
+
+
+
+
+  
+  return (
     <View style={styles.container}>
         <Text style={styles.title}> Glad to see you here again</Text>
         <TextInput style={styles.input} placeholder='Email adress'  placeholderTextColor='#00000080'onChangeText={(text)=>setEmail(text)}/>
         <TextInput style={styles.input} placeholder='Password' placeholderTextColor='#00000080'onChangeText={(text)=>setPassword(text)} />        
         <Text style={styles.fpass}>Forgot password?</Text>
-        <TouchableOpacity style={styles.Signinbutton} onPress={()=>{Login()}}><AntDesign name="arrowright" style={styles.arrow} size={44}  /></TouchableOpacity>
+        <TouchableOpacity style={styles.Signinbutton} onPress={()=>{handleSubmitPress()}}><AntDesign name="arrowright" style={styles.arrow} size={44}  /></TouchableOpacity>
     </View>
   )
 }
@@ -54,7 +88,7 @@ const styles = StyleSheet.create({
         shadowColor: "#4A0D66",
         shadowOffset: {
           width: 0,
-          height: 2,   
+          height: 2,
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
