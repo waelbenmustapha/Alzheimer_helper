@@ -22,7 +22,8 @@ export default function App() {
       <Stack.Navigator>
 
         {/* <Stack.Screen name="introSlider" options={{headerShown: false}} component={introSlider}/> */}
-        {/* <Stack.Screen name="SignInGuardian" component={SignIn} /> */}
+         <Stack.Screen name="SignInGuardian" component={SignIn} /> 
+    
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="CheckNotes" component={CheckNotes} />
         <Stack.Screen name="CheckNote" component={CheckNote} />

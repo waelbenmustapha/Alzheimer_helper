@@ -33,7 +33,7 @@ public class AuthController {
       if (bCryptPasswordEncoder.matches(guardian.getPassword(), DbGuardian.getPassword())) {
         return new ResponseEntity(DbGuardian, HttpStatus.OK);
       } else {
-        return new ResponseEntity("Wrong Info", HttpStatus.OK);
+        return new ResponseEntity("Wrong Info", HttpStatus.FORBIDDEN);
       }
 
     } else {
@@ -42,7 +42,7 @@ public class AuthController {
         if (bCryptPasswordEncoder.matches(guardian.getPassword(), DbDemantia.getPassword())) {
           return new ResponseEntity(DbDemantia, HttpStatus.OK);
         } else {
-          return new ResponseEntity("Wrong Info", HttpStatus.OK);
+          return new ResponseEntity("Wrong Info", HttpStatus.FORBIDDEN);
         }
       }
 

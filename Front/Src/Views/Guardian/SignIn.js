@@ -3,21 +3,21 @@ import React,{ useState } from 'react'
 import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios';
 
+const SignIn =  ({navigation}) => {
 
-const [email,getEmail]=useState("");
-const [password,getPassword]=useState("");
+const [email,setEmail]=useState("");
+const [password,setPassword]=useState("");
 
 function Login(){
-  axios.post(`http://192.168.8.100:8090/guardian/SignUp/`,{email:email,password:password}).then((res)=>navigation.navigate("Home"))
+  axios.post(`http://192.168.8.100:8090/auth/login`,{email:email,password:password}).then((res)=>navigation.navigate("Home")).catch((er)=> alert("Error, check your cords"))
 
 }
 
-const SignIn =  ({navigation}) => {
   return (  
     <View style={styles.container}>
         <Text style={styles.title}> Glad to see you here again</Text>
-        <TextInput style={styles.input} placeholder='Email adress'  placeholderTextColor='#00000080'onChangeText={(text)=>getEmail(text)}/>
-        <TextInput style={styles.input} placeholder='Password' placeholderTextColor='#00000080'onChangeText={(text)=>getPassword(text)} />        
+        <TextInput style={styles.input} placeholder='Email adress'  placeholderTextColor='#00000080'onChangeText={(text)=>setEmail(text)}/>
+        <TextInput style={styles.input} placeholder='Password' placeholderTextColor='#00000080'onChangeText={(text)=>setPassword(text)} />        
         <Text style={styles.fpass}>Forgot password?</Text>
         <TouchableOpacity style={styles.Signinbutton} onPress={()=>{Login()}}><AntDesign name="arrowright" style={styles.arrow} size={44}  /></TouchableOpacity>
     </View>
@@ -28,7 +28,7 @@ export default SignIn
 
 const styles = StyleSheet.create({
     container: {
-        position: 'absolute',
+      position: 'absolute',
         left: 37,
         top:84, 
     },
@@ -55,7 +55,10 @@ const styles = StyleSheet.create({
         shadowOffset: {
           width: 0,
           height: 2,   
-        }
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
     },
     fpass:{
         fontSize:15,
