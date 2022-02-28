@@ -23,13 +23,15 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
 
+        {/* <Stack.Screen name="introSlider" options={{headerShown: false}} component={introSlider}/> */}
+         <Stack.Screen name="SignInGuardian" component={SignIn} /> 
+    
         <Stack.Screen name="introSlider" options={{headerShown: false}} component={introSlider}/>
                 {/* <Stack.Screen name="SignInGuardian" component={SignIn} /> */}
 
         {/* <Stack.Screen name="SignUpGuardian" component={signUp} /> */}
         <Stack.Screen name="SignupDementia" component={SignupDementia}/>
         <Stack.Screen name="SigninDementia" component={SigninDementia}/>
-      <Stack.Screen name="SignInGuardian" component={SignIn} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="CheckNotes" component={CheckNotes} />
         <Stack.Screen name="CheckNote" component={CheckNote} />
