@@ -16,7 +16,7 @@ const SigninDementia = ({ navigation }) => {
       alert("Please fill Email or Password");
       return;
     } setIsLoading(true);
-      axios.post(`http://192.168.1.14:8090/auth/login`, {
+      axios.post(`http://192.168.1.61:8090/auth/login`, {
        email: userEmail,
       password: userPassword,
       }).then((response) => {
