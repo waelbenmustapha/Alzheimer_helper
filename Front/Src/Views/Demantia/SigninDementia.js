@@ -6,8 +6,6 @@ import axios from 'axios';
 
 const SigninDementia = ({ navigation }) => {
 
-
-
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -18,14 +16,15 @@ const SigninDementia = ({ navigation }) => {
       alert("Please fill Email or Password");
       return;
     } setIsLoading(true);
-      axios.post(`http://192.168.1.14:8090/auth/login`, {
+      axios.post(`http://192.168.1.61:8090/auth/login`, {
        email: userEmail,
       password: userPassword,
       }).then((response) => {
         if (response.status === 200) {
+          console.log('done');
           navigation.navigate("Home")
         } 
-      }).catch((error) => { console.log(error); setIsLoading(false); })
+      }).catch((error) => { alert("Email or Password is wrong ");console.log("tt"); setIsLoading(false); })
     
   }
 
@@ -52,7 +51,7 @@ const SigninDementia = ({ navigation }) => {
             autoCapitalize="none"
             secureTextEntry={true}
             placeholderTextColor='#00000080'
-            onChangeText={(userPassword) => setUserPassword(userPassword)}
+            onChangeText={(UserPassword) => setUserPassword(UserPassword)}
           />
         </View>
         <View>

@@ -21,8 +21,8 @@ const Home = ({ navigation }) => {
 
 
   useEffect(() => {
-    console.log(`http://192.168.1.14:8090/guardian/get`);
-    axios.get(`http://192.168.1.14:8090/guardian/get`).then((res) => console.log(res)).catch((err) => console.log(err))
+    console.log(`http://192.168.1.61:8090/guardian/get`);
+    axios.get(`http://192.168.1.61:8090/guardian/get`).then((res) => console.log(res)).catch((err) => console.log(err))
   }, [])
 
   return (
@@ -71,8 +71,7 @@ const Home = ({ navigation }) => {
                 }} />
               <Text style={styles.Title2}>Contact</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={{ alignItems: "center" }}
-              onPress={() => navigation.navigate("SignupDementia")}>
+            <TouchableOpacity style={{ alignItems: "center" }}>
               <Image
                 source={require("./../../assets/profile.png")}
                 style={{

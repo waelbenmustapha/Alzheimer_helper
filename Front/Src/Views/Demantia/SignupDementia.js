@@ -14,12 +14,12 @@ const SignupDementia = ({ navigation }) => {
 
 
   const handleSubmitPress = async (event) => {
-    if (!userEmail.trim() || !userPassword.trim() || !age.trim() || !userName.trim() || !guardianEmail.trim()) {
+    if (!userEmail.trim() || !userPassword.trim() ||  !userName.trim() || !guardianEmail.trim()) {
       alert("Please fill in all fields are required ");
       return;
     } setIsLoading(true);
 
-    axios.post(`http://192.168.1.14:8090/demantia/SignUp/${guardianEmail}`, {
+    axios.post(`http://192.168.1.61:8090/demantia/SignUp/${guardianEmail}`, {
       name: userName,
       email: userEmail,
       password: userPassword,
@@ -29,7 +29,14 @@ const SignupDementia = ({ navigation }) => {
     }).then((response) => {
       console.log(response.status)
       if (response.status === 200) {
-        navigation.navigate("SigninDementia")
+        alert(` You have created: ${JSON.stringify(response.data)}`);
+        setIsLoading(false);
+        setUserName('');
+        setAge('');
+        setUserEmail('');
+        setUserPassword('');
+        setConfirmUserPassword('');
+        setGuardianEmail('');
       }
     }).catch((error) => { alert(error); setIsLoading(false); })
   }
@@ -51,14 +58,7 @@ const SignupDementia = ({ navigation }) => {
               placeholderTextColor='#00000080'
               onChangeText={(UserName) => setUserName(UserName)}
             />
-            <TextInput
-              style={styles.input}
-              value={age}
-              placeholder='Age'
-              autoCapitalize="none"
-              placeholderTextColor='#00000080'
-              onChangeText={(Age) => setAge(Age)}
-            />
+         
             <TextInput
               style={styles.input}
               placeholder='Email'
