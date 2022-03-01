@@ -13,9 +13,9 @@ import SignIn from './Src/Views/Guardian/SignIn';
 
 import SignupDementia from './Src/Views/Demantia/SignupDementia';
 import SigninDementia from './Src/Views/Demantia/SigninDementia';
-import IntroSliderScreen from './Src/Views/Guardian/IntroSliderScreen';
-import Signup from './Src/Views/Guardian/SignUp';
-import IntroSlider from './Src/Views/Guardian/IntroSlider';
+import IntroSliderScreen from './Src/Views/Guardian/IntroSliderScreenN';
+import Signup from './Src/Views/Guardian/SignupGuardian';
+import IntroSlider from './Src/Views/Guardian/IntroSliderR';
 
 
 export default function App() {
