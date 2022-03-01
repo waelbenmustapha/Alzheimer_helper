@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, ScrollView, TouchableOpacity,Image , Text, TextInput, StyleSheet } from 'react-native'
+import { View, ScrollView, TouchableOpacity, Image, Text, TextInput, StyleSheet } from 'react-native'
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -10,7 +10,6 @@ const Signup = ({ navigation }) => {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
   const [userName, setUserName] = useState('');
-  const [age, setAge] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [userConfirmPassword, setConfirmUserPassword] = useState('');
@@ -23,7 +22,7 @@ const Signup = ({ navigation }) => {
     setShow(Platform.OS === 'ios');
     currentDate.setHours(currentDate.getHours() + 1)
     setDate(currentDate);
-    
+
     if (mode == "date") {
       setMode("time");
 
@@ -41,15 +40,15 @@ const Signup = ({ navigation }) => {
   };
 
 
-//inser
+  //inser
 
   const handleSubmitPress = async (event) => {
-    if (!userEmail.trim() || !userPassword.trim() || !userName.trim() ) {
+    if (!userEmail.trim() || !userPassword.trim() || !userName.trim()) {
       alert("Please fill in all fields are required ");
       return;
     } setIsLoading(true);
 
-    axios.post(`http://192.168.1.61:8090/guardian/SignUp`, {
+    axios.post(`http://192.168.1.14:8090/guardian/SignUp`, {
       name: userName,
       email: userEmail,
       password: userPassword,
@@ -70,46 +69,48 @@ const Signup = ({ navigation }) => {
 
         <View style={{ flex: 1 }} >
           <View style={styles.form} >
+
             <Text style={styles.title}>Glad to see you here</Text>
 
             <TextInput
               style={styles.input}
               value={userName}
-              placeholder='User name'
+              placeholder='Dementia Name'
               autoCapitalize="none"
               placeholderTextColor='#00000080'
               onChangeText={(UserName) => setUserName(UserName)}
             />
-           
+            <TouchableOpacity
+              style={styles.input}
+              onPress={showDatepicker}>
+              {
+                date == null ?
+                  <Text style={styles.date0}>Dementia Birthdate</Text> : <Text style={styles.date}>{JSON.stringify(date
+                  ).substring(1, 11)}</Text>
+
+              }
+            </TouchableOpacity>
+            {show && (
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={new Date(1598051730000)}
+                mode={mode}
+                is24Hour={true}
+                display="default"
+                onChange={onChange}
+                style={styles.date0}
+              />
+            )}
+
             <TextInput
               style={styles.input}
               placeholder='Email'
-              autoCapitalize="none" 
+              autoCapitalize="none"
               value={userEmail}
               placeholderTextColor='#00000080'
               onChangeText={(UserEmail) => setUserEmail(UserEmail)}
             />
-            <TouchableOpacity               
-             style={styles.input}
-              onPress={showDatepicker}>
-            {
-              date == null?
-             <Text style={styles.date0}>Birthdate</Text>:<Text style={styles.date}>{JSON.stringify(date
-              ).substring(1,11)}</Text>
-    
-            }
-     </TouchableOpacity>
-        {show && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={new Date(1598051730000)}
-            mode={mode}
-            is24Hour={true}
-            display="default"
-            onChange={onChange}
-            style={styles.date0}
-          />
-        )}
+            
             <TextInput
               style={styles.input}
               placeholder='Password'
@@ -128,9 +129,9 @@ const Signup = ({ navigation }) => {
               placeholderTextColor='#00000080'
               onChangeText={(UserConfirmPassword) => setConfirmUserPassword(UserConfirmPassword)}
             />
-             
+
           </View>
-          <TouchableOpacity style={styles.Signupbutton}  onPress={handleSubmitPress} >
+          <TouchableOpacity style={styles.Signupbutton} onPress={handleSubmitPress} >
             <AntDesign name="arrowright" style={styles.arrow} size={44} />
           </TouchableOpacity>
 
@@ -159,6 +160,7 @@ const Signup = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 2,
     flexDirection: "row"
   },
   containerLogo: {
@@ -185,13 +187,13 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
-    
+
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
   },
   title: {
-    marginTop: 12,
+    marginTop: 140,
     marginBottom: 18,
     fontSize: 24,
     color: '#359A8E'
@@ -230,12 +232,11 @@ const styles = StyleSheet.create({
   date: {
 
     color: "#000",
-    fontSize:18
+    fontSize: 18
   },
   date0: {
-
-    color: "#C0C0C0",
-    fontSize:18
+    color:'#00000080',
+    fontSize: 18
   },
 })
 

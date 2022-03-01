@@ -14,8 +14,9 @@ const AddNotes = ({ navigation }) => {
 
   function AddNote() {
 
-    axios.post(`http://192.168.1.61:8090/notes/add-note/402881907f190703017f1909a0080001`,
-      { description: description, title: title, date: date }).then((res) => navigation.navigate("CheckNotes"))
+    axios.post(`http://192.168.1.14:8090/notes/add-note`,
+      { description: description, title: title, date: date })
+      .then((res) => navigation.navigate("CheckNotes"))
   }
 
   const onChange = (event, selectedDate) => {
@@ -52,11 +53,17 @@ const AddNotes = ({ navigation }) => {
   return (
 
     <View style={styles.container}>
-      <TextInput onChangeText={(text) => setTitle(text)} style={styles.input} placeholder="Note title" />
-      <TextInput onChangeText={(text) => setDescription(text)} style={styles.inputDesc} placeholder="Description" />
-      <View>
+      <TextInput multiline numberOfLines={1}
+        onChangeText={(text) => setTitle(text)} style={styles.input}
+        placeholder="Note title" />
+      <TextInput multiline numberOfLines={4}
+        onChangeText={(text) => setDescription(text)} style={styles.input}
+        placeholder="Description" />
+      <View style={styles.pad}>
         <View>
-          <TouchableOpacity onPress={showDatepicker}><Image style={styles.DateTimePicker} source={heure} /></TouchableOpacity>
+          <TouchableOpacity onPress={showDatepicker}>
+            <Image style={styles.DateTimePicker} source={heure} />
+          </TouchableOpacity>
         </View>
 
         {show && (
@@ -70,7 +77,9 @@ const AddNotes = ({ navigation }) => {
           />
         )}
       </View>
-      <TouchableOpacity onPress={() => { AddNote() }} style={styles.btnVal}><Text style={styles.txtVal}>Save</Text></TouchableOpacity>
+      <TouchableOpacity onPress={() => { AddNote() }} >
+        <Text style={styles.donebutton}>Save</Text>
+      </TouchableOpacity>
     </View>
     /*  <View style={styles.container}>
         <TextInput onChangeText={(text) => setTitle(text)} style={styles.input} placeholder="Note title" />
@@ -100,65 +109,53 @@ const AddNotes = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    left: 37,
-    top: 84,
+    alignItems: "center",
+    flex: 1,
 
 
   },
   setFontSize: {
     fontSize: 20,
   },
-  setColorGreen: {
-    color: '#359A8E',
+  pad: {
+    padding: 25,
 
   },
   input: {
     width: 300,
-    borderWidth: 0.5,
     borderRadius: 20,
     padding: 10,
     marginTop: 20,
-    backgroundColor: '#F1F2F2'
-
-
-
-
-  },
-  inputDesc: {
-    width: 300,
-    borderRadius: 20,
-    borderWidth: 1,
-    padding: 100,
-    marginTop: 10,
-    backgroundColor: '#F1F2F2'
+    backgroundColor: '#fff',
+    borderColor: "#093F38",
+    backgroundColor: "#fff",
+    shadowColor: "#093F38",
+    shadowOpacity: 0.55,
+    shadowRadius: 2.22,
+    elevation: 6,
   },
 
-  btnVal: {
-    position: 'absolute',
-    right: 0,
-    top: 450,
-    width: 100,
-    padding: 10,
-    borderRadius: 20
-
+  donebutton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 5,
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 10,
+    elevation: 3,
+    borderColor: '#093F38',
+    backgroundColor: '#fff',
+    shadowColor: '#093F38',
+    shadowOpacity: 0.55,
+    shadowRadius: 2.22,
+    elevation: 11,
   },
-  txtVal: {
-    color: '#359A8E',
-    textAlign: 'center',
-    fontSize: 20,
-    borderWidth: 0.5,
-    borderRadius: 20,
-    padding: 5
 
-
-  },
   DateTimePicker: {
     width: 50,
     height: 50,
     resizeMode: 'contain',
-    alignSelf: 'center',
-
+    alignItems: "center"
 
   }
 

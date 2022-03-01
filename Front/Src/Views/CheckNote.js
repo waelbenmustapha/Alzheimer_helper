@@ -14,7 +14,7 @@ const CheckNote = ({ route, navigation }) => {
   function deltenote() {
     axios
       .delete(
-        `http://192.168.1.61:8090/notes/delete-note/${route.params.el.id}`
+        `http://192.168.1.14:8090/notes/delete-note/${route.params.el.id}`
       )
       .then((res) => navigation.navigate("CheckNotes"));
   }
@@ -22,6 +22,7 @@ const CheckNote = ({ route, navigation }) => {
   useEffect(() => {
     console.log(note);
   }, []);
+  
   return (
     <View style={styles.container}>
       <View style={styles.items}>

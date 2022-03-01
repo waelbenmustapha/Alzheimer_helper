@@ -19,7 +19,7 @@ const SignupDementia = ({ navigation }) => {
       return;
     } setIsLoading(true);
 
-    axios.post(`http://192.168.1.61:8090/demantia/SignUp/${guardianEmail}`, {
+    axios.post(`http://192.168.1.14:8090/demantia/SignUp/${guardianEmail}`, {
       name: userName,
       email: userEmail,
       password: userPassword,
@@ -53,7 +53,7 @@ const SignupDementia = ({ navigation }) => {
             <TextInput
               style={styles.input}
               value={userName}
-              placeholder='User name'
+              placeholder='Dementia Name'
               autoCapitalize="none"
               placeholderTextColor='#00000080'
               onChangeText={(UserName) => setUserName(UserName)}
@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   containerLogo: {
+    padding:5,
     flexDirection: "row",
   },
   form: {
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   title: {
-    marginTop: 12,
+    marginTop: 140,
     marginBottom: 18,
     fontSize: 24,
     color: '#359A8E'

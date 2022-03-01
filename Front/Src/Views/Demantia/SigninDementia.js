@@ -16,7 +16,7 @@ const SigninDementia = ({ navigation }) => {
       alert("Please fill Email or Password");
       return;
     } setIsLoading(true);
-      axios.post(`http://192.168.1.61:8090/auth/login`, {
+      axios.post(`http://192.168.1.14:8090/auth/login`, {
        email: userEmail,
       password: userPassword,
       }).then((response) => {
@@ -24,7 +24,7 @@ const SigninDementia = ({ navigation }) => {
           console.log('done');
           navigation.navigate("Home")
         } 
-      }).catch((error) => { alert("Email or Password is wrong ");console.log("tt"); setIsLoading(false); })
+      }).catch((error) => { alert("Email or Password is wrong "); setIsLoading(false); })
     
   }
 
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   title: {
-    marginTop: 12,
+    marginTop: 140,
     marginBottom: 18,
     fontSize: 24,
     color: '#359A8E'

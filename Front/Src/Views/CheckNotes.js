@@ -22,7 +22,7 @@ const CheckNotes = ({ navigation }) => {
   function getData() {
     axios
       .get(
-        `http://192.168.1.61:8090/notes/get-notes-by-dementia-id/402881907f190703017f1909a0080001`
+        `http://192.168.1.14:8090/notes/get-notes-by-dementia-id/402881907f190703017f1909a0080001`
       )
       .then((res) => {
         console.log("************************");
@@ -37,9 +37,9 @@ const CheckNotes = ({ navigation }) => {
   return (
 
     <View style={[styles.container, { flex: 3, flexDirection: "column" }]}>
-      <View style={{ flex: 1, padding: '5%' }}>
+      <View style={{ flex: 1, padding: '15%' }}>
 
-        <View style={{ flex: 1, flexDirection: "row" }}>
+        <View style={{flex: 1, flexDirection: "row" }}>
           <Image
             source={require("./../../assets/profile.png")}
             style={styles.image}
