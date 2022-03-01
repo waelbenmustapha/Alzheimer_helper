@@ -24,11 +24,10 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen name="IntroSlider" options={{headerShown: false}} component={IntroSlider}/>
-
       <Stack.Screen name="SignUpGuardian" component={Signup} />
-
       <Stack.Screen name="IntroSliderScreen" options={{headerShown: false}} component={IntroSliderScreen}/>
+
+      <Stack.Screen name="IntroSlider" options={{headerShown: false}} component={IntroSlider}/>
 
 
         <Stack.Screen name="SignupDementia" component={SignupDementia}/>

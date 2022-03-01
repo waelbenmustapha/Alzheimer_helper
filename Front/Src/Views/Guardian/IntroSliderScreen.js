@@ -48,10 +48,10 @@ const IntroSliderScreen = ({ navigation }) => {
 /> 
 <View style={{flex:1,flexDirection:'row'}}>
 <TouchableOpacity style={styles.buttonG}     onPress={() =>
-        navigation.navigate('SignUpGuardian')
+        navigation.navigate('IntroSlider',{'signup':'SignUpGuardian'})
       }><Text style={styles.titlebutton}>Guardien</Text></TouchableOpacity>
 <TouchableOpacity style={styles.buttonD}     onPress={() =>
-        navigation.navigate('SignupDementia')
+        navigation.navigate('IntroSlider',{'signup':'SignupDementia'})
       }><Text style={styles.titlebutton}>Alzheimer' Dementia</Text></TouchableOpacity>
 
 </View>
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#4A0D66",
     padding:20,
     width:'40%',
-    height:'45%',
+    height:'40%',
     margin:'5%',
     borderRadius:40
   },
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#359A8E",
     padding:20,
     width:'40%',
-    height:'45%',
+    height:'40%',
     marginTop:'5%',
     marginRight:'5%',
     marginBottom:'5%',

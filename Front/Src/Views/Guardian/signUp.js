@@ -1,38 +1,67 @@
 import React, { useEffect, useState } from 'react'
-import { View, ScrollView, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
+import { View, ScrollView, TouchableOpacity,Image , Text, TextInput, StyleSheet } from 'react-native'
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
+import DateTimePicker from '@react-native-community/datetimepicker';
+
 const Signup = ({ navigation }) => {
 
+  const [date, setDate] = useState(null);
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
   const [userName, setUserName] = useState('');
   const [age, setAge] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [userConfirmPassword, setConfirmUserPassword] = useState('');
-  const [guardianEmail, setGuardianEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
 
-  // const handleSubmitPress = async (event) => {
-  //   if (!userEmail.trim() || !userPassword.trim() || !age.trim() || !userName.trim() || !guardianEmail.trim()) {
-  //     alert("Please fill in all fields are required ");
-  //     return;
-  //   } setIsLoading(true);
+  // Birthdate
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    currentDate.setHours(currentDate.getHours() + 1)
+    setDate(currentDate);
+    
+    if (mode == "date") {
+      setMode("time");
 
-  //   axios.post(`http://192.168.1.14:8090/demantia/SignUp/${guardianEmail}`, {
-  //     name: userName,
-  //     email: userEmail,
-  //     password: userPassword,
-  //     comfirmPassword: userConfirmPassword,
-  //     age: age,
-  //     birthdate: "2022-02-27T19:59:52.278+00:00"
-  //   }).then((response) => {
-  //     console.log(response.status)
-  //     if (response.status === 200) {
-  //       navigation.navigate("SigninDementia")
-  //     }
-  //   }).catch((error) => { alert(error); setIsLoading(false); })
-  // }
+    }
+
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
+  };
+
+
+//inser
+
+  const handleSubmitPress = async (event) => {
+    if (!userEmail.trim() || !userPassword.trim() || !age.trim() || !userName.trim() ) {
+      alert("Please fill in all fields are required ");
+      return;
+    } setIsLoading(true);
+
+    axios.post(`http://172.16.22.214:8090/guardian/SignUp`, {
+      name: userName,
+      email: userEmail,
+      password: userPassword,
+      comfirmPassword: userConfirmPassword,
+      birthdate: "2022-02-27T19:59:52.278+00:00"
+    }).then((response) => {
+      console.log(response.status)
+      if (response.status === 200) {
+        navigation.navigate("SigninDementia")
+      }
+    }).catch((error) => { alert(error); setIsLoading(false); })
+  }
 
 
   return (
@@ -67,6 +96,27 @@ const Signup = ({ navigation }) => {
               placeholderTextColor='#00000080'
               onChangeText={(UserEmail) => setUserEmail(UserEmail)}
             />
+            <TouchableOpacity               
+             style={styles.input}
+              onPress={showDatepicker}>
+            {
+              date == null?
+             <Text style={styles.date0}>Birthdate</Text>:<Text style={styles.date}>{JSON.stringify(date
+              ).substring(1,11)}</Text>
+    
+            }
+     </TouchableOpacity>
+        {show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={new Date(1598051730000)}
+            mode={mode}
+            is24Hour={true}
+            display="default"
+            onChange={onChange}
+            style={styles.date0}
+          />
+        )}
             <TextInput
               style={styles.input}
               placeholder='Password'
@@ -85,9 +135,9 @@ const Signup = ({ navigation }) => {
               placeholderTextColor='#00000080'
               onChangeText={(UserConfirmPassword) => setConfirmUserPassword(UserConfirmPassword)}
             />
-
+             
           </View>
-          <TouchableOpacity style={styles.Signupbutton} >
+          <TouchableOpacity style={styles.Signupbutton}  onPress={handleSubmitPress} >
             <AntDesign name="arrowright" style={styles.arrow} size={44} />
           </TouchableOpacity>
 
@@ -125,7 +175,8 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   input: {
-    alignItems: 'center',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
     width: 300,
     height: 50,
     backgroundColor: '#fff',
@@ -141,6 +192,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
+    
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
@@ -181,8 +233,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     alignItems: "center",
     margin: 5
-  }
+  },
+  date: {
 
+    color: "#000",
+    fontSize:18
+  },
+  date0: {
+
+    color: "#C0C0C0",
+    fontSize:18
+  },
 })
 
 export default Signup;
