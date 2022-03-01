@@ -20,7 +20,7 @@ const SignIn =  ({navigation}) => {
       return;
     } setIsLoading(true);
     try {
-      const response = await axios.post(`http://192.168.1.14:8090/guardian/SignIn/${email}`, {
+      const response = await axios.post(`http://192.168.1.61:8090/guardian/SignIn/${email}`, {
         userEmail,
         userPassword,
       });

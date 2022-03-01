@@ -44,12 +44,12 @@ const Signup = ({ navigation }) => {
 //inser
 
   const handleSubmitPress = async (event) => {
-    if (!userEmail.trim() || !userPassword.trim() || !age.trim() || !userName.trim() ) {
+    if (!userEmail.trim() || !userPassword.trim() || !userName.trim() ) {
       alert("Please fill in all fields are required ");
       return;
     } setIsLoading(true);
 
-    axios.post(`http://172.16.22.214:8090/guardian/SignUp`, {
+    axios.post(`http://192.168.1.61:8090/guardian/SignUp`, {
       name: userName,
       email: userEmail,
       password: userPassword,
@@ -80,14 +80,7 @@ const Signup = ({ navigation }) => {
               placeholderTextColor='#00000080'
               onChangeText={(UserName) => setUserName(UserName)}
             />
-            <TextInput
-              style={styles.input}
-              value={age}
-              placeholder='Age'
-              autoCapitalize="none"
-              placeholderTextColor='#00000080'
-              onChangeText={(Age) => setAge(Age)}
-            />
+           
             <TextInput
               style={styles.input}
               placeholder='Email'
