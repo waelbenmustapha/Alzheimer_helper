@@ -9,7 +9,7 @@ import axios from 'axios';
 const SignIn =  ({navigation}) => {
 
 
-  const [userEmail, setmail] = useState('');
+  const [userEmail, setemail] = useState('');
   const [userPassword, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -27,7 +27,7 @@ const SignIn =  ({navigation}) => {
       if (response.status === 201) {
         alert(` You have created: ${JSON.stringify(response.data)}`);
         setIsLoading(false);
-        setmail('');
+        setemail('');
         setPassword('');
       } else {
         throw new Error("An error has occurred Name or Email is invalid");
@@ -50,7 +50,7 @@ const SignIn =  ({navigation}) => {
   return (
     <View style={styles.container}>
         <Text style={styles.title}> Glad to see you here again</Text>
-        <TextInput style={styles.input} placeholder='Email adress'  placeholderTextColor='#00000080'onChangeText={(text)=>setmail(text)}/>
+        <TextInput style={styles.input} placeholder='Email adress'  placeholderTextColor='#00000080'onChangeText={(text)=>setemail(text)}/>
         <TextInput style={styles.input} placeholder='Password' placeholderTextColor='#00000080'onChangeText={(text)=>setPassword(text)} />        
         <Text style={styles.fpass}>Forgot password?</Text>
         <TouchableOpacity style={styles.Signinbutton} onPress={()=>{handleSubmitPress()}}><AntDesign name="arrowright" style={styles.arrow} size={44}  /></TouchableOpacity>
@@ -62,7 +62,7 @@ export default SignIn
 
 const styles = StyleSheet.create({
     container: {
-        position: 'absolute',
+      position: 'absolute',
         left: 37,
         top:84, 
     },

@@ -71,8 +71,7 @@ const Home = ({ navigation }) => {
                 }} />
               <Text style={styles.Title2}>Contact</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={{ alignItems: "center" }}
-              onPress={() => navigation.navigate("SignupDementia")}>
+            <TouchableOpacity style={{ alignItems: "center" }}>
               <Image
                 source={require("./../../assets/profile.png")}
                 style={{
