@@ -10,12 +10,12 @@ import Home from './Src/Views/Home';
 import CheckNote from './Src/Views/CheckNote';
 import Location from './Src/Views/Location';
 import SignIn from './Src/Views/Guardian/SignIn';
-import IntroSlider from './Src/Views/Guardian/IntroSlider';
 
 import SignupDementia from './Src/Views/Demantia/SignupDementia';
 import SigninDementia from './Src/Views/Demantia/SigninDementia';
 import IntroSliderScreen from './Src/Views/Guardian/IntroSliderScreen';
 import Signup from './Src/Views/Guardian/SignUp';
+import IntroSlider from './Src/Views/Guardian/IntroSlider';
 
 
 export default function App() {
