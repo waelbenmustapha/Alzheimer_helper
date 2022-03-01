@@ -3,7 +3,7 @@ import React from 'react'
 import Swiper from 'react-native-swiper'
 
 
-const introSlider = ({ navigation }) => {
+const IntroSlider = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Swiper style={styles.wrapper} loop={false} index={0} >
@@ -118,5 +118,5 @@ const styles = StyleSheet.create({
   }
 })
 
-export default introSlider
+export default IntroSlider
 

@@ -10,10 +10,10 @@ import Home from './Src/Views/Home';
 import CheckNote from './Src/Views/CheckNote';
 import Location from './Src/Views/Location';
 import SignIn from './Src/Views/Guardian/SignIn';
-import introSlider from './Src/Views/Guardian/introSlider';
 
 import SignupDementia from './Src/Views/Demantia/SignupDementia';
 import SigninDementia from './Src/Views/Demantia/SigninDementia';
+import IntroSlider from './Src/Views/Guardian/IntroSlider';
 
 
 export default function App() {
@@ -24,11 +24,11 @@ export default function App() {
       <Stack.Navigator>
 
         {/* <Stack.Screen name="introSlider" options={{headerShown: false}} component={introSlider}/> */}
-         <Stack.Screen name="SignInGuardian" component={SignIn} /> 
+       
     
-        <Stack.Screen name="introSlider" options={{headerShown: false}} component={introSlider}/>
+        <Stack.Screen name="IntroSlider" options={{headerShown: false}} component={IntroSlider}/>
                 {/* <Stack.Screen name="SignInGuardian" component={SignIn} /> */}
-
+  <Stack.Screen name="SignInGuardian" component={SignIn} /> 
         {/* <Stack.Screen name="SignUpGuardian" component={signUp} /> */}
         <Stack.Screen name="SignupDementia" component={SignupDementia}/>
         <Stack.Screen name="SigninDementia" component={SigninDementia}/>

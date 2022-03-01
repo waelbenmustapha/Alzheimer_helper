@@ -42,10 +42,6 @@ const SignIn =  ({navigation}) => {
   }
 
 
-
-
-
-
   
   return (
     <View style={styles.container}>
