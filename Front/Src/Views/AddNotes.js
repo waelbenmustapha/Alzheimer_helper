@@ -98,70 +98,70 @@ const AddNotes = ({ navigation }) => {
 };
 
 
-const styles = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    left: 37,
-    top: 84,
+  const styles = StyleSheet.create({
+    container: {
+      position: 'absolute',
+      left: 37,
+      top: 84,
 
 
-  },
-  setFontSize: {
-    fontSize: 20,
-  },
-  setColorGreen: {
-    color: '#359A8E',
+    },
+    setFontSize: {
+      fontSize: 20,
+    },
+    setColorGreen: {
+      color: '#359A8E',
 
-  },
-  input: {
-    width: 300,
-    borderWidth: 0.5,
-    borderRadius: 20,
-    padding: 10,
-    marginTop: 20,
-    backgroundColor: '#F1F2F2'
-
-
+    },
+    input: {
+      width: 300,
+      borderWidth: 0.5,
+      borderRadius: 20,
+      padding: 10,
+      marginTop: 20,
+      backgroundColor: '#F1F2F2'
 
 
-  },
-  inputDesc: {
-    width: 300,
-    borderRadius: 20,
-    borderWidth: 1,
-    padding: 100,
-    marginTop: 10,
-    backgroundColor: '#F1F2F2'
-  },
-
-  btnVal: {
-    position: 'absolute',
-    right: 0,
-    top: 450,
-    width: 100,
-    padding: 10,
-    borderRadius: 20
-
-  },
-  txtVal: {
-    color: '#359A8E',
-    textAlign: 'center',
-    fontSize: 20,
-    borderWidth: 0.5,
-    borderRadius: 20,
-    padding: 5
 
 
-  },
-  DateTimePicker: {
-    width: 50,
-    height: 50,
-    resizeMode: 'contain',
-    alignSelf: 'center',
+    },
+    inputDesc: {
+      width: 300,
+      borderRadius: 20,
+      borderWidth: 1,
+      padding: 100,
+      marginTop: 10,
+      backgroundColor: '#F1F2F2'
+    },
+
+    btnVal: {
+      position: 'absolute',
+      right: 0,
+      top: 450,
+      width: 100,
+      padding: 10,
+      borderRadius: 20
+
+    },
+    txtVal: {
+      color: '#359A8E',
+      textAlign: 'center',
+      fontSize: 20,
+      borderWidth: 0.5,
+      borderRadius: 20,
+      padding: 5
 
 
-  }
+    },
+    DateTimePicker: {
+      width: 50,
+      height: 50,
+      resizeMode: 'contain',
+      alignSelf: 'center',
 
-});
+
+    }
+
+  });
 
 export default AddNotes
