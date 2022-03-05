@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Alz.Entities.Guardian;
-import com.example.Alz.Repositories.DemantiaRepository;
+import com.example.Alz.Repositories.DementiaRepository;
 import com.example.Alz.Repositories.GuardianRepository;
 
 @RestController
@@ -27,7 +27,7 @@ public class GuardianController {
 
 
   @Autowired
-  private DemantiaRepository demantiaRepository;
+  private DementiaRepository dementiaRepository;
 
   @Autowired
   private GuardianRepository guardianRepository;
@@ -55,14 +55,14 @@ public class GuardianController {
 
 
 
-  @GetMapping("/getMyDemantiaLocation/{gid}")
+  @GetMapping("/getMyDementiaLocation/{gid}")
   public ResponseEntity getMyDemantiaLocation(@PathVariable("gid") String gid) {
 
     Guardian guardian = guardianRepository.findById(gid).get();
     HashMap<String, BigDecimal> map = new HashMap<String, BigDecimal>();
 
-    map.put("latitude", guardian.getDemantia().getLatitude());
-    map.put("longitude", guardian.getDemantia().getLongitude());
+    map.put("latitude", guardian.getDementia().getLatitude());
+    map.put("longitude", guardian.getDementia().getLongitude());
 
     return new ResponseEntity(map, HttpStatus.OK);
 
@@ -83,7 +83,7 @@ public class GuardianController {
   @PostMapping("/adddem/{gid}/{did}")
   public ResponseEntity adddem(@PathVariable("gid") String gid, @PathVariable("did") String did) {
     Guardian guardiantochange = guardianRepository.findById(gid).get();
-    guardiantochange.setDemantia(demantiaRepository.findById(did).get());
+    guardiantochange.setDementia(dementiaRepository.findById(did).get());
     guardianRepository.save(guardiantochange);
     return new ResponseEntity("good", HttpStatus.OK);
   }

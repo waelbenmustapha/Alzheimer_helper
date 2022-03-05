@@ -11,5 +11,5 @@ import com.example.Alz.Entities.Notes;
 @Repository
 public interface NotesRepository extends JpaRepository<Notes, String> {
 
-  public List<Notes> findByDemantiaId(String id);
+  public List<Notes> findByDementiaId(String id);
 }

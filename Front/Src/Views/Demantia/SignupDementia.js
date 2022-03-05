@@ -105,7 +105,7 @@ const SignupDementia = ({ navigation }) => {
             <Text style={styles.textCenter}>Forgot password?</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("SigninDementia")}>
-            <Text style={[styles.title2], { color: '#359A8E' }}>
+            <Text style={ { color: '#359A8E' }}>
               Already have an account</Text>
           </TouchableOpacity>
           <Text style={styles.textCenter}>Or login with</Text>

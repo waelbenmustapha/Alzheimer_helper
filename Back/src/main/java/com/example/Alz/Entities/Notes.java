@@ -1,7 +1,6 @@
 package com.example.Alz.Entities;
 
 import java.util.Date;
-import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -34,6 +32,6 @@ public class Notes {
 
   @ManyToOne
   @JsonIgnore
-  private Demantia demantia;
+  private Dementia dementia;
 
 }
