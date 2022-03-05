@@ -32,9 +32,9 @@ public class Demantia {
   private String id;
 
 
-  @Digits(integer=2, fraction=7)
+  @Digits(integer=3, fraction=7)
   private BigDecimal safePlaceLatitude;
-  @Digits(integer=2, fraction=7)
+  @Digits(integer=3, fraction=7)
   private BigDecimal safePlaceLongitude;
 
   private int diameter;
@@ -47,9 +47,9 @@ private String type = "dementia";
   @OneToMany(mappedBy="demantia")
   private List<Notes> notes;
 
-  @Digits(integer=2, fraction=7)
+  @Digits(integer=3, fraction=7)
   private BigDecimal latitude;
-  @Digits(integer=2, fraction=7)
+  @Digits(integer=3, fraction=7)
   private BigDecimal longitude;
 
   @OneToOne(mappedBy = "demantia")

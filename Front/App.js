@@ -16,6 +16,7 @@ import SigninDementia from './Src/Views/Demantia/SigninDementia';
 import IntroSliderScreen from './Src/Views/Guardian/IntroSliderScreen';
 import Signup from './Src/Views/Guardian/Signup';
 import IntroSlider from './Src/Views/Guardian/IntroSlider';
+import SpecifySafeArea from './Src/Views/Guardian/SpecifySafeArea';
 
 
 export default function App() {
@@ -24,6 +25,10 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen name="SpecifySafeArea" component={SpecifySafeArea}  options={{headerShown: false}} />
+
+      <Stack.Screen name="Home" component={Home}  options={{headerShown: false}} />
+      
       <Stack.Screen name="IntroSliderScreen" options={{headerShown: false}} component={IntroSliderScreen}/>
 
       <Stack.Screen name="IntroSlider" options={{headerShown: false}} component={IntroSlider}/>
@@ -35,7 +40,6 @@ export default function App() {
         <Stack.Screen name="SignupDementia"  options={{headerShown: false}} component={SignupDementia}/>
         <Stack.Screen name="SigninDementia"  options={{headerShown: false}} component={SigninDementia}/>
       <Stack.Screen name="SignInGuardian"  options={{headerShown: false}} component={SignIn} />
-        <Stack.Screen name="Home" component={Home}  options={{headerShown: false}} />
         <Stack.Screen name="CheckNotes" component={CheckNotes}  options={{headerShown: false}}/>
         <Stack.Screen name="CheckNote" component={CheckNote} />
         <Stack.Screen name="AddNote" component={AddNotes} />
