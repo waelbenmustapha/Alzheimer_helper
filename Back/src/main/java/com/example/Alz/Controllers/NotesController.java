@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Alz.Entities.Notes;
-import com.example.Alz.Repositories.DemantiaRepository;
+import com.example.Alz.Repositories.DementiaRepository;
 import com.example.Alz.Repositories.NotesRepository;
 
 @RestController
@@ -23,12 +23,12 @@ public class NotesController {
   @Autowired
   private NotesRepository notesRepository;
   @Autowired
-  private DemantiaRepository demantiaRepository;
+  private DementiaRepository dementiaRepository;
 
   @PostMapping("/add-note/{demantiaId}")
   public ResponseEntity addNote(@RequestBody Notes notes, @PathVariable("demantiaId") String id) {
 
-    notes.setDemantia(demantiaRepository.findById(id).get());
+    notes.setDementia(dementiaRepository.findById(id).get());
     notesRepository.save(notes);
     return new ResponseEntity("Saved", HttpStatus.OK);
   }
@@ -36,7 +36,7 @@ public class NotesController {
   @GetMapping("/get-notes-by-dementia-id/{demid}")
   public ResponseEntity getnotesbydementiaid(@PathVariable("demid") String demid) {
 
-    return new ResponseEntity(notesRepository.findByDemantiaId(demid), HttpStatus.OK);
+    return new ResponseEntity(notesRepository.findByDementiaId(demid), HttpStatus.OK);
 
   }
 
