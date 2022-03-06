@@ -49,25 +49,7 @@ const PinCode = ({ navigation }) => {
         );
     };
 
-    /* return (
-        <SafeAreaView style={styles.root}>
-            <Text style={styles.title}>Field with custom mask</Text>
-            <CodeField
-                ref={ref}
-                {...props}
-                value={value}
-                onChangeText={setValue}
-                cellCount={CELL_COUNT}
-                rootStyle={styles.codeFieldRoot}
-                keyboardType="number-pad"
-                textContentType="oneTimeCode"
-                renderCell={renderCell}
-            />
-            
-        </SafeAreaView>
-
-    ); */
-
+   
     return (
         <ImageBackground source={require("./../../../assets/old.png")} resizeMode="cover" style={styles.image}>
 
@@ -107,7 +89,9 @@ const PinCode = ({ navigation }) => {
 const styles = StyleSheet.create({
     root: {
         flex: 2,
-        marginTop: StatusBar.currentHeight
+        marginTop: StatusBar.currentHeight,
+        backgroundColor: 'rgba(0,0,0, 0.30)'
+
 
     },
     container: {
@@ -125,10 +109,14 @@ const styles = StyleSheet.create({
     },
     image: {
         flex: 1,
-        height: '90%',
-        width: '100%',
     },
 
+    innercontainer:{
+        flex:1,
+        marginTop: StatusBar.currentHeight,
+        backgroundColor: 'rgba(0,0,0, 0.30)'
+
+    },
     codeFieldRoot: {
         marginTop: 5
     },
@@ -144,7 +132,7 @@ const styles = StyleSheet.create({
 
     },
     focusCell: {
-        borderColor: '#000',
+        borderColor: '#359A8E',
     },
     donebutton: {
         alignItems: 'center',
@@ -153,9 +141,9 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
         borderRadius: 10,
         elevation: 3,
-        borderColor: '#093F38',
+        borderColor: '#359A8E',
         backgroundColor: '#fff',
-        shadowColor: '#093F38',
+        shadowColor: '#359A8E',
         shadowOpacity: 0.55,
         shadowRadius: 2.22,
         elevation: 11,
