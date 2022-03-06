@@ -16,6 +16,7 @@ import SigninDementia from './Src/Views/Demantia/SigninDementia';
 import IntroSliderScreen from './Src/Views/Guardian/IntroSliderScreen';
 import Signup from './Src/Views/Guardian/SignUp';
 import IntroSlider from './Src/Views/Guardian/IntroSlider';
+import PinCode from './Src/Views/Guardian/PinCode';
 
 
 export default function App() {
@@ -24,6 +25,10 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+
+      <Stack.Screen name="PinCode" options={{headerShown: false}} component={PinCode}/>
+
+
       <Stack.Screen name="IntroSliderScreen" options={{headerShown: false}} component={IntroSliderScreen}/>
 
       <Stack.Screen name="IntroSlider" options={{headerShown: false}} component={IntroSlider}/>

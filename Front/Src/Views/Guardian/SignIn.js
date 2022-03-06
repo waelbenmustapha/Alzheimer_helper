@@ -20,7 +20,7 @@ const SignIn =  ({navigation}) => {
       return;
     } setIsLoading(true);
     try {
-      const response = await axios.post(`http://192.168.1.61:8090/guardian/SignIn/${email}`, {
+      const response = await axios.post(`http://http://192.168.1.14:8090:8090/guardian/SignIn/${email}`, {
         userEmail,
         userPassword,
       });
@@ -94,11 +94,7 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
     },
-    fpass:{
-        fontSize:15,
-        marginTop:40,
-        marginLeft:40,
-    },
+   
     Signinbutton: {
         margin:20,
         marginLeft:240,
