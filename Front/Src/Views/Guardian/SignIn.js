@@ -1,7 +1,8 @@
-import { View,StyleSheet,TextInput,TouchableOpacity,Text } from 'react-native'
+import { View,StyleSheet,TextInput,TouchableOpacity,Text ,ToastAndroid, AsyncStorage} from 'react-native'
 import React,{ useState } from 'react'
 import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios';
+
 
 
 
@@ -16,30 +17,37 @@ const SignIn =  ({navigation}) => {
 
   const handleSubmitPress = async (event) => {
     if (!userEmail.trim() || !userPassword.trim()) {
-      alert("Please fill Email or Password");
+        ToastAndroid.showWithGravity(
+          "Please fell Email or Password",
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM
+        );
+      
       return;
     } setIsLoading(true);
     try {
-      const response = await axios.post(`http://192.168.1.14:8090/guardian/SignIn/${email}`, {
-        userEmail,
-        userPassword,
+      const response = await axios.post(`http://172.16.18.122:8090/guardian/SignIn/${email}`, {
+        email: userEmail,
+      password: userPassword,
       });
       if (response.status === 201) {
-        alert(` You have created: ${JSON.stringify(response.data)}`);
+        //alert(` You have created: ${JSON.stringify(response.data)}`);
+        ToastAndroid.showWithGravity("You have created", ToastAndroid.LONG,ToastAndroid.BOTTOM)
         setIsLoading(false);
         setemail('');
         setPassword('');
       } else {
-        throw new Error("An error has occurred Name or Email is invalid");
+        throw new Error(ToastAndroid.showWithGravity("Email or Password is wrong",ToastAndroid.LONG,ToastAndroid.BOTTOM))
       }
     } catch (error) {
-      alert("An error has occurred Name or Email is invalid");
+      (ToastAndroid.showWithGravity("Email or Password is wrong",ToastAndroid.LONG,ToastAndroid.BOTTOM))
       setIsLoading(false);
     }
 
 
 
   }
+
 
 
 

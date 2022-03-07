@@ -1,6 +1,6 @@
 import React, { useEffect, createRef, useState, hasError } from 'react'
-import { View, ScrollView, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
-import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import { View, ScrollView, TouchableOpacity, Text, TextInput, StyleSheet,ToastAndroid } from 'react-native'
+import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import axios from 'axios';
 
 
@@ -13,10 +13,14 @@ const SigninDementia = ({ navigation }) => {
 
   const handleSubmitPress = async (event) => {
     if (!userEmail.trim() || !userPassword.trim()) {
-      alert("Please fill Email or Password");
+      ToastAndroid.showWithGravity(
+        "Please fell Email or Password",
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM
+      );
       return;
     } setIsLoading(true);
-      axios.post(`http://192.168.1.14:8090/auth/login`, {
+      axios.post(`http://172.16.18.122:8090/auth/login`, {
        email: userEmail,
       password: userPassword,
       }).then((response) => {
@@ -24,7 +28,7 @@ const SigninDementia = ({ navigation }) => {
           console.log('done');
           navigation.navigate("Home")
         } 
-      }).catch((error) => { alert("Email or Password is wrong "); setIsLoading(false); })
+      }).catch((error) => { (ToastAndroid.showWithGravity("Email or Password is wrong",ToastAndroid.LONG,ToastAndroid.BOTTOM)),setIsLoading(false)})
     
   }
 

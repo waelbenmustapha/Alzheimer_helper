@@ -44,11 +44,14 @@ const Signup = ({ navigation }) => {
 
   const handleSubmitPress = async (event) => {
     if (!userEmail.trim() || !userPassword.trim() || !userName.trim()) {
-      alert("Please fill in all fields are required ");
+      ToastAndroid.showWithGravity(
+        "Please fill in all fields are required",
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM)
       return;
     } setIsLoading(true);
 
-    axios.post(`http://192.168.1.14:8090/guardian/SignUp`, {
+    axios.post(`http://172.16.18.122:8090/guardian/SignUp`, {
       name: userName,
       email: userEmail,
       password: userPassword,
@@ -140,8 +143,8 @@ const Signup = ({ navigation }) => {
           <TouchableOpacity>
             <Text style={styles.textCenter}>Forgot password?</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("SigninDementia")}>
-            <Text style={[styles.title2], { color: '#359A8E' }}>
+          <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
+            <Text style={{ color:'#359A8E'}}>
               Already have an account</Text>
           </TouchableOpacity>
           <Text style={styles.textCenter}>Or login with</Text>
@@ -198,7 +201,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#359A8E'
   },
-  tilte2: {
+  title2: {
     marginTop: 12,
     marginBottom: 18,
     fontSize: 18,

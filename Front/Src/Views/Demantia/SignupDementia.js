@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, ScrollView, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
+import { View, ScrollView, TouchableOpacity, Text, TextInput, StyleSheet, ToastAndroid } from 'react-native'
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
 const SignupDementia = ({ navigation }) => {
@@ -15,11 +15,14 @@ const SignupDementia = ({ navigation }) => {
 
   const handleSubmitPress = async (event) => {
     if (!userEmail.trim() || !userPassword.trim() ||  !userName.trim() || !guardianEmail.trim()) {
-      alert("Please fill in all fields are required ");
+      ToastAndroid.showWithGravity(
+        "Please fill in all fields are required",
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM)
       return;
     } setIsLoading(true);
 
-    axios.post(`http://192.168.1.14:8090/demantia/SignUp/${guardianEmail}`, {
+    axios.post(`http://172.16.18.122:8090/demantia/SignUp/${guardianEmail}`, {
       name: userName,
       email: userEmail,
       password: userPassword,
@@ -29,7 +32,8 @@ const SignupDementia = ({ navigation }) => {
     }).then((response) => {
       console.log(response.status)
       if (response.status === 200) {
-        alert(` You have created: ${JSON.stringify(response.data)}`);
+        //alert(` You have created: ${JSON.stringify(response.data)}`);
+        ToastAndroid.showWithGravity("You have created", ToastAndroid.LONG,ToastAndroid.BOTTOM)
         setIsLoading(false);
         setUserName('');
         setAge('');
@@ -104,8 +108,8 @@ const SignupDementia = ({ navigation }) => {
           <TouchableOpacity>
             <Text style={styles.textCenter}>Forgot password?</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("SigninDementia")}>
-            <Text style={[styles.title2], { color: '#359A8E' }}>
+          <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
+            <Text style={{ color: '#359A8E' }}>
               Already have an account</Text>
           </TouchableOpacity>
           <Text style={styles.textCenter}>Or login with</Text>

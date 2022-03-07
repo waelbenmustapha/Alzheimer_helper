@@ -22,7 +22,7 @@ const CheckNotes = ({ navigation }) => {
   function getData() {
     axios
       .get(
-        `http://192.168.1.14:8090/notes/get-notes-by-dementia-id/402881907f190703017f1909a0080001`
+        `http://172.16.18.122:8090/notes/get-notes-by-dementia-id/402881907f190703017f1909a0080001`
       )
       .then((res) => {
         console.log("************************");
@@ -150,11 +150,13 @@ const styles = StyleSheet.create({
   Title: {
     fontWeight: "bold",
     fontSize: 20,
-  }, firstItem: {
+  }, 
+  firstItem: {
     alignItems: "flex-end",
     justifyContent: "center",
     marginLeft: 10,
-  }, image: {
+  },
+   image: {
     width: 100,
     height: 100,
     borderRadius: 40 / 2,

@@ -16,6 +16,7 @@ import SigninDementia from './Src/Views/Demantia/SigninDementia';
 import IntroSliderScreen from './Src/Views/Guardian/IntroSliderScreen';
 import Signup from './Src/Views/Guardian/Signup';
 import IntroSlider from './Src/Views/Guardian/IntroSlider';
+import HistoryDemantia from './Src/Views/Demantia/HistoryDemantia';
 
 
 export default function App() {
@@ -28,17 +29,17 @@ export default function App() {
 
       <Stack.Screen name="IntroSlider" options={{headerShown: false}} component={IntroSlider}/>
 
-      <Stack.Screen name="SignUpGuardian"  options={{headerShown: false}} component={Signup} />
+      <Stack.Screen name="SignUpGuardian"   component={Signup} />
 
 
 
-        <Stack.Screen name="SignupDementia"  options={{headerShown: false}} component={SignupDementia}/>
-        <Stack.Screen name="SigninDementia"  options={{headerShown: false}} component={SigninDementia}/>
-      <Stack.Screen name="SignInGuardian"  options={{headerShown: false}} component={SignIn} />
+        <Stack.Screen name="SignupDementia"  component={SignupDementia}/>
+      <Stack.Screen name="Signin"  options={{headerShown: false}}component={SignIn} />
         <Stack.Screen name="Home" component={Home}  options={{headerShown: false}} />
         <Stack.Screen name="CheckNotes" component={CheckNotes}  options={{headerShown: false}}/>
         <Stack.Screen name="CheckNote" component={CheckNote} />
         <Stack.Screen name="AddNote" component={AddNotes} />
+        <Stack.Screen name="HistoryDemantia"  component={HistoryDemantia} />
         <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
         <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
         <Stack.Screen name="Location" component={Location} />
