@@ -19,7 +19,7 @@ const SignupDementia = ({ navigation }) => {
       return;
     } setIsLoading(true);
 
-    axios.post(`http://192.168.1.14:8090/demantia/SignUp/${guardianEmail}`, {
+    axios.post(`http://172.16.23.165:8090/dementia/SignUp/${guardianEmail}`, {
       name: userName,
       email: userEmail,
       password: userPassword,
@@ -104,7 +104,7 @@ const SignupDementia = ({ navigation }) => {
           <TouchableOpacity>
             <Text style={styles.textCenter}>Forgot password?</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("SigninDementia")}>
+          <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
             <Text style={ { color: '#359A8E' }}>
               Already have an account</Text>
           </TouchableOpacity>

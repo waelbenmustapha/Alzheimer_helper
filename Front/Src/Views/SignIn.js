@@ -4,7 +4,7 @@ import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
 
 
-const SigninDementia = ({ navigation }) => {
+const SignIn = ({ navigation }) => {
 
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
@@ -16,7 +16,7 @@ const SigninDementia = ({ navigation }) => {
       alert("Please fill Email or Password");
       return;
     } setIsLoading(true);
-      axios.post(`http://192.168.1.14:8090/auth/login`, {
+      axios.post(`http://172.16.23.165:8090/auth/login`, {
        email: userEmail,
       password: userPassword,
       }).then((response) => {
@@ -143,4 +143,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default SigninDementia;
+export default SignIn;

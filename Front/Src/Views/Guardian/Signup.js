@@ -48,7 +48,7 @@ const Signup = ({ navigation }) => {
       return;
     } setIsLoading(true);
 
-    axios.post(`http://192.168.1.14:8090/guardian/SignUp`, {
+    axios.post(`http://172.16.23.165:8090/guardian/SignUp`, {
       name: userName,
       email: userEmail,
       password: userPassword,
@@ -57,7 +57,7 @@ const Signup = ({ navigation }) => {
     }).then((response) => {
       console.log(response.status)
       if (response.status === 200) {
-        navigation.navigate("SigninDementia")
+        navigation.navigate("Signin")
       }
     }).catch((error) => { alert(error); setIsLoading(false); })
   }
@@ -134,14 +134,13 @@ const Signup = ({ navigation }) => {
           <TouchableOpacity style={styles.Signupbutton} onPress={handleSubmitPress} >
             <AntDesign name="arrowright" style={styles.arrow} size={44} />
           </TouchableOpacity>
-
         </View>
         <View style={styles.textCenter}>
           <TouchableOpacity>
             <Text style={styles.textCenter}>Forgot password?</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("SigninDementia")}>
-            <Text style={[styles.title2], { color: '#359A8E' }}>
+          <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
+            <Text style={{ color: '#359A8E' }}>
               Already have an account</Text>
           </TouchableOpacity>
           <Text style={styles.textCenter}>Or login with</Text>

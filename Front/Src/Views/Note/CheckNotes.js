@@ -7,7 +7,7 @@ import {
   Image,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import NoteElement from "../Components/NoteElement";
+import NoteElement from "../../Components/NoteElement";
 import { AntDesign } from "@expo/vector-icons";
 import { URL } from "@env"
 
@@ -22,7 +22,7 @@ const CheckNotes = ({ navigation }) => {
   function getData() {
     axios
       .get(
-        `http://192.168.1.14:8090/notes/get-notes-by-dementia-id/402881907f190703017f1909a0080001`
+        `http://172.16.23.165:8090/notes/get-notes-by-dementia-id/402881907f190703017f1909a0080001`
       )
       .then((res) => {
         console.log("************************");
