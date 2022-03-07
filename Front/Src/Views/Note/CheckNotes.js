@@ -41,7 +41,7 @@ const CheckNotes = ({ navigation }) => {
 
         <View style={{flex: 1, flexDirection: "row" }}>
           <Image
-            source={require("./../../assets/profile.png")}
+            source={require("../../../assets/profile.png")}
             style={styles.image}
           ></Image>
           <View style={styles.firstItem}>
