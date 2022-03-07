@@ -23,7 +23,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Demantia {
+public class Dementia {
 
   @GeneratedValue(generator = "uuid")
   @GenericGenerator(name = "uuid", strategy = "uuid")
@@ -32,9 +32,9 @@ public class Demantia {
   private String id;
 
 
-  @Digits(integer=2, fraction=7)
+  @Digits(integer=3, fraction=7)
   private BigDecimal safePlaceLatitude;
-  @Digits(integer=2, fraction=7)
+  @Digits(integer=3, fraction=7)
   private BigDecimal safePlaceLongitude;
 
   private int diameter;
@@ -44,15 +44,15 @@ public class Demantia {
   private String password;
 private String type = "dementia";
 
-  @OneToMany(mappedBy="demantia")
+  @OneToMany(mappedBy="dementia")
   private List<Notes> notes;
 
-  @Digits(integer=2, fraction=7)
+  @Digits(integer=3, fraction=7)
   private BigDecimal latitude;
-  @Digits(integer=2, fraction=7)
+  @Digits(integer=3, fraction=7)
   private BigDecimal longitude;
 
-  @OneToOne(mappedBy = "demantia")
+  @OneToOne(mappedBy = "dementia")
   @JsonIgnore
   private Guardian guardian;
 }

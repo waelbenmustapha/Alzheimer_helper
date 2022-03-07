@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.Alz.Entities.Demantia;
+import com.example.Alz.Entities.Dementia;
 import com.example.Alz.Entities.Guardian;
-import com.example.Alz.Repositories.DemantiaRepository;
+import com.example.Alz.Repositories.DementiaRepository;
 import com.example.Alz.Repositories.GuardianRepository;
 
 @RestController
@@ -23,7 +23,7 @@ public class AuthController {
   @Autowired
   private GuardianRepository guardianRepository;
   @Autowired
-  private DemantiaRepository demantiaRepository;
+  private DementiaRepository dementiaRepository;
 
   @PostMapping("/login")
   public ResponseEntity login(@RequestBody Guardian guardian) {
@@ -37,10 +37,10 @@ public class AuthController {
       }
 
     } else {
-      Demantia DbDemantia = demantiaRepository.findByEmail(guardian.getEmail());
-      if (DbDemantia != null) {
-        if (bCryptPasswordEncoder.matches(guardian.getPassword(), DbDemantia.getPassword())) {
-          return new ResponseEntity(DbDemantia, HttpStatus.OK);
+      Dementia dbDementia = dementiaRepository.findByEmail(guardian.getEmail());
+      if (dbDementia != null) {
+        if (bCryptPasswordEncoder.matches(guardian.getPassword(), dbDementia.getPassword())) {
+          return new ResponseEntity(dbDementia, HttpStatus.OK);
         } else {
           return new ResponseEntity("Wrong Info", HttpStatus.FORBIDDEN);
         }
