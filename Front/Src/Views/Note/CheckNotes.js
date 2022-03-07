@@ -7,7 +7,7 @@ import {
   Image,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import NoteElement from "../Components/NoteElement";
+import NoteElement from "../../Components/NoteElement";
 import { AntDesign } from "@expo/vector-icons";
 import { URL } from "@env"
 

@@ -60,7 +60,7 @@ const Signup = ({ navigation }) => {
     }).then((response) => {
       console.log(response.status)
       if (response.status === 200) {
-        navigation.navigate("SigninDementia")
+        navigation.navigate("Signin")
       }
     }).catch((error) => { alert(error); setIsLoading(false); })
   }
@@ -137,14 +137,13 @@ const Signup = ({ navigation }) => {
           <TouchableOpacity style={styles.Signupbutton} onPress={handleSubmitPress} >
             <AntDesign name="arrowright" style={styles.arrow} size={44} />
           </TouchableOpacity>
-
         </View>
         <View style={styles.textCenter}>
           <TouchableOpacity>
             <Text style={styles.textCenter}>Forgot password?</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
-            <Text style={{ color:'#359A8E'}}>
+          <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
+            <Text style={{ color: '#359A8E' }}>
               Already have an account</Text>
           </TouchableOpacity>
           <Text style={styles.textCenter}>Or login with</Text>

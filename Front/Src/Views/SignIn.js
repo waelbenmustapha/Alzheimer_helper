@@ -4,7 +4,7 @@ import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
 
 
-const SigninDementia = ({ navigation }) => {
+const SignIn = ({ navigation }) => {
 
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
@@ -147,4 +147,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default SigninDementia;
+export default SignIn;
