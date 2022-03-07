@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Button } from 'react-native'
 import React, { useState } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker';
-import heure from '../../assets/heure.png'
+import heure from '../../../assets/heure.png'
 import axios from 'axios';
 import { URL } from "@env"
 
