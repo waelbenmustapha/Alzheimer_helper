@@ -43,6 +43,7 @@ const Signup = ({ navigation }) => {
   //inser
 
   const handleSubmitPress = async (event) => {
+    console.log("connect")
     if (!userEmail.trim() || !userPassword.trim() || !userName.trim()) {
       ToastAndroid.showWithGravity(
         "Please fill in all fields are required",
@@ -50,7 +51,7 @@ const Signup = ({ navigation }) => {
         ToastAndroid.BOTTOM)
       return;
     } setIsLoading(true);
-
+console.log("ok here signup")
     axios.post(`http://172.16.18.122:8090/guardian/SignUp`, {
       name: userName,
       email: userEmail,
