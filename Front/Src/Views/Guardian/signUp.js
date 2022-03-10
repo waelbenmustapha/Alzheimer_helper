@@ -41,13 +41,34 @@ const Signup = ({ navigation }) => {
   };
 
 
+
+  const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
 //inser
 
   const handleSubmitPress = async (event) => {
     if (!userEmail.trim() || !userPassword.trim() || !userName.trim() ) {
       alert("Please fill in all fields are required ");
       return;
-    } setIsLoading(true);
+    }
+    
+    
+    if (!userName.length < 4 ) {
+      alert ("Invalid name");
+      return;
+  }
+  if (!reg.test.email ) {
+      alert("Invalid Email");
+      return;
+  }
+  if (!userPassword.length < 8){
+      alert("Password is less then 8 characters!");
+      return;
+  }
+  if (userPassword !== userConfirmPassword){
+      alert ("Password does not match!")
+      return;
+  }setIsLoading(true);
 
     axios.post(`http://192.168.1.14:8090/guardian/SignUp`, {
       name: userName,
@@ -140,7 +161,7 @@ const Signup = ({ navigation }) => {
             <Text style={styles.textCenter}>Forgot password?</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("SigninDementia")}>
-            <Text style={[styles.title2], { color: '#359A8E' }}>
+            <Text style={styles.title2}>
               Already have an account</Text>
           </TouchableOpacity>
           <Text style={styles.textCenter}>Or login with</Text>
@@ -200,6 +221,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
     marginBottom: 18,
     fontSize: 18,
+    color: '#359A8E'
   },
   Signupbutton: {
     margin: 10,
