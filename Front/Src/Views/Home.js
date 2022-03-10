@@ -13,7 +13,6 @@ import {
 import React, { useEffect } from "react";
 import { Icon } from "react-native-elements";
 import axios from "axios";
-import { URL } from "@env"
 /* import Modal from 'react-bootstrap/Modal'
  */
 const Home = ({ navigation }) => {

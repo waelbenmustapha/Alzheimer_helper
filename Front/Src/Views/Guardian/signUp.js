@@ -50,24 +50,7 @@ const Signup = ({ navigation }) => {
     if (!userEmail.trim() || !userPassword.trim() || !userName.trim() ) {
       alert("Please fill in all fields are required ");
       return;
-    }
     
-    
-    if (!userName.length < 4 ) {
-      alert ("Invalid name");
-      return;
-  }
-  if (!reg.test.email ) {
-      alert("Invalid Email");
-      return;
-  }
-  if (!userPassword.length < 8){
-      alert("Password is less then 8 characters!");
-      return;
-  }
-  if (userPassword !== userConfirmPassword){
-      alert ("Password does not match!")
-      return;
   }setIsLoading(true);
 
     axios.post(`http://192.168.1.14:8090/guardian/SignUp`, {

@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
-import {URL} from "@env"
 
 const CheckNote = ({ route, navigation }) => {
   function deltenote() {

@@ -26,14 +26,14 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
 
-      <Stack.Screen name="PinCode" options={{headerShown: false}} component={PinCode}/>
-
+ 
 
       <Stack.Screen name="IntroSliderScreen" options={{headerShown: false}} component={IntroSliderScreen}/>
 
       <Stack.Screen name="IntroSlider" options={{headerShown: false}} component={IntroSlider}/>
 
       <Stack.Screen name="SignUpGuardian"  options={{headerShown: false}} component={Signup} />
+     <Stack.Screen name="PinCode" options={{headerShown: false}} component={PinCode}/>
 
 
 

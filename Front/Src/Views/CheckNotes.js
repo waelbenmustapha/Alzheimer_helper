@@ -9,7 +9,6 @@ import {
 import React, { useState, useEffect } from "react";
 import NoteElement from "../Components/NoteElement";
 import { AntDesign } from "@expo/vector-icons";
-import { URL } from "@env"
 
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";

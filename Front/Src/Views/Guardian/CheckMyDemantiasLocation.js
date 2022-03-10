@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import MapView, { Marker, Circle } from "react-native-maps";
 import { getDistance } from "geolib";
-import {URL} from "@env"
 
 import alarm from '../../../images/alarm.png'
 import demloc from '../../../images/demloc.png'
