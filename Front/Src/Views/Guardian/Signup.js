@@ -3,6 +3,7 @@ import { View, ScrollView, TouchableOpacity, Image, Text, TextInput, StyleSheet 
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { validatePathConfig } from '@react-navigation/native';
 
 const Signup = ({ navigation }) => {
 
@@ -40,26 +41,54 @@ const Signup = ({ navigation }) => {
   };
 
 
+
+
+
+  const regx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+  const isValid = () => {
+
+    if (!userName.trim() || !userEmail.trim() || !userPassword.trim())
+      return alert("Please fill in all fields are required ");
+
+    if (userName.length < 3)
+     return alert("Invalid Name");
+    
+    if (!regx.test(userEmail))
+     return alert ("invalid Email");
+
+    if (!userPassword.length > 8) 
+     return alert("Password is less then 8 characters!");
+    
+    if (userPassword !== userConfirmPassword) 
+      return alert("Password does not match!");
+    
+      return true;
+  };
+
   //inser
 
   const handleSubmitPress = async (event) => {
-    if (!userEmail.trim() || !userPassword.trim() || !userName.trim()) {
-      alert("Please fill in all fields are required ");
-      return;
-    } setIsLoading(true);
+    if (isValid()) {
 
-    axios.post(`http://172.16.23.165:8090/guardian/SignUp`, {
-      name: userName,
-      email: userEmail,
-      password: userPassword,
-      comfirmPassword: userConfirmPassword,
-      birthdate: "2022-02-27T19:59:52.278+00:00"
-    }).then((response) => {
-      console.log(response.status)
-      if (response.status === 200) {
-        navigation.navigate("Signin")
-      }
-    }).catch((error) => { alert(error); setIsLoading(false); })
+      setIsLoading(true);
+
+      axios.post(`http://192.168.1.26:8090/guardian/SignUp`, {
+        name: userName,
+        email: userEmail,
+        password: userPassword,
+        comfirmPassword: userConfirmPassword,
+        birthdate: "2022-02-27T19:59:52.278+00:00"
+      }).then((response) => {
+        console.log(response.status)
+        if (response.status === 200) {
+          navigation.navigate("Signin")
+        }
+        if (response.status === 226){
+          alert("Email already exist!")
+        }
+      }).catch((error) => { alert(error); setIsLoading(false); })
+    }
   }
 
 
@@ -110,7 +139,7 @@ const Signup = ({ navigation }) => {
               placeholderTextColor='#00000080'
               onChangeText={(UserEmail) => setUserEmail(UserEmail)}
             />
-            
+
             <TextInput
               style={styles.input}
               placeholder='Password'
@@ -234,7 +263,7 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   date0: {
-    color:'#00000080',
+    color: '#00000080',
     fontSize: 18
   },
 })
