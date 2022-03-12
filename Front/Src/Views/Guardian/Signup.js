@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, ScrollView, TouchableOpacity, Image, Text, TextInput, StyleSheet } from 'react-native'
+import { View, ScrollView, TouchableOpacity, Image, Text, TextInput, StyleSheet,ToastAndroid } from 'react-native'
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -44,11 +44,14 @@ const Signup = ({ navigation }) => {
 
   const handleSubmitPress = async (event) => {
     if (!userEmail.trim() || !userPassword.trim() || !userName.trim()) {
-      alert("Please fill in all fields are required ");
+      ToastAndroid.showWithGravity(
+        "Please fill in all fields are required",
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM)
       return;
     } setIsLoading(true);
 
-    axios.post(`http://172.16.23.165:8090/guardian/SignUp`, {
+    axios.post(`http://192.168.8.101:8090/guardian/SignUp`, {
       name: userName,
       email: userEmail,
       password: userPassword,

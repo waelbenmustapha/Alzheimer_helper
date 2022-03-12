@@ -10,13 +10,18 @@ const SignIn = ({ navigation }) => {
   const [userPassword, setUserPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  console.log("connect")
 
   const handleSubmitPress = async (event) => {
     if (!userEmail.trim() || !userPassword.trim()) {
-      alert("Please fill Email or Password");
+      ToastAndroid.showWithGravity(
+        "Please fell Email or Password",
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM
+      );
       return;
     } setIsLoading(true);
-      axios.post(`http://172.16.23.165:8090/auth/login`, {
+      axios.post(`http://192.168.8.101:8090/auth/login`, {
        email: userEmail,
       password: userPassword,
       }).then((response) => {
@@ -24,7 +29,7 @@ const SignIn = ({ navigation }) => {
           console.log('done');
           navigation.navigate("Home")
         } 
-      }).catch((error) => { alert("Email or Password is wrong "); setIsLoading(false); })
+      }).catch((error) => { (ToastAndroid.showWithGravity("Email or Password is wrong",ToastAndroid.LONG,ToastAndroid.BOTTOM)),setIsLoading(false)})
     
   }
 

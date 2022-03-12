@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Button } from 'react-native'
 import React, { useState } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker';
-import heure from '../../../assets/heure.png'
+import heure from '../../assets/heure.png'
 import axios from 'axios';
 import { URL } from "@env"
 
@@ -14,7 +14,7 @@ const AddNotes = ({ navigation }) => {
 
   function AddNote() {
 
-    axios.post(`http://192.168.75.185:8090/notes/add-note/${id}`,
+    axios.post(`http://192.168.1.13:8090/notes/add-note/${id}`,
       { description: description, title: title, date: date })
       .then((res) => navigation.navigate("CheckNotes"))
   }

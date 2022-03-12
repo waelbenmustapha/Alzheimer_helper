@@ -10,7 +10,8 @@ import Home from './Src/Views/Home';
 import CheckNote from './Src/Views/Note/CheckNote';
 import Location from './Src/Views/Location';
 import SignIn from './Src/Views/SignIn';
-
+import HistoryDementia from './Src/Views/Demantia/HistoryDementia'
+import AddHistoryDementia from './Src/Views/Guardian/AddHistoryDementia'
 import SignupDementia from './Src/Views/Demantia/SignupDementia';
 import IntroSliderScreen from './Src/Views/Guardian/IntroSliderScreen';
 import Signup from './Src/Views/Guardian/Signup';
@@ -24,28 +25,30 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+     
       <Stack.Screen name="IntroSliderScreen" options={{headerShown: false}} component={IntroSliderScreen}/>
 
-<Stack.Screen name="IntroSlider" options={{headerShown: false}} component={IntroSlider}/>
+      <Stack.Screen name="IntroSlider" options={{headerShown: false}} component={IntroSlider}/>
       <Stack.Screen name="SpecifySafeArea" component={SpecifySafeArea}  options={{headerShown: false}} />
-
-      <Stack.Screen name="Home" component={Home}  options={{headerShown: false}} />
-      
 
 
       <Stack.Screen name="SignUpGuardian"  component={Signup} />
 
 
-
-        <Stack.Screen name="SignupDementia"  component={SignupDementia}/>
+      <Stack.Screen name="Home" component={Home}  options={{headerShown: false}} />
+      <Stack.Screen name="SignupDementia"  component={SignupDementia}/>
         <Stack.Screen name="Signin"  options={{headerShown: false}} component={SignIn}/>
+
+
+      
         <Stack.Screen name="CheckNotes" component={CheckNotes}  options={{headerShown: false}}/>
         <Stack.Screen name="CheckNote" component={CheckNote} />
         <Stack.Screen name="AddNote" component={AddNotes} />
         <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
         <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
         <Stack.Screen name="Location" component={Location} />
-
+        <Stack.Screen name="HistoryDementia" component={HistoryDementia}/>
+        <Stack.Screen name="AddHistoryDementia" component={AddHistoryDementia}/>    
 
         
 

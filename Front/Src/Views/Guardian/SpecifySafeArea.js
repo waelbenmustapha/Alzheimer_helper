@@ -19,7 +19,7 @@ const SpecifySafeArea = () => {
 function saveSafeArea(){
   console.log(marker.latitude.toFixed(7));
   console.log(marker.longitude.toFixed(7))
-  axios.post("http://192.168.1.60:8090/dementia/safezone/4028b8817f462f98017f4647f8dc0001",{latitude:marker.latitude.toFixed(7),longitude:marker.longitude.toFixed(7),diameter:radius})
+  axios.post("http://192.168.8.101:8090/dementia/safezone/4028b8817f462f98017f4647f8dc0001",{latitude:marker.latitude.toFixed(7),longitude:marker.longitude.toFixed(7),diameter:radius})
 }
 
   function getlocation() {
