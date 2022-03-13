@@ -1,89 +1,40 @@
-import { View, StatusBar, StyleSheet, ImageBackground, SafeAreaView, TextInput, TouchableOpacity, Text } from 'react-native'
-import React, { useState } from 'react'
+import React, { Component } from 'react';
+import { Dimensions, View, StatusBar, StyleSheet, ImageBackground, SafeAreaView, TextInput, TouchableOpacity, Text }
+    from 'react-native'
 
 
-import {
-    CodeField,
-    Cursor,
-    useBlurOnFulfill,
-    useClearByFocusCell,
-    MaskSymbol,
-    isLastFilledCell,
-} from 'react-native-confirmation-code-field';
-
+import CodePin from 'react-native-pin-code';
 
 const PinCode = ({ navigation }) => {
-    const CELL_COUNT = 4;
 
 
-    const [value, setValue] = useState('');
-    const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
-    const [props, getCellOnLayoutHandler] = useClearByFocusCell({
-        value,
-        setValue,
-    });
-
-    const renderCell = ({ index, symbol, isFocused }) => {
-        let textChild = null;
-
-        if (symbol) {
-            textChild = (
-                <MaskSymbol
-                    maskSymbol="*"
-                    isLastFilledCell={isLastFilledCell({ index, value })}>
-                    {symbol}
-                </MaskSymbol>
-            );
-        } else if (isFocused) {
-            textChild = <Cursor />;
-        }
-
-
-        return (
-            <Text
-                key={index}
-                style={[styles.cell, isFocused && styles.focusCell]}
-                onLayout={getCellOnLayoutHandler(index)}>
-                {textChild}
-            </Text>
-        );
-    };
-
-   
     return (
         <ImageBackground source={require("./../../../assets/old.png")} resizeMode="cover" style={styles.image}>
 
             <SafeAreaView style={styles.root}>
                 <Text style={styles.title}>Alzheimer Helper</Text>
                 <View style={styles.container}>
-                    <CodeField
-                        ref={ref}
-                        {...props}
-                        value={value}
-                        caretHidden={false}
-                        onChangeText={setValue}
-                        cellCount={CELL_COUNT}
-                        rootStyle={styles.codeFieldRoot}
-                        keyboardType="number-pad"
-                        textContentType="oneTimeCode"
-                        renderCell={renderCell}
+
+                    <CodePin
+                        ref={ref => (this.ref = ref)}
+                        obfuscation
+                        autoFocusFirst
+                        code="fake_code"
+                        number={4}
+                        keyboardType="numeric"
+                        checkPinCode={(code, callback) => callback(code === '1234')}
+                        success={() => navigation.navigate("Home")}
                     />
-                    <TouchableOpacity
-                        onPress={() => {
-                            console.log("it's done"), navigation.navigate("Home");
-                        }}
-                        style={styles.donebutton}
-                    >
-                        <Text> Verify</Text>
-                    </TouchableOpacity>
+
                 </View>
 
             </SafeAreaView>
         </ImageBackground>
 
     );
-};
 
+
+}
 
 
 const styles = StyleSheet.create({
@@ -94,9 +45,10 @@ const styles = StyleSheet.create({
 
 
     },
+
     container: {
         flex: 1,
-        margin: 40,
+        margin: 20,
         justifyContent: 'flex-end',
 
     },
@@ -111,8 +63,8 @@ const styles = StyleSheet.create({
         flex: 1,
     },
 
-    innercontainer:{
-        flex:1,
+    innercontainer: {
+        flex: 1,
         marginTop: StatusBar.currentHeight,
         backgroundColor: 'rgba(0,0,0, 0.30)'
 

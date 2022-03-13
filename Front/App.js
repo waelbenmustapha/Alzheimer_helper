@@ -33,13 +33,15 @@ export default function App() {
       <Stack.Screen name="IntroSlider" options={{headerShown: false}} component={IntroSlider}/>
 
       <Stack.Screen name="SignUpGuardian"  options={{headerShown: false}} component={Signup} />
-     <Stack.Screen name="PinCode" options={{headerShown: false}} component={PinCode}/>
 
 
 
         <Stack.Screen name="SignupDementia"  options={{headerShown: false}} component={SignupDementia}/>
         <Stack.Screen name="SigninDementia"  options={{headerShown: false}} component={SigninDementia}/>
       <Stack.Screen name="SignInGuardian"  options={{headerShown: false}} component={SignIn} />
+      
+            <Stack.Screen name="PinCode" options={{headerShown: false}} component={PinCode}/>
+
         <Stack.Screen name="Home" component={Home}  options={{headerShown: false}} />
         <Stack.Screen name="CheckNotes" component={CheckNotes}  options={{headerShown: false}}/>
         <Stack.Screen name="CheckNote" component={CheckNote} />
