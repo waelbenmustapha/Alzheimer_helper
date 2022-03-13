@@ -159,7 +159,7 @@ const Signup = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 2,
+    flex: 1,
     flexDirection: "row"
   },
   containerLogo: {
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   input: {
     justifyContent: 'center',
     alignItems: 'flex-start',
-    width: 300,
+    width: "60%",
     height: 50,
     backgroundColor: '#fff',
     borderColor: '#4A0D66',
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   title: {
-    marginTop: 140,
+    marginTop: "10%",
     marginBottom: 18,
     fontSize: 24,
     color: '#359A8E'
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     margin: 10,
     marginLeft: 250,
     backgroundColor: '#359A8E',
-    width: 70,
+    width: "18%",
     height: 49,
     borderRadius: 20,
     marginEnd: 80,
