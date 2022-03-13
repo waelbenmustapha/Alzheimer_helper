@@ -53,12 +53,12 @@ private BCryptPasswordEncoder bCryptPasswordEncoder;
       dementia.setPassword(bCryptPasswordEncoder.encode(dementia.getPassword()));
       dementiaRepository.save(dementia);
       guardianRepository.save(guardian);
-      return new ResponseEntity("okah", HttpStatus.OK);}
+      return new ResponseEntity("Signup successful", HttpStatus.OK);}
       else{
-        return new ResponseEntity("Email Already used", HttpStatus.OK);}
+        return new ResponseEntity("Email Already exist", HttpStatus.IM_USED);}
     }
     else{
-      return new ResponseEntity("Guardian Does not exist", HttpStatus.OK);
+      return new ResponseEntity("Guardian Does not exist", HttpStatus.NOT_FOUND);
 
     }
   }
