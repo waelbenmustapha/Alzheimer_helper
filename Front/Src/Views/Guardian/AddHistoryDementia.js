@@ -8,7 +8,7 @@ const AddHistoryDementia = ({route,navigation}) => {
 
     function AddHistory() {
 
-        axios.post(`http://192.168.8.101:8090/`,
+        axios.post(`http://192.168.8.100:8090/`,
           { history: history})
           .then((res) => navigation.navigate("HistoryDementia"))
       }

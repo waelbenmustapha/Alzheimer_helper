@@ -13,7 +13,7 @@ const HistoryDementia = ({route,navigation}) => {
     function getHistory() {
         axios
           .get(
-            `http://192.168.8.100:8090/`
+            `http:/192.168.8.100:8090/`
           )
           .then((res) => {
             setHistory(res.data);

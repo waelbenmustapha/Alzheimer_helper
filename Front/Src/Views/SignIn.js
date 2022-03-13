@@ -14,14 +14,12 @@ const SignIn = ({ navigation }) => {
 
   const handleSubmitPress = async (event) => {
     if (!userEmail.trim() || !userPassword.trim()) {
-      ToastAndroid.showWithGravity(
-        "Please fell Email or Password",
-        ToastAndroid.LONG,
-        ToastAndroid.BOTTOM
-      );
+     
+        alert("Please fell Email or Password")
+        
       return;
     } setIsLoading(true);
-      axios.post(`http://192.168.8.101:8090/auth/login`, {
+      axios.post(`http://192.168.8.100:8090/auth/login`, {
        email: userEmail,
       password: userPassword,
       }).then((response) => {

@@ -50,8 +50,9 @@ const Signup = ({ navigation }) => {
         ToastAndroid.BOTTOM)
       return;
     } setIsLoading(true);
-
-    axios.post(`http://192.168.8.101:8090/guardian/SignUp`, {
+    //navigation.navigate("Signin")
+   // console.log(userName+"  " +userEmail+" "+userPassword+" "+userConfirmPassword);
+    axios.post('http://192.168.8.100:8090/guardian/SignUp', {
       name: userName,
       email: userEmail,
       password: userPassword,
@@ -59,6 +60,7 @@ const Signup = ({ navigation }) => {
       birthdate: "2022-02-27T19:59:52.278+00:00"
     }).then((response) => {
       console.log(response.status)
+      console.log("ici")
       if (response.status === 200) {
         navigation.navigate("Signin")
       }

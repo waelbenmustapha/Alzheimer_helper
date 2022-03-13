@@ -21,8 +21,8 @@ const Home = ({ navigation }) => {
 
 
   useEffect(() => {
-    console.log(`http://192.168.8.101:8090/guardian/get`);
-    axios.get(`http://192.168.8.101:8090/guardian/get`).then((res) => console.log(res)).catch((err) => console.log(err))
+    console.log(`http://192.168.8.100:8090/guardian/get`);
+    axios.get(`http://192.168.8.100:8090/guardian/get`).then((res) => console.log(res)).catch((err) => console.log(err))
   }, [])
 
   return (
