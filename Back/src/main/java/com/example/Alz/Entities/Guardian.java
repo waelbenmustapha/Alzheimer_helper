@@ -20,6 +20,8 @@ public class Guardian {
   @Id
   private String id;
 
+  private String PushToken;
+
 
   private String name;
 

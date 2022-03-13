@@ -16,7 +16,7 @@ const SignIn = ({ navigation }) => {
       alert("Please fill Email or Password");
       return;
     } setIsLoading(true);
-      axios.post(`http://172.16.23.165:8090/auth/login`, {
+      axios.post(`http://192.168.1.26:8090/auth/login/{pushtoken}`, {
        email: userEmail,
       password: userPassword,
       }).then((response) => {

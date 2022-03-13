@@ -24,22 +24,19 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen name="IntroSliderScreen" options={{headerShown: false}} component={IntroSliderScreen}/>
+        <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
 
-<Stack.Screen name="IntroSlider" options={{headerShown: false}} component={IntroSlider}/>
-      <Stack.Screen name="SpecifySafeArea" component={SpecifySafeArea}  options={{headerShown: false}} />
+        <Stack.Screen name="IntroSlider" options={{ headerShown: false }} component={IntroSlider} />
+        <Stack.Screen name="SpecifySafeArea" component={SpecifySafeArea} options={{ headerShown: false }} />
 
-      <Stack.Screen name="Home" component={Home}  options={{headerShown: false}} />
-      
-
-
-      <Stack.Screen name="SignUpGuardian"  component={Signup} />
+        <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
 
 
 
-        <Stack.Screen name="SignupDementia"  component={SignupDementia}/>
-        <Stack.Screen name="Signin"  options={{headerShown: false}} component={SignIn}/>
-        <Stack.Screen name="CheckNotes" component={CheckNotes}  options={{headerShown: false}}/>
+        <Stack.Screen name="SignUpGuardian" component={Signup} />
+        <Stack.Screen name="SignupDementia" component={SignupDementia} />
+        <Stack.Screen name="Signin" options={{ headerShown: false }} component={SignIn} />
+        <Stack.Screen name="CheckNotes" component={CheckNotes} options={{ headerShown: false }} />
         <Stack.Screen name="CheckNote" component={CheckNote} />
         <Stack.Screen name="AddNote" component={AddNotes} />
         <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
@@ -47,7 +44,7 @@ export default function App() {
         <Stack.Screen name="Location" component={Location} />
 
 
-        
+
 
 
       </Stack.Navigator>

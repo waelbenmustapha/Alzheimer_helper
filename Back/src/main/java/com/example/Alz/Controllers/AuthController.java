@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,12 +26,14 @@ public class AuthController {
   @Autowired
   private DementiaRepository dementiaRepository;
 
-  @PostMapping("/login")
-  public ResponseEntity login(@RequestBody Guardian guardian) {
+  @PostMapping("/login/{pushtoken}")
+  public ResponseEntity login(@RequestBody Guardian guardian,@PathVariable("pushtoken") String pushtoken) {
 
     Guardian DbGuardian = guardianRepository.findByEmail(guardian.getEmail());
     if (DbGuardian != null) {
       if (bCryptPasswordEncoder.matches(guardian.getPassword(), DbGuardian.getPassword())) {
+        DbGuardian.setPushToken(pushtoken);
+        guardianRepository.save(DbGuardian);
         return new ResponseEntity(DbGuardian, HttpStatus.OK);
       } else {
         return new ResponseEntity("Wrong Info", HttpStatus.FORBIDDEN);
@@ -40,6 +43,8 @@ public class AuthController {
       Dementia dbDementia = dementiaRepository.findByEmail(guardian.getEmail());
       if (dbDementia != null) {
         if (bCryptPasswordEncoder.matches(guardian.getPassword(), dbDementia.getPassword())) {
+          dbDementia.setPushToken(pushtoken);
+          dementiaRepository.save(dbDementia);
           return new ResponseEntity(dbDementia, HttpStatus.OK);
         } else {
           return new ResponseEntity("Wrong Info", HttpStatus.FORBIDDEN);
@@ -49,5 +54,6 @@ public class AuthController {
     }
     return new ResponseEntity("Wrong Info", HttpStatus.FORBIDDEN);
   }
+
 
   }

@@ -43,6 +43,7 @@ public class Dementia {
   private String email;
   private String password;
 private String type = "dementia";
+  private String PushToken;
 
   @OneToMany(mappedBy="dementia")
   private List<Notes> notes;
@@ -51,7 +52,8 @@ private String type = "dementia";
   private BigDecimal latitude;
   @Digits(integer=3, fraction=7)
   private BigDecimal longitude;
-
+  @Column(name="story", columnDefinition="LONGTEXT")
+  private String story;
   @OneToOne(mappedBy = "dementia")
   @JsonIgnore
   private Guardian guardian;
