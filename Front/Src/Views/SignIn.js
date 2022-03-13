@@ -22,7 +22,7 @@ const SignIn = ({ navigation }) => {
       }).then((response) => {
         if (response.status === 200) {
           console.log('done');
-          navigation.navigate("Home")
+          navigation.navigate("PinCode")
         } 
       }).catch((error) => { alert("Email or Password is wrong "); setIsLoading(false); })
     

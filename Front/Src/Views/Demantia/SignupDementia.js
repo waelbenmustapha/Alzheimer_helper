@@ -32,39 +32,39 @@ const SignupDementia = ({ navigation }) => {
     if (userPassword !== userConfirmPassword)
       return alert("Password does not match!");
 
-    if (guardianEmail)
-      return alert("Email Guardian does not match!");
+    
 
     return true;
   };
 
 
 
-
-
-
   const handleSubmitPress = async (event) => {
-    if (isValid ()){
-   setIsLoading(true);
+    if (isValid()) {
+      setIsLoading(true);
 
-    axios.post(`http://172.16.23.165:8090/dementia/SignUp/${guardianEmail}`, {
-      name: userName,
-      email: userEmail,
-      password: userPassword,
-      comfirmPassword: userConfirmPassword,
-      birthdate: "2022-02-27T19:59:52.278+00:00"
-    }).then((response) => {
-      console.log(response.status)
-      if (response.status === 200) {
+      axios.post(`http://192.168.1.26:8090/dementia/SignUp/${guardianEmail}`, {
+        name: userName,
+        email: userEmail,
+        password: userPassword,
+        comfirmPassword: userConfirmPassword,
+        birthdate: "2022-02-27T19:59:52.278+00:00"
+      }).then((response) => {
+        console.log(response.status)
+        if (response.status === 200) {
+          alert("successful Email creation!")
+          navigation.navigate("Signin")
+        }
         if (response.status === 226) {
           alert("Email already exist!")
         }
         if (response.status === 404) {
           alert("Guardian Email does not exist!")
         }
-      }
-    }).catch((error) => { alert(error); setIsLoading(false); })
-  } } 
+
+      }).catch((error) => { alert(error); setIsLoading(false); })
+    }
+  }
 
 
   return (
