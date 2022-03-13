@@ -22,7 +22,7 @@ const CheckNotes = ({ navigation }) => {
   function getData() {
     axios
       .get(
-        `http://192.168.1.26:8090/notes/get-notes-by-dementia-id/402881907f190703017f1909a0080001`
+        `http://192.168.1.26:8090/notes/get-notes-by-dementia-id/4028819a7f851723017f852bb7e30004`
       )
       .then((res) => {
         console.log("************************");
@@ -54,7 +54,7 @@ const CheckNotes = ({ navigation }) => {
 
 
 
-      <View style={[styles.container, { flex: 5, flexDirection: "column" }]}>
+      <View style={[styles.container, { flex: 7, flexDirection: "column" }]}>
         <View style={[styles.container, { flexDirection: "row" }]}>
 
           <View style={styles.barre} />
@@ -120,10 +120,10 @@ const styles = StyleSheet.create({
   },
   image: {
     marginTop: 5,
-    marginLeft: 40,
+    marginLeft: 20,
     fontSize: 28,
     fontWeight: "bold",
-    color: "#359A8E",
+    
   },
   backarrow: {
     paddingLeft: 50,
@@ -158,6 +158,10 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 40 / 2,
+    shadowColor: "#359A8E",
+    shadowOpacity: 0.55,
+    shadowRadius: 2.22,
+    elevation: 6,
   },
   barre: {
     flex: 0,
