@@ -25,7 +25,7 @@ const SignIn = ({ navigation }) => {
       }).then((response) => {
         if (response.status === 200) {
           console.log('done');
-          navigation.navigate("Home")
+          navigation.navigate("PinCode")
         } 
       }).catch((error) => { (ToastAndroid.showWithGravity("Email or Password is wrong",ToastAndroid.LONG,ToastAndroid.BOTTOM)),setIsLoading(false)})
     
