@@ -46,7 +46,7 @@ public class GuardianController {
     if (emailnotexist) {
       guardian.setPassword(bCryptPasswordEncoder.encode(guardian.getPassword()));
       guardianRepository.save(guardian);
-      return new ResponseEntity("good", HttpStatus.OK);
+      return new ResponseEntity("Signup successful", HttpStatus.OK);
     } else {
       return new ResponseEntity("Email Already exist", HttpStatus.IM_USED);
     }
