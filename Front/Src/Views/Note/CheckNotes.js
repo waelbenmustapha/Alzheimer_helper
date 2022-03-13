@@ -36,7 +36,7 @@ const CheckNotes = ({ navigation }) => {
 
   return (
 
-    <View style={[styles.container, { flex: 3, flexDirection: "column" }]}>
+    <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
       <View style={{ flex: 1, padding: '15%' }}>
 
         <View style={{flex: 1, flexDirection: "row" }}>
