@@ -54,7 +54,7 @@ const CheckNotes = ({ navigation }) => {
 
 
 
-      <View style={[styles.container, { flex: 5, flexDirection: "column" }]}>
+      <View style={[styles.container, { flex: 7, flexDirection: "column" }]}>
         <View style={[styles.container, { flexDirection: "row" }]}>
 
           <View style={styles.barre} />
@@ -120,10 +120,10 @@ const styles = StyleSheet.create({
   },
   image: {
     marginTop: 5,
-    marginLeft: 40,
+    marginLeft: 20,
     fontSize: 28,
     fontWeight: "bold",
-    color: "#359A8E",
+    
   },
   backarrow: {
     paddingLeft: 50,
@@ -158,6 +158,10 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 40 / 2,
+    shadowColor: "#359A8E",
+    shadowOpacity: 0.55,
+    shadowRadius: 2.22,
+    elevation: 6,
   },
   barre: {
     flex: 0,

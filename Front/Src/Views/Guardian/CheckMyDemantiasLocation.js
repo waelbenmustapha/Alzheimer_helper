@@ -16,6 +16,7 @@ import {
 } from "react-native";
 import * as Location from "expo-location";
 import axios from "axios";
+import { sendPushNotification } from "../../Utils/Notif";
 
 const CheckMyDemantiasLocation = () => {
   const[Danger, setDanger] = useState(false);
@@ -38,7 +39,7 @@ const CheckMyDemantiasLocation = () => {
   function getDemantiaLocation() {
     axios
       .get(
-        `http://192.168.1.16:8090/guardian/getMyDementiaLocation/4028b8817f092fe7017f093140e80000`
+        `http://192.168.1.16:8090/guardian/getMyDementiaLocation/402881907f858cf0017f858fa6710000`
       )
       .then((res) => {
         setLocation(res.data);
@@ -50,9 +51,9 @@ const CheckMyDemantiasLocation = () => {
                 safe
               ) > 300
         ) {
-          // async () => {
-          //   await sendPushNotification('kacZK7Mh8H-X8solLH94mI');
-          // }
+             sendPushNotification('ExponentPushToken[kacZK7Mh8H-X8solLH94mI]');
+          
+          console.log("danger")
           setDanger(true);
         } else {
             console.log("saaaaafe")
@@ -75,7 +76,7 @@ const CheckMyDemantiasLocation = () => {
     const interval = setInterval(() => {
       getDemantiaLocation();
       console.log("seconds 10 getting");
-    }, 10000);
+    }, 30000);
   }, []);
 
   if (location == null) {

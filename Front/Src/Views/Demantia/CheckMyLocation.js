@@ -11,7 +11,7 @@ const CheckMyLocation = () => {
     console.log("**********************************")
     console.log(latitude+"and "+longitude),
     console.log("**********************************")
-    axios.post(`http://192.168.1.16:8090/dementia/post-location/4028b8817f092fe7017f0931962d0001/${latitude.toFixed(7)}/${longitude.toFixed(7)}`).then((res)=>console.log(res.data)).catch((err)=>console.log("ell error"+err))
+    axios.post(`http://192.168.1.16:8090/dementia/post-location/402881907f858cf0017f8590d8400001/${latitude.toFixed(7)}/${longitude.toFixed(7)}`).then((res)=>console.log(res.data)).catch((err)=>console.log("ell error"+err))
   }
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -34,8 +34,8 @@ const CheckMyLocation = () => {
 
     const interval = setInterval(() => {
       getlocation();
-     console.log("seconds 10")
-    }, 10000);
+     console.log("seconds 30")
+    }, 30000);
     
   }, []);
 
