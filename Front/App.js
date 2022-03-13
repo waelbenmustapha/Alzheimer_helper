@@ -16,6 +16,7 @@ import IntroSliderScreen from './Src/Views/Guardian/IntroSliderScreen';
 import Signup from './Src/Views/Guardian/Signup';
 import IntroSlider from './Src/Views/Guardian/IntroSlider';
 import SpecifySafeArea from './Src/Views/Guardian/SpecifySafeArea';
+import Notif from './Src/Utils/Notif';
 
 
 export default function App() {
@@ -24,12 +25,16 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
+      <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
+
+      <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+
+      <Stack.Screen name="Notif" options={{ headerShown: false }} component={Notif} />
+
 
         <Stack.Screen name="IntroSlider" options={{ headerShown: false }} component={IntroSlider} />
         <Stack.Screen name="SpecifySafeArea" component={SpecifySafeArea} options={{ headerShown: false }} />
 
-        <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
 
 
 
