@@ -3,6 +3,7 @@ import { View, ScrollView, TouchableOpacity, Image, Text, TextInput, StyleSheet,
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { validatePathConfig } from '@react-navigation/native';
 
 const Signup = ({ navigation }) => {
 
@@ -40,31 +41,54 @@ const Signup = ({ navigation }) => {
   };
 
 
+
+
+
+  const regx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+  const isValid = () => {
+
+    if (!userName.trim() || !userEmail.trim() || !userPassword.trim())
+      return alert("Please fill in all fields are required ");
+
+    if (userName.length < 3)
+     return alert("Invalid Name");
+    
+    if (!regx.test(userEmail))
+     return alert ("invalid Email");
+
+    if (!userPassword.length > 8) 
+     return alert("Password is less then 8 characters!");
+    
+    if (userPassword !== userConfirmPassword) 
+      return alert("Password does not match!");
+    
+      return true;
+  };
+
   //inser
 
   const handleSubmitPress = async (event) => {
-    if (!userEmail.trim() || !userPassword.trim() || !userName.trim()) {
-      ToastAndroid.showWithGravity(
-        "Please fill in all fields are required",
-        ToastAndroid.LONG,
-        ToastAndroid.BOTTOM)
-      return;
-    } setIsLoading(true);
-    //navigation.navigate("Signin")
-   // console.log(userName+"  " +userEmail+" "+userPassword+" "+userConfirmPassword);
-    axios.post('http://192.168.8.100:8090/guardian/SignUp', {
-      name: userName,
-      email: userEmail,
-      password: userPassword,
-      comfirmPassword: userConfirmPassword,
-      birthdate: "2022-02-27T19:59:52.278+00:00"
-    }).then((response) => {
-      console.log(response.status)
-      console.log("ici")
-      if (response.status === 200) {
-        navigation.navigate("Signin")
-      }
-    }).catch((error) => { alert(error); setIsLoading(false); })
+    if (isValid()) {
+
+      setIsLoading(true);
+
+      axios.post(`http://192.168.1.26:8090/guardian/SignUp`, {
+        name: userName,
+        email: userEmail,
+        password: userPassword,
+        comfirmPassword: userConfirmPassword,
+        birthdate: "2022-02-27T19:59:52.278+00:00"
+      }).then((response) => {
+        console.log(response.status)
+        if (response.status === 200) {
+          navigation.navigate("Signin")
+        }
+        if (response.status === 226){
+          alert("Email already exist!")
+        }
+      }).catch((error) => { alert(error); setIsLoading(false); })
+    }
   }
 
 
@@ -115,7 +139,7 @@ const Signup = ({ navigation }) => {
               placeholderTextColor='#00000080'
               onChangeText={(UserEmail) => setUserEmail(UserEmail)}
             />
-            
+
             <TextInput
               style={styles.input}
               placeholder='Password'
@@ -164,7 +188,7 @@ const Signup = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 2,
+    flex: 1,
     flexDirection: "row"
   },
   containerLogo: {
@@ -176,7 +200,7 @@ const styles = StyleSheet.create({
   input: {
     justifyContent: 'center',
     alignItems: 'flex-start',
-    width: 300,
+    width: "60%",
     height: 50,
     backgroundColor: '#fff',
     borderColor: '#4A0D66',
@@ -197,7 +221,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   title: {
-    marginTop: 140,
+    marginTop: "10%",
     marginBottom: 18,
     fontSize: 24,
     color: '#359A8E'
@@ -211,7 +235,7 @@ const styles = StyleSheet.create({
     margin: 10,
     marginLeft: 250,
     backgroundColor: '#359A8E',
-    width: 70,
+    width: "18%",
     height: 49,
     borderRadius: 20,
     marginEnd: 80,
@@ -239,7 +263,7 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   date0: {
-    color:'#00000080',
+    color: '#00000080',
     fontSize: 18
   },
 })

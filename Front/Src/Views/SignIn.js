@@ -19,7 +19,7 @@ const SignIn = ({ navigation }) => {
         
       return;
     } setIsLoading(true);
-      axios.post(`http://192.168.8.100:8090/auth/login`, {
+      axios.post(`http://192.168.8.100:8090/auth/login/mmmm`, {
        email: userEmail,
       password: userPassword,
       }).then((response) => {

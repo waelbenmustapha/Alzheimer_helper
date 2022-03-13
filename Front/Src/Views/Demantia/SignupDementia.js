@@ -5,7 +5,6 @@ import axios from 'axios';
 const SignupDementia = ({ navigation }) => {
 
   const [userName, setUserName] = useState('');
-  const [age, setAge] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [userConfirmPassword, setConfirmUserPassword] = useState('');
@@ -13,36 +12,58 @@ const SignupDementia = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
 
 
-  const handleSubmitPress = async (event) => {
-    if (!userEmail.trim() || !userPassword.trim() ||  !userName.trim() || !guardianEmail.trim()) {
-      ToastAndroid.showWithGravity(
-        "Please fill in all fields are required",
-        ToastAndroid.LONG,
-        ToastAndroid.BOTTOM)
-      return;
-    } setIsLoading(true);
 
-    axios.post(`http://192.168.8.100:8090/dementia/SignUp/${guardianEmail}`, {
-      name: userName,
-      email: userEmail,
-      password: userPassword,
-      comfirmPassword: userConfirmPassword,
-      age: age,
-      birthdate: "2022-02-27T19:59:52.278+00:00"
-    }).then((response) => {
-      console.log(response.status)
-      if (response.status === 200) {
-        //alert(` You have created: ${JSON.stringify(response.data)}`);
-        ToastAndroid.showWithGravity("You have created", ToastAndroid.LONG,ToastAndroid.BOTTOM)
-        setIsLoading(false);
-        setUserName('');
-        setAge('');
-        setUserEmail('');
-        setUserPassword('');
-        setConfirmUserPassword('');
-        setGuardianEmail('');
-      }
-    }).catch((error) => { alert(error); setIsLoading(false); })
+  const regx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+  const isValid = () => {
+
+    if (!userName.trim() || !userEmail.trim() || !userPassword.trim() || !guardianEmail.trim())
+      return alert("Please fill in all fields are required ");
+
+    if (userName.length < 3)
+      return alert("Invalid Name");
+
+    if (!regx.test(userEmail))
+      return alert("invalid Email");
+
+    if (!userPassword.length > 8)
+      return alert("Password is less then 8 characters!");
+
+    if (userPassword !== userConfirmPassword)
+      return alert("Password does not match!");
+
+    
+
+    return true;
+  };
+
+
+
+  const handleSubmitPress = async (event) => {
+    if (isValid()) {
+      setIsLoading(true);
+
+      axios.post(`http://192.168.1.26:8090/dementia/SignUp/${guardianEmail}`, {
+        name: userName,
+        email: userEmail,
+        password: userPassword,
+        comfirmPassword: userConfirmPassword,
+        birthdate: "2022-02-27T19:59:52.278+00:00"
+      }).then((response) => {
+        console.log(response.status)
+        if (response.status === 200) {
+          alert("successful Email creation!")
+          navigation.navigate("Signin")
+        }
+        if (response.status === 226) {
+          alert("Email already exist!")
+        }
+        if (response.status === 404) {
+          alert("Guardian Email does not exist!")
+        }
+
+      }).catch((error) => { alert(error); setIsLoading(false); })
+    }
   }
 
 
@@ -62,11 +83,11 @@ const SignupDementia = ({ navigation }) => {
               placeholderTextColor='#00000080'
               onChangeText={(UserName) => setUserName(UserName)}
             />
-         
+
             <TextInput
               style={styles.input}
               placeholder='Email'
-              autoCapitalize="none" 
+              autoCapitalize="none"
               value={userEmail}
               placeholderTextColor='#00000080'
               onChangeText={(UserEmail) => setUserEmail(UserEmail)}
@@ -109,7 +130,7 @@ const SignupDementia = ({ navigation }) => {
             <Text style={styles.textCenter}>Forgot password?</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
-            <Text style={ { color: '#359A8E' }}>
+            <Text style={{ color: '#359A8E' }}>
               Already have an account</Text>
           </TouchableOpacity>
           <Text style={styles.textCenter}>Or login with</Text>
@@ -131,7 +152,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   containerLogo: {
-    padding:5,
+    padding: 5,
     flexDirection: "row",
   },
   form: {
