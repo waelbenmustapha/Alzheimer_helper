@@ -1,5 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import CheckMyLocation from './Src/Views/Demantia/CheckMyLocation';
 import CheckMyDemantiasLocation from './Src/Views/Guardian/CheckMyDemantiasLocation';
 import { NavigationContainer } from '@react-navigation/native';
@@ -13,21 +12,36 @@ import IntroSliderScreen from './Src/Views/Guardian/IntroSliderScreen';
 import Signup from './Src/Views/Guardian/Signup';
 import IntroSlider from './Src/Views/Guardian/IntroSlider';
 import SpecifySafeArea from './Src/Views/Guardian/SpecifySafeArea';
-import Notif from './Src/Utils/Notif';
+import Notif, { registerForPushNotificationsAsync } from './Src/Utils/Notif';
 import CheckNote from './Src/Views/Note/CheckNote';
 import CheckNotes from './Src/Views/Note/CheckNotes';
 import AddNotes from './Src/Views/Note/AddNotes';
 import PinCode from './Src/Views/Guardian/PinCode';
+import { useEffect, useState } from 'react';
 
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import test from './Src/Views/Test';
 
 export default function App() {
+  const [expoPushToken, setExpoPushToken] = useState('');
+
+
+
+  
   const Stack = createNativeStackNavigator();
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen name="Signin" options={{ headerShown: false }} component={SignIn} />
+
       <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
+
+
+      <Stack.Screen name="SignupDementia" component={SignupDementia} />
+
+      <Stack.Screen name="test" options={{ headerShown: false }} component={test} />
+
 
       <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
 
@@ -40,8 +54,6 @@ export default function App() {
 
 
         <Stack.Screen name="SignUpGuardian" component={Signup} />
-        <Stack.Screen name="SignupDementia" component={SignupDementia} />
-        <Stack.Screen name="Signin" options={{ headerShown: false }} component={SignIn} />
 
         <Stack.Screen name="CheckNote" component={CheckNote} options={{ headerShown: false }} />
         <Stack.Screen name="CheckNotes" component={CheckNotes} />

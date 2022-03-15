@@ -43,7 +43,6 @@ const Signup = ({ navigation }) => {
 
 
 
-
   const regx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
   const isValid = () => {
@@ -82,6 +81,7 @@ const Signup = ({ navigation }) => {
       }).then((response) => {
         console.log(response.status)
         if (response.status === 200) {
+          console.log("el reponse "+response)
           navigation.navigate("Signin")
         }
         if (response.status === 226){
@@ -109,27 +109,7 @@ const Signup = ({ navigation }) => {
               placeholderTextColor='#00000080'
               onChangeText={(UserName) => setUserName(UserName)}
             />
-            <TouchableOpacity
-              style={styles.input}
-              onPress={showDatepicker}>
-              {
-                date == null ?
-                  <Text style={styles.date0}>Dementia Birthdate</Text> : <Text style={styles.date}>{JSON.stringify(date
-                  ).substring(1, 11)}</Text>
-
-              }
-            </TouchableOpacity>
-            {show && (
-              <DateTimePicker
-                testID="dateTimePicker"
-                value={new Date(1598051730000)}
-                mode={mode}
-                is24Hour={true}
-                display="default"
-                onChange={onChange}
-                style={styles.date0}
-              />
-            )}
+           
 
             <TextInput
               style={styles.input}

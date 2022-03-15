@@ -21,8 +21,8 @@ import { sendPushNotification } from "../../Utils/Notif";
 const CheckMyDemantiasLocation = () => {
   const[Danger, setDanger] = useState(false);
   const [safe, setSafeArea] = useState({
-    latitude: 36.760228,
-    longitude: 10.270014,
+    latitude: 36.4048249,
+    longitude: 10.1411230,
   });
   const [location, setLocation] = useState(null);
   function goToLocation() {
@@ -82,7 +82,7 @@ const CheckMyDemantiasLocation = () => {
   if (location == null) {
     return (
       <View>
-        <Text>Loading</Text>
+        <Text>Loading </Text>
       </View>
     );
   } else {

@@ -1,14 +1,34 @@
 import React, { useEffect, createRef, useState, hasError } from 'react'
 import { View, ScrollView, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
-import axios from 'axios';
 
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { registerForPushNotificationsAsync } from '../Utils/Notif';
 
 const SignIn = ({ navigation }) => {
 
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [expoPushToken, setExpoPushToken] = useState('');
+
+  const [Data, setData] = useState('');
+
+  
+  _storeData = async () => {
+    try {
+      await AsyncStorage.setItem("token",expoPushToken);
+      await AsyncStorage.setItem("user",JSON.stringify(Data));
+
+      console.log("el token "+expoPushToken)
+    } catch (error) {
+    console.log(error) 
+   }
+  };
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+  }  , []);
 
 
   const handleSubmitPress = async (event) => {
@@ -16,15 +36,19 @@ const SignIn = ({ navigation }) => {
       alert("Please fill Email or Password");
       return;
     } setIsLoading(true);
-      axios.post(`http://192.168.1.16:8090/auth/login/{pushtoken}`, {
+      axios.post(encodeURI(`http://192.168.1.16:8090/auth/login/${expoPushToken}`), {
        email: userEmail,
       password: userPassword,
       }).then((response) => {
         if (response.status === 200) {
+          setData(response.data)
+          _storeData()
+
+          console.log("singin data "+JSON.stringify(Data))
           console.log('done');
-          navigation.navigate("PinCode")
+          navigation.navigate("Home")
         } 
-      }).catch((error) => { alert("Email or Password is wrong "); setIsLoading(false); })
+      }).catch((error) => { console.log("ell error "+error); alert("Email or Password is wrong "); setIsLoading(false); })
     
   }
 

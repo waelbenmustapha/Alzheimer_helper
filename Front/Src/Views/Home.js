@@ -10,37 +10,61 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Icon } from "react-native-elements";
-import axios from "axios";
-import { URL } from "@env"
-/* import Modal from 'react-bootstrap/Modal'
- */
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 const Home = ({ navigation }) => {
 
-
-
+  const [userData, setuserData] =useState({});
+  function getAge(dateString) 
+  {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+    {
+        age--;
+    }
+    return age;
+    }
+  //localStorage
+  const getData = async () => {
+    try {
+      setuserData(JSON.parse(await AsyncStorage.getItem('user'))) 
+      if(userData !== null) {
+      }
+    } catch(e) {
+  console.log(e)  }
+  }
+  
   useEffect(() => {
-    console.log(`http://192.168.1.16:8090/guardian/get`);
-    axios.get(`http://192.168.1.16:8090/guardian/get`).then((res) => console.log(res)).catch((err) => console.log(err))
-  }, [])
+    getData()
+  }  );
+
+
+
 
   return (
 
 
     <View style={styles.container}>
-      <View style={{ flex: 3, flexDirection: "column" }}>
-        <View style={{ flex: 1, flexDirection: "row" }}>
+      <View style={{ flex: 3, alignItems:"center" }}>
+        <View style={{ flex: 1,width:"90%", flexDirection:"row" ,alignItems:"center"}}>
           <Image
             source={require("./../../assets/profile.png")}
             style={styles.image}
           ></Image>
           <View style={styles.firstItem}>
-            <Text style={styles.Title}>Welcome Alex Ten Napel </Text>
-            <Text style={styles.Title}>Your age is 80 </Text>
+            <Text style={styles.Title}>Welcome {userData.name} </Text>
+            {userData.type=="dementia"?<Text style={styles.Title}> you are age is {getAge(userData.birthdate) } </Text>:userData.type=="guardian"?<Text style={styles.Title}> you are a guardian of {userData.dementia.name} </Text>: null}
+            {/* <Text style={styles.Title}>Your age is  </Text> */}
           </View>
         </View>
-
+{/* 
         <View style={{ flex: 0, flexDirection: "column" }}>
           <View style={styles.searchSection}>
             <Icon style={styles.searchIcon} name="search" size={20} color="#000" />
@@ -53,7 +77,7 @@ const Home = ({ navigation }) => {
               underlineColorAndroid="transparent"
             />
           </View>
-        </View>
+        </View> */}
       </View>
 
       <View style={{ flex: 9 }}>
@@ -158,11 +182,11 @@ const styles = StyleSheet.create({
   firstItem: {
     alignItems: "flex-end",
     justifyContent: "center",
-    marginLeft: 10,
+    // marginLeft: 10,
   },
   image: {
-    width: 100,
-    height: 100,
+    width: "40%",
+    height: "90%",
     borderRadius: 40 / 2,
   },
   Title: {
