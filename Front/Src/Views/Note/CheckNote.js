@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
+  TextInput,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
@@ -18,6 +19,13 @@ const CheckNote = ({ route, navigation }) => {
       )
       .then((res) => navigation.navigate("CheckNotes"));
   }
+
+  function UpdateNote() {
+
+    axios.put(`http://192.168.1.26:8090/notes/edit-note/${route.params.el.id}`,
+      { description: description, title: title, date: date })
+      .then((res) => navigation.navigate("CheckNotes"))
+  }
   const [note, setNote] = useState(route.params.el);
   useEffect(() => {
     console.log(note);
@@ -27,8 +35,9 @@ const CheckNote = ({ route, navigation }) => {
     <View style={styles.container}>
       <View style={styles.items}>
         <View style={styles.items}>
+          <Text style={styles.sectionTitle}>Check Note</Text>
           <View style={styles.item}>
-            <Text>{note.title}</Text>
+            <TextInput>{note.title}</TextInput>
             <Text>{note.date}</Text>
           </View>
         </View>
@@ -36,7 +45,7 @@ const CheckNote = ({ route, navigation }) => {
 
       <ScrollView style={styles.scrollView}>
         <View style={styles.item}>
-          <Text style={styles.square}>{note.description}</Text>
+          <TextInput style={styles.square}>{note.description}</TextInput>
         </View>
 
         <View style={styles.fixToText}>
@@ -50,11 +59,11 @@ const CheckNote = ({ route, navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              console.log("it's done");
+              UpdateNote();
             }}
             style={styles.donebutton}
           >
-            <Text> Done</Text>
+            <Text>Updated</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -64,23 +73,20 @@ const CheckNote = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   items: {
-    padding: 5,
+    padding: "5%",
   },
   item: {
-    backgroundColor: "#fff",
-    margin: 10,
-    padding: 5,
+    margin: "1%",
     borderRadius: 10,
     justifyContent: "space-between",
     marginBottom: 0,
   },
   container: {
     flex: 1,
-    backgroundColor: "#fff",
   },
   sectionTitle: {
-    marginTop: 5,
-    marginLeft: 40,
+    margin: "5%",
+    marginLeft: "10%",
     fontSize: 28,
     fontWeight: "bold",
     color: "#359A8E",
@@ -136,11 +142,10 @@ const styles = StyleSheet.create({
   },
   fixToText: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    paddingLeft: 150,
-    paddingRight: 30,
-    paddingTop: 30,
-    paddingBottom: 30,
+    justifyContent: "space-evenly",
+    margin:"5%",
+    paddingLeft: "25%",
+    marginRight: "25%",
   },
 });
 export default CheckNote;
