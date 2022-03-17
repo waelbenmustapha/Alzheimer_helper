@@ -6,16 +6,17 @@ import axios from "axios";
 import { AntDesign } from '@expo/vector-icons';
 
 
-const HistoryDementia = ({route,navigation}) => {
+const HistoryDementia = ({navigation}) => {
     const isFocused = useIsFocused();
     const [history, setHistory] = useState([]);
 
     function getHistory() {
         axios
           .get(
-            `http:/192.168.8.100:8090/`
+            `http://192.168.8.100:8090/story/get/402888e47f88237e017f8853ff440000`
           )
           .then((res) => {
+            console.log("************************");
             setHistory(res.data);
           });
       }
@@ -38,11 +39,9 @@ const HistoryDementia = ({route,navigation}) => {
           <Text style={styles.Title}>Your age is 80 </Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.Sound}><AntDesign name="sound" size={30} /></TouchableOpacity>
-      <ScrollView style={styles.scrollView}>
-        <View style={styles.item}>
-        {history.map((el)=><Text style={styles.square}>History : {el.history}</Text>)}
-        </View>
+      <ScrollView style={styles.scrollView}> 
+       
+        <Text style={styles.square}>{history}</Text>
         </ScrollView>
       </View>
       </View>

@@ -1,36 +1,35 @@
-import { View, Text,StyleSheet,Image,ScrollView,TouchableOpacity } from 'react-native'
+import { View, Text,StyleSheet,Image,ScrollView,TouchableOpacity,TextInput } from 'react-native'
 import React, { useState } from 'react'
 import axios from "axios";
 
 
-const AddHistoryDementia = ({route,navigation}) => {
-    const [hitory, setHistory] = useState("");
+const AddHistoryDementia = ({navigation}) => {
+    const [history, setHistory] = useState("");
 
     function AddHistory() {
 
-        axios.post(`http://192.168.8.100:8090/story/add/`,
+        axios.post(`http://192.168.8.100:8090/story/add/402888e47f88237e017f8853ff440000`,
           { history: history})
-          .then((res) => navigation.navigate("HistoryDementia"))
+          .then((res) => navigation.navigate("Home"))
       }
   return (
     <View style={styles.container}>
     <View style={{ flex: 3, flexDirection: "column" }}>
       <View style={{ flex: 1, flexDirection: "row" }}>
-        <Image
-          source={require("./../../../assets/profile.png")}
-          style={styles.image}
-        ></Image>
+        <Image source={require("./../../../assets/profile.png")}style={styles.image}></Image>
         <View style={styles.firstItem}>
-          <Text style={styles.Title}>Welcome Alex Ten Napel </Text>
-          <Text style={styles.Title}>Your age is 80 </Text>
+          <Text style={styles.Title}>Welcome Alex Ten Napel</Text>
+          <Text style={styles.Title}>Your age is 80</Text>
         </View>
       </View>
-=      <ScrollView style={styles.scrollView}>
+      <ScrollView style={styles.scrollView}>
         <View style={styles.item}>
-          <Text style={styles.square} onChangeText={(text) => setHistory(text)}/>
+          <TextInput multiline numberOfLines={4} style={styles.square} onChangeText={(text) => setHistory(text)} placeholder="History"/>
+         
+       
         </View>
         </ScrollView>
-        <TouchableOpacity onPress={() => { AddHistory() }} >
+        <TouchableOpacity onPress={()=>{AddHistory()}}>
         <Text style={styles.donebutton}>Save</Text>
       </TouchableOpacity>
       </View>
@@ -81,24 +80,16 @@ const styles = StyleSheet.create({
   },
   
   scrollView: {
-    marginHorizontal: 5,
+   // marginHorizontal: 5,
   },
   
   donebutton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 5,
-    paddingVertical: 12,
-    paddingHorizontal: 32,
+    elevation: 8,
+    backgroundColor: "#009688",
     borderRadius: 10,
-    elevation: 3,
-    borderColor: '#093F38',
-    backgroundColor: '#fff',
-    shadowColor: '#093F38',
-    shadowOpacity: 0.55,
-    shadowRadius: 2.22,
-    elevation: 11,
-  },
+    paddingVertical: 10,
+    paddingHorizontal: 12
+      },
 
       
       

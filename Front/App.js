@@ -47,6 +47,8 @@ export default function App() {
         <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
         <Stack.Screen name="Location" component={Location} />
         <Stack.Screen name="PinCode" options={{headerShown: false}} component={PinCode}/>
+        <Stack.Screen name="HistoryDementia" component={HistoryDementia}/>
+        <Stack.Screen name="AddHistoryDementia" component={AddHistoryDementia}/>
 
 
 
