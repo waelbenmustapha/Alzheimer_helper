@@ -15,9 +15,9 @@ import IntroSlider from './Src/Views/Guardian/IntroSlider';
 import SpecifySafeArea from './Src/Views/Guardian/SpecifySafeArea';
 import PinCode from './Src/Views/Guardian/PinCode';
 import CheckNotes from './Src/Views/Note/CheckNotes';
-
 import CheckNote from './Src/Views/Note/CheckNote';
 import AddNotes from './Src/Views/Note/AddNotes';
+import UpdateNote from './Src/Views/Note/UpdateNote';
 
 
 export default function App() {
@@ -26,6 +26,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>        
+                <Stack.Screen name="CheckNotes" component={CheckNotes}options={{ headerShown: false }} />
+
+        <Stack.Screen name="UpdateNote" component={UpdateNote} options={{ headerShown: false }} />
 
         <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
 
@@ -39,8 +42,8 @@ export default function App() {
         <Stack.Screen name="SignupDementia" component={SignupDementia}options={{ headerShown: false }} />
         <Stack.Screen name="Signin" options={{ headerShown: false }} component={SignIn} />
 
+
         <Stack.Screen name="CheckNote" component={CheckNote} options={{ headerShown: false }} />
-        <Stack.Screen name="CheckNotes" component={CheckNotes}options={{ headerShown: false }} />
         <Stack.Screen name="AddNotes" component={AddNotes}options={{ headerShown: false }} />
         <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
         <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
