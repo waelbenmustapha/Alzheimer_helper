@@ -4,17 +4,22 @@ import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-nati
 import * as Location from 'expo-location';
 import axios from 'axios';
 import {URL} from "@env"
+import { getUser } from '../../Utils/user';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CheckMyLocation = () => {
-
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [userData, setuserData] =useState({});
   function postLocation(latitude,longitude){
+
     console.log("**********************************")
     console.log(latitude+"and "+longitude),
     console.log("**********************************")
-    axios.post(`http://192.168.1.16:8090/dementia/post-location/402881907f858cf0017f8590d8400001/${latitude.toFixed(7)}/${longitude.toFixed(7)}`).then((res)=>console.log(res.data)).catch((err)=>console.log("ell error"+err))
+    axios.post(`http://192.168.1.78:8090/dementia/post-location/${userData.id}/${latitude.toFixed(7)}/${longitude.toFixed(7)}`).then((res)=>console.log(res.data)).catch((err)=>console.log("ell error"+err))
   }
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
+ 
+
   function getlocation(){
     
     (async () => {
@@ -30,6 +35,12 @@ const CheckMyLocation = () => {
     })();
   }
   useEffect(() => {
+    console.log("++++++++++++++++++++++++")
+
+    AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item));console.log(item)});
+    console.log("++++++++++++++++++++++++")
+
+    
     getlocation();
 
     const interval = setInterval(() => {
@@ -37,7 +48,7 @@ const CheckMyLocation = () => {
      console.log("seconds 30")
     }, 30000);
     
-  }, []);
+  });
 
   let text = 'Waiting..';
   if (errorMsg) {

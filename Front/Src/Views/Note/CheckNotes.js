@@ -22,7 +22,7 @@ const CheckNotes = ({ navigation }) => {
   function getData() {
     axios
       .get(
-        `http://192.168.1.16:8090/notes/get-notes-by-dementia-id/402881907f190703017f1909a0080001`
+        `http://192.168.1.78:8090/notes/get-notes-by-dementia-id/402881907f190703017f1909a0080001`
       )
       .then((res) => {
         console.log("************************");
@@ -45,8 +45,8 @@ const CheckNotes = ({ navigation }) => {
             style={styles.image}
           ></Image>
           <View style={styles.firstItem}>
-            <Text style={styles.Title}>Welcome Alex Ten Napel </Text>
-            <Text style={styles.Title}>Your age is 80 </Text>
+          {userData.type=="dementia"?<Text style={styles.Title}> you are age is {getAge(userData.birthdate) } </Text> :userData.type=="guardian"?<Text style={styles.Title}> you are a guardian of {userData.dementia.name} </Text>: null}
+
           </View>
         </View>
 

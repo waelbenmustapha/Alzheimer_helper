@@ -22,6 +22,8 @@ const SignIn = ({ navigation }) => {
       await AsyncStorage.setItem("user",JSON.stringify(Data));
 
       console.log("el token "+expoPushToken)
+      console.log("el user "+JSON.stringify(Data))
+
     } catch (error) {
     console.log(error) 
    }
@@ -36,7 +38,7 @@ const SignIn = ({ navigation }) => {
       alert("Please fill Email or Password");
       return;
     } setIsLoading(true);
-      axios.post(encodeURI(`http://192.168.1.16:8090/auth/login/${expoPushToken}`), {
+      axios.post(encodeURI(`http://192.168.1.78:8090/auth/login/${expoPushToken}`), {
        email: userEmail,
       password: userPassword,
       }).then((response) => {

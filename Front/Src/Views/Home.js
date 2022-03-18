@@ -14,11 +14,14 @@ import React, { useEffect, useState } from "react";
 import { Icon } from "react-native-elements";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getUser } from "../Utils/user";
 
 
 const Home = ({ navigation }) => {
 
   const [userData, setuserData] =useState({});
+  const [dir, setdir] =useState('');
+
   function getAge(dateString) 
   {
     var today = new Date();
@@ -32,17 +35,10 @@ const Home = ({ navigation }) => {
     return age;
     }
   //localStorage
-  const getData = async () => {
-    try {
-      setuserData(JSON.parse(await AsyncStorage.getItem('user'))) 
-      if(userData !== null) {
-      }
-    } catch(e) {
-  console.log(e)  }
-  }
-  
+
+ 
   useEffect(() => {
-    getData()
+    getUser(setuserData)
   }  );
 
 
@@ -60,7 +56,7 @@ const Home = ({ navigation }) => {
           ></Image>
           <View style={styles.firstItem}>
             <Text style={styles.Title}>Welcome {userData.name} </Text>
-            {userData.type=="dementia"?<Text style={styles.Title}> you are age is {getAge(userData.birthdate) } </Text>:userData.type=="guardian"?<Text style={styles.Title}> you are a guardian of {userData.dementia.name} </Text>: null}
+            {userData.type=="dementia"?<Text style={styles.Title}> you are age is {getAge(userData.birthdate) } </Text> :userData.type=="guardian"?<Text style={styles.Title}> you are a guardian of {userData.dementia.name} </Text>: null}
             {/* <Text style={styles.Title}>Your age is  </Text> */}
           </View>
         </View>
@@ -109,7 +105,19 @@ const Home = ({ navigation }) => {
 
 
           <View style={{ flex: 2 }} >
-            <TouchableOpacity
+          {userData.type=="dementia"?<TouchableOpacity
+              style={{ alignItems: "center" }}
+              onPress={() => navigation.navigate("DemantiaLocation")}>
+              <Image
+                source={require("./../../assets/map.png")}
+                style={{
+                  width: 150,
+                  height: 180,
+                  borderRadius: 40 / 2,
+                  marginTop: 10,
+                }} />
+              <Text style={styles.Title2}>Location</Text>
+            </TouchableOpacity>:userData.type=="guardian"?<TouchableOpacity
               style={{ alignItems: "center" }}
               onPress={() => navigation.navigate("Location")}>
               <Image
@@ -121,7 +129,9 @@ const Home = ({ navigation }) => {
                   marginTop: 10,
                 }} />
               <Text style={styles.Title2}>Location</Text>
-            </TouchableOpacity>
+            </TouchableOpacity>: null}
+
+            
 
            {/*  <Modal.Dialog>
               <Modal.Body>
