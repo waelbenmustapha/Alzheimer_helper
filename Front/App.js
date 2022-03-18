@@ -25,30 +25,23 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>        
-                <Stack.Screen name="CheckNotes" component={CheckNotes}options={{ headerShown: false }} />
+      <Stack.Navigator>
 
-        <Stack.Screen name="UpdateNote" component={UpdateNote} options={{ headerShown: false }} />
-
-        <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
-
+        <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />                                  
         <Stack.Screen name="IntroSlider" options={{ headerShown: false }} component={IntroSlider} />
         <Stack.Screen name="SpecifySafeArea" component={SpecifySafeArea} options={{ headerShown: false }} />
-
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-
-
-        <Stack.Screen name="SignUpGuardian" component={Signup} options={{ headerShown: false }}/>
-        <Stack.Screen name="SignupDementia" component={SignupDementia}options={{ headerShown: false }} />
+        <Stack.Screen name="SignUpGuardian" component={Signup} options={{ headerShown: false }} />
+        <Stack.Screen name="SignupDementia" component={SignupDementia} options={{ headerShown: false }} />
         <Stack.Screen name="Signin" options={{ headerShown: false }} component={SignIn} />
-
-
+        <Stack.Screen name="CheckNotes" component={CheckNotes} options={{ headerShown: false }} />
+        <Stack.Screen name="AddNotes" component={AddNotes} options={{ headerShown: false }} />
         <Stack.Screen name="CheckNote" component={CheckNote} options={{ headerShown: false }} />
-        <Stack.Screen name="AddNotes" component={AddNotes}options={{ headerShown: false }} />
+        <Stack.Screen name="UpdateNote" component={UpdateNote} options={{ headerShown: false }} />
         <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
         <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
         <Stack.Screen name="Location" component={Location} />
-        <Stack.Screen name="PinCode" options={{ headerShown: false }} component={PinCode}/>
+        <Stack.Screen name="PinCode" options={{ headerShown: false }} component={PinCode} />
 
 
 
