@@ -1,3 +1,4 @@
+
 import {
   View,
   Text,
@@ -15,16 +16,11 @@ import { Icon } from "react-native-elements";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getUser } from "../Utils/user";
-import axios from "axios";
 
-/* import Modal from 'react-bootstrap/Modal'
- */
+
 const Home = ({ navigation }) => {
 
-  const [search, setSearch] = useState('');
-
-
-  const [userData, setuserData] =useState(null);
+  const [userData, setuserData] =useState({});
   const [dir, setdir] =useState('');
 
   function getAge(dateString) 
@@ -47,16 +43,13 @@ const Home = ({ navigation }) => {
   }  );
 
 
-if(userData==null){
-  return <View><Text>Loading</Text></View>
-}
-else{
+
   return (
 
 
     <View style={styles.container}>
-      <View style={{ flex: 3, flexDirection: "column" }}>
-        <View style={{ flex: 2, flexDirection: "row" }}>
+      <View style={{ flex: 3, alignItems:"center" }}>
+        <View style={{ flex: 1,width:"90%", flexDirection:"row" ,alignItems:"center"}}>
           <Image
             source={require("./../../assets/profile.png")}
             style={styles.image}
@@ -67,50 +60,80 @@ else{
             {/* <Text style={styles.Title}>Your age is  </Text> */}
           </View>
         </View>
-
-        <View style={{ flex: 1, flexDirection: "column" }}>
+{/* 
+        <View style={{ flex: 0, flexDirection: "column" }}>
           <View style={styles.searchSection}>
-            <TextInput placeholder="Search" onChangeText={(value) => setSearch(value)}></TextInput>
-            <TouchableOpacity
+            <Icon style={styles.searchIcon} name="search" size={20} color="#000" />
+            <TextInput
               style={styles.input}
-              onPress={() => GoogleApi()}>
-              <Icon style={styles.searchIcon} name="search" size={20} color="#000" />
+              placeholder="User Nickname"
+              onChangeText={(searchString) => {
+                this.setState({ searchString });
+              }}
+              underlineColorAndroid="transparent"
+            />
+          </View>
+        </View> */}
+      </View>
+
+      <View style={{ flex: 9 }}>
+        <View style={{ flexDirection: "row" }}>
+
+          <View style={{ flex: 2 }} >
+            <TouchableOpacity style={{ alignItems: "center" }}>
+              <Image
+                source={require("./../../assets/Contact.png")}
+                style={{
+                  width: 150,
+                  height: 250,
+                  borderRadius: 40 / 2,
+                  marginTop: 10,
+                }} />
+              <Text style={styles.Title2}>Contact</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={{ alignItems: "center" }}>
+              <Image
+                source={require("./../../assets/profile.png")}
+                style={{
+                  width: 150,
+                  height: 180,
+                  borderRadius: 40 / 2,
+                }} />
+              <Text style={styles.Title2}>History</Text>
             </TouchableOpacity>
           </View>
-        </View> 
-      </View>
-      <View style={{ flex: 6 }}>
-
-        <ScrollView>
-          <View style={{ flexDirection: "row" }}>
-
-            <View style={{ flex: 1 }} >
-              <TouchableOpacity style={{ alignItems: "center" }}>
-                <Image
-                  source={require("./../../assets/Contact.png")}
-                  style={styles.image1} />
-                <Text style={styles.Title2}>Contact</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={{ alignItems: "center" }}>
-                <Image
-                  source={require("./../../assets/profile.png")}
-                  style={styles.image2} />
-                <Text style={styles.Title2}>History</Text>
-              </TouchableOpacity>
-            </View>
 
 
-            <View style={{ flex: 1 }} >
-              <TouchableOpacity
-                style={{ alignItems: "center" }}
-                onPress={() => navigation.navigate("Location")}>
-                <Image
-                  source={require("./../../assets/map.png")}
-                  style={styles.image2} />
-                <Text style={styles.Title2}>Location</Text>
-              </TouchableOpacity>
+          <View style={{ flex: 2 }} >
+          {userData.type=="dementia"?<TouchableOpacity
+              style={{ alignItems: "center" }}
+              onPress={() => navigation.navigate("DemantiaLocation")}>
+              <Image
+                source={require("./../../assets/map.png")}
+                style={{
+                  width: 150,
+                  height: 180,
+                  borderRadius: 40 / 2,
+                  marginTop: 10,
+                }} />
+              <Text style={styles.Title2}>Location</Text>
+            </TouchableOpacity>:userData.type=="guardian"?<TouchableOpacity
+              style={{ alignItems: "center" }}
+              onPress={() => navigation.navigate("Location")}>
+              <Image
+                source={require("./../../assets/map.png")}
+                style={{
+                  width: 150,
+                  height: 180,
+                  borderRadius: 40 / 2,
+                  marginTop: 10,
+                }} />
+              <Text style={styles.Title2}>Location</Text>
+            </TouchableOpacity>: null}
 
-              {/*  <Modal.Dialog>
+            
+
+           {/*  <Modal.Dialog>
               <Modal.Body>
                 <TouchableOpacity style={styles.donebutton}
                   onPress={() => navigation.navigate('CheckDemantiaLocation')}>
@@ -124,18 +147,21 @@ else{
             </Modal.Dialog> */}
 
 
-              <TouchableOpacity
-                style={{ alignItems: "center" }}
-                onPress={() => navigation.navigate("CheckNotes")}>
-                <Image
-                  source={require("./../../assets/Note.png")}
-                  style={styles.image1} />
-                <Text style={styles.Title2}>Notes</Text>
-              </TouchableOpacity>
-            </View>
-
+            <TouchableOpacity
+              style={{ alignItems: "center" }}
+              onPress={() => navigation.navigate("CheckNotes")}>
+              <Image
+                source={require("./../../assets/Note.png")}
+                style={{
+                  width: 150,
+                  height: 250,
+                  borderRadius: 40 / 2,
+                }} />
+              <Text style={styles.Title2}>Notes</Text>
+            </TouchableOpacity>
           </View>
-        </ScrollView>
+
+        </View>
       </View>
 
 
@@ -157,23 +183,21 @@ else{
 
   );
 };
-}
 const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     flex: 1,
-    padding: '10%',
+    padding: '5%',
   },
   firstItem: {
     alignItems: "flex-end",
-    justifyContent: "flex-start",
-    margin: "4%",
+    justifyContent: "center",
+    // marginLeft: 10,
   },
   image: {
-    width: "30%",
-    height: "60%",
+    width: "40%",
+    height: "90%",
     borderRadius: 40 / 2,
-
   },
   Title: {
     fontWeight: "bold",
@@ -181,12 +205,9 @@ const styles = StyleSheet.create({
   },
   Title2: {
     fontWeight: "bold",
-    fontSize: 20,
-    margin: 7,
-
+    fontSize: 18,
   },
   searchSection: {
-    padding: 5,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
@@ -215,20 +236,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 11,
-  },
-  image1: {
-    width: "80%",
-    height: 220,
-    borderRadius: 40 / 2,
-    marginTop: 5,
-  },
-  image2: {
-    width: "80%",
-    height: 170,
-    borderRadius: 40 / 2,
-    marginTop: 5,
-
   }
+
 
 });
 

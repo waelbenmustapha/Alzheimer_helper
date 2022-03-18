@@ -21,6 +21,7 @@ import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import test from './Src/Views/Test';
+import UpdateNote from './Src/Views/Note/UpdateNote';
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -56,8 +57,10 @@ export default function App() {
 
 
         <Stack.Screen name="SignUpGuardian" component={Signup} />
-
+        <Stack.Screen name="Location" component={Location} />
+        
         <Stack.Screen name="CheckNote" component={CheckNote} options={{ headerShown: false }} />
+        <Stack.Screen name="CheckNotes" component={CheckNotes} options={{ headerShown: false }} />
         <Stack.Screen name="UpdateNote" component={UpdateNote} options={{ headerShown: false }} />
         <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
         <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
