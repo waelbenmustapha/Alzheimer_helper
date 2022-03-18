@@ -22,7 +22,7 @@ const CheckNotes = ({ navigation }) => {
   function getData() {
     axios
       .get(
-        `http://192.168.1.78:8090/notes/get-notes-by-dementia-id/402881907f190703017f1909a0080001`
+        `http://192.168.1.60:8090/notes/get-notes-by-dementia-id/402881907f190703017f1909a0080001`
       )
       .then((res) => {
         console.log("************************");
@@ -37,9 +37,9 @@ const CheckNotes = ({ navigation }) => {
   return (
 
     <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
-      <View style={{ flex: 1, padding: '15%' }}>
+      <View style={{ flex: 1, padding: '5%' }}>
 
-        <View style={{flex: 1, flexDirection: "row" }}>
+        <View style={{ flex: 1, flexDirection: "row" }}>
           <Image
             source={require("../../../assets/profile.png")}
             style={styles.image}
@@ -54,7 +54,7 @@ const CheckNotes = ({ navigation }) => {
 
 
 
-      <View style={[styles.container, { flex: 7, flexDirection: "column" }]}>
+      <View style={[styles.container, { flex: 4, flexDirection: "column" }]}>
         <View style={[styles.container, { flexDirection: "row" }]}>
 
           <View style={styles.barre} />
@@ -76,7 +76,7 @@ const CheckNotes = ({ navigation }) => {
             </View>
           </View>
           <View style={styles.container1}>
-            <TouchableOpacity onPress={() => navigation.navigate("AddNote")}>
+            <TouchableOpacity onPress={() => navigation.navigate("AddNotes")}>
               <AntDesign name="pluscircleo" size={50} color="#4A0D66" />
             </TouchableOpacity>
           </View>
@@ -101,10 +101,10 @@ const styles = StyleSheet.create({
     padding: 5,
     paddingStart: 20,
     borderRadius: 10,
+
   },
   container: {
     flex: 1,
-    backgroundColor: "#fff",
 
   },
   container1:
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     fontSize: 28,
     fontWeight: "bold",
-    
+
   },
   backarrow: {
     paddingLeft: 50,
@@ -150,18 +150,16 @@ const styles = StyleSheet.create({
   Title: {
     fontWeight: "bold",
     fontSize: 20,
-  }, firstItem: {
+  },
+  firstItem: {
     alignItems: "flex-end",
-    justifyContent: "center",
-    marginLeft: 10,
-  }, image: {
+    justifyContent: "flex-start",
+    margin: "4%",
+  },
+  image: {
     width: 100,
     height: 100,
     borderRadius: 40 / 2,
-    shadowColor: "#359A8E",
-    shadowOpacity: 0.55,
-    shadowRadius: 2.22,
-    elevation: 6,
   },
   barre: {
     flex: 0,

@@ -1,3 +1,4 @@
+
 import {
   View,
   Text,
@@ -41,7 +42,6 @@ const Home = ({ navigation }) => {
     AsyncStorage.getItem('user', (err, item) => {console.log("el data mtaa zeby "+item);setuserData(JSON.parse(item))})
 
   },[]  );
-
 
 
 

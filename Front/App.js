@@ -21,6 +21,7 @@ import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import test from './Src/Views/Test';
+import UpdateNote from './Src/Views/Note/UpdateNote';
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -33,17 +34,19 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+
+      <Stack.Screen name="SignupDementia" component={SignupDementia} />
+
       <Stack.Screen name="Signin" options={{ headerShown: false }} component={SignIn} />
 
       <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
 
 
-      <Stack.Screen name="SignupDementia" component={SignupDementia} />
 
       <Stack.Screen name="test" options={{ headerShown: false }} component={test} />
 
 
-      <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
 
       <Stack.Screen name="Notif" options={{ headerShown: false }} component={Notif} />
 
@@ -54,14 +57,14 @@ export default function App() {
 
 
         <Stack.Screen name="SignUpGuardian" component={Signup} />
-
+        <Stack.Screen name="Location" component={Location} />
+        
         <Stack.Screen name="CheckNote" component={CheckNote} options={{ headerShown: false }} />
-        <Stack.Screen name="CheckNotes" component={CheckNotes} />
-        <Stack.Screen name="AddNote" component={AddNotes} />
+        <Stack.Screen name="CheckNotes" component={CheckNotes} options={{ headerShown: false }} />
+        <Stack.Screen name="UpdateNote" component={UpdateNote} options={{ headerShown: false }} />
         <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
         <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
-        <Stack.Screen name="Location" component={Location} />
-        <Stack.Screen name="PinCode" options={{headerShown: false}} component={PinCode}/>
+        <Stack.Screen name="PinCode" options={{ headerShown: false }} component={PinCode}/>
 
 
 

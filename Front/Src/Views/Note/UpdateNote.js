@@ -7,23 +7,32 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
-import {URL} from "@env"
-import UpdateNote from "./UpdateNote";
 
-const CheckNote = ({ route, navigation }) => {
+const UpdateNote = ({ route, navigation }) => {
+
+    const [date, setDate] = useState(new Date(1598051730000));
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
+    const [description, setDescription] = useState(route.params.el.description);
+    const [title, setTitle] = useState(route.params.el.title);
+  
+ 
+    function deltenote() {
+        axios
+          .delete(
+            `http://192.168.1.60:8090/notes/delete-note/${route.params.el.id}`
+          )
+          .then((res) => navigation.navigate("CheckNotes"));
+      }
 
 
+   function UpdateNote() {
 
-  function deltenote() {
-    axios
-      .delete(
-        `http://192.168.1.60:8090/notes/delete-note/${route.params.el.id}`
-      )
-      .then((res) => navigation.navigate("CheckNotes"));
+    axios.put(`http://192.168.1.60:8090/notes/edit-note/${route.params.el.id}`,
+      { description: description, title: title, date: date })
+      .then((res) => navigation.navigate("CheckNotes"))
   }
-
   const [note, setNote] = useState(route.params.el);
   useEffect(() => {
     console.log(note);
@@ -35,7 +44,7 @@ const CheckNote = ({ route, navigation }) => {
         <View style={styles.items}>
           <Text style={styles.sectionTitle}>Check Note</Text>
           <View style={styles.item}>
-            <Text>{note.title}</Text>
+            <TextInput value={title} onChangeText={(value) => setTitle(value)}></TextInput>
             <Text>{note.date}</Text>
           </View>
         </View>
@@ -43,7 +52,7 @@ const CheckNote = ({ route, navigation }) => {
 
       <ScrollView style={styles.scrollView}>
         <View style={styles.item}>
-          <Text style={styles.square}>{note.description}</Text>
+          <TextInput value={description} onChangeText={(value) => setDescription(value)} style={styles.square}></TextInput>
         </View>
 
         <View style={styles.fixToText}>
@@ -57,11 +66,11 @@ const CheckNote = ({ route, navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('UpdateNote', {el: route.params.el});
+              UpdateNote();
             }}
             style={styles.donebutton}
           >
-            <Text >Updated</Text>
+            <Text>Updated</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -146,4 +155,4 @@ const styles = StyleSheet.create({
     marginRight: "25%",
   },
 });
-export default CheckNote;
+export default UpdateNote;

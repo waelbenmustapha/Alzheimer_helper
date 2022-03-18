@@ -84,7 +84,7 @@ const SignupDementia = ({ navigation }) => {
     if (isValid()) {
       setIsLoading(true);
 
-      axios.post(`http://192.168.1.78:8090/dementia/SignUp/${guardianEmail}`, {
+      axios.post(`http://192.168.1.60:8090/dementia/SignUp/${guardianEmail}`, {
         name: userName,
         email: userEmail,
         password: userPassword,
@@ -111,7 +111,7 @@ const SignupDementia = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView>
 
         <View style={{ flex: 1 }} >
           <View style={styles.form} >
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
   },
   Signupbutton: {
     margin: 10,
-    marginLeft: 250,
+    marginLeft: "60%",
     backgroundColor: '#359A8E',
     width: 70,
     height: 49,
