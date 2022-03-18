@@ -58,12 +58,10 @@ export default function App() {
         <Stack.Screen name="SignUpGuardian" component={Signup} />
 
         <Stack.Screen name="CheckNote" component={CheckNote} options={{ headerShown: false }} />
-        <Stack.Screen name="CheckNotes" component={CheckNotes} />
-        <Stack.Screen name="AddNote" component={AddNotes} />
+        <Stack.Screen name="UpdateNote" component={UpdateNote} options={{ headerShown: false }} />
         <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
         <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
-        <Stack.Screen name="Location" component={Location} />
-        <Stack.Screen name="PinCode" options={{headerShown: false}} component={PinCode}/>
+        <Stack.Screen name="PinCode" options={{ headerShown: false }} component={PinCode}/>
 
 
 

@@ -36,10 +36,10 @@ const CheckMyDemantiasLocation = () => {
 
   const mapRef = useRef();
 
-  function getDemantiaLocation() {
-    axios
+  async function getDemantiaLocation() {
+   await axios
       .get(
-        `http://192.168.1.60:8090/guardian/getMyDementiaLocation/402881907f858cf0017f858fa6710000`
+        `http://192.168.1.60:8090/guardian/getMyDementiaLocation/4028b8817f6de1ee017f6de49c3d0000`
       )
       .then((res) => {
         setLocation(res.data);
@@ -76,7 +76,12 @@ const CheckMyDemantiasLocation = () => {
     const interval = setInterval(() => {
       getDemantiaLocation();
       console.log("seconds 10 getting");
-    }, 30000);
+    }, 15000);
+    return () => {
+      console.log("Cleaning useEffect")
+      clearInterval(interval);
+
+  }    
   }, []);
 
   if (location == null) {

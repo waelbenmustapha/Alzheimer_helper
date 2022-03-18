@@ -34,6 +34,8 @@ const CheckMyLocation = () => {
       setLocation(location);
     })();
   }
+
+  
   useEffect(() => {
     console.log("++++++++++++++++++++++++")
 
@@ -45,10 +47,11 @@ const CheckMyLocation = () => {
 
     const interval = setInterval(() => {
       getlocation();
-     console.log("seconds 30")
-    }, 30000);
+     console.log("seconds 10")
+    }, 15000);
     
-  });
+   
+  }, []);
 
   let text = 'Waiting..';
   if (errorMsg) {

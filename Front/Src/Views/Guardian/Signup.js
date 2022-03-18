@@ -4,6 +4,8 @@ import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { validatePathConfig } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Home from '../Home';
 
 const Signup = ({ navigation }) => {
 
@@ -16,6 +18,37 @@ const Signup = ({ navigation }) => {
   const [userConfirmPassword, setConfirmUserPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+
+
+
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = () => {
+    try {
+      AsyncStorage.getItem('UserData')
+        .then(value => {
+          if (value != null) {
+            navigation.navigate('Home');
+          }
+        })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+  const setData = async () => {
+    if (isValid()){
+      var user ={
+        name : UserName,
+        Date: date
+      }
+      await AsyncStorage.setItem('UserData', JSON.stringify(user));
+    }
+  }
 
   // Birthdate
   const onChange = (event, selectedDate) => {
@@ -51,24 +84,24 @@ const Signup = ({ navigation }) => {
       return alert("Please fill in all fields are required ");
 
     if (userName.length < 3)
-     return alert("Invalid Name");
-    
-    if (!regx.test(userEmail))
-     return alert ("invalid Email");
+      return alert("Invalid Name");
 
-    if (!userPassword.length > 8) 
-     return alert("Password is less then 8 characters!");
-    
-    if (userPassword !== userConfirmPassword) 
+    if (!regx.test(userEmail))
+      return alert("invalid Email");
+
+    if (!userPassword.length > 8)
+      return alert("Password is less then 8 characters!");
+
+    if (userPassword !== userConfirmPassword)
       return alert("Password does not match!");
-    
-      return true;
+
+    return true;
   };
 
   //inser
 
   const handleSubmitPress = async (event) => {
-    if (isValid()) {
+    if (setData()) {
 
       setIsLoading(true);
 
@@ -84,7 +117,7 @@ const Signup = ({ navigation }) => {
           console.log("el reponse "+response)
           navigation.navigate("Signin")
         }
-        if (response.status === 226){
+        if (response.status === 226) {
           alert("Email already exist!")
         }
       }).catch((error) => { alert(error); setIsLoading(false); })
@@ -213,9 +246,9 @@ const styles = StyleSheet.create({
   },
   Signupbutton: {
     margin: 10,
-    marginLeft: 250,
+    marginLeft: "60%",
     backgroundColor: '#359A8E',
-    width: "18%",
+    width: 70,
     height: 49,
     borderRadius: 20,
     marginEnd: 80,
