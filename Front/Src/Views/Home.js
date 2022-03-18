@@ -38,8 +38,9 @@ const Home = ({ navigation }) => {
 
  
   useEffect(() => {
-    getUser(setuserData)
-  }  );
+    AsyncStorage.getItem('user', (err, item) => {console.log("el data mtaa zeby "+item);setuserData(JSON.parse(item))})
+
+  },[]  );
 
 
 

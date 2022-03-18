@@ -14,7 +14,21 @@ const SignIn = ({ navigation }) => {
   const [expoPushToken, setExpoPushToken] = useState('');
 
   const [Data, setData] = useState('');
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
+    }  , []);
+  const _removeValue = async () => {
+    try {
+      const value = await AsyncStorage.getItem('user')
+    if(value !== null) {
+      await AsyncStorage.removeItem('user')}
+    } catch(e) {
+      // remove error
+    }
+  
+    console.log('Done.')
+  }
   
   _storeData = async () => {
     try {
@@ -28,9 +42,7 @@ const SignIn = ({ navigation }) => {
     console.log(error) 
    }
   };
-  useEffect(() => {
-    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
-  }  , []);
+ 
 
 
   const handleSubmitPress = async (event) => {

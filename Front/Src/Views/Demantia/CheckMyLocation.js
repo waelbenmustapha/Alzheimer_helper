@@ -37,7 +37,7 @@ const CheckMyLocation = () => {
   useEffect(() => {
     console.log("++++++++++++++++++++++++")
 
-    AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item));console.log(item)});
+    AsyncStorage.getItem('user', (err, item) => {console.log("el data mtaa zeby "+item);setuserData(JSON.parse(item))})
     console.log("++++++++++++++++++++++++")
 
     
