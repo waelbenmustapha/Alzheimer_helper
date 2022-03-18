@@ -25,7 +25,9 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>        
+      <Stack.Navigator>    
+      <Stack.Screen name="Location" component={Location} />
+    
                 <Stack.Screen name="CheckNotes" component={CheckNotes}options={{ headerShown: false }} />
 
         <Stack.Screen name="UpdateNote" component={UpdateNote} options={{ headerShown: false }} />
@@ -47,7 +49,6 @@ export default function App() {
         <Stack.Screen name="AddNotes" component={AddNotes}options={{ headerShown: false }} />
         <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
         <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
-        <Stack.Screen name="Location" component={Location} />
         <Stack.Screen name="PinCode" options={{ headerShown: false }} component={PinCode}/>
 
 
