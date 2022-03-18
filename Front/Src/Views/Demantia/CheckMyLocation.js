@@ -39,7 +39,7 @@ const CheckMyLocation = ({navigation}) => {
      console.log("seconds 10")
     }, 15000);
     
-   x
+   
   }, []);
 
   let text = 'Waiting..';

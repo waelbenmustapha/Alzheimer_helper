@@ -28,11 +28,8 @@ export default function App() {
       <Stack.Navigator>    
       <Stack.Screen name="Location" component={Location} />
     
-                <Stack.Screen name="CheckNotes" component={CheckNotes}options={{ headerShown: false }} />
 
-        <Stack.Screen name="UpdateNote" component={UpdateNote} options={{ headerShown: false }} />
 
-        <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
 
         <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />                                  
         <Stack.Screen name="IntroSlider" options={{ headerShown: false }} component={IntroSlider} />
