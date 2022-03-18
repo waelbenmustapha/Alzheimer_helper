@@ -14,7 +14,7 @@ const AddNotes = ({ navigation }) => {
 
   function AddNote() {
 
-    axios.post(`http://192.168.1.78:8090/notes/add-note/${id}`,
+    axios.post(`http://192.168.1.60:8090/notes/add-note/${id}`,
       { description: description, title: title, date: date })
       .then((res) => navigation.navigate("CheckNotes"))
   }

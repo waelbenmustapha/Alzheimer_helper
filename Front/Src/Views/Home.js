@@ -19,7 +19,7 @@ import { getUser } from "../Utils/user";
 
 const Home = ({ navigation }) => {
 
-  const [userData, setuserData] =useState({});
+  const [userData, setuserData] =useState(null);
   const [dir, setdir] =useState('');
 
   function getAge(dateString) 
@@ -42,8 +42,10 @@ const Home = ({ navigation }) => {
   }  );
 
 
-
-
+if(userData==null){
+  return <View><Text>Loading</Text></View>
+}
+else{
   return (
 
 
@@ -183,6 +185,7 @@ const Home = ({ navigation }) => {
 
   );
 };
+}
 const styles = StyleSheet.create({
   container: {
     flexDirection: "column",

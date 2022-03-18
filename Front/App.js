@@ -33,17 +33,19 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+
+      <Stack.Screen name="SignupDementia" component={SignupDementia} />
+
       <Stack.Screen name="Signin" options={{ headerShown: false }} component={SignIn} />
 
       <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
 
 
-      <Stack.Screen name="SignupDementia" component={SignupDementia} />
 
       <Stack.Screen name="test" options={{ headerShown: false }} component={test} />
 
 
-      <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
 
       <Stack.Screen name="Notif" options={{ headerShown: false }} component={Notif} />
 
