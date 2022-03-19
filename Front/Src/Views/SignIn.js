@@ -19,7 +19,7 @@ const SignIn = ({ navigation }) => {
         
       return;
     } setIsLoading(true);
-      axios.post(`http://192.168.8.100:8090/auth/login/mmmm`, {
+      axios.post(`http://192.168.8.100:8090/auth/login/{pushtoken}`, {
        email: userEmail,
       password: userPassword,
       }).then((response) => {
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   },
   Signupbutton: {
     margin: 10,
-    marginLeft: 250,
+    marginLeft: "60%",
     backgroundColor: '#359A8E',
     width: 70,
     height: 49,

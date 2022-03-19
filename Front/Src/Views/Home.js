@@ -10,19 +10,26 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Icon } from "react-native-elements";
 import axios from "axios";
-import { URL } from "@env"
+import * as Linking from 'expo-linking';
+
 /* import Modal from 'react-bootstrap/Modal'
  */
 const Home = ({ navigation }) => {
 
+  const [search, setSearch] = useState('');
 
+  const GoogleApi = () => {
+    Linking.openURL(`https://www.google.com/search?q=${search}&tbm=vid`);
+    console.log("google");
+  }
 
   useEffect(() => {
     console.log(`http://192.168.8.100:8090/guardian/get`);
-    axios.get(`http://192.168.8.100:8090/guardian/get`).then((res) => console.log(res)).catch((err) => console.log(err))
+    axios.get(`http://192.168.8.100:8090/guardian/get`)
+      .then((res) => console.log(res)).catch((err) => console.log(err))
   }, [])
 
   return (
@@ -30,7 +37,7 @@ const Home = ({ navigation }) => {
 
     <View style={styles.container}>
       <View style={{ flex: 3, flexDirection: "column" }}>
-        <View style={{ flex: 1, flexDirection: "row" }}>
+        <View style={{ flex: 2, flexDirection: "row" }}>
           <Image
             source={require("./../../assets/profile.png")}
             style={styles.image}
@@ -41,66 +48,50 @@ const Home = ({ navigation }) => {
           </View>
         </View>
 
-        <View style={{ flex: 0, flexDirection: "column" }}>
+        <View style={{ flex: 1, flexDirection: "column" }}>
           <View style={styles.searchSection}>
-            <Icon style={styles.searchIcon} name="search" size={20} color="#000" />
-            <TextInput
+            <TextInput placeholder="Search" onChangeText={(value) => setSearch(value)}></TextInput>
+            <TouchableOpacity
               style={styles.input}
-              placeholder="User Nickname"
-              onChangeText={(searchString) => {
-                this.setState({ searchString });
-              }}
-              underlineColorAndroid="transparent"
-            />
+              onPress={() => GoogleApi()}>
+              <Icon style={styles.searchIcon} name="search" size={20} color="#000" />
+            </TouchableOpacity>
           </View>
         </View>
       </View>
+      <View style={{ flex: 6 }}>
 
-      <View style={{ flex: 9 }}>
-        <View style={{ flexDirection: "row" }}>
+        <ScrollView>
+          <View style={{ flexDirection: "row" }}>
 
-          <View style={{ flex: 2 }} >
-            <TouchableOpacity style={{ alignItems: "center" }}>
-              <Image
-                source={require("./../../assets/Contact.png")}
-                style={{
-                  width: 150,
-                  height: 250,
-                  borderRadius: 40 / 2,
-                  marginTop: 10,
-                }} />
-              <Text style={styles.Title2}>Contact</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={{ alignItems: "center" }}
-             onPress={() => navigation.navigate("HistoryDementia")}>
-              <Image
-                source={require("./../../assets/profile.png")}
-                style={{
-                  width: 150,
-                  height: 180,
-                  borderRadius: 40 / 2,
-                }} />
-              <Text style={styles.Title2}>History</Text>
-            </TouchableOpacity>
-          </View>
+            <View style={{ flex: 1 }} >
+              <TouchableOpacity style={{ alignItems: "center" }}>
+                <Image
+                  source={require("./../../assets/Contact.png")}
+                  style={styles.image1} />
+                <Text style={styles.Title2}>Contact</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={{ alignItems: "center" }}
+              onPress={() => navigation.navigate("AddHistoryDementia")}>
+                <Image
+                  source={require("./../../assets/profile.png")}
+                  style={styles.image2} />
+                <Text style={styles.Title2}>History</Text>
+              </TouchableOpacity>
+            </View>
 
 
-          <View style={{ flex: 2 }} >
-            <TouchableOpacity
-              style={{ alignItems: "center" }}
-              onPress={() => navigation.navigate("Location")}>
-              <Image
-                source={require("./../../assets/map.png")}
-                style={{
-                  width: 150,
-                  height: 180,
-                  borderRadius: 40 / 2,
-                  marginTop: 10,
-                }} />
-              <Text style={styles.Title2}>Location</Text>
-            </TouchableOpacity>
+            <View style={{ flex: 1 }} >
+              <TouchableOpacity
+                style={{ alignItems: "center" }}
+                onPress={() => navigation.navigate("Location")}>
+                <Image
+                  source={require("./../../assets/map.png")}
+                  style={styles.image2} />
+                <Text style={styles.Title2}>Location</Text>
+              </TouchableOpacity>
 
-           {/*  <Modal.Dialog>
+              {/*  <Modal.Dialog>
               <Modal.Body>
                 <TouchableOpacity style={styles.donebutton}
                   onPress={() => navigation.navigate('CheckDemantiaLocation')}>
@@ -114,21 +105,18 @@ const Home = ({ navigation }) => {
             </Modal.Dialog> */}
 
 
-            <TouchableOpacity
-              style={{ alignItems: "center" }}
-              onPress={() => navigation.navigate("CheckNotes")}>
-              <Image
-                source={require("./../../assets/Note.png")}
-                style={{
-                  width: 150,
-                  height: 250,
-                  borderRadius: 40 / 2,
-                }} />
-              <Text style={styles.Title2}>Notes</Text>
-            </TouchableOpacity>
-          </View>
+              <TouchableOpacity
+                style={{ alignItems: "center" }}
+                onPress={() => navigation.navigate("CheckNotes")}>
+                <Image
+                  source={require("./../../assets/Note.png")}
+                  style={styles.image1} />
+                <Text style={styles.Title2}>Notes</Text>
+              </TouchableOpacity>
+            </View>
 
-        </View>
+          </View>
+        </ScrollView>
       </View>
 
 
@@ -154,17 +142,18 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     flex: 1,
-    padding: '5%',
+    padding: '10%',
   },
   firstItem: {
     alignItems: "flex-end",
-    justifyContent: "center",
-    marginLeft: 10,
+    justifyContent: "flex-start",
+    margin: "4%",
   },
   image: {
-    width: 100,
-    height: 100,
+    width: "30%",
+    height: "60%",
     borderRadius: 40 / 2,
+
   },
   Title: {
     fontWeight: "bold",
@@ -172,9 +161,12 @@ const styles = StyleSheet.create({
   },
   Title2: {
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 20,
+    margin: 7,
+
   },
   searchSection: {
+    padding: 5,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
@@ -203,8 +195,20 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 11,
-  }
+  },
+  image1: {
+    width: "80%",
+    height: 220,
+    borderRadius: 40 / 2,
+    marginTop: 5,
+  },
+  image2: {
+    width: "80%",
+    height: 170,
+    borderRadius: 40 / 2,
+    marginTop: 5,
 
+  }
 
 });
 

@@ -15,10 +15,10 @@ import Signup from './Src/Views/Guardian/Signup';
 import IntroSlider from './Src/Views/Guardian/IntroSlider';
 import SpecifySafeArea from './Src/Views/Guardian/SpecifySafeArea';
 import PinCode from './Src/Views/Guardian/PinCode';
-import AddNotes from './Src/Views/Note/AddNotes';
 import CheckNotes from './Src/Views/Note/CheckNotes';
-
 import CheckNote from './Src/Views/Note/CheckNote';
+import AddNotes from './Src/Views/Note/AddNotes';
+import UpdateNote from './Src/Views/Note/UpdateNote';
 
 
 export default function App() {
@@ -26,29 +26,28 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>        
+      <Stack.Navigator>    
+    
 
-        <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
 
+
+        <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />                                  
         <Stack.Screen name="IntroSlider" options={{ headerShown: false }} component={IntroSlider} />
         <Stack.Screen name="SpecifySafeArea" component={SpecifySafeArea} options={{ headerShown: false }} />
-
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-
-
-        <Stack.Screen name="SignUpGuardian" component={Signup} />
-        <Stack.Screen name="SignupDementia" component={SignupDementia} />
+        <Stack.Screen name="SignUpGuardian" component={Signup} options={{ headerShown: false }} />
+        <Stack.Screen name="SignupDementia" component={SignupDementia} options={{ headerShown: false }} />
         <Stack.Screen name="Signin" options={{ headerShown: false }} component={SignIn} />
-
+        <Stack.Screen name="CheckNotes" component={CheckNotes} options={{ headerShown: false }} />
+        <Stack.Screen name="AddNotes" component={AddNotes} options={{ headerShown: false }} />
         <Stack.Screen name="CheckNote" component={CheckNote} options={{ headerShown: false }} />
-        <Stack.Screen name="CheckNotes" component={CheckNotes} />
-        <Stack.Screen name="AddNote" component={AddNotes} />
+        <Stack.Screen name="UpdateNote" component={UpdateNote} options={{ headerShown: false }} />
+        <Stack.Screen name="Location" component={Location} />
         <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
         <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
-        <Stack.Screen name="Location" component={Location} />
-        <Stack.Screen name="PinCode" options={{headerShown: false}} component={PinCode}/>
-        <Stack.Screen name="HistoryDementia"  options={{ headerShown: false }} component={HistoryDementia}/>
-        <Stack.Screen name="AddHistoryDementia"  options={{ headerShown: false }} component={AddHistoryDementia}/>
+        <Stack.Screen name="PinCode" options={{ headerShown: false }} component={PinCode}/>
+        <Stack.Screen name="HistoryDementia" options={{ headerShown: false }} component={HistoryDementia}/>
+        <Stack.Screen name="AddHistoryDementia" options={{ headerShown: false }} component={AddHistoryDementia}/>
 
 
 

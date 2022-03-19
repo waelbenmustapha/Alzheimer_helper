@@ -69,6 +69,25 @@ public class GuardianController {
   }
 
 
+  @PostMapping("/add-pin-code/{gid}/{pincode}")
+  public ResponseEntity addpincode(@PathVariable("gid") String id,@PathVariable("pincode") String code){
+  Guardian guardian=  guardianRepository.findById(id).get();
+    guardian.setPinCode(code);
+    guardianRepository.save(guardian);
+    return new ResponseEntity("pin added", HttpStatus.OK);
+  }
+
+  @GetMapping("/test-pin/{gid}/{pincode}")
+  public ResponseEntity testpincode(@PathVariable("gid") String id,@PathVariable("pincode") String  code){
+    Guardian guardian=  guardianRepository.findById(id).get();
+if(code.equals(guardian.getPinCode())){    return new ResponseEntity(true, HttpStatus.OK);}
+else{
+  return new ResponseEntity(false, HttpStatus.OK);
+
+}
+
+
+  }
   @GetMapping("/get")
   public ResponseEntity findguardians() {
     return new ResponseEntity(guardianRepository.findAll(), HttpStatus.OK);
