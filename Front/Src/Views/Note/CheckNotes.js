@@ -22,7 +22,7 @@ const CheckNotes = ({ navigation }) => {
   function getData() {
     axios
       .get(
-        `http://192.168.1.60:8090/notes/get-notes-by-dementia-id/4028819a7f998f65017f99934fef0001`
+        `http://192.168.8.100:8090/notes/get-notes-by-dementia-id/402881907f190703017f1909a0080001`
       )
       .then((res) => {
         console.log("************************");

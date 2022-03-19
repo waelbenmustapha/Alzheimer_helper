@@ -10,13 +10,16 @@ const SignIn = ({ navigation }) => {
   const [userPassword, setUserPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  console.log("connect")
 
   const handleSubmitPress = async (event) => {
     if (!userEmail.trim() || !userPassword.trim()) {
-      alert("Please fill Email or Password");
+     
+        alert("Please fell Email or Password")
+        
       return;
     } setIsLoading(true);
-      axios.post(`http://192.168.1.60:8090/auth/login/{pushtoken}`, {
+      axios.post(`http://192.168.8.100:8090/auth/login/{pushtoken}`, {
        email: userEmail,
       password: userPassword,
       }).then((response) => {
@@ -24,7 +27,7 @@ const SignIn = ({ navigation }) => {
           console.log('done');
           navigation.navigate("PinCode")
         } 
-      }).catch((error) => { alert("Email or Password is wrong "); setIsLoading(false); })
+      }).catch((error) => { (ToastAndroid.showWithGravity("Email or Password is wrong",ToastAndroid.LONG,ToastAndroid.BOTTOM)),setIsLoading(false)})
     
   }
 

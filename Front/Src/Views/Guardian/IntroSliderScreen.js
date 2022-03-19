@@ -65,7 +65,9 @@ const styles = StyleSheet.create({
   title: {
     color: "#359A8E",
     fontSize: 28,
-    padding: "5%"
+    padding: "5%",
+    backgroundColor:"#ffffff70"
+
   },
 
   title2: {
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-
+backgroundColor:"#ffffff70"
   },
 
   image: {
@@ -115,6 +117,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: "center",
     paddingBottom: "15%",
+    backgroundColor:"#ffffff70"
+
   },
   slide3: {
     flex: 1,
@@ -122,7 +126,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#359A8E',
-    fontSize: 18,
+    fontSize: 20,
     textAlign: 'center',
     paddingBottom: "15%",
     paddingLeft: "8%",
