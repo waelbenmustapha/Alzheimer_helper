@@ -21,7 +21,7 @@ public class Guardian {
   private String id;
 
   private String PushToken;
-
+private String pinCode;
 
   private String name;
 

@@ -21,7 +21,7 @@ const UpdateNote = ({ route, navigation }) => {
     function deltenote() {
         axios
           .delete(
-            `http://192.168.1.26:8090/notes/delete-note/${route.params.el.id}`
+            `http://192.168.1.60:8090/notes/delete-note/${route.params.el.id}`
           )
           .then((res) => navigation.navigate("CheckNotes"));
       }
@@ -29,7 +29,7 @@ const UpdateNote = ({ route, navigation }) => {
 
    function UpdateNote() {
 
-    axios.put(`http://192.168.1.26:8090/notes/edit-note/${route.params.el.id}`,
+    axios.put(`http://192.168.1.60:8090/notes/edit-note/${route.params.el.id}`,
       { description: description, title: title, date: date })
       .then((res) => navigation.navigate("CheckNotes"))
   }
