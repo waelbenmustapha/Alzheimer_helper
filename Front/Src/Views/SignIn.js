@@ -50,7 +50,7 @@ const SignIn = ({ navigation }) => {
       alert("Please fill Email or Password");
       return;
     } setIsLoading(true);
-      axios.post(encodeURI(`http://192.168.1.60:8090/auth/login/${expoPushToken}`), {
+      axios.post(encodeURI(`http://192.168.1.78:8090/auth/login/${expoPushToken}`), {
        email: userEmail,
       password: userPassword,
       }).then((response) => {
@@ -60,7 +60,7 @@ const SignIn = ({ navigation }) => {
 
           console.log("singin data "+JSON.stringify(Data))
           console.log('done');
-          navigation.navigate("Home")
+          navigation.navigate("MyDrawer")
         } 
       }).catch((error) => { console.log("ell error "+error); alert("Email or Password is wrong "); setIsLoading(false); })
     

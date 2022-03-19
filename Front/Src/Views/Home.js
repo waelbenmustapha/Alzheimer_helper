@@ -10,6 +10,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Icon } from "react-native-elements";
@@ -39,7 +40,7 @@ const Home = ({ navigation }) => {
 
  
   useEffect(() => {
-    AsyncStorage.getItem('user', (err, item) => {console.log("el data mtaa zeby "+item);setuserData(JSON.parse(item))})
+    AsyncStorage.getItem('user', (err, item) => {console.log("el data "+item);setuserData(JSON.parse(item))})
 
   },[]  );
 
@@ -161,7 +162,12 @@ const Home = ({ navigation }) => {
               <Text style={styles.Title2}>Notes</Text>
             </TouchableOpacity>
           </View>
-
+          <Pressable
+        onPress={() => navigation.openDrawer()}
+        style={{ padding: 10, marginBottom: 10, marginTop: 10 }}
+      >
+      <Text>Open Drawer</Text>
+      </Pressable>
         </View>
       </View>
 
@@ -180,6 +186,8 @@ const Home = ({ navigation }) => {
       }
     />
  */}
+
+
     </View>
 
   );

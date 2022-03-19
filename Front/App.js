@@ -22,6 +22,10 @@ import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import test from './Src/Views/Test';
 import UpdateNote from './Src/Views/Note/UpdateNote';
+import MyDrawer from './Src/Views/MyDrawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import 'react-native-gesture-handler';
+const Drawer = createDrawerNavigator();
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -29,16 +33,22 @@ export default function App() {
 
 
   
-  const Stack = createNativeStackNavigator();
+  // const Stack = createNativeStackNavigator();
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+          <Drawer.Navigator initialRouteName="Home">
+    <Drawer.Screen name="Home" component={Home} />
+    {/* <Drawer.Screen name="Settings" component={SettingsScreen} /> */}
+    </Drawer.Navigator>
+      {/* <Stack.Navigator>
+      <Stack.Screen name="Signin" options={{ headerShown: false }} component={SignIn} />
+
       <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
 
       <Stack.Screen name="SignupDementia" component={SignupDementia} />
 
-      <Stack.Screen name="Signin" options={{ headerShown: false }} component={SignIn} />
+      <Stack.Screen name="MyDrawer" options={{ headerShown: false }} component={MyDrawer} />
 
       <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
 
@@ -70,7 +80,7 @@ export default function App() {
 
 
 
-      </Stack.Navigator>
+      </Stack.Navigator> */}
     </NavigationContainer>
 
 
