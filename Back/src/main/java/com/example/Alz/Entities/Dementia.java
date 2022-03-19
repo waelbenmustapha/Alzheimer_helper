@@ -30,8 +30,7 @@ public class Dementia {
   @Column(columnDefinition = "CHAR(32)")
   @Id
   private String id;
-private String image;
-
+  private String image;
   @Digits(integer=3, fraction=7)
   private BigDecimal safePlaceLatitude;
   @Digits(integer=3, fraction=7)
@@ -42,11 +41,13 @@ private String image;
   private Date birthdate;
   private String email;
   private String password;
-private String type = "dementia";
+  private String type = "dementia";
   private String PushToken;
 
   @OneToMany(mappedBy="dementia")
   private List<Notes> notes;
+  @OneToMany(mappedBy="dementia")
+  private List<PendingNotes> pendingNotes;
 
   @Digits(integer=3, fraction=7)
   private BigDecimal latitude;
