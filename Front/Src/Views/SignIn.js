@@ -60,7 +60,7 @@ const SignIn = ({ navigation }) => {
 
           console.log("singin data "+JSON.stringify(Data))
           console.log('done');
-          navigation.navigate("MyDrawer")
+          navigation.navigate("drawer")
         } 
       }).catch((error) => { console.log("ell error "+error); alert("Email or Password is wrong "); setIsLoading(false); })
     
