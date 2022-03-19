@@ -33,10 +33,11 @@ const SignIn = ({ navigation }) => {
   _storeData = async () => {
     try {
       await AsyncStorage.setItem("token",expoPushToken);
-      await AsyncStorage.setItem("user",JSON.stringify(Data));
+       AsyncStorage.setItem("user",JSON.stringify(Data)).then(()=>navigation.push("drawer"))
 
       console.log("el token "+expoPushToken)
       console.log("el user "+JSON.stringify(Data))
+      
 
     } catch (error) {
     console.log(error) 
@@ -50,7 +51,7 @@ const SignIn = ({ navigation }) => {
       alert("Please fill Email or Password");
       return;
     } setIsLoading(true);
-      axios.post(encodeURI(`http://192.168.1.78:8090/auth/login/${expoPushToken}`), {
+      axios.post(encodeURI(`http://192.168.1.16:8090/auth/login/${expoPushToken}`), {
        email: userEmail,
       password: userPassword,
       }).then((response) => {
@@ -60,7 +61,6 @@ const SignIn = ({ navigation }) => {
 
           console.log("singin data "+JSON.stringify(Data))
           console.log('done');
-          navigation.navigate("drawer")
         } 
       }).catch((error) => { console.log("ell error "+error); alert("Email or Password is wrong "); setIsLoading(false); })
     

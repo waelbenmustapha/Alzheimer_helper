@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Icon } from "react-native-elements";
+import { useIsFocused } from '@react-navigation/native'
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getUser } from "../Utils/user";
@@ -21,8 +22,10 @@ import { getUser } from "../Utils/user";
 
 const Home = ({ navigation }) => {
 
-  const [userData, setuserData] =useState({});
+  const [userData, setuserData] =useState(null);
   const [dir, setdir] =useState('');
+  const isFocused = useIsFocused()
+
 
   function getAge(dateString) 
   {
@@ -40,15 +43,22 @@ const Home = ({ navigation }) => {
 
  
   useEffect(() => {
-    AsyncStorage.getItem('user', (err, item) => {console.log("el data "+item);setuserData(JSON.parse(item))})
+    console.log("******************************************************************")
+    AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item))})
+    console.log(isFocused)
+    return ()=>{console.log("++++++++++"+isFocused);console.log("cleanup")}
+ 
+  },[isFocused]  );
 
-  },[]  );
-
-
+  if(userData==null){
+    return (
+    <View><Text>Loading</Text></View>
+      )
+  }
 
   return (
 
-
+    
     <View style={styles.container}>
       <View style={{ flex: 3, alignItems:"center" }}>
         <View style={{ flex: 1,width:"90%", flexDirection:"row" ,alignItems:"center"}}>
@@ -132,7 +142,7 @@ const Home = ({ navigation }) => {
                 }} />
               <Text style={styles.Title2}>Location</Text>
             </TouchableOpacity>: null}
-
+            <Text>zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz {isFocused}</Text>
             
 
            {/*  <Modal.Dialog>
@@ -162,12 +172,7 @@ const Home = ({ navigation }) => {
               <Text style={styles.Title2}>Notes</Text>
             </TouchableOpacity>
           </View>
-          <Pressable
-        onPress={() => navigation.openDrawer()}
-        style={{ padding: 10, marginBottom: 10, marginTop: 10 }}
-      >
-      <Text>Open Drawer</Text>
-      </Pressable>
+
         </View>
       </View>
 
