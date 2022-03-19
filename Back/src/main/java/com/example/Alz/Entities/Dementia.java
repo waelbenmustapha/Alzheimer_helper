@@ -30,7 +30,7 @@ public class Dementia {
   @Column(columnDefinition = "CHAR(32)")
   @Id
   private String id;
-
+private String image;
 
   @Digits(integer=3, fraction=7)
   private BigDecimal safePlaceLatitude;
