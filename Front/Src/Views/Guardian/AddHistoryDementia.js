@@ -13,15 +13,21 @@ const AddHistoryDementia = ({navigation}) => {
           .then((res) => navigation.navigate("Home"))
       }
   return (
-    <View style={styles.container}>
-    <View style={{ flex: 3, flexDirection: "column" }}>
-      <View style={{ flex: 1, flexDirection: "row" }}>
-        <Image source={require("./../../../assets/profile.png")}style={styles.image}></Image>
-        <View style={styles.firstItem}>
-          <Text style={styles.Title}>Welcome Alex Ten Napel</Text>
-          <Text style={styles.Title}>Your age is 80</Text>
-        </View>
+    <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
+    <View style={{ flex: 1, padding: '15%' }}>
+
+      <View style={{flex: 1, flexDirection: "row" }}>
+      <Image
+        source={require("./../../../assets/profile.png")}
+        style={styles.image}
+      ></Image>
+      <View style={styles.firstItem}>
+        <Text style={styles.Title}>Welcome Alex Ten Napel </Text>
+        <Text style={styles.Title}>Your age is 80 </Text>
       </View>
+    
+    </View>
+    
       <ScrollView style={styles.scrollView}>
         <View style={styles.item}>
           <TextInput multiline numberOfLines={4} style={styles.square} onChangeText={(text) => setHistory(text)} placeholder="History"/>
@@ -84,12 +90,20 @@ const styles = StyleSheet.create({
   },
   
   donebutton: {
-    elevation: 8,
-    backgroundColor: "#009688",
+    width: 100,
+    marginLeft:150,
+    paddingVertical: 12,
+    paddingHorizontal:0,
+    textAlign:'center',
     borderRadius: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 12
-      },
+    borderColor: '#359A8E',
+    backgroundColor: '#fff',
+    color:'#359A8E',
+    shadowColor: '#359A8E',
+    shadowOpacity: 3,
+    shadowRadius: 2.22,
+    elevation: 11,
+  }
 
       
       

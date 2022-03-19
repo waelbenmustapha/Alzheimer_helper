@@ -2,13 +2,23 @@ import { View, Text,StyleSheet,Image,ScrollView,TouchableOpacity } from 'react-n
 import React, { useState,useEffect  } from 'react'
 import { useIsFocused } from "@react-navigation/native"
 import axios from "axios";
+import * as Speech from 'expo-speech';
 
-import { AntDesign } from '@expo/vector-icons';
+
+import { Feather } from '@expo/vector-icons';
 
 
 const HistoryDementia = ({navigation}) => {
     const isFocused = useIsFocused();
     const [history, setHistory] = useState([]);
+    
+
+    const runSpeech = () => {
+      Speech.speak(history, {
+        language: "fr"
+        
+      })
+    }
 
     function getHistory() {
         axios
@@ -27,9 +37,10 @@ const HistoryDementia = ({navigation}) => {
 
 
   return (
-    <View style={styles.container}>
-    <View style={{ flex: 3, flexDirection: "column" }}>
-      <View style={{ flex: 1, flexDirection: "row" }}>
+    <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
+      <View style={{ flex: 1, padding: '15%' }}>
+
+        <View style={{flex: 1, flexDirection: "row" }}>
         <Image
           source={require("./../../../assets/profile.png")}
           style={styles.image}
@@ -38,9 +49,10 @@ const HistoryDementia = ({navigation}) => {
           <Text style={styles.Title}>Welcome Alex Ten Napel </Text>
           <Text style={styles.Title}>Your age is 80 </Text>
         </View>
+      
       </View>
       <ScrollView style={styles.scrollView}> 
-       
+      <TouchableOpacity style={styles.microphone} onPress={()=>runSpeech()}><Feather name='mic'></Feather></TouchableOpacity>
         <Text style={styles.square}>{history}</Text>
         </ScrollView>
       </View>
@@ -65,18 +77,17 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 40 / 2,
   },
+  firstItem:{
+    marginTop:3,
+    marginBottom:4
+
+  },
   Title: {
     fontWeight: "bold",
     fontSize: 20,
+    
   },
-  item: {
-    backgroundColor: "#fff",
-    margin: 10,
-    padding: 50,
-    borderRadius: 10,
-    justifyContent: "space-between",
-    marginBottom: 0,
-  },
+ 
   square: {
     width: 300,
     backgroundColor: "#fff",
@@ -92,12 +103,14 @@ const styles = StyleSheet.create({
   
   scrollView: {
     marginHorizontal: 5,
-  },
-  Sound: {
-    marginLeft:250,
-    marginTop:-3
+    marginTop:4,
+ },
+  microphone:{
+    marginLeft:200,
+    padding:15,
 
   }
+ 
 
       
       
