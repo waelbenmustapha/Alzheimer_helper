@@ -63,7 +63,6 @@ export default function App() {
 
 
         <Stack.Screen name="SignUpGuardian" component={Signup} />
-        <Stack.Screen name="Location" component={Location} />
         
         <Stack.Screen name="CheckNote" component={CheckNote} options={{ headerShown: false }} />
         <Stack.Screen name="CheckNotes" component={CheckNotes} options={{ headerShown: false }} />

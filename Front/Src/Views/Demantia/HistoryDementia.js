@@ -6,11 +6,16 @@ import * as Speech from 'expo-speech';
 
 
 import { Feather } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import ProfileElement from '../../Components/ProfileElement';
 
 
 const HistoryDementia = ({navigation}) => {
     const isFocused = useIsFocused();
     const [history, setHistory] = useState([]);
+    const [userData, setuserData] =useState(null);
+
+    
     
 
     const runSpeech = () => {
@@ -32,25 +37,23 @@ const HistoryDementia = ({navigation}) => {
       }
 
       useEffect(() => {
+
+        AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item)) ;console.log("++++++"+item)})
+
         getHistory();
       }, [isFocused]);
-
-
+      
+      if(userData==null){
+        return (
+        <View><Text>Loading</Text></View>
+          )
+        }
   return (
     <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
       <View style={{ flex: 1, padding: '15%' }}>
 
-        <View style={{flex: 1, flexDirection: "row" }}>
-        <Image
-          source={require("./../../../assets/profile.png")}
-          style={styles.image}
-        ></Image>
-        <View style={styles.firstItem}>
-          <Text style={styles.Title}>Welcome Alex Ten Napel </Text>
-          <Text style={styles.Title}>Your age is 80 </Text>
-        </View>
-      
-      </View>
+      <ProfileElement userData={userData}/>
+
       <ScrollView style={styles.scrollView}> 
       <TouchableOpacity style={styles.microphone} onPress={()=>runSpeech()}><Feather name='mic'></Feather></TouchableOpacity>
         <Text style={styles.square}>{history}</Text>
