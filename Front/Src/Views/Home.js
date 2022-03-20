@@ -21,6 +21,8 @@ const Home = ({ navigation }) => {
 
   const [search, setSearch] = useState('');
 
+  
+
   const GoogleApi = () => {
     Linking.openURL(`https://www.google.com/search?q=${search}&tbm=vid`);
     console.log("google");
@@ -33,8 +35,6 @@ const Home = ({ navigation }) => {
   }, [])
 
   return (
-
-
     <View style={styles.container}>
       <View style={{ flex: 3, flexDirection: "column" }}>
         <View style={{ flex: 2, flexDirection: "row" }}>

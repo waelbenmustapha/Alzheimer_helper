@@ -3,13 +3,53 @@ import { View, ScrollView, TouchableOpacity, Text, TextInput, StyleSheet } from 
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
 const SignupDementia = ({ navigation }) => {
-
+  const [date, setDate] = useState(null);
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [userConfirmPassword, setConfirmUserPassword] = useState('');
   const [guardianEmail, setGuardianEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  
+  
+  // Birthdate
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    currentDate.setHours(currentDate.getHours() + 1)
+    setDate(currentDate);
+
+    if (mode == "date") {
+      setMode("time");
+
+    }
+
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
+  };
+
+  //localStorage
+  _storeData = async () => {
+    try {
+      await AsyncStorage.setItem("Name",userName);
+      await AsyncStorage.setItem("Email",userEmail);
+      await AsyncStorage.setItem("Password",userPassword);
+      await AsyncStorage.setItem("Birthdate",date);
+
+
+    } catch (error) {
+    console.log(error) 
+   }
+  };
 
 
 

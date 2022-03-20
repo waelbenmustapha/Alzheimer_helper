@@ -1,7 +1,10 @@
 import React, { useEffect, createRef, useState, hasError } from 'react'
 import { View, ScrollView, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import { registerForPushNotificationsAsync } from '../Utils/Notif';
+
 
 
 const SignIn = ({ navigation }) => {
@@ -9,8 +12,39 @@ const SignIn = ({ navigation }) => {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [expoPushToken, setExpoPushToken] = useState('');
 
-  console.log("connect")
+  const [Data, setData] = useState('');
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+
+    }  , []);
+  const _removeValue = async () => {
+    try {
+      const value = await AsyncStorage.getItem('user')
+    if(value !== null) {
+      await AsyncStorage.removeItem('user')}
+    } catch(e) {
+      // remove error
+    }
+  
+    console.log('Done.')
+  }
+  
+  _storeData = async () => {
+    try {
+      await AsyncStorage.setItem("token",expoPushToken);
+       AsyncStorage.setItem("user",JSON.stringify(Data)).then(()=>navigation.push("drawer"))
+
+      console.log("el token "+expoPushToken)
+      console.log("el user "+JSON.stringify(Data))
+      
+
+    } catch (error) {
+    console.log(error) 
+   }
+  };
 
   const handleSubmitPress = async (event) => {
     if (!userEmail.trim() || !userPassword.trim()) {
@@ -27,7 +61,7 @@ const SignIn = ({ navigation }) => {
           console.log('done');
           navigation.navigate("PinCode")
         } 
-      }).catch((error) => { (ToastAndroid.showWithGravity("Email or Password is wrong",ToastAndroid.LONG,ToastAndroid.BOTTOM)),setIsLoading(false)})
+      }).catch((error) => { alert("Email or Password is wrong"),setIsLoading(false)})
     
   }
 

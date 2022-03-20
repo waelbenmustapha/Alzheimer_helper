@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import heure from '../../../assets/heure.png'
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const AddNotes = ({ navigation }) => {
   const [date, setDate] = useState(new Date(1598051730000));
@@ -10,12 +12,29 @@ const AddNotes = ({ navigation }) => {
   const [show, setShow] = useState(false);
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
+  const [type, setType] =useState("");  
+  const [userData,setuserData]=useState(null);
 
   function AddNote() {
+      try{
+        
+        AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item));setType()}) 
+        if(type =='demantia'){
+          axios.post('http://192.168.8.100:8090/pending-notes/add-note/402888e47f88237e017f8853ff440000',
+          {description:description, title:title,date:date})
 
-    axios.post(`http://192.168.8.100:8090/notes/add-note/${id}`,
-      { description: description, title: title, date: date })
-      .then((res) => navigation.navigate("CheckNotes"))
+        }
+        else {
+             axios.post(`http://192.168.8.100:8090/notes/add-note/402888e47f88237e017f8853ff440000`,
+             {description: description, title: title, date: date })
+             .then((res) => navigation.navigate("CheckNotes"))
+
+       }
+       console.log(type) 
+
+    }catch (error) {
+      console.log(error) 
+     } 
   }
 
   const onChange = (event, selectedDate) => {

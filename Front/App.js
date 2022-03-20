@@ -19,6 +19,8 @@ import CheckNotes from './Src/Views/Note/CheckNotes';
 import CheckNote from './Src/Views/Note/CheckNote';
 import AddNotes from './Src/Views/Note/AddNotes';
 import UpdateNote from './Src/Views/Note/UpdateNote';
+import Notif from './Src/Utils/Notif';
+import Test from './Src/Views/Test';
 
 
 export default function App() {
@@ -34,6 +36,8 @@ export default function App() {
         <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />                                  
         <Stack.Screen name="IntroSlider" options={{ headerShown: false }} component={IntroSlider} />
         <Stack.Screen name="SpecifySafeArea" component={SpecifySafeArea} options={{ headerShown: false }} />
+        <Stack.Screen name="Notif" options={{ headerShown: false }} component={Notif} />
+        <Stack.Screen name="test" options={{ headerShown: false }} component={Test} />
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
         <Stack.Screen name="SignUpGuardian" component={Signup} options={{ headerShown: false }} />
         <Stack.Screen name="SignupDementia" component={SignupDementia} options={{ headerShown: false }} />
