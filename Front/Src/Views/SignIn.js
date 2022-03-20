@@ -15,7 +15,7 @@ const SignIn = ({ navigation }) => {
 
   const [Data, setData] = useState('');
   useEffect(() => {
-    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+    registerForPushNotificationsAsync().then(token =>{console.log(token) ;setExpoPushToken(token)});
 
     }  , []);
   const _removeValue = async () => {
@@ -54,7 +54,8 @@ const SignIn = ({ navigation }) => {
         
       return;
     } setIsLoading(true);
-      axios.post(encodeURI(`http://192.168.1.16:8090/auth/login/${expoPushToken}`), {
+    console.log(`http://192.168.8.100:8090/auth/login/${expoPushToken}`)
+      axios.post(encodeURI(`http://192.168.8.100:8090/auth/login/${expoPushToken}`), {
        email: userEmail,
       password: userPassword,
       }).then((response) => {

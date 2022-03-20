@@ -17,7 +17,6 @@ import { Icon } from "react-native-elements";
 import { useIsFocused } from '@react-navigation/native'
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getUser } from "../Utils/user";
 
 
 const Home = ({ navigation }) => {
