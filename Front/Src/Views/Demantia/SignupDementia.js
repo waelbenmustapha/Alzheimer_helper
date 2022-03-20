@@ -2,17 +2,58 @@ import React, { useEffect, useState } from 'react'
 import { View, ScrollView, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { validatePathConfig } from '@react-navigation/native';
 const SignupDementia = ({ navigation }) => {
-
+  const [date, setDate] = useState(null);
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [userConfirmPassword, setConfirmUserPassword] = useState('');
   const [guardianEmail, setGuardianEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  
+  
+  // Birthdate
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    currentDate.setHours(currentDate.getHours() + 1)
+    setDate(currentDate);
+
+    if (mode == "date") {
+      setMode("time");
+
+    }
+
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
+  };
+
+  //localStorage
+  _storeData = async () => {
+    try {
+      await AsyncStorage.setItem("Name",userName);
+      await AsyncStorage.setItem("Email",userEmail);
+      await AsyncStorage.setItem("Password",userPassword);
+      await AsyncStorage.setItem("Birthdate",date);
 
 
+    } catch (error) {
+    console.log(error) 
+   }
+  };
 
+  //verfication
   const regx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
   const isValid = () => {
@@ -38,20 +79,21 @@ const SignupDementia = ({ navigation }) => {
   };
 
 
-
+  //API
   const handleSubmitPress = async (event) => {
     if (isValid()) {
       setIsLoading(true);
 
-      axios.post(`http://192.168.8.100:8090/dementia/SignUp/${guardianEmail}`, {
+      axios.post(`http://192.168.1.16:8090/dementia/SignUp/${guardianEmail}`, {
         name: userName,
         email: userEmail,
         password: userPassword,
         comfirmPassword: userConfirmPassword,
-        birthdate: "2022-02-27T19:59:52.278+00:00"
+        birthdate: date
       }).then((response) => {
         console.log(response.status)
         if (response.status === 200) {
+          _storeData()
           alert("successful Email creation!")
           navigation.navigate("Signin")
         }
@@ -92,6 +134,27 @@ const SignupDementia = ({ navigation }) => {
               placeholderTextColor='#00000080'
               onChangeText={(UserEmail) => setUserEmail(UserEmail)}
             />
+             <TouchableOpacity
+              style={styles.input}
+              onPress={showDatepicker}>
+              {
+                date == null ?
+                  <Text style={styles.date0}>Dementia Birthdate</Text> : <Text style={styles.date}>{JSON.stringify(date
+                  ).substring(1, 11)}</Text>
+
+              }
+            </TouchableOpacity>
+            {show && (
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={new Date(1598051730000)}
+                mode={mode}
+                is24Hour={true}
+                display="default"
+                onChange={onChange}
+                style={styles.date0}
+              />
+            )}
             <TextInput
               style={styles.input}
               placeholder='Password'
@@ -215,7 +278,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     alignItems: "center",
     margin: 5
-  }
+  },
+  date: {
+
+    color: "#000",
+    fontSize: 18
+  },
+  date0: {
+    color: '#00000080',
+    fontSize: 18
+  },
 
 })
 
