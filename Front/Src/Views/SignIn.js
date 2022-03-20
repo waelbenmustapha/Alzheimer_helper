@@ -45,10 +45,13 @@ const SignIn = ({ navigation }) => {
   };
  
 
+  console.log("connect")
 
   const handleSubmitPress = async (event) => {
     if (!userEmail.trim() || !userPassword.trim()) {
-      alert("Please fill Email or Password");
+     
+        alert("Please fell Email or Password")
+        
       return;
     } setIsLoading(true);
       axios.post(encodeURI(`http://192.168.1.16:8090/auth/login/${expoPushToken}`), {

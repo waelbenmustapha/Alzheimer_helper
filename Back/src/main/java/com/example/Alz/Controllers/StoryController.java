@@ -18,28 +18,28 @@ import com.example.Alz.Repositories.DementiaRepository;
 public class StoryController {
 
 
-  private DementiaRepository dementiaRepository;
+    private DementiaRepository dementiaRepository;
 
-  public StoryController(DementiaRepository dementiaRepository) {
-    this.dementiaRepository = dementiaRepository;
-  }
-
-
-  @PostMapping("/add/{demid}")
-  public ResponseEntity addStory(@PathVariable("demid") String id,@RequestBody String story){
-   Dementia dementia= dementiaRepository.findById(id).get();
-   dementia.setStory(story);
-   dementiaRepository.save(dementia);
-   return new ResponseEntity("saved", HttpStatus.OK);
-
-  }
-
-  @GetMapping("/get/{demid}")
-  public ResponseEntity getStory(@PathVariable("demid") String id){
-
-    Dementia dementia= dementiaRepository.findById(id).get();
-    return new ResponseEntity(dementia.getStory(), HttpStatus.OK);
+    public StoryController(DementiaRepository dementiaRepository) {
+        this.dementiaRepository = dementiaRepository;
+    }
 
 
-  }
+    @PostMapping("/add/{demid}")
+    public ResponseEntity addStory(@PathVariable("demid") String id,@RequestBody String story){
+        Dementia dementia= dementiaRepository.findById(id).get();
+        dementia.setStory(story);
+        dementiaRepository.save(dementia);
+        return new ResponseEntity("saved", HttpStatus.OK);
+
+    }
+
+    @GetMapping("/get/{demid}")
+    public ResponseEntity getStory(@PathVariable("demid") String id){
+
+        Dementia dementia= dementiaRepository.findById(id).get();
+        return new ResponseEntity(dementia.getStory(), HttpStatus.OK);
+
+
+    }
 }
