@@ -11,7 +11,7 @@ const CheckMyLocation = ({navigation}) => {
     console.log("**********************************")
     console.log(latitude+"and "+longitude),
     console.log("**********************************")
-   await axios.post(`http://192.168.1.60:8090/dementia/post-location/4028b8817f8386b8017f838805b40000/${latitude.toFixed(7)}/${longitude.toFixed(7)}`).then((res)=>console.log(res.data)).catch((err)=>console.log("ell error"+err))
+   await axios.post(`http://192.168.1.26:8090/dementia/post-location/4028b8817f8386b8017f838805b40000/${latitude.toFixed(7)}/${longitude.toFixed(7)}`).then((res)=>console.log(res.data)).catch((err)=>console.log("ell error"+err))
   }
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);

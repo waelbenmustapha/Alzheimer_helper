@@ -18,6 +18,7 @@ import CheckNotes from './Src/Views/Note/CheckNotes';
 import CheckNote from './Src/Views/Note/CheckNote';
 import AddNotes from './Src/Views/Note/AddNotes';
 import UpdateNote from './Src/Views/Note/UpdateNote';
+import PinCodeVerif from './Src/Views/Guardian/PinCodeVerif';
 
 
 export default function App() {
@@ -26,10 +27,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>    
-      <Stack.Screen name="Location" component={Location} />
+      
     
-
-
 
         <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />                                  
         <Stack.Screen name="IntroSlider" options={{ headerShown: false }} component={IntroSlider} />
@@ -43,10 +42,14 @@ export default function App() {
         <Stack.Screen name="CheckNote" component={CheckNote} options={{ headerShown: false }} />
         <Stack.Screen name="UpdateNote" component={UpdateNote} options={{ headerShown: false }} />
         <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
+        <Stack.Screen name="Location" component={Location} />
         <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
+
+
+
         <Stack.Screen name="PinCode" options={{ headerShown: false }} component={PinCode}/>
 
-
+        <Stack.Screen name="PinCodeVerif" options={{ headerShown: false }} component={PinCodeVerif}/>
 
 
 

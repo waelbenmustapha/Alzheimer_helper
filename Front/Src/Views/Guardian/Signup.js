@@ -106,7 +106,7 @@ const Signup = ({ navigation }) => {
 
       setIsLoading(true);
 
-      axios.post(`http://192.168.1.60:8090/guardian/SignUp`, {
+      axios.post(`http://192.168.1.26:8090/guardian/SignUp`, {
         name: userName,
         email: userEmail,
         password: userPassword,
@@ -115,7 +115,7 @@ const Signup = ({ navigation }) => {
       }).then((response) => {
         console.log(response.status)
         if (response.status === 200) {
-          navigation.navigate("Signin")
+          navigation.navigate("SignIn")
         }
         if (response.status === 226) {
           alert("Email already exist!")
