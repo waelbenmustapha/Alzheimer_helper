@@ -16,12 +16,13 @@ import {
 } from "react-native";
 import * as Location from "expo-location";
 import axios from "axios";
+import { sendPushNotification } from "../../Utils/Notif";
 
 const CheckMyDemantiasLocation = () => {
   const[Danger, setDanger] = useState(false);
   const [safe, setSafeArea] = useState({
-    latitude: 36.760228,
-    longitude: 10.270014,
+    latitude: 36.4048249,
+    longitude: 10.1411230,
   });
   const [location, setLocation] = useState(null);
   function goToLocation() {
@@ -50,8 +51,9 @@ const CheckMyDemantiasLocation = () => {
                 safe
               ) > 300
         ) {
-            console.log("DAAANGER")
-            
+             sendPushNotification('ExponentPushToken[kacZK7Mh8H-X8solLH94mI]');
+          
+          console.log("danger")
           setDanger(true);
         } else {
             console.log("saaaaafe")
@@ -85,7 +87,7 @@ const CheckMyDemantiasLocation = () => {
   if (location == null) {
     return (
       <View>
-        <Text>Loading</Text>
+        <Text>Loading </Text>
       </View>
     );
   } else {

@@ -21,49 +21,37 @@ const UpdateNote = ({ route, navigation }) => {
   
  
     function deltenote() {
-        /*axios
-          .delete(
-            `http://192.168.8.100:8090/notes/delete-note/${route.params.el.id}`
-          )
-          .then((res) => navigation.navigate("CheckNotes"));*/
-          try{
-           const type = AsyncStorage.getItem('user')
-            if(type == "dementia"){
-              axios.post('http://192.168.8.100:8090/pending-notes/delete-note/{noteid}',
-              {description:description, title:title,date:date})
-            }
-            else {
-              axios.post(`http://192.168.8.100:8090/notes/delete-note/${route.params.el.id}}`,
-              { description: description, title: title, date: date })
-              .then((res) => navigation.navigate("CheckNotes"))
-           } 
-        }catch (error) {
-          console.log(error) 
-         }
+        
+          AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item));setType()})
+          .then(value=>{if(type =='demantia'){
+            axios.post('http://192.168.8.100:8090/pending-notes/delete-note/{noteid}',
+            {description:description, title:title,date:date})
+  
+          }
+          else {
+               axios.post(`http://192.168.8.100:8090/notes/delete-note/${route.params.el.id}`,
+               {description: description, title: title, date: date })
+               .then((res) => navigation.navigate("CheckNotes"))
+         }})
+  
           
       }
 
 
    function UpdateNote() {
 
-    /*axios.put(`http://192.168.8.100:8090/notes/edit-note/${route.params.el.id}`,
-      { description: description, title: title, date: date })
-      .then((res) => navigation.navigate("CheckNotes"))*/
-      try{
-        //const type = await AsyncStorage.setType('user')
-        const type =  AsyncStorage.getItem('user')
-        if(type == "dementia"){
-          axios.post('http://192.168.8.100:8090/pending-notes/edit-note/{noteid}',
-          {description:description, title:title,date:date})
-        }
-        else {
-          axios.post(`http://192.168.8.100:8090/notes/edit-note/${route.params.el.id}`,
-          { description: description, title: title, date: date })
-          .then((res) => navigation.navigate("CheckNotes"))
-       } 
-    }catch (error) {
-      console.log(error) 
-     }
+      AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item));setType()})
+          .then(value=>{if(type =='demantia'){
+            axios.post('http://192.168.8.100:8090/pending-notes/edit-note/{noteid}',
+            {description:description, title:title,date:date})
+  
+          }
+          else {
+               axios.post(`http://192.168.8.100:8090/notes/edit-note/${route.params.el.id}`,
+               {description: description, title: title, date: date })
+               .then((res) => navigation.navigate("CheckNotes"))
+         }})
+  
   }
   const [note, setNote] = useState(route.params.el);
   useEffect(() => {

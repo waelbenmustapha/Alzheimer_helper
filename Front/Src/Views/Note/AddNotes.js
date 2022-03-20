@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Button } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import heure from '../../../assets/heure.png'
 import axios from 'axios';
@@ -15,11 +15,12 @@ const AddNotes = ({ navigation }) => {
   const [type, setType] =useState("");  
   const [userData,setuserData]=useState(null);
 
+
   function AddNote() {
-      try{
-        
-        AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item));setType()}) 
-        if(type =='demantia'){
+ 
+        AsyncStorage.getItem('user')
+        .then(value=>{console.log(JSON.parse(value));
+          /*if(JSON.parse(value).type =='demantia'){
           axios.post('http://192.168.8.100:8090/pending-notes/add-note/402888e47f88237e017f8853ff440000',
           {description:description, title:title,date:date})
 
@@ -28,14 +29,10 @@ const AddNotes = ({ navigation }) => {
              axios.post(`http://192.168.8.100:8090/notes/add-note/402888e47f88237e017f8853ff440000`,
              {description: description, title: title, date: date })
              .then((res) => navigation.navigate("CheckNotes"))
+       }})*/
 
-       }
-       console.log(type) 
-
-    }catch (error) {
-      console.log(error) 
-     } 
-  }
+  })
+}
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -106,7 +103,6 @@ const AddNotes = ({ navigation }) => {
           <View>
             <TouchableOpacity onPress={showDatepicker}><Image style={styles.DateTimePicker} source={heure} /></TouchableOpacity>
           </View>
-
           {show && (
             <DateTimePicker
               testID="dateTimePicker"

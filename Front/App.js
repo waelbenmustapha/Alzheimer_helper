@@ -1,5 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import CheckMyLocation from './Src/Views/Demantia/CheckMyLocation';
 import CheckMyDemantiasLocation from './Src/Views/Guardian/CheckMyDemantiasLocation';
 import { NavigationContainer } from '@react-navigation/native';
@@ -14,26 +13,31 @@ import IntroSliderScreen from './Src/Views/Guardian/IntroSliderScreen';
 import Signup from './Src/Views/Guardian/Signup';
 import IntroSlider from './Src/Views/Guardian/IntroSlider';
 import SpecifySafeArea from './Src/Views/Guardian/SpecifySafeArea';
-import PinCode from './Src/Views/Guardian/PinCode';
-import CheckNotes from './Src/Views/Note/CheckNotes';
+import Notif, { registerForPushNotificationsAsync } from './Src/Utils/Notif';
 import CheckNote from './Src/Views/Note/CheckNote';
+import CheckNotes from './Src/Views/Note/CheckNotes';
 import AddNotes from './Src/Views/Note/AddNotes';
-import UpdateNote from './Src/Views/Note/UpdateNote';
-import Notif from './Src/Utils/Notif';
-import Test from './Src/Views/Test';
+import PinCode from './Src/Views/Guardian/PinCode';
+import { useEffect, useState } from 'react';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Test from './Src/Views/Test';
+import UpdateNote from './Src/Views/Note/UpdateNote';
+import DrawerNav from './Src/Views/DrawerNav';
 
 export default function App() {
+  const [expoPushToken, setExpoPushToken] = useState('');
+
+
+
+  
   const Stack = createNativeStackNavigator();
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>    
-    
+            <Stack.Navigator>    
 
-
-
-        <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />                                  
+       <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />                                  
         <Stack.Screen name="IntroSlider" options={{ headerShown: false }} component={IntroSlider} />
         <Stack.Screen name="SpecifySafeArea" component={SpecifySafeArea} options={{ headerShown: false }} />
         <Stack.Screen name="Notif" options={{ headerShown: false }} component={Notif} />
@@ -52,6 +56,9 @@ export default function App() {
         <Stack.Screen name="PinCode" options={{ headerShown: false }} component={PinCode}/>
         <Stack.Screen name="HistoryDementia" options={{ headerShown: false }} component={HistoryDementia}/>
         <Stack.Screen name="AddHistoryDementia" options={{ headerShown: false }} component={AddHistoryDementia}/>
+        <Stack.Screen name="Test" options={{ headerShown: false }} component={Test}/>
+        <Stack.Screen name="DrawerNa" options={{ headerShown: false }} component={DrawerNav}/>
+
 
 
 
