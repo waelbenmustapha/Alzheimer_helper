@@ -46,7 +46,7 @@ const Home = ({ navigation }) => {
     console.log("******************************************************************")
     AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item))})
     console.log(isFocused)
-    return ()=>{console.log("++++++++++"+isFocused);console.log("cleanup")}
+    return ()=>{console.log(isFocused);console.log("cleanup")}
  
   },[isFocused]  );
 
@@ -68,7 +68,7 @@ const Home = ({ navigation }) => {
           ></Image>
           <View style={styles.firstItem}>
             <Text style={styles.Title}>Welcome {userData.name} </Text>
-            {userData.type=="dementia"?<Text style={styles.Title}> you are age is {getAge(userData.birthdate) } </Text> :userData.type=="guardian"?<Text style={styles.Title}> you are a guardian of {userData.dementia.name} </Text>: null}
+            {userData.type=="dementia"?<Text style={styles.Title}> Your age is {getAge(userData.birthdate) } </Text> :userData.type=="guardian"?<Text style={styles.Title}> You are a guardian of {userData.dementia.name} </Text>: null}
             {/* <Text style={styles.Title}>Your age is  </Text> */}
           </View>
         </View>
@@ -142,7 +142,7 @@ const Home = ({ navigation }) => {
                 }} />
               <Text style={styles.Title2}>Location</Text>
             </TouchableOpacity>: null}
-            <Text>zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz {isFocused}</Text>
+            <Text> {isFocused}</Text>
             
 
            {/*  <Modal.Dialog>

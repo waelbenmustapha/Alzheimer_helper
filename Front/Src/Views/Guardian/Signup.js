@@ -137,7 +137,7 @@ const Signup = ({ navigation }) => {
             <TextInput
               style={styles.input}
               value={userName}
-              placeholder='Dementia Name'
+              placeholder='Name'
               autoCapitalize="none"
               placeholderTextColor='#00000080'
               onChangeText={(UserName) => setUserName(UserName)}
