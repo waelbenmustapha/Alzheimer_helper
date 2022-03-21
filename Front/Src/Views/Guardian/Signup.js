@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, ScrollView, TouchableOpacity, Image, Text, TextInput, StyleSheet } from 'react-native'
+import { View, ScrollView, TouchableOpacity, Image, Text, TextInput, StyleSheet,ToastAndroid } from 'react-native'
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -76,7 +76,6 @@ const Signup = ({ navigation }) => {
 
 
 
-
   const regx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
   const isValid = () => {
@@ -106,7 +105,7 @@ const Signup = ({ navigation }) => {
 
       setIsLoading(true);
 
-      axios.post(`http://192.168.1.26:8090/guardian/SignUp`, {
+      axios.post(`http://192.168.1.16:8090/guardian/SignUp`, {
         name: userName,
         email: userEmail,
         password: userPassword,
@@ -115,7 +114,8 @@ const Signup = ({ navigation }) => {
       }).then((response) => {
         console.log(response.status)
         if (response.status === 200) {
-          navigation.navigate("SignIn")
+          console.log("el reponse "+response)
+          navigation.navigate("Signin")
         }
         if (response.status === 226) {
           alert("Email already exist!")
@@ -142,27 +142,7 @@ const Signup = ({ navigation }) => {
               placeholderTextColor='#00000080'
               onChangeText={(UserName) => setUserName(UserName)}
             />
-            <TouchableOpacity
-              style={styles.input}
-              onPress={showDatepicker}>
-              {
-                date == null ?
-                  <Text style={styles.date0}>Dementia Birthdate</Text> : <Text style={styles.date}>{JSON.stringify(date
-                  ).substring(1, 11)}</Text>
-
-              }
-            </TouchableOpacity>
-            {show && (
-              <DateTimePicker
-                testID="dateTimePicker"
-                value={new Date(1598051730000)}
-                mode={mode}
-                is24Hour={true}
-                display="default"
-                onChange={onChange}
-                style={styles.date0}
-              />
-            )}
+           
 
             <TextInput
               style={styles.input}
