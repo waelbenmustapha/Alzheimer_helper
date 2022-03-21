@@ -15,7 +15,7 @@ const SignIn = ({ navigation }) => {
 
   const [Data, setData] = useState('');
   useEffect(() => {
-    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+    registerForPushNotificationsAsync().then(token =>{console.log(token) ;setExpoPushToken(token)});
 
     }  , []);
   const _removeValue = async () => {

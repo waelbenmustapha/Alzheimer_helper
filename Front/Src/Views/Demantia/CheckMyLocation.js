@@ -10,7 +10,6 @@ import {
 import * as Location from "expo-location";
 import axios from "axios";
 import { URL } from "@env";
-import { getUser } from "../../Utils/user";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CheckMyLocation = () => {

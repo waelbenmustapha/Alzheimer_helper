@@ -36,7 +36,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen name="Signin" options={{ headerShown: false }} component={SignIn} />
+        
+      <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
 
       <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav} />
 
@@ -57,8 +58,9 @@ export default function App() {
       <Stack.Screen name="Notif" options={{ headerShown: false }} component={Notif} />
 
 
-        <Stack.Screen name="IntroSlider" options={{ headerShown: false }} component={IntroSlider} />
         <Stack.Screen name="SpecifySafeArea" component={SpecifySafeArea} options={{ headerShown: false }} />
+        <Stack.Screen name="AddNotes" component={AddNotes} />
+
 
 
 
