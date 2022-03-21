@@ -16,13 +16,12 @@ import SpecifySafeArea from './Src/Views/Guardian/SpecifySafeArea';
 import Notif, { registerForPushNotificationsAsync } from './Src/Utils/Notif';
 import CheckNote from './Src/Views/Note/CheckNote';
 import CheckNotes from './Src/Views/Note/CheckNotes';
-import UpdateNote from './Src/Views/Note/UpdateNote';
 import PinCodeVerif from './Src/Views/Guardian/PinCodeVerif';
 import PinCode from './Src/Views/Guardian/PinCode';
 import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import test from './Src/Views/Test';
+import Test from './Src/Views/Test';
 import UpdateNote from './Src/Views/Note/UpdateNote';
 import DrawerNav from './Src/Views/DrawerNav';
 
@@ -37,55 +36,26 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-
-
-          <Stack.Screen name="Signin" options={{ headerShown: false }} component={SignIn} />
-
-          <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav} />
-
-
-          <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-
           <Stack.Screen name="SignupDementia" component={SignupDementia} />
-
-
+          <Stack.Screen name="SignUpGuardian" component={Signup} />
+          <Stack.Screen name="Signin" options={{ headerShown: false }} component={SignIn} />
+          <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav} />
+          <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
           <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
-
-
-
-          <Stack.Screen name="test" options={{ headerShown: false }} component={test} />
-
-
-
+          <Stack.Screen name="Test" options={{ headerShown: false }} component={Test} />
           <Stack.Screen name="Notif" options={{ headerShown: false }} component={Notif} />
-
-
           <Stack.Screen name="IntroSlider" options={{ headerShown: false }} component={IntroSlider} />
           <Stack.Screen name="SpecifySafeArea" component={SpecifySafeArea} options={{ headerShown: false }} />
-
-
-
-          <Stack.Screen name="SignUpGuardian" component={Signup} />
-          <Stack.Screen name="Location" component={Location} />
-
           <Stack.Screen name="CheckNote" component={CheckNote} options={{ headerShown: false }} />
           <Stack.Screen name="CheckNotes" component={CheckNotes} options={{ headerShown: false }} />
           <Stack.Screen name="UpdateNote" component={UpdateNote} options={{ headerShown: false }} />
-          <Stack.Screen name="Location" component={Location} />
           <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
           <Stack.Screen name="Location" component={Location} />
           <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
-
-
-
           <Stack.Screen name="PinCode" options={{ headerShown: false }} component={PinCode} />
           <Stack.Screen name="HistoryDementia" options={{ headerShown: false }} component={HistoryDementia} />
           <Stack.Screen name="AddHistoryDementia" options={{ headerShown: false }} component={AddHistoryDementia} />
-
           <Stack.Screen name="PinCodeVerif" options={{ headerShown: false }} component={PinCodeVerif} />
-
-
-
         </Stack.Navigator>
     </NavigationContainer>
 
