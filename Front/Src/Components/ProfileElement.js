@@ -61,8 +61,8 @@ const styles = StyleSheet.create({
     // marginLeft: 10,
   },
   image: {
-    width: "40%",
-    height: "90%",
+    width: 150,
+    height: 150,
     borderRadius: 40 / 2,
   },
   Title: {
