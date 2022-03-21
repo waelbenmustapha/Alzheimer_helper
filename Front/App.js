@@ -37,13 +37,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen name="Signin" options={{ headerShown: false }} component={SignIn} />
 
-        <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
-        <Stack.Screen name="IntroSlider" options={{ headerShown: false }} component={IntroSlider} />
-
+      
         <Stack.Screen name="SignupDementia" options={{ headerShown: false }} component={SignupDementia} />
         <Stack.Screen name="SignUpGuardian" options={{ headerShown: false }} component={Signup} />
-        <Stack.Screen name="Signin" options={{ headerShown: false }} component={SignIn} />
         <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav} />
         <Stack.Screen name="Home"options={{ headerShown: false }}  component={Home} />
         <Stack.Screen name="Test" options={{ headerShown: false }} component={Test} />
@@ -60,6 +58,11 @@ export default function App() {
         <Stack.Screen name="AddHistoryDementia" options={{ headerShown: false }} component={AddHistoryDementia} />
         <Stack.Screen name="PinCode" options={{ headerShown: false }} component={PinCode} />
         <Stack.Screen name="PinCodeVerif" options={{ headerShown: false }} component={PinCodeVerif} />
+     
+     
+        <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
+        <Stack.Screen name="IntroSlider" options={{ headerShown: false }} component={IntroSlider} />
+
       </Stack.Navigator>
     </NavigationContainer>
 
