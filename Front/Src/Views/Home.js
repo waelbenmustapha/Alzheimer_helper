@@ -59,7 +59,8 @@ const Home = ({ navigation }) => {
         <View style={{ flexDirection: "row" }}>
 
           <View style={{ flex: 2 }} >
-            <TouchableOpacity style={{ alignItems: "center" }}>
+            <TouchableOpacity style={{ alignItems: "center" }}
+            onPress={() => navigation.navigate("Contact")}>
               <Image
                 source={require("./../../assets/Contact.png")}
                 style={{
