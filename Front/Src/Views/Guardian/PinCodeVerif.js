@@ -9,21 +9,24 @@ const PinCodeVerif = ({navigation}) => {
     const [pincode, setCode] = useState('');
 
     const handleSubmitPress = async (event) => {
-        if (!pincode.trim()) {
-          alert("Entry your Pin Code");
-          return;
-        } setIsLoading(true);
-          axios.get(`http://192.168.1.26:8090/guardian/test-pin/4028819a7fa2f840017fa2f96bde0000/{pincode}`, {
-            pincode: pincode
-        }).then((response) => {
-            console.log(response.status)
-            if (response.status === 200) {
-                console.log('done'),
-              navigation.navigate("Home")
-            }
-        }).catch((error) => { alert(error); setIsLoading(false); })
-        
-      }
+        AsyncStorage.getItem('user')
+            .then(value => {
+                console.log(JSON.parse(value));
+                if (!pincode.trim()) {
+                    alert("Entry your Pin Code");
+                    return;
+                }
+                axios.get(`http://192.168.1.26:8090/guardian/test-pin/${JSON.parse(value).id}/${pincode}`, {
+                    pincode: pincode
+                }).then((response) => {
+                    console.log(response.status)
+                    if (response.status === 200) {
+                        console.log('done'),
+                            navigation.navigate("drawer")
+                    }
+                }).catch((error) => { alert(error); })
+            })
+    }
   return (
     <SafeAreaView style={{ flex: 1 }}>
     <View style={styles.container}>

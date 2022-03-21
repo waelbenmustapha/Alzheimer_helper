@@ -13,19 +13,26 @@ const PinCode = ({navigation}) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmitPress = async (event) => {
-        if (!pincode.trim()) {
-            alert("Please Entry Pin code");
-            return;
-        } setIsLoading(true);
-        axios.post(`http://192.168.1.26:8090/guardian/add-pin-code/4028819a7fa2f840017fa2f96bde0000/${pincode}`, {
-            pincode: pincode
-        }).then((response) => {
-            console.log(response.status)
-            if (response.status === 200) {
-              navigation.navigate("PinCodeVerif")
-            }
-        }).catch((error) => { alert(error); setIsLoading(false); })
-
+        AsyncStorage.getItem('user')
+            .then(value => {
+                console.log(JSON.parse(value));
+                if (!pincode.trim()) {
+                    alert("Please Entry Pin code");
+                    return;
+                }
+                axios.post(`http://192.168.1.26:8090/guardian/add-pin-code/${JSON.parse(value).id}/{pincode}`, {
+                    pincode: pincode
+                })
+                    .then((response) => {
+                        console.log(response.status)
+                        if (response.status === 200) {
+                            navigation.navigate("Signin")
+                        }
+                    })
+                    .catch((error) => {
+                        alert(error);
+                    })
+            })
     }
 
 
