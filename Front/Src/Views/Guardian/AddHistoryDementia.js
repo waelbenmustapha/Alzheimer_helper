@@ -1,16 +1,20 @@
 import { View, Text,StyleSheet,Image,ScrollView,TouchableOpacity,TextInput } from 'react-native'
 import React, { useState } from 'react'
 import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const AddHistoryDementia = ({navigation}) => {
     const [history, setHistory] = useState("");
 
     function AddHistory() {
-
-        axios.post(`http://192.168.1.17:8090/story/add/402888e47f88237e017f8853ff440000`,
-          { history: history})
-          .then((res) => navigation.navigate("Home"))
+      AsyncStorage.getItem('user')
+      .then(value=>{
+        axios.post(`http://192.168.1.17:8090/story/add/${JSON.parse(value).dementia.id}`,
+        { history: history})
+        .then((res) => navigation.navigate("drawer"))
+     })
+      
       }
   return (
     <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>

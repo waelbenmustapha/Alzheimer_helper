@@ -13,7 +13,7 @@ const DrawerNav = ({ navigation }) => {
   const Logout = () => {
     try {
        AsyncStorage.removeItem("user")
-      navigation.navigate("Signin")
+      navigation.navigate("SignIn")
 
     } catch(e) {
       console.log(e) 

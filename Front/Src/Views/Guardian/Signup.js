@@ -115,7 +115,7 @@ const Signup = ({ navigation }) => {
         console.log(response.status)
         if (response.status === 200) {
           console.log("el reponse "+response)
-          navigation.navigate("Signin")
+          navigation.navigate("SignIn")
         }
         if (response.status === 226) {
           alert("Email already exist!")
@@ -181,7 +181,7 @@ const Signup = ({ navigation }) => {
           <TouchableOpacity>
             <Text style={styles.textCenter}>Forgot password?</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
+          <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
             <Text style={{ color: '#359A8E' }}>
               Already have an account</Text>
           </TouchableOpacity>

@@ -18,7 +18,7 @@ const HistoryDementia = ({navigation}) => {
     
     
 
-    const runSpeech = () => {
+       const runSpeech = () => {
       Speech.speak(history, {
         language: "fr"
         
@@ -26,14 +26,34 @@ const HistoryDementia = ({navigation}) => {
     }
 
     function getHistory() {
-        axios
-          .get(
-            `http://192.168.1.17:8090/story/get/402881907f858cf0017f8590d8400001`
-          )
-          .then((res) => {
-            console.log("************************");
-            setHistory("Salut c'est aziz sliti ");
-          });
+     
+          AsyncStorage.getItem('user')
+
+          .then(value=>{console.log(JSON.parse(value));
+            console.log(JSON.parse(value).type)
+            if(JSON.parse(value).type =='dementia'){
+              axios
+              .get(
+                `http://192.168.1.17:8090/story/get/${JSON.parse(value).id}`
+              )
+              .then((res) => {
+                console.log("************************");
+                setHistory(res.data);
+              });
+    
+          }
+          else {
+            axios
+            .get(
+              `http://192.168.1.17:8090/story/get/${JSON.parse(value).dementia.id}`
+            )
+            .then((res) => {
+              console.log("************************");
+              setHistory(res.data);
+            });
+  
+         }
+        })
       }
 
       useEffect(() => {
@@ -43,11 +63,16 @@ const HistoryDementia = ({navigation}) => {
         getHistory();
       }, [isFocused]);
       
-      if(userData==null){
+      if((userData==null)){
         return (
         <View><Text>Loading</Text></View>
           )
         }
+        if((history==null)){
+          return (
+          <View><Text>Loading</Text></View>
+            )
+          }
   return (
     <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
       <View style={{ flex: 1, padding: '15%' }}>

@@ -95,7 +95,7 @@ const SignupDementia = ({ navigation }) => {
         if (response.status === 200) {
           _storeData()
           alert("successful Email creation!")
-          navigation.navigate("Signin")
+          navigation.navigate("SignIn")
         }
         if (response.status === 226) {
           alert("Email already exist!")
@@ -192,7 +192,7 @@ const SignupDementia = ({ navigation }) => {
           <TouchableOpacity>
             <Text style={styles.textCenter}>Forgot password?</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
+          <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
             <Text style={{ color: '#359A8E' }}>
               Already have an account</Text>
           </TouchableOpacity>
