@@ -8,7 +8,7 @@ const AddHistoryDementia = ({navigation}) => {
 
     function AddHistory() {
 
-        axios.post(`http://192.168.8.100:8090/story/add/402888e47f88237e017f8853ff440000`,
+        axios.post(`http://192.168.1.26:8090/story/add/402888e47f88237e017f8853ff440000`,
           { history: history})
           .then((res) => navigation.navigate("Home"))
       }

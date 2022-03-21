@@ -23,7 +23,7 @@ const HistoryDementia = ({navigation}) => {
     function getHistory() {
         axios
           .get(
-            `http://192.168.8.100:8090/story/get/402888e47f88237e017f8853ff440000`
+            `http://192.168.1.26:8090/story/get/402888e47f88237e017f8853ff440000`
           )
           .then((res) => {
             console.log("************************");

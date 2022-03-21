@@ -16,10 +16,9 @@ const IntroSlider = ({ navigation, route }) => {
 
           />
           <View>
-            <Text style={styles.text} >"Précoce"</Text>
+            <Text style={styles.text} >"Precocious"</Text>
 
-            <Text style={styles.text} >Stade 1,2 et 3 : c’est la partie lors le malade utilise la version de l’application mobile avec le contrôle de leur gardien(ne).</Text>
-
+            <Text style={styles.text} >Stage 1,2 and 3: This is the part when the patient uses the version of the mobile application with the control of their guardian.</Text>
           </View>
 
         </View>
@@ -29,10 +28,9 @@ const IntroSlider = ({ navigation, route }) => {
             source={require("./../../../assets/lvl56.png")} style={styles.image}
           />
           <View>
-            <Text style={styles.text} >"Intermediare"</Text>
+            <Text style={styles.text} >"Intermediate"</Text>
 
-            <Text style={styles.text} >Stade 4 et 5 : c’est la partie lors le malade utilise la version de l’application mobile avec la smartwatch liée avec le contrôle de leurs gardien(ne).</Text>
-
+            <Text style={styles.text} >Stage 4 and 5: This is the part when the patient uses the version of the mobile application with the smartwatch linked with the control of their guardian.</Text>
           </View>
 
         </View>
@@ -42,10 +40,9 @@ const IntroSlider = ({ navigation, route }) => {
             source={require("./../../../assets/lvl7.png")} style={styles.image}
           />
           <View>
-            <Text style={styles.text} >"Avancé"</Text>
+            <Text style={styles.text} >"Advanced"</Text>
 
-            <Text style={styles.text} >Stade 6 et 7 “avancé”: c’est la partie lors le malade utilise la smartwatch avec le contrôle de leur gardien(ne).</Text>
-
+            <Text style={styles.text} >Stage 6 and 7: This is the part when the patient uses the smartwatch with the control of their guardian.</Text>
           </View>
 
         </View>

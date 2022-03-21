@@ -37,15 +37,17 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+
+        <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
+        <Stack.Screen name="IntroSlider" options={{ headerShown: false }} component={IntroSlider} />
+
         <Stack.Screen name="SignupDementia" component={SignupDementia} />
         <Stack.Screen name="SignUpGuardian" component={Signup} />
         <Stack.Screen name="Signin" options={{ headerShown: false }} component={SignIn} />
         <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav} />
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-        <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
         <Stack.Screen name="Test" options={{ headerShown: false }} component={Test} />
         <Stack.Screen name="Notif" options={{ headerShown: false }} component={Notif} />
-        <Stack.Screen name="IntroSlider" options={{ headerShown: false }} component={IntroSlider} />
         <Stack.Screen name="SpecifySafeArea" component={SpecifySafeArea} options={{ headerShown: false }} />
         <Stack.Screen name="AddNotes" component={AddNotes} options={{ headerShown: false }} />
         <Stack.Screen name="CheckNote" component={CheckNote} options={{ headerShown: false }} />

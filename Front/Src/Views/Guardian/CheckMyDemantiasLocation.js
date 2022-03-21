@@ -39,7 +39,7 @@ const CheckMyDemantiasLocation = () => {
   async function getDemantiaLocation() {
    await axios
       .get(
-        `http://192.168.1.16:8090/guardian/getMyDementiaLocation/4028b8817f6de1ee017f6de49c3d0000`
+        `http://192.168.1.26:8090/guardian/getMyDementiaLocation/4028b8817f6de1ee017f6de49c3d0000`
       )
       .then((res) => {
         setLocation(res.data);
