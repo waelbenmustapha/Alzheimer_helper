@@ -13,7 +13,7 @@ import { URL } from "@env"
 
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import   AsyncStorage from "@react-native-async-storage/async-storage";
 import ProfileElement from "../../Components/ProfileElement";
 
 const CheckNotes = ({ navigation }) => {
@@ -26,7 +26,7 @@ const CheckNotes = ({ navigation }) => {
   function getData() {
     axios
       .get(
-        `http://192.168.1.17:8090/notes/get-notes-by-dementia-id/${userData.id}`
+        `http://192.168.1.17:8090/notes/get-notes-by-dementia-id/`
       )
       .then((res) => {
         console.log("************************");
@@ -39,13 +39,17 @@ const CheckNotes = ({ navigation }) => {
 
     getData();
   }, [isFocused]);
+  // if(userData==null){
+  //   return (
+  //   <View><Text>Loading</Text></View>
+  //     )
+  //   }
 
   return (
 
     <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
       
-
-      <ProfileElement userData={userData}/>
+          {userData&&  <ProfileElement userData={userData}/>}
 
 
       <View style={[styles.container, { flex: 4, flexDirection: "column" }]}>
