@@ -2,49 +2,116 @@ import React, { useEffect, useState } from 'react'
 import { View, ScrollView, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { validatePathConfig } from '@react-navigation/native';
 const SignupDementia = ({ navigation }) => {
-
+  const [date, setDate] = useState(null);
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
   const [userName, setUserName] = useState('');
-  const [age, setAge] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [userConfirmPassword, setConfirmUserPassword] = useState('');
   const [guardianEmail, setGuardianEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  
+  
+  // Birthdate
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    currentDate.setHours(currentDate.getHours() + 1)
+    setDate(currentDate);
+
+    if (mode == "date") {
+      setMode("time");
+
+    }
+
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
+  };
+
+  //localStorage
+  _storeData = async () => {
+    try {
+      await AsyncStorage.setItem("Name",userName);
+      await AsyncStorage.setItem("Email",userEmail);
+      await AsyncStorage.setItem("Password",userPassword);
+      await AsyncStorage.setItem("Birthdate",date);
 
 
+    } catch (error) {
+    console.log(error) 
+   }
+  };
+
+  //verfication
+  const regx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+  const isValid = () => {
+
+    if (!userName.trim() || !userEmail.trim() || !userPassword.trim() || !guardianEmail.trim())
+      return alert("Please fill in all fields are required ");
+
+    if (userName.length < 3)
+      return alert("Invalid Name");
+
+    if (!regx.test(userEmail))
+      return alert("invalid Email");
+
+    if (!userPassword.length > 8)
+      return alert("Password is less then 8 characters!");
+
+    if (userPassword !== userConfirmPassword)
+      return alert("Password does not match!");
+
+    
+
+    return true;
+  };
+
+
+  //API
   const handleSubmitPress = async (event) => {
-    if (!userEmail.trim() || !userPassword.trim() ||  !userName.trim() || !guardianEmail.trim()) {
-      alert("Please fill in all fields are required ");
-      return;
-    } setIsLoading(true);
+    if (isValid()) {
+      setIsLoading(true);
 
-    axios.post(`http://192.168.1.14:8090/demantia/SignUp/${guardianEmail}`, {
-      name: userName,
-      email: userEmail,
-      password: userPassword,
-      comfirmPassword: userConfirmPassword,
-      age: age,
-      birthdate: "2022-02-27T19:59:52.278+00:00"
-    }).then((response) => {
-      console.log(response.status)
-      if (response.status === 200) {
-        alert(` You have created: ${JSON.stringify(response.data)}`);
-        setIsLoading(false);
-        setUserName('');
-        setAge('');
-        setUserEmail('');
-        setUserPassword('');
-        setConfirmUserPassword('');
-        setGuardianEmail('');
-      }
-    }).catch((error) => { alert(error); setIsLoading(false); })
+      axios.post(`http://192.168.1.26:8090/dementia/SignUp/${guardianEmail}`, {
+        name: userName,
+        email: userEmail,
+        password: userPassword,
+        comfirmPassword: userConfirmPassword,
+        birthdate: date
+      }).then((response) => {
+        console.log(response.status)
+        if (response.status === 200) {
+          _storeData()
+          alert("successful Email creation!")
+          navigation.navigate("Signin")
+        }
+        if (response.status === 226) {
+          alert("Email already exist!")
+        }
+        if (response.status === 404) {
+          alert("Guardian Email does not exist!")
+        }
+
+      }).catch((error) => { alert(error); setIsLoading(false); })
+    }
   }
 
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView>
 
         <View style={{ flex: 1 }} >
           <View style={styles.form} >
@@ -53,20 +120,41 @@ const SignupDementia = ({ navigation }) => {
             <TextInput
               style={styles.input}
               value={userName}
-              placeholder='User name'
+              placeholder='Dementia Name'
               autoCapitalize="none"
               placeholderTextColor='#00000080'
               onChangeText={(UserName) => setUserName(UserName)}
             />
-         
+
             <TextInput
               style={styles.input}
               placeholder='Email'
-              autoCapitalize="none" 
+              autoCapitalize="none"
               value={userEmail}
               placeholderTextColor='#00000080'
               onChangeText={(UserEmail) => setUserEmail(UserEmail)}
             />
+             <TouchableOpacity
+              style={styles.input}
+              onPress={showDatepicker}>
+              {
+                date == null ?
+                  <Text style={styles.date0}>Dementia Birthdate</Text> : <Text style={styles.date}>{JSON.stringify(date
+                  ).substring(1, 11)}</Text>
+
+              }
+            </TouchableOpacity>
+            {show && (
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={new Date(1598051730000)}
+                mode={mode}
+                is24Hour={true}
+                display="default"
+                onChange={onChange}
+                style={styles.date0}
+              />
+            )}
             <TextInput
               style={styles.input}
               placeholder='Password'
@@ -104,8 +192,8 @@ const SignupDementia = ({ navigation }) => {
           <TouchableOpacity>
             <Text style={styles.textCenter}>Forgot password?</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("SigninDementia")}>
-            <Text style={[styles.title2], { color: '#359A8E' }}>
+          <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
+            <Text style={{ color: '#359A8E' }}>
               Already have an account</Text>
           </TouchableOpacity>
           <Text style={styles.textCenter}>Or login with</Text>
@@ -127,6 +215,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   containerLogo: {
+    padding: 5,
     flexDirection: "row",
   },
   form: {
@@ -154,7 +243,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   title: {
-    marginTop: 12,
+    marginTop: 140,
     marginBottom: 18,
     fontSize: 24,
     color: '#359A8E'
@@ -166,7 +255,7 @@ const styles = StyleSheet.create({
   },
   Signupbutton: {
     margin: 10,
-    marginLeft: 250,
+    marginLeft: "60%",
     backgroundColor: '#359A8E',
     width: 70,
     height: 49,
@@ -189,7 +278,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     alignItems: "center",
     margin: 5
-  }
+  },
+  date: {
+
+    color: "#000",
+    fontSize: 18
+  },
+  date0: {
+    color: '#00000080',
+    fontSize: 18
+  },
 
 })
 

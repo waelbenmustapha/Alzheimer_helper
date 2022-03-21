@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import MapView, { Marker, Circle } from "react-native-maps";
 import { getDistance } from "geolib";
+import {URL} from "@env"
 
 import alarm from '../../../images/alarm.png'
 import demloc from '../../../images/demloc.png'
@@ -15,12 +16,13 @@ import {
 } from "react-native";
 import * as Location from "expo-location";
 import axios from "axios";
+import { sendPushNotification } from "../../Utils/Notif";
 
 const CheckMyDemantiasLocation = () => {
   const[Danger, setDanger] = useState(false);
   const [safe, setSafeArea] = useState({
-    latitude: 36.760228,
-    longitude: 10.270014,
+    latitude: 36.4048249,
+    longitude: 10.1411230,
   });
   const [location, setLocation] = useState(null);
   function goToLocation() {
@@ -34,10 +36,10 @@ const CheckMyDemantiasLocation = () => {
 
   const mapRef = useRef();
 
-  function getDemantiaLocation() {
-    axios
+  async function getDemantiaLocation() {
+   await axios
       .get(
-        `http://192.168.1.14:8090/guardian/getMyDemantiaLocation/4028b8817f092fe7017f093140e80000`
+        `http://192.168.1.26:8090/guardian/getMyDementiaLocation/4028b8817f6de1ee017f6de49c3d0000`
       )
       .then((res) => {
         setLocation(res.data);
@@ -49,8 +51,9 @@ const CheckMyDemantiasLocation = () => {
                 safe
               ) > 300
         ) {
-            console.log("DAAANGER")
-            
+             sendPushNotification('ExponentPushToken[kacZK7Mh8H-X8solLH94mI]');
+          
+          console.log("danger")
           setDanger(true);
         } else {
             console.log("saaaaafe")
@@ -73,13 +76,18 @@ const CheckMyDemantiasLocation = () => {
     const interval = setInterval(() => {
       getDemantiaLocation();
       console.log("seconds 10 getting");
-    }, 10000);
+    }, 15000);
+    return () => {
+      console.log("Cleaning useEffect")
+      clearInterval(interval);
+
+  }    
   }, []);
 
   if (location == null) {
     return (
       <View>
-        <Text>Loading</Text>
+        <Text>Loading </Text>
       </View>
     );
   } else {

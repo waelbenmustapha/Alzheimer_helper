@@ -7,8 +7,9 @@ import {
   Image,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import NoteElement from "../Components/NoteElement";
+import NoteElement from "../../Components/NoteElement";
 import { AntDesign } from "@expo/vector-icons";
+import { URL } from "@env"
 
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
@@ -21,7 +22,7 @@ const CheckNotes = ({ navigation }) => {
   function getData() {
     axios
       .get(
-        `http://192.168.1.14:8090/notes/get-notes-by-dementia-id/402881907f190703017f1909a0080001`
+        `http://192.168.1.26:8090/notes/get-notes-by-dementia-id/4028819a7fa94d3c017fa95b6dd90001`
       )
       .then((res) => {
         console.log("************************");
@@ -35,25 +36,15 @@ const CheckNotes = ({ navigation }) => {
 
   return (
 
-    <View style={[styles.container, { flex: 3, flexDirection: "column" }]}>
+    <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
       <View style={{ flex: 1, padding: '5%' }}>
 
-        <View style={{ flex: 1, flexDirection: "row" }}>
-          <Image
-            source={require("./../../assets/profile.png")}
-            style={styles.image}
-          ></Image>
-          <View style={styles.firstItem}>
-            <Text style={styles.Title}>Welcome Alex Ten Napel </Text>
-            <Text style={styles.Title}>Your age is 80 </Text>
-          </View>
-        </View>
 
       </View>
 
 
 
-      <View style={[styles.container, { flex: 5, flexDirection: "column" }]}>
+      <View style={[styles.container, { flex: 4, flexDirection: "column" }]}>
         <View style={[styles.container, { flexDirection: "row" }]}>
 
           <View style={styles.barre} />
@@ -75,7 +66,7 @@ const CheckNotes = ({ navigation }) => {
             </View>
           </View>
           <View style={styles.container1}>
-            <TouchableOpacity onPress={() => navigation.navigate("AddNote")}>
+            <TouchableOpacity onPress={() => navigation.navigate("AddNotes")}>
               <AntDesign name="pluscircleo" size={50} color="#4A0D66" />
             </TouchableOpacity>
           </View>
@@ -100,10 +91,10 @@ const styles = StyleSheet.create({
     padding: 5,
     paddingStart: 20,
     borderRadius: 10,
+
   },
   container: {
     flex: 1,
-    backgroundColor: "#fff",
 
   },
   container1:
@@ -119,10 +110,10 @@ const styles = StyleSheet.create({
   },
   image: {
     marginTop: 5,
-    marginLeft: 40,
+    marginLeft: 20,
     fontSize: 28,
     fontWeight: "bold",
-    color: "#359A8E",
+
   },
   backarrow: {
     paddingLeft: 50,
@@ -149,11 +140,13 @@ const styles = StyleSheet.create({
   Title: {
     fontWeight: "bold",
     fontSize: 20,
-  }, firstItem: {
+  },
+  firstItem: {
     alignItems: "flex-end",
-    justifyContent: "center",
-    marginLeft: 10,
-  }, image: {
+    justifyContent: "flex-start",
+    margin: "4%",
+  },
+  image: {
     width: 100,
     height: 100,
     borderRadius: 40 / 2,

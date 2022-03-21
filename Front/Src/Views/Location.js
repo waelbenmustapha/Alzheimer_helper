@@ -10,12 +10,17 @@ const Location = ({ navigation }) => {
           navigation.navigate('CheckDemantiaLocation')
         }
       ><Text>Go check my demantia location</Text></TouchableOpacity>
-      <TouchableOpacity style={styles.donebutton}
-
+      {/* <TouchableOpacity style={styles.donebutton}
         onPress={() =>
           navigation.navigate('DemantiaLocation')
         }
-      ><Text>Go my location</Text></TouchableOpacity>
+      ><Text>Go my location</Text></TouchableOpacity> */}
+       <TouchableOpacity style={styles.donebutton}
+
+onPress={() =>
+  navigation.navigate('SpecifySafeArea')
+}
+><Text>Specify Safe area</Text></TouchableOpacity>
     </View>
   )
 }

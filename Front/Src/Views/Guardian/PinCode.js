@@ -1,105 +1,117 @@
-import React, { Component } from 'react';
-import { Dimensions, View, StatusBar, StyleSheet, ImageBackground, SafeAreaView, TextInput, TouchableOpacity, Text }
-    from 'react-native'
+import { Text, View, StyleSheet, Dimensions,TextInput, TouchableOpacity } from 'react-native'
+import React, { Component, useState } from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import axios from 'axios';
 
 
-import CodePin from 'react-native-pin-code';
 
-const PinCode = ({ navigation }) => {
+
+
+const PinCode = ({navigation}) => {
+
+    const [pincode, setCode] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleSubmitPress = async (event) => {
+        if (!pincode.trim()) {
+            alert("Please Entry Pin code");
+            return;
+        } setIsLoading(true);
+        axios.post(`http://192.168.1.26:8090/guardian/add-pin-code/4028819a7fa2f840017fa2f96bde0000/${pincode}`, {
+            pincode: pincode
+        }).then((response) => {
+            console.log(response.status)
+            if (response.status === 200) {
+              navigation.navigate("PinCodeVerif")
+            }
+        }).catch((error) => { alert(error); setIsLoading(false); })
+
+    }
 
 
     return (
-        <ImageBackground source={require("./../../../assets/old.png")} resizeMode="cover" style={styles.image}>
+        <SafeAreaView style={{ flex: 1 }}>
+            <View style={styles.container}>
+                <Text style={styles.passcodeText}> Enter Pin Code</Text>
+                <View style={styles.codeContainer}>
+                    <TextInput
+                        style={styles.code1}
+                        placeholder='****'
+                        secureTextEntry={true}
+                        maxLength={4}
+                        keyboardType="number-pad"
+                        onChangeText={(pincode) => setCode(pincode)}
 
-            <SafeAreaView style={styles.root}>
-                <Text style={styles.title}>Alzheimer Helper</Text>
-                <View style={styles.container}>
-
-                    <CodePin
-                        ref={ref => (this.ref = ref)}
-                        obfuscation
-                        autoFocusFirst
-                        code="fake_code"
-                        number={4}
-                        keyboardType="numeric"
-                        checkPinCode={(code, callback) => callback(code === '1234')}
-                        success={() => navigation.navigate("Home")}
                     />
-
+                    <TouchableOpacity onPress={() => handleSubmitPress()}>
+                        <Text style={[styles.buttonText, { color: "#359A8E" }]}>Submit Pin Code</Text>
+                    </TouchableOpacity>
                 </View>
+            </View>
 
-            </SafeAreaView>
-        </ImageBackground>
+            <View style={styles.buttons}>
 
-    );
+                <TouchableOpacity>
+                    <Text style={[styles.buttonText, { color: "red" }]}>Forgot Pin Code</Text>
+                </TouchableOpacity>
 
+            </View>
+        </SafeAreaView>
+    )
 
 }
 
 
 const styles = StyleSheet.create({
-    root: {
-        flex: 2,
-        marginTop: StatusBar.currentHeight,
-        backgroundColor: 'rgba(0,0,0, 0.30)'
-
-
-    },
-
     container: {
-        flex: 1,
-        margin: 20,
-        justifyContent: 'flex-end',
+        flex: 20,
+        justifyContent: "flex-end",
+        alignItems: "center",
+        backgroundColor:"blue"
+    },
+
+
+
+    passcodeText: {
+        fontSize: 32,
+        color: '#359A8E',
+        letterSpacing: 0.34,
+        justifyContent: "center",
 
     },
-    title: {
+    codeContainer: {
+        marginTop: 12,
+        flexDirection: 'column',
+        alignItems:"center",
+        justifyContent: 'center',
         color: "#359A8E",
-        fontSize: 28,
-        paddingLeft: '2%',
-        paddingTop: '2%',
-
     },
-    image: {
-        flex: 1,
-    },
-
-    innercontainer: {
-        flex: 1,
-        marginTop: StatusBar.currentHeight,
-        backgroundColor: 'rgba(0,0,0, 0.30)'
-
-    },
-    codeFieldRoot: {
-        marginTop: 5
-    },
-    cell: {
-        width: 40,
-        height: 40,
-        lineHeight: 38,
+    code1: {
         fontSize: 24,
-        borderWidth: 2,
-        borderColor: '#4A0D66',
-        textAlign: 'center',
-        borderRadius: 10,
+        color: "#000",
+        paddingLeft: "20%",
+        paddingRight: "20%",
+        padding: 10,
+        borderRadius: 50,
+        borderWidth: 1,
+        borderColor: "#359A8E",
+    },
 
+    buttons: {
+        marginTop: 73,
+        marginLeft: 46,
+        marginRight: 46,
+        flexDirection: 'row',
+        alignItems: "center",
+        justifyContent: 'space-between',
     },
-    focusCell: {
-        borderColor: '#359A8E',
-    },
-    donebutton: {
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        marginTop: 25,
-        paddingVertical: 12,
-        borderRadius: 10,
-        elevation: 3,
-        borderColor: '#359A8E',
-        backgroundColor: '#fff',
-        shadowColor: '#359A8E',
-        shadowOpacity: 0.55,
-        shadowRadius: 2.22,
-        elevation: 11,
-    },
-});
+
+    buttonText: {
+        fontSize: 16,
+        color: '#000',
+        padding:"10%",
+        letterSpacing: -0.39,
+    }
+})
 
 export default PinCode;

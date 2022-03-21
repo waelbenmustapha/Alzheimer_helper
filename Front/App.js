@@ -1,15 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import AddNotes from './Src/Views/AddNotes';
-import CheckNotes from './Src/Views/CheckNotes';
+import AddNotes from './Src/Views/Note/AddNotes';
+import CheckNotes from './Src/Views/Note/CheckNotes';
 import CheckMyLocation from './Src/Views/Demantia/CheckMyLocation';
 import CheckMyDemantiasLocation from './Src/Views/Guardian/CheckMyDemantiasLocation';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './Src/Views/Home';
-import CheckNote from './Src/Views/CheckNote';
+import CheckNote from './Src/Views/Note/CheckNote';
 import Location from './Src/Views/Location';
-import SignIn from './Src/Views/Guardian/SignIn';
+import SignIn from './Src/Views/SignIn';
 
 import SignupDementia from './Src/Views/Demantia/SignupDementia';
 import SigninDementia from './Src/Views/Demantia/SigninDementia';
