@@ -13,16 +13,20 @@ import { URL } from "@env"
 
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import ProfileElement from "../../Components/ProfileElement";
 
 const CheckNotes = ({ navigation }) => {
   const isFocused = useIsFocused();
 
   const [notes, setNotes] = useState([]);
+  const [userData, setuserData] =useState(null);
+
 
   function getData() {
     axios
       .get(
-        `http://192.168.1.17:8090/notes/get-notes-by-dementia-id/402881907f190703017f1909a0080001`
+        `http://192.168.1.17:8090/notes/get-notes-by-dementia-id/${userData.id}`
       )
       .then((res) => {
         console.log("************************");
@@ -31,27 +35,17 @@ const CheckNotes = ({ navigation }) => {
   }
 
   useEffect(() => {
+    AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item)) ;console.log("++++++"+item)})
+
     getData();
   }, [isFocused]);
 
   return (
 
     <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
-      <View style={{ flex: 1, padding: '5%' }}>
+      
 
-        <View style={{ flex: 1, flexDirection: "row" }}>
-          <Image
-            source={require("../../../assets/profile.png")}
-            style={styles.image}
-          ></Image>
-          <View style={styles.firstItem}>
-          {userData.type=="dementia"?<Text style={styles.Title}> you are age is {getAge(userData.birthdate) } </Text> :userData.type=="guardian"?<Text style={styles.Title}> you are a guardian of {userData.dementia.name} </Text>: null}
-
-          </View>
-        </View>
-
-      </View>
-
+      <ProfileElement userData={userData}/>
 
 
       <View style={[styles.container, { flex: 4, flexDirection: "column" }]}>

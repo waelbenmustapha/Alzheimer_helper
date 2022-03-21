@@ -28,11 +28,11 @@ const HistoryDementia = ({navigation}) => {
     function getHistory() {
         axios
           .get(
-            `http://192.168.8.100:8090/story/get/402888e47f88237e017f8853ff440000`
+            `http://192.168.1.17:8090/story/get/402881907f858cf0017f8590d8400001`
           )
           .then((res) => {
             console.log("************************");
-            setHistory(res.data);
+            setHistory("Salut c'est aziz sliti ");
           });
       }
 
