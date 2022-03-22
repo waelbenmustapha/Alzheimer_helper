@@ -80,7 +80,7 @@ const CheckNotes = ({ navigation }) => {
               <View >
 
                 <ScrollView style={styles.scrollView}>
-                  {notes.map((el) => (<TouchableOpacity
+                  {notes.map((el) => (<TouchableOpacity key={el.id}
                     onPress={() => navigation.navigate("CheckNote", { el })} style={styles.item}>
                     <Text>Title : {el.title}</Text>
                     <Text>Date : {el.date}</Text>

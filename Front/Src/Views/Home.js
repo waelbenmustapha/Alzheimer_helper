@@ -66,7 +66,7 @@ const Home = ({ navigation }) => {
                 }} />
               <Text style={styles.Title2}>Contact</Text>
             </TouchableOpacity>
-            {  userData.type=="guardian"&&userData.dementia.history==null?
+            {  userData.type=="guardian"&& userData.dementia.story==null?
                   <TouchableOpacity style={{ alignItems: "center" }}
                               onPress={() => navigation.navigate("AddHistoryDementia")}>
                               
@@ -81,7 +81,7 @@ const Home = ({ navigation }) => {
             </TouchableOpacity>
               :
                   <TouchableOpacity style={{ alignItems: "center" }}
-                              onPress={() => navigation.navigate("History")}>
+                              onPress={() => navigation.navigate("HistoryDementia")}>
                               
                   <Image
                     source={require("./../../assets/profile.png")}

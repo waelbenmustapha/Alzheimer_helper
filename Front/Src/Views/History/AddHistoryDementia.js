@@ -6,8 +6,8 @@ import ProfileElement from '../../Components/ProfileElement';
 
 
 const AddHistoryDementia = ({navigation}) => {
-    const [history, setHistory] = useState("");
-    const [userData, setuserData] = useState("");
+    const [history, setHistory] = useState(null);
+    const [userData, setuserData] = useState(null);
 
 
     function AddHistory() {

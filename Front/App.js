@@ -25,6 +25,7 @@ import Test from './Src/Views/Test';
 import UpdateNote from './Src/Views/Note/UpdateNote';
 import DrawerNav from './Src/Views/DrawerNav';
 import History from './Src/Views/History';
+import AddNotes from './Src/Views/Note/AddNotes';
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -51,11 +52,6 @@ export default function App() {
       <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
 
 
-
-      <Stack.Screen name="test" options={{ headerShown: false }} component={test} />
-
-
-
       <Stack.Screen name="Notif" options={{ headerShown: false }} component={Notif} />
 
 
@@ -70,7 +66,7 @@ export default function App() {
         <Stack.Screen name="CheckNote" component={CheckNote} options={{ headerShown: false }} />
         <Stack.Screen name="CheckNotes" component={CheckNotes} options={{ headerShown: false }} />
         <Stack.Screen name="UpdateNote" component={UpdateNote} options={{ headerShown: false }} />
-        <Stack.Screen name="Location" component={Location} />
+      
         <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
         <Stack.Screen name="Location" component={Location} />
         <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
