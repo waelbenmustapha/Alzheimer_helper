@@ -16,12 +16,12 @@ import SpecifySafeArea from './Src/Views/Guardian/SpecifySafeArea';
 import Notif, { registerForPushNotificationsAsync } from './Src/Utils/Notif';
 import CheckNote from './Src/Views/Note/CheckNote';
 import CheckNotes from './Src/Views/Note/CheckNotes';
-import AddNotes from './Src/Views/Note/AddNotes';
+import PinCodeVerif from './Src/Views/Guardian/PinCodeVerif';
 import PinCode from './Src/Views/Guardian/PinCode';
 import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import test from './Src/Views/Test';
+import Test from './Src/Views/Test';
 import UpdateNote from './Src/Views/Note/UpdateNote';
 import DrawerNav from './Src/Views/DrawerNav';
 import History from './Src/Views/History';
@@ -31,7 +31,7 @@ export default function App() {
 
   
 
-  
+
   const Stack = createNativeStackNavigator();
 
   return (
@@ -72,6 +72,7 @@ export default function App() {
         <Stack.Screen name="UpdateNote" component={UpdateNote} options={{ headerShown: false }} />
         <Stack.Screen name="Location" component={Location} />
         <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
+        <Stack.Screen name="Location" component={Location} />
         <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
         <Stack.Screen name="PinCode" options={{ headerShown: false }} component={PinCode}/>
         <Stack.Screen name="HistoryDementia" options={{ headerShown: false }} component={HistoryDementia}/>

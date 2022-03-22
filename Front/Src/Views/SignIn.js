@@ -45,7 +45,6 @@ const SignIn = ({ navigation }) => {
   };
  
 
-
   const handleSubmitPress = async (event) => {
     if (!userEmail.trim() || !userPassword.trim()) {
      

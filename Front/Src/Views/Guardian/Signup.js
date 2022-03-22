@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, ScrollView, TouchableOpacity, Image, Text, TextInput, StyleSheet,ToastAndroid } from 'react-native'
+import { View, ScrollView, TouchableOpacity, Image, Text, TextInput, StyleSheet, ToastAndroid } from 'react-native'
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -41,9 +41,9 @@ const Signup = ({ navigation }) => {
 
 
   const setData = async () => {
-    if (isValid()){
-      var user ={
-        name : UserName,
+    if (isValid()) {
+      var user = {
+        name: UserName,
         Date: date
       }
       await AsyncStorage.setItem('UserData', JSON.stringify(user));
@@ -130,19 +130,20 @@ const Signup = ({ navigation }) => {
       <ScrollView style={styles.scrollView}>
 
         <View style={{ flex: 1 }} >
-          <View style={styles.form} >
-
+          <View  style={{ alignItems:"center" }}>
             <Text style={styles.title}>Glad to see you here</Text>
+          </View>
+          <View style={styles.form} >
 
             <TextInput
               style={styles.input}
               value={userName}
-              placeholder='Dementia Name'
+              placeholder='Name'
               autoCapitalize="none"
               placeholderTextColor='#00000080'
               onChangeText={(UserName) => setUserName(UserName)}
             />
-           
+
 
             <TextInput
               style={styles.input}
@@ -202,13 +203,14 @@ const Signup = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "row"
+    flexDirection: "row",
   },
   containerLogo: {
     flexDirection: "row",
   },
   form: {
-    alignItems: "center"
+    alignItems: "center",
+    paddingTop: "5%"
   },
   input: {
     justifyContent: 'center',
@@ -237,7 +239,8 @@ const styles = StyleSheet.create({
     marginTop: "10%",
     marginBottom: 18,
     fontSize: 24,
-    color: '#359A8E'
+    color: '#359A8E',
+
   },
   tilte2: {
     marginTop: 12,

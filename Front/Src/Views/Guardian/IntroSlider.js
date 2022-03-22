@@ -16,10 +16,9 @@ const IntroSlider = ({ navigation, route }) => {
 
           />
           <View>
-            <Text style={styles.text} >"Précoce"</Text>
+            <Text style={styles.text1} >"Precocious"</Text>
 
-            <Text style={styles.text} >Stade 1,2 et 3 : c’est la partie lors le malade utilise la version de l’application mobile avec le contrôle de leur gardien(ne).</Text>
-
+            <Text style={styles.text2} >Stage 1,2 and 3: This is the part when the patient uses the version of the mobile application with the control of their guardian.</Text>
           </View>
 
         </View>
@@ -29,10 +28,9 @@ const IntroSlider = ({ navigation, route }) => {
             source={require("./../../../assets/lvl56.png")} style={styles.image}
           />
           <View>
-            <Text style={styles.text} >"Intermediare"</Text>
+            <Text style={styles.text1} >"Intermediate"</Text>
 
-            <Text style={styles.text} >Stade 4 et 5 : c’est la partie lors le malade utilise la version de l’application mobile avec la smartwatch liée avec le contrôle de leurs gardien(ne).</Text>
-
+            <Text style={styles.text2} >Stage 4 and 5: This is the part when the patient uses the version of the mobile application with the smartwatch linked with the control of their guardian.</Text>
           </View>
 
         </View>
@@ -42,10 +40,9 @@ const IntroSlider = ({ navigation, route }) => {
             source={require("./../../../assets/lvl7.png")} style={styles.image}
           />
           <View>
-            <Text style={styles.text} >"Avancé"</Text>
+            <Text style={styles.text1} >"Advanced"</Text>
 
-            <Text style={styles.text} >Stade 6 et 7 “avancé”: c’est la partie lors le malade utilise la smartwatch avec le contrôle de leur gardien(ne).</Text>
-
+            <Text style={styles.text2} >Stage 6 and 7: This is the part when the patient uses the smartwatch with the control of their guardian.</Text>
           </View>
 
         </View>
@@ -85,7 +82,7 @@ const styles = StyleSheet.create({
     padding: 20,
     width: '33%',
     margin: '5%',
-    borderRadius: 40
+    borderRadius: 20
   },
 
   slide1: {
@@ -115,9 +112,17 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-end',
   },
-  text: {
+  text1: {
     color: '#359A8E',
     fontSize: 18,
+    textAlign: 'center',
+    marginLeft: 30,
+    marginEnd: 30,
+    padding: 5
+  },
+  text2: {
+    color: '#359A8E',
+    fontSize: 14,
     textAlign: 'center',
     marginLeft: 30,
     marginEnd: 30,
