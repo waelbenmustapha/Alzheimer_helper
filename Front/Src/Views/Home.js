@@ -25,37 +25,37 @@ import ProfileElement from "../Components/ProfileElement";
 
 const Home = ({ navigation }) => {
 
-  const [userData, setuserData] =useState(null);
-  const [dir, setdir] =useState('');
+  const [userData, setuserData] = useState(null);
+  const [dir, setdir] = useState('');
   const isFocused = useIsFocused()
-
 
 
   //localStorage
 
- 
+
   useEffect(() => {
     AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item))})
    
      
   },[isFocused]  );
 
-  if(userData==null){
+  if (userData == null) {
     return (
-    <View><Text>Loading</Text></View>
-      )
+      <View><Text>Loading</Text></View>
+    )
   }
 
   return (
 
-    
+
     <View style={styles.container}>
      <ProfileElement userData={userData}/>
       <View style={{ flex: 9 }}>
         <View style={{ flexDirection: "row" }}>
 
           <View style={{ flex: 2 }} >
-            <TouchableOpacity style={{ alignItems: "center" }}>
+            <TouchableOpacity style={{ alignItems: "center" }}
+              onPress={() => navigation.navigate("Contact")}>
               <Image
                 source={require("./../../assets/Contact.png")}
                 style={{
@@ -96,7 +96,7 @@ const Home = ({ navigation }) => {
 
 
           <View style={{ flex: 2 }} >
-          {userData.type=="dementia"?<TouchableOpacity
+            {userData.type == "dementia" ? <TouchableOpacity
               style={{ alignItems: "center" }}
               onPress={() => navigation.navigate("DemantiaLocation")}>
               <Image
@@ -108,7 +108,7 @@ const Home = ({ navigation }) => {
                   marginTop: 10,
                 }} />
               <Text style={styles.Title2}>Location</Text>
-            </TouchableOpacity>:userData.type=="guardian"?<TouchableOpacity
+            </TouchableOpacity> : userData.type == "guardian" ? <TouchableOpacity
               style={{ alignItems: "center" }}
               onPress={() => navigation.navigate("Location")}>
               <Image
@@ -123,7 +123,8 @@ const Home = ({ navigation }) => {
             </TouchableOpacity>: null}
             
 
-           {/*  <Modal.Dialog>
+
+            {/*  <Modal.Dialog>
               <Modal.Body>
                 <TouchableOpacity style={styles.donebutton}
                   onPress={() => navigation.navigate('CheckDemantiaLocation')}>
