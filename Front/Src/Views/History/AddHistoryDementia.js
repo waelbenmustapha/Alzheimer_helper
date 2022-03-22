@@ -1,32 +1,41 @@
 import { View, Text,StyleSheet,Image,ScrollView,TouchableOpacity,TextInput } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import ProfileElement from '../../Components/ProfileElement';
 
 
 const AddHistoryDementia = ({navigation}) => {
-    const [history, setHistory] = useState("");
+    const [history, setHistory] = useState(null);
+    const [userData, setuserData] = useState(null);
+
 
     function AddHistory() {
-
-        axios.post(`http://192.168.1.26:8090/story/add/402888e47f88237e017f8853ff440000`,
-          { history: history})
-          .then((res) => navigation.navigate("Home"))
+      AsyncStorage.getItem('user')
+      .then(value=>{
+        axios.post(`http://192.168.1.17:8090/story/add/${JSON.parse(value).dementia.id}`,
+        { history: history})
+        .then((res) => navigation.navigate("drawer"))
+     })
+      
+      }
+      useEffect(() => {
+        console.log("******************************************************************")
+        AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item))})
+     
+      },[]  );
+    
+      if(userData==null){
+        return (
+        <View><Text>Loading</Text></View>
+          )
       }
   return (
     <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
-    <View style={{ flex: 1, padding: '15%' }}>
+    <View style={{ flex: 1, padding: '5%' }}>
 
-      <View style={{flex: 1, flexDirection: "row" }}>
-      <Image
-        source={require("./../../../assets/profile.png")}
-        style={styles.image}
-      ></Image>
-      <View style={styles.firstItem}>
-        <Text style={styles.Title}>Welcome Alex Ten Napel </Text>
-        <Text style={styles.Title}>Your age is 80 </Text>
-      </View>
-    
-    </View>
+    <ProfileElement userData={userData}/>
+
     
       <ScrollView style={styles.scrollView}>
         <View style={styles.item}>

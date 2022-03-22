@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   Title: {
     fontWeight: "bold",
     fontSize: 24,
-  },
+  },  
   addbutton: {
     position: "relative",
     justifyContent: "flex-end",

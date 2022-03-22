@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import heure from '../../../assets/heure.png'
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AddNotes = ({ navigation }) => {
   const [date, setDate] = useState(new Date(1598051730000));
@@ -10,13 +11,29 @@ const AddNotes = ({ navigation }) => {
   const [show, setShow] = useState(false);
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
-
+  const message = {   
+    'title': 'Note Addition',
+   'body': 'Your dementia has added a note'
+ }
   function AddNote() {
 
-    axios.post(`http://192.168.1.26:8090/notes/add-note/4028819a7fa94d3c017fa95b6dd90001`,
-      { description: description, title: title, date: date })
-      .then((res) => navigation.navigate("CheckNotes"))
+    AsyncStorage.getItem('user')
+        .then(value=>{console.log(JSON.parse(value));
+          console.log(JSON.parse(value).type)
+          if(JSON.parse(value).type =='dementia'){
+            axios.post(`http://192.168.1.17:8090/pending-notes/add-note/${JSON.parse(value).id}`,
+          {description:description, title:title,date:date})
+          .then((res) => navigation.navigate("CheckNotes"))
+
+        }
+        else {
+          axios.post(`http://192.168.1.17:8090/notes/add-note/${JSON.parse(value).dementia.id}`,
+             {description: description, title: title, date: date })
+             .then((res) => navigation.navigate("CheckNotes"))
+       }})
+
   }
+  
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;

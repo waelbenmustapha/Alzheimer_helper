@@ -10,7 +10,6 @@ import {
 import * as Location from "expo-location";
 import axios from "axios";
 import { URL } from "@env";
-import { getUser } from "../../Utils/user";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CheckMyLocation = () => {
@@ -24,8 +23,8 @@ const CheckMyLocation = () => {
       console.log("**********************************");
     axios
       .post(
-        `http://192.168.1.26:8090/dementia/post-location/${
-          value
+        `http://192.168.1.17:8090/dementia/post-location/${
+            value
         }/${latitude.toFixed(7)}/${longitude.toFixed(7)}`
       )
       .then((res) => console.log(res.data))

@@ -84,7 +84,7 @@ const SignupDementia = ({ navigation }) => {
     if (isValid()) {
       setIsLoading(true);
 
-      axios.post(`http://192.168.1.26:8090/dementia/SignUp/${guardianEmail}`, {
+      axios.post(`http://192.168.1.17:8090/dementia/SignUp/${guardianEmail}`, {
         name: userName,
         email: userEmail,
         password: userPassword,
@@ -95,7 +95,7 @@ const SignupDementia = ({ navigation }) => {
         if (response.status === 200) {
           _storeData()
           alert("successful Email creation!")
-          navigation.navigate("Signin")
+          navigation.navigate("SignIn")
         }
         if (response.status === 226) {
           alert("Email already exist!")
@@ -192,7 +192,7 @@ const SignupDementia = ({ navigation }) => {
           <TouchableOpacity>
             <Text style={styles.textCenter}>Forgot password?</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
+          <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
             <Text style={{ color: '#359A8E' }}>
               Already have an account</Text>
           </TouchableOpacity>

@@ -68,12 +68,12 @@ console.log("seconds 10 getting");
 }
 
 // Can use this function below, OR use Expo's Push Notification Tool-> https://expo.dev/notifications
-export async function sendPushNotification(expoPushToken) {
+export async function sendPushNotification(expoPushToken,title,body) {
   const message = {
     to: expoPushToken,
     sound: 'default',
-    title: 'Your dementia had runaway',
-    body: 'Your dementia is out of his safe zone, make sure to check out for his location and get him as safe as possible.    ',
+    title: title,
+    body: body,
     data: { someData: 'goes here' },
   };
 

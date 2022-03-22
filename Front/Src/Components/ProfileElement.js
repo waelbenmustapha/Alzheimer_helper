@@ -18,14 +18,22 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-const ProfileElement = () => {
+export default function ProfileElement (props) {
   const [userData, setuserData] =useState(null);
   const isFocused = useIsFocused()
+  function getAge(dateString) 
+  {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+    {
+        age--;
+    }
+    return age;
+    }
 
-  useEffect(() => {
-    AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item))})
-  
-  },[isFocused]  );
   return (
     <View style={{ flex: 3, alignItems:"center" }}>
     <View style={{ flex: 1,width:"90%", flexDirection:"row" ,alignItems:"center"}}>
@@ -34,8 +42,8 @@ const ProfileElement = () => {
         style={styles.image}
       ></Image>
       <View style={styles.firstItem}>
-        <Text style={styles.Title}>Welcome {userData.name} </Text>
-        {userData.type=="dementia"?<Text style={styles.Title}> you are age is {getAge(userData.birthdate) } </Text> :userData.type=="guardian"?<Text style={styles.Title}> you are a guardian of {userData.dementia.name} </Text>: null}
+        <Text style={styles.Title}>Welcome {props.userData.name} </Text>
+        {props.userData.type=="dementia"?<Text style={styles.Title}> you are age is {getAge(props.userData.birthdate) } </Text> :props.userData.type=="guardian"?<Text style={styles.Title}> you are a guardian of {props.userData.dementia.name} </Text>: null}
       </View>
     </View>
 
@@ -53,8 +61,8 @@ const styles = StyleSheet.create({
     // marginLeft: 10,
   },
   image: {
-    width: "40%",
-    height: "90%",
+    width: 150,
+    height: 150,
     borderRadius: 40 / 2,
   },
   Title: {
@@ -80,4 +88,3 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     color: "#424242",
   }})
-export default ProfileElement

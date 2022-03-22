@@ -6,8 +6,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './Src/Views/Home';
 import Location from './Src/Views/Location';
 import SignIn from './Src/Views/SignIn';
-import HistoryDementia from './Src/Views/Demantia/HistoryDementia'
-import AddHistoryDementia from './Src/Views/Guardian/AddHistoryDementia'
+import HistoryDementia from './Src/Views/History/HistoryDementia'
+import AddHistoryDementia from './Src/Views/History/AddHistoryDementia'
 import SignupDementia from './Src/Views/Demantia/SignupDementia';
 import IntroSliderScreen from './Src/Views/Guardian/IntroSliderScreen';
 import Signup from './Src/Views/Guardian/Signup';
@@ -24,13 +24,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Test from './Src/Views/Test';
 import UpdateNote from './Src/Views/Note/UpdateNote';
 import DrawerNav from './Src/Views/DrawerNav';
+import History from './Src/Views/History';
 import AddNotes from './Src/Views/Note/AddNotes';
-import Contact from './Src/Views/Contact';
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
 
-
+  
 
 
   const Stack = createNativeStackNavigator();
@@ -61,10 +61,14 @@ export default function App() {
         <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
         <Stack.Screen name="Location" component={Location} />
         <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
-        <Stack.Screen name="HistoryDementia" options={{ headerShown: false }} component={HistoryDementia} />
-        <Stack.Screen name="AddHistoryDementia" options={{ headerShown: false }} component={AddHistoryDementia} />
-        <Stack.Screen name="PinCode" options={{ headerShown: false }} component={PinCode} />
-        <Stack.Screen name="PinCodeVerif" options={{ headerShown: false }} component={PinCodeVerif} />
+        <Stack.Screen name="PinCode" options={{ headerShown: false }} component={PinCode}/>
+        <Stack.Screen name="HistoryDementia" options={{ headerShown: false }} component={HistoryDementia}/>
+        <Stack.Screen name="AddHistoryDementia" options={{ headerShown: false }} component={AddHistoryDementia}/>
+        <Stack.Screen name="History" component={History}/>
+
+
+
+
 
       </Stack.Navigator>
     </NavigationContainer>

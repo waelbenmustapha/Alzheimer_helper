@@ -11,6 +11,8 @@ import {
   TextInput,
   TouchableOpacity,
   Pressable,
+  BackHandler, 
+  Alert
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Icon } from "react-native-elements";
@@ -18,6 +20,7 @@ import { useIsFocused } from '@react-navigation/native'
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getUser } from "../Utils/user";
+import ProfileElement from "../Components/ProfileElement";
 
 
 const Home = ({ navigation }) => {
@@ -27,26 +30,14 @@ const Home = ({ navigation }) => {
   const isFocused = useIsFocused()
 
 
-  function getAge(dateString) {
-    var today = new Date();
-    var birthDate = new Date(dateString);
-    var age = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-    return age;
-  }
   //localStorage
 
 
   useEffect(() => {
-    console.log("******************************************************************")
-    AsyncStorage.getItem('user', (err, item) => { setuserData(JSON.parse(item)) })
-    console.log(isFocused)
-    return () => { console.log(isFocused); console.log("cls") }
-
-  }, [isFocused]);
+    AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item))})
+   
+     
+  },[isFocused]  );
 
   if (userData == null) {
     return (
@@ -58,34 +49,7 @@ const Home = ({ navigation }) => {
 
 
     <View style={styles.container}>
-      <View style={{ flex: 3, alignItems: "center" }}>
-        <View style={{ flex: 1, width: "90%", flexDirection: "row", alignItems: "center" }}>
-          <Image
-            source={require("./../../assets/profile.png")}
-            style={styles.image}
-          ></Image>
-          {/* <View style={styles.firstItem}>
-            <Text style={styles.Title}>Welcome {userData.name} </Text>
-            {userData.type == "dementia" ? <Text style={styles.Title}> Your age is {getAge(userData.birthdate)} </Text> 
-            :userData.type == "guardian" ? <Text style={styles.Title}> You are a guardian of {userData.dementia.name} </Text> : null}
-          </View>  */}
-        </View>
-        {/* 
-        <View style={{ flex: 0, flexDirection: "column" }}>
-          <View style={styles.searchSection}>
-            <Icon style={styles.searchIcon} name="search" size={20} color="#000" />
-            <TextInput
-              style={styles.input}
-              placeholder="User Nickname"
-              onChangeText={(searchString) => {
-                this.setState({ searchString });
-              }}
-              underlineColorAndroid="transparent"
-            />
-          </View>
-        </View> */}
-      </View>
-
+     <ProfileElement userData={userData}/>
       <View style={{ flex: 9 }}>
         <View style={{ flexDirection: "row" }}>
 
@@ -102,16 +66,32 @@ const Home = ({ navigation }) => {
                 }} />
               <Text style={styles.Title2}>Contact</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={{ alignItems: "center" }}>
-              <Image
-                source={require("./../../assets/profile.png")}
-                style={{
-                  width: 150,
-                  height: 180,
-                  borderRadius: 40 / 2,
-                }} />
-              <Text style={styles.Title2}>History</Text>
+            {  userData.type=="guardian"&& userData.dementia.story==null?
+                  <TouchableOpacity style={{ alignItems: "center" }}
+                              onPress={() => navigation.navigate("AddHistoryDementia")}>
+                              
+                  <Image
+                    source={require("./../../assets/profile.png")}
+                    style={{
+                      width: 150,
+                      height: 180,
+                      borderRadius: 40 / 2,
+                    }} />
+                  <Text style={styles.Title2}>History</Text>
             </TouchableOpacity>
+              :
+                  <TouchableOpacity style={{ alignItems: "center" }}
+                              onPress={() => navigation.navigate("HistoryDementia")}>
+                              
+                  <Image
+                    source={require("./../../assets/profile.png")}
+                    style={{
+                      width: 150,
+                      height: 180,
+                      borderRadius: 40 / 2,
+                    }} />
+                  <Text style={styles.Title2}>History</Text>
+            </TouchableOpacity>}
           </View>
 
 
@@ -140,8 +120,8 @@ const Home = ({ navigation }) => {
                   marginTop: 10,
                 }} />
               <Text style={styles.Title2}>Location</Text>
-            </TouchableOpacity> : null}
-            <Text> {isFocused}</Text>
+            </TouchableOpacity>: null}
+            
 
 
             {/*  <Modal.Dialog>

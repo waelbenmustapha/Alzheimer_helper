@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import * as Location from "expo-location";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SpecifySafeArea = () => {
   const [marker, setMarker] = useState(null);
@@ -19,7 +20,10 @@ const SpecifySafeArea = () => {
 function saveSafeArea(){
   console.log(marker.latitude.toFixed(7));
   console.log(marker.longitude.toFixed(7))
-  axios.post("http://192.168.1.26:8090/dementia/safezone/4028b8817f462f98017f4647f8dc0001",{latitude:marker.latitude.toFixed(7),longitude:marker.longitude.toFixed(7),diameter:radius})
+  AsyncStorage.getItem('user')
+  .then(value=>
+  {axios.post(`http://192.168.1.17:8090/dementia/safezone/${JSON.parse(value).dementia.id}`,
+  {latitude:marker.latitude.toFixed(7),longitude:marker.longitude.toFixed(7),diameter:radius})})
 }
 
   function getlocation() {
