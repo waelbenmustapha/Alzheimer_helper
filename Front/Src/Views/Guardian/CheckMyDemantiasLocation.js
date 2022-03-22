@@ -17,6 +17,7 @@ import {
 import * as Location from "expo-location";
 import axios from "axios";
 import { sendPushNotification } from "../../Utils/Notif";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CheckMyDemantiasLocation = () => {
   const[Danger, setDanger] = useState(false);
@@ -25,6 +26,10 @@ const CheckMyDemantiasLocation = () => {
     longitude: 10.1411230,
   });
   const [location, setLocation] = useState(null);
+  const message = {   
+    'title': 'Your dementia had runaway',
+   'body': 'Your dementia is out of his safe zone, make sure to check out for his location and get him as safe as possible.    '
+ }
   function goToLocation() {
     mapRef.current.animateToRegion({
       latitude: location.latitude,
@@ -36,10 +41,14 @@ const CheckMyDemantiasLocation = () => {
 
   const mapRef = useRef();
 
+    
   async function getDemantiaLocation() {
-   await axios
+      AsyncStorage.getItem('user')
+      .then(value=>
+   { 
+     axios
       .get(
-        `http://192.168.1.26:8090/guardian/getMyDementiaLocation/4028b8817f6de1ee017f6de49c3d0000`
+        `http://192.168.1.17:8090/guardian/getMyDementiaLocation/${JSON.parse(value).id}`
       )
       .then((res) => {
         setLocation(res.data);
@@ -51,8 +60,8 @@ const CheckMyDemantiasLocation = () => {
                 safe
               ) > 300
         ) {
-             sendPushNotification('ExponentPushToken[kacZK7Mh8H-X8solLH94mI]');
-          
+             sendPushNotification(JSON.parse(value).pushToken,message.title,message.body);
+
           console.log("danger")
           setDanger(true);
         } else {
@@ -66,9 +75,9 @@ const CheckMyDemantiasLocation = () => {
           )
         );
       })
-      .catch((err) => console.log("ell error" + err));
-  }
-
+      .catch((err) => console.log("ell error" + err));}
+  
+  )}
   useEffect(() => {
       console.log("is it rexecuting ?")
     getDemantiaLocation();

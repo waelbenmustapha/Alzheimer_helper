@@ -105,7 +105,7 @@ const Signup = ({ navigation }) => {
 
       setIsLoading(true);
 
-      axios.post(`http://192.168.1.26:8090/guardian/SignUp`, {
+      axios.post(`http://192.168.1.17:8090/guardian/SignUp`, {
         name: userName,
         email: userEmail,
         password: userPassword,
@@ -114,8 +114,8 @@ const Signup = ({ navigation }) => {
       }).then((response) => {
         console.log(response.status)
         if (response.status === 200) {
-          console.log("el reponse " + response)
-          navigation.navigate("Signin")
+          console.log("el reponse "+response)
+          navigation.navigate("SignIn")
         }
         if (response.status === 226) {
           alert("Email already exist!")
@@ -182,7 +182,7 @@ const Signup = ({ navigation }) => {
           <TouchableOpacity>
             <Text style={styles.textCenter}>Forgot password?</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
+          <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
             <Text style={{ color: '#359A8E' }}>
               Already have an account</Text>
           </TouchableOpacity>

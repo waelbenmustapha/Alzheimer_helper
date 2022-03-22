@@ -15,7 +15,7 @@ const SignIn = ({ navigation }) => {
 
   const [Data, setData] = useState('');
   useEffect(() => {
-    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+    registerForPushNotificationsAsync().then(token =>{console.log(token) ;setExpoPushToken(token)});
 
     }  , []);
   const _removeValue = async () => {
@@ -33,7 +33,7 @@ const SignIn = ({ navigation }) => {
   _storeData = async () => {
     try {
       await AsyncStorage.setItem("token",expoPushToken);
-       AsyncStorage.setItem("user",JSON.stringify(Data)).then(()=>navigation.push("drawer"))
+       AsyncStorage.setItem("user",JSON.stringify(Data)).then(()=>navigation.replace("drawer"))
 
       console.log("el token "+expoPushToken)
       console.log("el user "+JSON.stringify(Data))
@@ -52,7 +52,7 @@ const SignIn = ({ navigation }) => {
         
       return;
     } setIsLoading(true);
-      axios.post(encodeURI(`http://192.168.1.26:8090/auth/login/${expoPushToken}`), {
+      axios.post(encodeURI(`http://192.168.1.17:8090/auth/login/${expoPushToken}`), {
        email: userEmail,
       password: userPassword,
       }).then((response) => {
