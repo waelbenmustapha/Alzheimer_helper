@@ -22,57 +22,55 @@ import { getUser } from "../Utils/user";
 
 const Home = ({ navigation }) => {
 
-  const [userData, setuserData] =useState(null);
-  const [dir, setdir] =useState('');
+  const [userData, setuserData] = useState(null);
+  const [dir, setdir] = useState('');
   const isFocused = useIsFocused()
 
 
-  function getAge(dateString) 
-  {
+  function getAge(dateString) {
     var today = new Date();
     var birthDate = new Date(dateString);
     var age = today.getFullYear() - birthDate.getFullYear();
     var m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
-    {
-        age--;
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
     }
     return age;
-    }
+  }
   //localStorage
 
- 
+
   useEffect(() => {
     console.log("******************************************************************")
-    AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item))})
+    AsyncStorage.getItem('user', (err, item) => { setuserData(JSON.parse(item)) })
     console.log(isFocused)
-    return ()=>{console.log(isFocused);console.log("cleanup")}
- 
-  },[isFocused]  );
+    return () => { console.log(isFocused); console.log("cls") }
 
-  if(userData==null){
+  }, [isFocused]);
+
+  if (userData == null) {
     return (
-    <View><Text>Loading</Text></View>
-      )
+      <View><Text>Loading</Text></View>
+    )
   }
 
   return (
 
-    
+
     <View style={styles.container}>
-      <View style={{ flex: 3, alignItems:"center" }}>
-        <View style={{ flex: 1,width:"90%", flexDirection:"row" ,alignItems:"center"}}>
+      <View style={{ flex: 3, alignItems: "center" }}>
+        <View style={{ flex: 1, width: "90%", flexDirection: "row", alignItems: "center" }}>
           <Image
             source={require("./../../assets/profile.png")}
             style={styles.image}
           ></Image>
-          <View style={styles.firstItem}>
+          {/* <View style={styles.firstItem}>
             <Text style={styles.Title}>Welcome {userData.name} </Text>
-            {userData.type=="dementia"?<Text style={styles.Title}> Your age is {getAge(userData.birthdate) } </Text> :userData.type=="guardian"?<Text style={styles.Title}> You are a guardian of {userData.dementia.name} </Text>: null}
-            {/* <Text style={styles.Title}>Your age is  </Text> */}
-          </View>
+            {userData.type == "dementia" ? <Text style={styles.Title}> Your age is {getAge(userData.birthdate)} </Text> 
+            :userData.type == "guardian" ? <Text style={styles.Title}> You are a guardian of {userData.dementia.name} </Text> : null}
+          </View>  */}
         </View>
-{/* 
+        {/* 
         <View style={{ flex: 0, flexDirection: "column" }}>
           <View style={styles.searchSection}>
             <Icon style={styles.searchIcon} name="search" size={20} color="#000" />
@@ -92,7 +90,8 @@ const Home = ({ navigation }) => {
         <View style={{ flexDirection: "row" }}>
 
           <View style={{ flex: 2 }} >
-            <TouchableOpacity style={{ alignItems: "center" }}>
+            <TouchableOpacity style={{ alignItems: "center" }}
+              onPress={() => navigation.navigate("Contact")}>
               <Image
                 source={require("./../../assets/Contact.png")}
                 style={{
@@ -117,7 +116,7 @@ const Home = ({ navigation }) => {
 
 
           <View style={{ flex: 2 }} >
-          {userData.type=="dementia"?<TouchableOpacity
+            {userData.type == "dementia" ? <TouchableOpacity
               style={{ alignItems: "center" }}
               onPress={() => navigation.navigate("DemantiaLocation")}>
               <Image
@@ -129,7 +128,7 @@ const Home = ({ navigation }) => {
                   marginTop: 10,
                 }} />
               <Text style={styles.Title2}>Location</Text>
-            </TouchableOpacity>:userData.type=="guardian"?<TouchableOpacity
+            </TouchableOpacity> : userData.type == "guardian" ? <TouchableOpacity
               style={{ alignItems: "center" }}
               onPress={() => navigation.navigate("Location")}>
               <Image
@@ -141,11 +140,11 @@ const Home = ({ navigation }) => {
                   marginTop: 10,
                 }} />
               <Text style={styles.Title2}>Location</Text>
-            </TouchableOpacity>: null}
+            </TouchableOpacity> : null}
             <Text> {isFocused}</Text>
-            
 
-           {/*  <Modal.Dialog>
+
+            {/*  <Modal.Dialog>
               <Modal.Body>
                 <TouchableOpacity style={styles.donebutton}
                   onPress={() => navigation.navigate('CheckDemantiaLocation')}>
