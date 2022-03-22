@@ -11,6 +11,8 @@ import {
   TextInput,
   TouchableOpacity,
   Pressable,
+  BackHandler, 
+  Alert
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Icon } from "react-native-elements";
@@ -33,10 +35,9 @@ const Home = ({ navigation }) => {
 
  
   useEffect(() => {
-    console.log("******************************************************************")
     AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item))})
-    console.log(isFocused)
- 
+   
+     
   },[isFocused]  );
 
   if(userData==null){
@@ -65,18 +66,32 @@ const Home = ({ navigation }) => {
                 }} />
               <Text style={styles.Title2}>Contact</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={{ alignItems: "center" }}
-                          onPress={() => navigation.navigate("HistoryDementia")}>
-                          
-              <Image
-                source={require("./../../assets/profile.png")}
-                style={{
-                  width: 150,
-                  height: 180,
-                  borderRadius: 40 / 2,
-                }} />
-              <Text style={styles.Title2}>History</Text>
+            {  userData.type=="guardian"&&userData.dementia.history==null?
+                  <TouchableOpacity style={{ alignItems: "center" }}
+                              onPress={() => navigation.navigate("AddHistoryDementia")}>
+                              
+                  <Image
+                    source={require("./../../assets/profile.png")}
+                    style={{
+                      width: 150,
+                      height: 180,
+                      borderRadius: 40 / 2,
+                    }} />
+                  <Text style={styles.Title2}>History</Text>
             </TouchableOpacity>
+              :
+                  <TouchableOpacity style={{ alignItems: "center" }}
+                              onPress={() => navigation.navigate("History")}>
+                              
+                  <Image
+                    source={require("./../../assets/profile.png")}
+                    style={{
+                      width: 150,
+                      height: 180,
+                      borderRadius: 40 / 2,
+                    }} />
+                  <Text style={styles.Title2}>History</Text>
+            </TouchableOpacity>}
           </View>
 
 

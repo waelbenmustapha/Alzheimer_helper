@@ -1,11 +1,14 @@
 import { View, Text,StyleSheet,Image,ScrollView,TouchableOpacity,TextInput } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ProfileElement from '../../Components/ProfileElement';
 
 
 const AddHistoryDementia = ({navigation}) => {
     const [history, setHistory] = useState("");
+    const [userData, setuserData] = useState("");
+
 
     function AddHistory() {
       AsyncStorage.getItem('user')
@@ -16,21 +19,23 @@ const AddHistoryDementia = ({navigation}) => {
      })
       
       }
+      useEffect(() => {
+        console.log("******************************************************************")
+        AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item))})
+     
+      },[]  );
+    
+      if(userData==null){
+        return (
+        <View><Text>Loading</Text></View>
+          )
+      }
   return (
     <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
-    <View style={{ flex: 1, padding: '15%' }}>
+    <View style={{ flex: 1, padding: '5%' }}>
 
-      <View style={{flex: 1, flexDirection: "row" }}>
-      <Image
-        source={require("./../../../assets/profile.png")}
-        style={styles.image}
-      ></Image>
-      <View style={styles.firstItem}>
-        <Text style={styles.Title}>Welcome Alex Ten Napel </Text>
-        <Text style={styles.Title}>Your age is 80 </Text>
-      </View>
-    
-    </View>
+    <ProfileElement userData={userData}/>
+
     
       <ScrollView style={styles.scrollView}>
         <View style={styles.item}>

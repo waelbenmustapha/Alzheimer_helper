@@ -6,8 +6,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './Src/Views/Home';
 import Location from './Src/Views/Location';
 import SignIn from './Src/Views/SignIn';
-import HistoryDementia from './Src/Views/Demantia/HistoryDementia'
-import AddHistoryDementia from './Src/Views/Guardian/AddHistoryDementia'
+import HistoryDementia from './Src/Views/History/HistoryDementia'
+import AddHistoryDementia from './Src/Views/History/AddHistoryDementia'
 import SignupDementia from './Src/Views/Demantia/SignupDementia';
 import IntroSliderScreen from './Src/Views/Guardian/IntroSliderScreen';
 import Signup from './Src/Views/Guardian/Signup';
@@ -24,11 +24,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import test from './Src/Views/Test';
 import UpdateNote from './Src/Views/Note/UpdateNote';
 import DrawerNav from './Src/Views/DrawerNav';
+import History from './Src/Views/History';
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
 
-
+  
 
   
   const Stack = createNativeStackNavigator();
@@ -75,6 +76,7 @@ export default function App() {
         <Stack.Screen name="PinCode" options={{ headerShown: false }} component={PinCode}/>
         <Stack.Screen name="HistoryDementia" options={{ headerShown: false }} component={HistoryDementia}/>
         <Stack.Screen name="AddHistoryDementia" options={{ headerShown: false }} component={AddHistoryDementia}/>
+        <Stack.Screen name="History" component={History}/>
 
 
 

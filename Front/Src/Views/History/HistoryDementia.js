@@ -67,21 +67,32 @@
           <View><Text>Loading</Text></View>
             )
           }
-          if((history==null)){
-            return (
-            <View><Text>Loading</Text></View>
-              )
-            }
+      
     return (
       <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
-        <View style={{ flex: 1, padding: '15%' }}>
+        <View style={{ flex: 1, padding: '5%' }}>
 
-        <ProfileElement userData={userData}/>
+        <ProfileElement userData={userData}/> 
 
         <ScrollView style={styles.scrollView}> 
         <TouchableOpacity style={styles.microphone} onPress={()=>runSpeech()}><Feather name='mic'></Feather></TouchableOpacity>
           <Text style={styles.square}>{history}</Text>
+          {userData.type=="guardian"?<View style={styles.fixToText}>
+          <TouchableOpacity
+      
+            style={styles.deletebutton}
+          >
+            <Text> Delete</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+         
+            style={styles.donebutton}
+          >
+            <Text >Updated</Text>
+          </TouchableOpacity>
+        </View>: null}
           </ScrollView>
+
         </View>
         </View>
         
@@ -136,7 +147,41 @@
       marginLeft:200,
       padding:15,
 
-    }
+    },
+    deletebutton: {
+      alignItems: "center",
+      paddingVertical: 12,
+      paddingHorizontal: 32,
+      borderRadius: 10,
+      elevation: 3,
+      borderColor: "#D86363",
+      backgroundColor: "#fff",
+      shadowColor: "#D86363",
+      shadowOpacity: 0.2,
+      shadowRadius: 1.22,
+      elevation: 11,
+    },
+    donebutton: {
+      alignItems: "center",
+      justifyContent: "center",
+      paddingVertical: 12,
+      paddingHorizontal: 32,
+      borderRadius: 10,
+      elevation: 3,
+      borderColor: "#093F38",
+      backgroundColor: "#fff",
+      shadowColor: "#093F38",
+      shadowOpacity: 0.55,
+      shadowRadius: 2.22,
+      elevation: 11,
+    },
+    fixToText: {
+      flexDirection: "row",
+      justifyContent: "space-evenly",
+      margin:"5%",
+      paddingLeft: "25%",
+      marginRight: "25%",
+    },
   
 
         

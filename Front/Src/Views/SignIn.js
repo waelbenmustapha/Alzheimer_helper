@@ -33,7 +33,7 @@ const SignIn = ({ navigation }) => {
   _storeData = async () => {
     try {
       await AsyncStorage.setItem("token",expoPushToken);
-       AsyncStorage.setItem("user",JSON.stringify(Data)).then(()=>navigation.push("drawer"))
+       AsyncStorage.setItem("user",JSON.stringify(Data)).then(()=>navigation.replace("drawer"))
 
       console.log("el token "+expoPushToken)
       console.log("el user "+JSON.stringify(Data))

@@ -16,7 +16,14 @@ const UpdateNote = ({ route, navigation }) => {
     const [show, setShow] = useState(false);
     const [description, setDescription] = useState(route.params.el.description);
     const [title, setTitle] = useState(route.params.el.title);
-  
+    const messageUpdate = {   
+      'title': 'Note Update',
+     'body': 'Your dementia has Update a note'
+   } 
+   const messageDelete = {   
+    'title': 'Note Removed',
+   'body': 'Your dementia has delete a note'
+ }  
  
     function deltenote() {
       AsyncStorage.getItem('user')
@@ -24,7 +31,9 @@ const UpdateNote = ({ route, navigation }) => {
         console.log(JSON.parse(value).type)
         if(JSON.parse(value).type =='dementia'){
         axios.delete(`http://192.168.1.17:8090/pending-notes/delete-note/${route.params.el.id}`,
-        )
+        )           
+        .then((res) => navigation.navigate("CheckNotes"))
+
 
       }
       else {

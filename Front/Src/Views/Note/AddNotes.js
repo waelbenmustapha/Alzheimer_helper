@@ -11,7 +11,10 @@ const AddNotes = ({ navigation }) => {
   const [show, setShow] = useState(false);
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
-
+  const message = {   
+    'title': 'Note Addition',
+   'body': 'Your dementia has added a note'
+ }
   function AddNote() {
 
     AsyncStorage.getItem('user')
