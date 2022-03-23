@@ -23,32 +23,12 @@ const Signup = ({ navigation }) => {
 
 
   useEffect(() => {
-    getData();
   }, []);
 
-  const getData = () => {
-    try {
-      AsyncStorage.getItem('UserData')
-        .then(value => {
-          if (value != null) {
-            navigation.navigate('Home');
-          }
-        })
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
 
-  const setData = async () => {
-    if (isValid()) {
-      var user = {
-        name: UserName,
-        Date: date
-      }
-      await AsyncStorage.setItem('UserData', JSON.stringify(user));
-    }
-  }
+
+ 
 
   // Birthdate
   const onChange = (event, selectedDate) => {
@@ -80,7 +60,7 @@ const Signup = ({ navigation }) => {
 
   const isValid = () => {
 
-    if (!userName.trim() || !userEmail.trim() || !userPassword.trim())
+    if (!userName.trim() || !userEmail.trim() || !userPassword.trim() || !userConfirmPassword.trim())
       return alert("Please fill in all fields are required ");
 
     if (userName.length < 3)
@@ -89,7 +69,7 @@ const Signup = ({ navigation }) => {
     if (!regx.test(userEmail))
       return alert("invalid Email");
 
-    if (!userPassword.length > 8)
+    if (userPassword.length < 8)
       return alert("Password is less then 8 characters!");
 
     if (userPassword !== userConfirmPassword)
@@ -101,11 +81,11 @@ const Signup = ({ navigation }) => {
   //inser
 
   const handleSubmitPress = async (event) => {
-    if (setData()) {
+    if (isValid()) {
 
       setIsLoading(true);
 
-      axios.post(`http://192.168.1.17:8090/guardian/SignUp`, {
+      axios.post(`http://192.168.1.26:8090/guardian/SignUp`, {
         name: userName,
         email: userEmail,
         password: userPassword,
@@ -115,7 +95,7 @@ const Signup = ({ navigation }) => {
         console.log(response.status)
         if (response.status === 200) {
           console.log("el reponse "+response)
-          navigation.navigate("SignIn")
+          navigation.navigate("PinCode")
         }
         if (response.status === 226) {
           alert("Email already exist!")

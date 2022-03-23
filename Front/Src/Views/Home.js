@@ -44,6 +44,23 @@ const Home = ({ navigation }) => {
     )
   }
 
+  if (userData.dementia == null) {
+    return (
+      <View>
+        <ImageBackground
+          source={require("./../../../Front/assets/old.png")} style={styles.image1}
+        >
+
+          <View style={{ flex: 1, justifyContent: "center", backgroundColor: "#ffffff80" }}>
+            <TouchableOpacity onPress={() => Logout()} >
+              <Text style={{ padding: "10%", fontSize: 32, textAlign: "center", color: "#359A8E", backgroundColor: "#ffffff" }}>You must have a dementia account related.</Text>
+            </TouchableOpacity>
+          </View>
+        </ImageBackground>
+      </View>
+    )
+  }
+
   return (
 
 

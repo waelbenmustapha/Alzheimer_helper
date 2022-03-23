@@ -31,14 +31,14 @@ const UpdateNote = ({ route, navigation }) => {
       .then(value=>{console.log(JSON.parse(value));
         console.log(JSON.parse(value).type)
         if(JSON.parse(value).type =='dementia'){
-        axios.delete(`http://192.168.1.17:8090/pending-notes/delete-note/${route.params.el.id}`,
+        axios.delete(`http://192168.1.26:8090/pending-notes/delete-note/${route.params.el.id}`,
         )           
         .then((res) => navigation.navigate("CheckNotes"))
 
 
       }
       else {
-           axios.delete(`http://192.168.1.17:8090/notes/delete-note/${route.params.el.id}`,
+           axios.delete(`http://192168.1.26:8090/notes/delete-note/${route.params.el.id}`,
            )
            .then((res) => navigation.navigate("CheckNotes"))
      }})
@@ -51,12 +51,12 @@ const UpdateNote = ({ route, navigation }) => {
       .then(value=>{console.log(JSON.parse(value));
         console.log(JSON.parse(value).type)
         if(JSON.parse(value).type =='dementia'){
-        axios.put(`http://192.168.1.17:8090/pending-notes/edit-note/${route.params.el.id}`,
+        axios.put(`http://192168.1.26:8090/pending-notes/edit-note/${route.params.el.id}`,
         {description:description, title:title,date:date})
 
       }
       else {
-           axios.put(`http://192.168.1.17:8090/notes/edit-note/${route.params.el.id}`,
+           axios.put(`http://192168.1.26:8090/notes/edit-note/${route.params.el.id}`,
            {description: description, title: title, date: date })
            .then((res) => navigation.navigate("CheckNotes"))
      }})

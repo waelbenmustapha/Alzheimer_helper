@@ -130,5 +130,5 @@ const styles = StyleSheet.create({
   }
 })
 
-export default IntroSlider
+export default IntroSlider;
 

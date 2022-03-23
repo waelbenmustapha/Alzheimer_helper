@@ -1,30 +1,32 @@
-import { Text, View, StyleSheet, Dimensions,TextInput, TouchableOpacity } from 'react-native'
+import { Text, View, StyleSheet, Dimensions, TextInput, TouchableOpacity } from 'react-native'
 import React, { Component, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const PinCodeVerif = ({navigation}) => {
+const PinCodeVerif = ({ navigation }) => {
 
-    
+
     const [pincode, setCode] = useState('');
 
 
     const handleSubmitPress = async (event) => {
         AsyncStorage.getItem('user')
             .then(value => {
-                console.log(JSON.parse(value));
-                if (!pincode.trim()) {
-                    alert("Please Entry Pin code");
+                console.log(JSON.parse(value).pin_code);
+                if (!pincode.trim() || pincode < 4) {
+                    alert("Please Entry Pin code with 4 numbers");
                     return;
-                }
-                axios.post(`http://192.168.1.26:8090/guardian/add-pin-code/${JSON.parse(value).id}/${pincode}`, 
-                { pincode: pincode})
+                }/* ${JSON.parse(value).id} */
+                axios.post(`http://192.168.1.26:8090/guardian/add-pin-code/4028819a7fb8eb02017fb8fdc8a20000/{pincode}`,
+                    { pincode: pincode }
+                )
+
                     .then((response) => {
                         console.log(response.status)
                         if (response.status === 200) {
-                            navigation.navigate("Signin")
+                            navigation.navigate("SignIn")
                         }
                     })
                     .catch((error) => {
@@ -73,7 +75,7 @@ const styles = StyleSheet.create({
         flex: 20,
         justifyContent: "flex-end",
         alignItems: "center",
-        backgroundColor:"blue"
+        backgroundColor: "blue"
     },
 
 
@@ -88,7 +90,7 @@ const styles = StyleSheet.create({
     codeContainer: {
         marginTop: 12,
         flexDirection: 'column',
-        alignItems:"center",
+        alignItems: "center",
         justifyContent: 'center',
         color: "#359A8E",
     },
@@ -115,7 +117,7 @@ const styles = StyleSheet.create({
     buttonText: {
         fontSize: 16,
         color: '#000',
-        padding:"10%",
+        padding: "10%",
         letterSpacing: -0.39,
     }
 })

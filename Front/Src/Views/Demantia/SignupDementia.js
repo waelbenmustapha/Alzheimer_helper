@@ -73,8 +73,6 @@ const SignupDementia = ({ navigation }) => {
     if (userPassword !== userConfirmPassword)
       return alert("Password does not match!");
 
-    
-
     return true;
   };
 
@@ -84,7 +82,7 @@ const SignupDementia = ({ navigation }) => {
     if (isValid()) {
       setIsLoading(true);
 
-      axios.post(`http://192.168.1.17:8090/dementia/SignUp/${guardianEmail}`, {
+      axios.post(`http://192168.1.26:8090/dementia/SignUp/${guardianEmail}`, {
         name: userName,
         email: userEmail,
         password: userPassword,

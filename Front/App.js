@@ -26,6 +26,7 @@ import UpdateNote from './Src/Views/Note/UpdateNote';
 import DrawerNav from './Src/Views/DrawerNav';
 import History from './Src/Views/History';
 import AddNotes from './Src/Views/Note/AddNotes';
+import Contact from './Src/Views/Contact';
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -38,7 +39,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        
+
+      <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
+      <Stack.Screen name='IntroSlider' options={{headerShown:false}} component={IntroSlider}/>
+
+      <Stack.Screen name="Contact"options={{ headerShown: false }}  component={Contact} />
       <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
 
       <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav} />
@@ -49,7 +54,6 @@ export default function App() {
       <Stack.Screen name="SignupDementia" component={SignupDementia} />
 
 
-      <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
 
 
       <Stack.Screen name="Notif" options={{ headerShown: false }} component={Notif} />
