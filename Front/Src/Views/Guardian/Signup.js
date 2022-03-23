@@ -23,32 +23,12 @@ const Signup = ({ navigation }) => {
 
 
   useEffect(() => {
-    getData();
   }, []);
 
-  const getData = () => {
-    try {
-      AsyncStorage.getItem('UserData')
-        .then(value => {
-          if (value != null) {
-            navigation.navigate('Home');
-          }
-        })
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
 
-  const setData = async () => {
-    if (isValid()) {
-      var user = {
-        name: UserName,
-        Date: date
-      }
-      await AsyncStorage.setItem('UserData', JSON.stringify(user));
-    }
-  }
+
+ 
 
   // Birthdate
   const onChange = (event, selectedDate) => {
@@ -80,7 +60,7 @@ const Signup = ({ navigation }) => {
 
   const isValid = () => {
 
-    if (!userName.trim() || !userEmail.trim() || !userPassword.trim())
+    if (!userName.trim() || !userEmail.trim() || !userPassword.trim() || !userConfirmPassword.trim())
       return alert("Please fill in all fields are required ");
 
     if (userName.length < 3)
@@ -115,7 +95,7 @@ const Signup = ({ navigation }) => {
         console.log(response.status)
         if (response.status === 200) {
           console.log("el reponse "+response)
-          navigation.navigate("SignIn")
+          navigation.navigate("PinCode")
         }
         if (response.status === 226) {
           alert("Email already exist!")
