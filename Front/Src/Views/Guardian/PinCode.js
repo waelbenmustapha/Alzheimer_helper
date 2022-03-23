@@ -24,7 +24,7 @@ const PinCodeVerif = ({navigation}) => {
                     .then((response) => {
                         console.log(response.status)
                         if (response.status === 200) {
-                            navigation.navigate("Signin")
+                            navigation.navigate("PinCodeverif")
                         }
                     })
                     .catch((error) => {

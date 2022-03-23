@@ -28,7 +28,7 @@ const PinCodeVerif = ({ navigation }) => {
                         if (res.data == false) {
                             alert("Pin code is not correct");
                         } else {
-                            navigation.navigate("Home")
+                            navigation.navigate("drawer")
 
                         }
                     })

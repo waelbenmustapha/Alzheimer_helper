@@ -56,10 +56,6 @@ export default function App() {
 
 
         
-        <Stack.Screen name="SignupDementia" options={{ headerShown: false }} component={SignupDementia} />
-        <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav} />
-        <Stack.Screen name="Home"options={{ headerShown: false }}  component={Home} />
-        <Stack.Screen name="Test" options={{ headerShown: false }} component={Test} />
         <Stack.Screen name="Notif" options={{ headerShown: false }} component={Notif} />
         <Stack.Screen name="SpecifySafeArea" options={{ headerShown: false }} component={SpecifySafeArea}  />
         <Stack.Screen name="AddNotes" options={{ headerShown: false }} component={AddNotes} />
