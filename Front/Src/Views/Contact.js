@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios';
 
-const AddContact = ({ navigation }) => {
+const Contact = ({ navigation }) => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [phonenumber, setPhoneNumber] = useState(false);
@@ -220,4 +220,4 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
-export default AddContact;
+export default Contact;

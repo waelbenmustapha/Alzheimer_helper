@@ -26,28 +26,30 @@ import UpdateNote from './Src/Views/Note/UpdateNote';
 import DrawerNav from './Src/Views/DrawerNav';
 import History from './Src/Views/History';
 import AddNotes from './Src/Views/Note/AddNotes';
+import Contact from './Src/Views/Contact';
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
 
   
 
-
   const Stack = createNativeStackNavigator();
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen name="Contact"options={{ headerShown: false }}  component={Contact} />
 
+      <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
 
       <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
         <Stack.Screen name="IntroSlider" options={{ headerShown: false }} component={IntroSlider} />
    <Stack.Screen name="SignUpGuardian" options={{ headerShown: false }} component={Signup} />
-        <Stack.Screen name="Signin" options={{ headerShown: false }} component={SignIn} />
 
+      <Stack.Screen name="Contact"options={{ headerShown: false }}  component={Contact} />
 
-        
+      <Stack.Screen name="PinCode"options={{ headerShown: false }}  component={PinCode} />
+      <Stack.Screen name="PinCodeVerif"options={{ headerShown: false }}  component={PinCodeVerif} />
+
         <Stack.Screen name="SignupDementia" options={{ headerShown: false }} component={SignupDementia} />
         <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav} />
         <Stack.Screen name="Home"options={{ headerShown: false }}  component={Home} />
@@ -61,7 +63,6 @@ export default function App() {
         <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
         <Stack.Screen name="Location" component={Location} />
         <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
-        <Stack.Screen name="PinCode" options={{ headerShown: false }} component={PinCode}/>
         <Stack.Screen name="HistoryDementia" options={{ headerShown: false }} component={HistoryDementia}/>
         <Stack.Screen name="AddHistoryDementia" options={{ headerShown: false }} component={AddHistoryDementia}/>
         <Stack.Screen name="History" component={History}/>
