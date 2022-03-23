@@ -47,6 +47,8 @@ public class Dementia {
   @OneToMany(mappedBy="dementia")
   private List<Notes> notes;
   @OneToMany(mappedBy="dementia")
+  private List<Contacts> contacts;
+  @OneToMany(mappedBy="dementia")
   private List<PendingNotes> pendingNotes;
 
   @Digits(integer=3, fraction=7)
