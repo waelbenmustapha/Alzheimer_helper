@@ -17,6 +17,7 @@ const UpdateNote = ({ route, navigation }) => {
     const [show, setShow] = useState(false);
     const [description, setDescription] = useState(route.params.el.description);
     const [title, setTitle] = useState(route.params.el.title);
+
     const messageUpdate = {   
       'title': 'Note Update',
      'body': 'Your dementia has Update a note'
@@ -53,6 +54,7 @@ const UpdateNote = ({ route, navigation }) => {
         if(JSON.parse(value).type =='dementia'){
         axios.put(`http://192.168.1.26:8090/pending-notes/edit-note/${route.params.el.id}`,
         {description:description, title:title,date:date})
+           .then((res) => navigation.navigate("CheckNotes"))
 
       }
       else {

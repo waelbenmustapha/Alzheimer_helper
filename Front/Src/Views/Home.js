@@ -32,14 +32,14 @@ const Home = ({ navigation }) => {
 
   const Logout = () => {
     try {
-       AsyncStorage.removeItem("user")
+      AsyncStorage.removeItem("user")
       navigation.navigate("IntroSliderScreen")
 
-    } catch(e) {
-      console.log(e) 
-     }
+    } catch (e) {
+      console.log(e)
+    }
     console.log('Done.')
-  }  
+  }
 
   //localStorage
 
@@ -50,12 +50,13 @@ const Home = ({ navigation }) => {
 
   }, [isFocused]);
 
-  if (userData == null) {
+  if (userData  == null) {
     return (
       <View>
         <Text>loading</Text>
-        </View>
-    )}
+      </View>
+    )
+  }
 
   if (userData.dementia == null) {
     return (
@@ -64,10 +65,10 @@ const Home = ({ navigation }) => {
           source={require("./../../../Front/assets/old.png")} style={styles.image1}
         >
 
-          <View style={{flex:1, justifyContent: "center", backgroundColor: "#ffffff80"}}>
-            <TouchableOpacity onPress={()=>Logout()} >
-              <Text style={{padding:"10%", fontSize: 32 ,textAlign:"center", color:"#359A8E", backgroundColor: "#ffffff"}}>You must have a dementia account related.</Text>
-              </TouchableOpacity>
+          <View style={{ flex: 1, justifyContent: "center", backgroundColor: "#ffffff80" }}>
+            <TouchableOpacity onPress={() => Logout()} >
+              <Text style={{ padding: "10%", fontSize: 32, textAlign: "center", color: "#359A8E", backgroundColor: "#ffffff" }}>You must have a dementia account related.</Text>
+            </TouchableOpacity>
           </View>
         </ImageBackground>
       </View>
