@@ -21,13 +21,13 @@ const AddNotes = ({ navigation }) => {
         .then(value=>{console.log(JSON.parse(value));
           console.log(JSON.parse(value).type)
           if(JSON.parse(value).type =='dementia'){
-            axios.post(`http://192.168.1.17:8090/pending-notes/add-note/${JSON.parse(value).id}`,
+            axios.post(`http://192.168.1.39:8090/pending-notes/add-note/${JSON.parse(value).id}`,
           {description:description, title:title,date:date})
           .then((res) => navigation.navigate("CheckNotes"))
 
         }
         else {
-          axios.post(`http://192.168.1.17:8090/notes/add-note/${JSON.parse(value).dementia.id}`,
+          axios.post(`http://192.168.1.39:8090/notes/add-note/${JSON.parse(value).dementia.id}`,
              {description: description, title: title, date: date })
              .then((res) => navigation.navigate("CheckNotes"))
        }})

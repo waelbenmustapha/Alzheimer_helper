@@ -26,7 +26,7 @@ const CheckNotes = ({ navigation }) => {
   function getData() {
     // axios
     //   .get(
-    //     `http://192.168.1.17:8090/notes/get-notes-by-dementia-id/`
+    //     `http://192.168.1.39:8090/notes/get-notes-by-dementia-id/`
     //   )
 
       AsyncStorage.getItem('user')
@@ -34,7 +34,7 @@ const CheckNotes = ({ navigation }) => {
         console.log(JSON.parse(value));
         console.log(JSON.parse(value).type)
         if(JSON.parse(value).type =='dementia'){
-          axios.get(`http://192.168.1.17:8090/notes/get-notes-by-dementia-id/${JSON.parse(value).id}`)
+          axios.get(`http://192.168.1.39:8090/notes/get-notes-by-dementia-id/${JSON.parse(value).id}`)
           .then((res) => 
 
           { console.log(res.data)
@@ -46,7 +46,7 @@ const CheckNotes = ({ navigation }) => {
 
       }
       else {
-        axios.get(`http://192.168.1.17:8090/notes/get-notes-by-dementia-id/${JSON.parse(value).dementia.id}`)
+        axios.get(`http://192.168.1.39:8090/notes/get-notes-by-dementia-id/${JSON.parse(value).dementia.id}`)
            .then((res) => {setNotes(res.data);console.log(res.data)})
      }})
   }

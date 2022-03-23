@@ -42,7 +42,11 @@ const Home = ({ navigation }) => {
       <View><Text>Loading</Text></View>
     )
   }
-
+  if (userData.dementia == null) {
+    return (
+      <View><Text>Loading</Text></View>
+    )
+  }
   return (
 
 
