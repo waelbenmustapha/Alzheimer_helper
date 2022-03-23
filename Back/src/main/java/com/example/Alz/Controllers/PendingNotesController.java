@@ -44,9 +44,12 @@ public class PendingNotesController {
 
   @PostMapping("/delete-note/{noteid}")
   public ResponseEntity deleteNote(@PathVariable("noteid") String noteid) {
+    Notes noteedt = notesRepository.findById(noteid).get();
+
     PendingNotes pendingnote = new PendingNotes();
     pendingnote.setNoteToEditId(noteid);
     pendingnote.setAction("delete");
+    pendingnote.setDementia(noteedt.getDementia());
     pendingnote.setStatus("pending");
     pendingNotesRepository.save(pendingnote);
     return new ResponseEntity("saved", HttpStatus.OK);
@@ -56,9 +59,11 @@ public class PendingNotesController {
   @PutMapping("/edit-note/{noteid}")
   public ResponseEntity editnote(@PathVariable("noteid") String noteid, @RequestBody PendingNotes note) {
 
+    Notes noteedt = notesRepository.findById(noteid).get();
     note.setStatus("pending");
     note.setAction("edit");
     note.setNoteToEditId(noteid);
+    note.setDementia(noteedt.getDementia());
     pendingNotesRepository.save(note);
     return new ResponseEntity("okah", HttpStatus.OK);
   }
@@ -104,7 +109,13 @@ public class PendingNotesController {
     return new ResponseEntity("ok", HttpStatus.OK);
 
   }
+@GetMapping("/get-pending-notes/{dim}")
+public ResponseEntity getpendingnotes(@PathVariable("dim") String id){
 
+  Dementia dementia =  dementiaRepository.findById(id).get();
+    return new ResponseEntity(dementia.getPendingNotes(),HttpStatus.OK);
+
+}
 
   @PostMapping("/deny/{noteid}")
   public ResponseEntity denyPendingNote(@PathVariable("noteid") String noteId) {
