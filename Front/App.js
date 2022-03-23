@@ -41,14 +41,12 @@ export default function App() {
 
       <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav} />
 
-      <Stack.Screen name="PinCodeVerif" options={{ headerShown: false }} component={PinCodeVerif} />
 
 
       <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
 
       <Stack.Screen name="SignupDementia" component={SignupDementia} />
 
-      <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
 
       <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
         <Stack.Screen name="IntroSlider" options={{ headerShown: false }} component={IntroSlider} />

@@ -23,7 +23,9 @@ const AddNotes = ({ navigation }) => {
           if(JSON.parse(value).type =='dementia'){
             axios.post(`http://192.168.1.39:8090/pending-notes/add-note/${JSON.parse(value).id}`,
           {description:description, title:title,date:date})
-          .then((res) => navigation.navigate("CheckNotes"))
+          .then((res) =>{
+             navigation.navigate("CheckNotes")
+            })
 
         }
         else {
@@ -61,7 +63,6 @@ const AddNotes = ({ navigation }) => {
     showMode('time');
   };
 
-  const [value, onChangeText] = React.useState('Useless Multiline Placeholder');
 
 
 

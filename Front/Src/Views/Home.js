@@ -55,7 +55,7 @@ const Home = ({ navigation }) => {
         </View>
     )}
 
-  if (userData.dementia == null) {
+  if (userData.dementia == null&&userData.type=="guardian") {
     return (
       <View>
         <ImageBackground

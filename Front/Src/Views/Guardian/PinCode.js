@@ -19,12 +19,12 @@ const PinCodeVerif = ({navigation}) => {
                     alert("Please Entry Pin code");
                     return;
                 }
-                axios.post(`http://192.168.1.26:8090/guardian/add-pin-code/4028819a7fb7217d017fb721c1eb0000/${pincode}`, 
+                axios.post(`http://192.168.1.39:8090/guardian/add-pin-code/${JSON.parse(value).id}/${pincode}`, 
                 { pincode: pincode})
                     .then((response) => {
                         console.log(response.status)
                         if (response.status === 200) {
-                            navigation.navigate("PinCodeverif")
+                            navigation.navigate("PinCodeVerif")
                         }
                     })
                     .catch((error) => {
