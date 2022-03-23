@@ -18,16 +18,19 @@ const PinCodeVerif = ({ navigation }) => {
                 if (!pincode.trim()) {
                     alert("Please Entry Pin code");
                     return;
-                } 
-               
-                
+                }
+
+
                 axios.get(`http://192.168.1.26:8090/guardian/test-pin/${JSON.parse(value).id}/${pincode}`, {
                 })
                     .then((res) => {
                         console.log()
-                        navigation.navigate("Home")
-                        alert("Pin code is not correct");
+                        if (res.data == false) {
+                            alert("Pin code is not correct");
+                        } else {
+                            navigation.navigate("Home")
 
+                        }
                     })
                     .catch((error) => {
                         alert(error);
