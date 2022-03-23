@@ -20,8 +20,6 @@ import PinCodeVerif from './Src/Views/Guardian/PinCodeVerif';
 import PinCode from './Src/Views/Guardian/PinCode';
 import { useEffect, useState } from 'react';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Test from './Src/Views/Test';
 import UpdateNote from './Src/Views/Note/UpdateNote';
 import DrawerNav from './Src/Views/DrawerNav';
 import History from './Src/Views/History';
@@ -42,6 +40,8 @@ export default function App() {
       <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
 
       <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav} />
+
+      <Stack.Screen name="PinCodeVerif" options={{ headerShown: false }} component={PinCodeVerif} />
 
 
       <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
