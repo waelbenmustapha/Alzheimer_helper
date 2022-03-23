@@ -25,7 +25,6 @@ import ProfileElement from "../Components/ProfileElement";
 const Home = ({ navigation }) => {
 
   const [userData, setuserData] = useState(null);
-  const [dir, setdir] = useState('');
   const isFocused = useIsFocused()
 
 
