@@ -48,7 +48,9 @@ export default function App() {
         else{
           setInt("Home")
         }
+
       } 
+      console.log(int)
     }
     
    
@@ -66,8 +68,8 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName={int}>
      <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
-       
-          <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav} />
+       {userData.type=="guardian"?<Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav}/> :null}
+          
        
 
         

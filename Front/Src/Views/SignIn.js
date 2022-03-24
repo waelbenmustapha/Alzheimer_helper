@@ -38,7 +38,7 @@ const SignIn = ({ navigation }) => {
        {
          if(Data.type=="dementia")
        {
-         navigation.replace("drawer")
+         navigation.replace("Home")
       return;
       }
       if(Data.pinCode==null)
