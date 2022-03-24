@@ -66,7 +66,8 @@ public class PendingNotesController {
   }
 
   @PutMapping("/edit-note/{dim}/{noteid}")
-  public ResponseEntity editnote(@PathVariable("dim") String id , @PathVariable("noteid") String noteid, @RequestBody PendingNotes note) {
+  public ResponseEntity editnote(@PathVariable("dim") String id , @PathVariable("noteid") String noteid, @RequestBody PendingNotes note)
+  {
     Dementia dementia = dementiaRepository.findById(id).get();
 
     note.setStatus("pending");

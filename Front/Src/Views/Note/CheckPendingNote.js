@@ -19,7 +19,7 @@ const CheckPendingNote = ({ route, navigation }) => {
 
   function AcceptPending()
   { 
-    axios.post(`http://192.168.1.39:8090/pending-notes/accept/${route.params.el.id}`)           
+    axios.post(`http://192.168.1.17:8090/pending-notes/accept/${route.params.el.id}`)           
   .then((res) => {
     
     navigation.navigate("CheckPendingNotes")})
@@ -27,7 +27,7 @@ const CheckPendingNote = ({ route, navigation }) => {
   }
   function DeletePending()
   { 
-    axios.delete(`http://192.168.1.39:8090/pending-notes/delete-pending-note/${route.params.el.id}`)           
+    axios.delete(`http://192.168.1.17:8090/pending-notes/delete-pending-note/${route.params.el.id}`)           
   .then((res) => {
     
     navigation.navigate("CheckPendingNotes")})
