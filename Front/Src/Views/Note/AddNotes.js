@@ -4,6 +4,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import heure from '../../../assets/heure.png'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { sendPushNotification } from '../../Utils/Notif';
 
 const AddNotes = ({ navigation }) => {
   const [date, setDate] = useState(new Date(1598051730000));
@@ -24,6 +25,13 @@ const AddNotes = ({ navigation }) => {
             axios.post(`http://192.168.1.39:8090/pending-notes/add-note/${JSON.parse(value).id}`,
           {description:description, title:title,date:date})
           .then((res) =>{
+            axios.get(`http://192.168.1.39:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
+            .then((res) =>{
+              sendPushNotification(res.data,message.title,message.body)
+            })
+
+            
+
              navigation.navigate("CheckNotes")
             })
 

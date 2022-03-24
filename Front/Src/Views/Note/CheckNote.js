@@ -11,19 +11,41 @@ import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
 import {URL} from "@env"
 import UpdateNote from "./UpdateNote";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { sendPushNotification } from "../../Utils/Notif";
 
 const CheckNote = ({ route, navigation }) => {
 
 
 
-  function deltenote() {
-    axios
-      .delete(
-        `http://192.168.1.39:8090/notes/delete-note/${route.params.el.id}`
-      )
-      .then((res) => navigation.navigate("CheckNotes"));
-  }
-
+    const messageDelete = {   
+      'title': 'Note Removed',
+     'body': 'Your dementia has delete a note'
+   }  
+   
+      function deltenote() {
+        AsyncStorage.getItem('user')
+        .then(value=>{
+          console.log(JSON.parse(value).type)
+          if(JSON.parse(value).type =='dementia'){
+          axios.post(`http://192.168.1.39:8090/pending-notes/delete-note/${route.params.el.id}`,
+          )           
+          .then((res) => {
+            axios.get(`http://192.168.1.39:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
+              .then((res) =>{
+                sendPushNotification(res.data,messageDelete.title,messageDelete.body)
+              })
+            navigation.navigate("CheckNotes")})
+  
+  
+        }
+        else {
+             axios.delete(`http://192.168.1.39:8090/notes/delete-note/${route.params.el.id}`,
+             )
+             .then((res) => navigation.navigate("CheckNotes"))
+       }})
+        }
+  
   const [note, setNote] = useState(route.params.el);
   useEffect(() => {
     console.log(note);

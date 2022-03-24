@@ -25,21 +25,50 @@ import DrawerNav from './Src/Views/DrawerNav';
 import History from './Src/Views/History';
 import AddNotes from './Src/Views/Note/AddNotes';
 import Contact from './Src/Views/Contact';
+import ProfileGuardian from './Src/Views/ProfileGuardian';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { set } from 'react-native-reanimated';
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
+  const [userData, setuserData] = useState(null);
+
+  const [int, setInt] = useState("");
 
   
 
+  useEffect(() => {
+    AsyncStorage.getItem('user', (err, item) => { setuserData(JSON.parse(item))
+      if(userData==null){
+        setInt("SignIn")
+      }
+      else{
+        setInt("drawer")
+    
+      } 
+    }
+    
+   
+    )
+
+
+  }, []);
   const Stack = createNativeStackNavigator();
 
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        
-      <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
 
-      <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav} />
+ 
+
+  return (
+    
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName={int}>
+     <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
+       
+          <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav} />
+       
+
+        
+   
 
 
 

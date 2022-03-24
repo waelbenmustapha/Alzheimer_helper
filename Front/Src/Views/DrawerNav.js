@@ -6,6 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import 'react-native-gesture-handler';
 import Home from './Home';
+import ProfileGuardian from './ProfileGuardian';
 
 const Drawer = createDrawerNavigator();
 
@@ -26,8 +27,8 @@ const DrawerNav = ({ navigation }) => {
 
   const Logout = () => {
     try {
-       AsyncStorage.removeItem("user")
-      navigation.replace("SignIn")
+       AsyncStorage.clear()
+      navigation.push("SignIn")
 
 
     } catch(e) {
@@ -58,7 +59,7 @@ const DrawerNav = ({ navigation }) => {
     
   return (
    
-    <Drawer.Navigator initialRouteName="Home"drawerContent={props => {
+    <Drawer.Navigator initialRouteName="Home" drawerContent={props => {
       return (
         <DrawerContentScrollView {...props}>
           <DrawerItemList {...props} />
@@ -67,6 +68,7 @@ const DrawerNav = ({ navigation }) => {
       )
     }}>
     <Drawer.Screen name="Home" component={Home} />
+    <Drawer.Screen name="ProfileGuardian" component={ProfileGuardian} />
     {/* <Drawer.Screen name="Settings" component={SettingsScreen} /> */}
     </Drawer.Navigator>
   );
