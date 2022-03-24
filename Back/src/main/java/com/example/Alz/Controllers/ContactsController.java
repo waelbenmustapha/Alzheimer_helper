@@ -63,8 +63,6 @@ public class ContactsController {
 
     Dementia dementia = dementiaRepository.findById(id).get();
 
-
-
     return new ResponseEntity(dementiaRepository.findById(id).get().getContacts(), HttpStatus.OK);
   }
 
