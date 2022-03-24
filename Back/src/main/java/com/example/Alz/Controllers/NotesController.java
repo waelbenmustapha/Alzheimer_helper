@@ -61,4 +61,10 @@ public class NotesController {
 
   }
 
-}
+  @GetMapping("/get-note/{id}")
+  public ResponseEntity getNote(@PathVariable("id") String id) {
+
+    return new ResponseEntity(notesRepository.findById(id).get(), HttpStatus.OK);
+
+  }
+  }
