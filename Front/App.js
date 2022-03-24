@@ -28,9 +28,10 @@ import Contact from './Src/Views/Contact';
 import ProfileGuardian from './Src/Views/ProfileGuardian';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { set } from 'react-native-reanimated';
+import CheckPendingNote from './Src/Views/Note/CheckPendingNote';
 
 export default function App() {
-  const [expoPushToken, setExpoPushToken] = useState('');
+  const [type, setType] = useState('');
   const [userData, setuserData] = useState(null);
 
   const [int, setInt] = useState("");
@@ -48,7 +49,7 @@ export default function App() {
         else{
           setInt("Home")
         }
-
+        setType(userData.type)
       } 
       console.log(int)
     }
@@ -68,9 +69,10 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName={int}>
      <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
-       {userData.type=="guardian"?<Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav}/> :null}
+       <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav}/>
           
        
+       <Stack.Screen name="CheckPendingNote" options={{ headerShown: false }} component={CheckPendingNote }/>
 
         
    

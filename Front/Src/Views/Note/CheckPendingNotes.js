@@ -16,7 +16,7 @@ import { useIsFocused } from "@react-navigation/native";
 import   AsyncStorage from "@react-native-async-storage/async-storage";
 import ProfileElement from "../../Components/ProfileElement";
 
-const CheckNotes = ({ navigation }) => {
+const CheckPendingNotes = ({ navigation }) => {
   const isFocused = useIsFocused();
 
   const [notes, setNotes] = useState([]);
@@ -32,25 +32,10 @@ const CheckNotes = ({ navigation }) => {
       AsyncStorage.getItem('user')
       .then(value=>{
         console.log(JSON.parse(value));
-        console.log(JSON.parse(value).type)
-        if(JSON.parse(value).type =='dementia'){
-          axios.get(`http://192.168.1.39:8090/notes/get-notes-by-dementia-id/${JSON.parse(value).id}`)
-          .then((res) => 
-
-          { console.log(res.data)
-            if(res.data!=null)
-
-            setNotes(res.data)
-            console.log("el data "+JSON.parse(res.data).status)
-          }
-          )
-
-
-      }
-      else {
-        axios.get(`http://192.168.1.39:8090/notes/get-notes-by-dementia-id/${JSON.parse(value).dementia.id}`)
+        
+        axios.get(`http://192.168.1.39:8090/pending-notes/get/${JSON.parse(value).dementia.id}`)
            .then((res) => {setNotes(res.data);console.log(res.data)})
-     }})
+     })
   }
 
   useEffect(() => {
@@ -82,22 +67,12 @@ const CheckNotes = ({ navigation }) => {
               <View >
 
                 <ScrollView style={styles.scrollView}>
-                  {notes.map((el) => 
-                  {el.status=="accepted"?
-                  (<TouchableOpacity key={el.id}
-                    onPress={() => navigation.navigate("CheckNote", { el })} style={styles.item}>
-
-                    
-                    <View>
+                  {notes.map((el) => (<TouchableOpacity key={el.id}
+                    onPress={() => navigation.navigate("CheckPendingNote", { el })} style={styles.item}>
                     <Text>Title : {el.title}</Text>
                     <Text>Date : {el.date}</Text>
                     <Text>Description : {el.description}</Text>
-                    </View>
-                      
-                    
-                    
-                    
-                  </TouchableOpacity>):null})}
+                  </TouchableOpacity>))}
                 </ScrollView>
               </View>
             </View>
@@ -197,4 +172,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CheckNotes;
+export default CheckPendingNotes;

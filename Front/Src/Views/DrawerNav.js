@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import 'react-native-gesture-handler';
 import Home from './Home';
 import ProfileGuardian from './ProfileGuardian';
+import CheckPendingNotes from './Note/CheckPendingNotes';
 
 const Drawer = createDrawerNavigator();
 
@@ -69,6 +70,8 @@ const DrawerNav = ({ navigation }) => {
     }}>
     <Drawer.Screen name="Home" component={Home} />
     <Drawer.Screen name="ProfileGuardian" component={ProfileGuardian} />
+    <Drawer.Screen name="CheckPendingNotes" component={CheckPendingNotes} />
+
     {/* <Drawer.Screen name="Settings" component={SettingsScreen} /> */}
     </Drawer.Navigator>
   );
