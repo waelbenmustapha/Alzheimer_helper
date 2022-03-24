@@ -34,7 +34,7 @@
               if(JSON.parse(value).type =='dementia'){
                 axios
                 .get(
-                  `http://192168.1.26:8090/story/get/${JSON.parse(value).id}`
+                  `http://192.168.1.26:8090/story/get/${JSON.parse(value).id}`
                 )
                 .then((res) => {
                   setHistory(JSON.stringify(res.data.history));
@@ -44,7 +44,7 @@
             else {
               axios
               .get(
-                `http://192168.1.26:8090/story/get/${JSON.parse(value).dementia.id}`
+                `http://192.168.1.26:8090/story/get/${JSON.parse(value).dementia.id}`
               )
               .then((res) => {
                 console.log("************************");
@@ -75,7 +75,8 @@
         <ProfileElement userData={userData}/> 
 
         <ScrollView style={styles.scrollView}> 
-        <TouchableOpacity style={styles.microphone} onPress={()=>runSpeech()}><Feather name='mic'></Feather></TouchableOpacity>
+        <TouchableOpacity style={styles.microphone} 
+        onPress={()=>runSpeech()}><Feather name='mic'></Feather></TouchableOpacity>
           <Text style={styles.square}>{history}</Text>
           {userData.type=="guardian"?<View style={styles.fixToText}>
           <TouchableOpacity

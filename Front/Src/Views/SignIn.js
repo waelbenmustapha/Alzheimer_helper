@@ -18,21 +18,42 @@ const SignIn = ({ navigation }) => {
     registerForPushNotificationsAsync().then(token => { console.log(token); setExpoPushToken(token) });
 
   }, []);
- 
- 
+  const _removeValue = async () => {
+    try {
+      const value = await AsyncStorage.getItem('user')
+      if (value !== null) {
+        await AsyncStorage.removeItem('user')
+      }
+    } catch (e) {
+      // remove error
+    }
+
+    console.log('Done.')
+  }
+
   _storeData = async () => {
     try {
       await AsyncStorage.setItem("token",expoPushToken);
-       AsyncStorage.setItem("user",JSON.stringify(Data))
-       .then(()=>navigation.push("drawer"))
+       AsyncStorage.setItem("user",JSON.stringify(Data)).then((value)=>
+       {
+         if(Data.type=="dementia")
+       {
+         navigation.replace("Home")
+      return;
+      }
+      if(Data.pinCode==null)
+      {
+        navigation.replace("PinCode")
+     return;
+     }
+     navigation.replace("PinCodeVerif")
 
-      console.log("el token "+expoPushToken)
-      console.log("el user "+JSON.stringify(Data))
-      
+       })
+
 
     } catch (error) {
-    console.log(error) 
-   }
+      console.log(error)
+    }
   };
 
 

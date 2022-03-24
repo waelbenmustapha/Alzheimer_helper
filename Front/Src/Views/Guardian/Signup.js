@@ -79,7 +79,6 @@ const Signup = ({ navigation }) => {
   };
 
   //inser
-
   const handleSubmitPress = async (event) => {
     if (isValid()) {
 
@@ -103,7 +102,6 @@ const Signup = ({ navigation }) => {
       }).catch((error) => { alert(error); setIsLoading(false); })
     }
   }
-
 
   return (
     <View style={styles.container}>

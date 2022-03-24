@@ -18,20 +18,22 @@ const PinCodeVerif = ({ navigation }) => {
                 if (!pincode.trim() || pincode < 4) {
                     alert("Please Entry Pin code with 4 numbers");
                     return;
-                }/* ${JSON.parse(value).id} */
-                axios.post(`http://192.168.1.26:8090/guardian/add-pin-code/4028819a7fb8eb02017fb8fdc8a20000/{pincode}`,
-                    { pincode: pincode }
-                )
+                }
+                if (JSON.parse(value).pin_code == null) {
+                    axios.post(`http://192.168.1.26:8090/guardian/add-pin-code/${JSON.parse(value).id}/${pincode}`,
+                        { pincode: pincode }
+                    )
 
-                    .then((response) => {
-                        console.log(response.status)
-                        if (response.status === 200) {
-                            navigation.navigate("SignIn")
-                        }
-                    })
-                    .catch((error) => {
-                        alert(error);
-                    })
+                        .then((response) => {
+                            console.log(response.status)
+                            if (response.status === 200) {
+                                navigation.navigate("SignIn")
+                            }
+                        })
+                        .catch((error) => {
+                            alert(error);
+                        })
+                }
             })
     }
 

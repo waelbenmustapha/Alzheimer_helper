@@ -21,13 +21,13 @@ const AddNotes = ({ navigation }) => {
         .then(value=>{console.log(JSON.parse(value));
           console.log(JSON.parse(value).type)
           if(JSON.parse(value).type =='dementia'){
-            axios.post(`http://192168.1.26:8090/pending-notes/add-note/${JSON.parse(value).id}`,
+            axios.post(`http://192.168.1.26:8090/pending-notes/add-note/${JSON.parse(value).id}`,
           {description:description, title:title,date:date})
           .then((res) => navigation.navigate("CheckNotes"))
 
         }
         else {
-          axios.post(`http://192168.1.26:8090/notes/add-note/${JSON.parse(value).dementia.id}`,
+          axios.post(`http://192.168.1.26:8090/notes/add-note/${JSON.parse(value).dementia.id}`,
              {description: description, title: title, date: date })
              .then((res) => navigation.navigate("CheckNotes"))
        }})
@@ -69,12 +69,18 @@ const AddNotes = ({ navigation }) => {
   return (
 
     <View style={styles.container}>
-      <TextInput multiline numberOfLines={1}
-        onChangeText={(text) => setTitle(text)} style={styles.input}
-        placeholder="Note title" />
-      <TextInput multiline numberOfLines={4}
-        onChangeText={(text) => setDescription(text)} style={styles.input}
-        placeholder="Description" />
+      <TextInput
+       multiline numberOfLines={1}
+        onChangeText={(text) => setTitle(text)}
+         style={styles.input}
+        placeholder="Note title" 
+        />
+      <TextInput 
+      multiline numberOfLines={4}
+        onChangeText={(text) => setDescription(text)} 
+        style={styles.input}
+        placeholder="Description" 
+        />
       <View style={styles.pad}>
         <View>
           <TouchableOpacity onPress={showDatepicker}>

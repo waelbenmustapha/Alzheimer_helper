@@ -9,7 +9,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-  Pressable,
+  ImageBackground,
   BackHandler, 
   Alert
 } from "react-native";
@@ -44,7 +44,7 @@ const Home = ({ navigation }) => {
     )
   }
 
-  if (userData.dementia == null) {
+  if (userData == null) {
     return (
       <View>
         <ImageBackground
@@ -197,6 +197,10 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     flex: 1,
     padding: '5%',
+  },
+  image1: {
+    height: '100%',
+    width: '100%',
   },
   firstItem: {
     alignItems: "flex-end",

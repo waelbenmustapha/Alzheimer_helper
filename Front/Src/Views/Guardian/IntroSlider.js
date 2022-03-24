@@ -48,10 +48,9 @@ const IntroSlider = ({ navigation, route }) => {
         </View>
       </Swiper>
       <TouchableOpacity style={styles.button}
-        onPress={() => navigation.navigate(route.params.signup)}>
+        onPress={() => navigation.push(route.params.signup)}>
         <Text style={styles.titlebutton}>SignUp</Text>
       </TouchableOpacity>
-
     </View>
 
 

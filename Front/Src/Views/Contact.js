@@ -1,22 +1,95 @@
 import { View, Modal, Text, Image, TouchableOpacity, ScrollView, Button, StyleSheet, SafeAreaView, StatusBar, Pressable, TextInput } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from '@react-navigation/native';
 
 const Contact = ({ navigation }) => {
 
     const [modalVisible, setModalVisible] = useState(false);
     const [phonenumber, setPhoneNumber] = useState(false);
     const [name, setName] = useState(false);
+    const [contact, setContact] = useState([]);
+    const [userData, setuserData] = useState(null);
 
+    const isFocused = useIsFocused();
 
-    function AddContact() {
+    function AddContact () {
+        if (!name.trim() || !phonenumber.trim()) {
 
-        axios.post(`http://192.168.1.26:8090/contacts/add/${id}`,
-            { phonenumber: phonenumber, name: name /*, image */ })
-            .then((res) => setModalVisible(!modalVisible))
+            alert("Please fill in all fields are required")}
+        AsyncStorage.getItem('user')
+            .then(value => {
+                console.log(JSON.parse(value));
+                console.log(JSON.parse(value).type)
+                if (JSON.parse(value).type ) {
+                    axios.post(`http://192.168.1.26:8090/contacts/add/${JSON.parse(value).id}`,
+                        { phonenumber: phonenumber, name: name /*, image */ })
+                    alert("Successful contact added!");
+
+                }
+            })
     }
+/* 
+    function getData() {
+        AsyncStorage.getItem('user')
+            .then(value => {
+                if (JSON.parse(value).type) {
+                    axios.get(`http://192.168.1.26:8090/get-contacts/${JSON.parse(value).id}`)
+                    .then((res) => 
 
+                    { console.log(res.data)
+                      if(res.data!=null)
+                      setContact(res.data)
+                    }
+                    )                }
+            })
+    }
+    useEffect(() => {
+        AsyncStorage.getItem('user', (err, item) => { setuserData(JSON.parse(item)); console.log("++++++" + item) })
+
+        getData();
+    }, [isFocused]); */
+
+
+
+  const [notes, setNotes] = useState([]);
+
+
+  function getData() {
+    // axios
+    //   .get(
+    //     `http://192.168.1.26:8090/notes/get-notes-by-dementia-id/`
+    //   )
+
+      AsyncStorage.getItem('user')
+      .then(value=>{
+        console.log(JSON.parse(value));
+        console.log(JSON.parse(value).type)
+        if(JSON.parse(value).type =='dementia'){
+          axios.get(`http://192.168.1.26:8090/notes/get-notes-by-dementia-id/${JSON.parse(value).id}`)
+          .then((res) => 
+
+          { console.log(res.data)
+            if(res.data!=null)
+            setNotes(res.data)
+          }
+          )
+
+
+      }
+      else {
+        axios.get(`http://192.168.1.26:8090/notes/get-notes-by-dementia-id/${JSON.parse(value).dementia.id}`)
+           .then((res) => {setNotes(res.data);console.log(res.data)})
+     }})
+  }
+
+  useEffect(() => {
+    AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item)) ;console.log("++++++"+item)})
+
+    getData();
+  }, [isFocused]);
 
     return (
 
@@ -29,31 +102,49 @@ const Contact = ({ navigation }) => {
 
             <View style={[styles.container, { flexDirection: "column" }]}>
 
-                <ScrollView style={styles.scrollView}>
-                    <View style={styles.contactview} >
-                        <View style={{ alignItems: 'center' }} >
-                            <TouchableOpacity >
-                                <Image
+ <ScrollView style={styles.scrollView}>
+                  {notes.map((el) => (<TouchableOpacity key={el.id}
+                    onPress={() => navigation.navigate("CheckNote", { el })} style={styles.item}>
+                    <Text>Title : {el.title}</Text>
+                    <Text>Date : {el.date}</Text>
+                    <Text>Description : {el.description}</Text>
+                  </TouchableOpacity>))}
+                </ScrollView>
 
-                                />
-                            </TouchableOpacity>
-                            <View style={styles.item}>
-                                <Text style={{ fontSize: 32 }}>Name</Text>
-                                <Text style={{ fontSize: 18 }}>Phone Number</Text>
+
+                {/* <ScrollView style={styles.scrollView}>
+                    <View style={styles.contactview} >
+                        <View style={styles.container1}>
+                            <View style={{ alignItems: 'center' }} >
+
+                                {/* <View style={styles.item}>
+                                    <Text style={{ fontSize: 32 }}>Name</Text>
+                                    <Text style={{ fontSize: 18 }}>Phone Number</Text>
+                                </View> 
+
+                                {contact.map((el) => (
+                                    <View key={el.id}
+                                        style={styles.item}>
+                                        {/*  <TouchableOpacity >
+                                    <Image
+                                    />
+                                </TouchableOpacity> 
+                                        <Text>Name : {el.name}</Text>
+                                        <Text>Phone : {el.phonenumber}</Text>
+                                    </View>
+                                ))}
                             </View>
+
                         </View>
 
 
 
 
                     </View>
-                </ScrollView>
+                </ScrollView> */}
 
 
                 <View style={styles.addbutton}>
-                    <TouchableOpacity onPress={() => navigation.navigate("AddContact")}>
-
-                    </TouchableOpacity>
                     <Pressable
                         style={styles.addbutton}
                         onPress={() => setModalVisible(true)}
@@ -68,7 +159,6 @@ const Contact = ({ navigation }) => {
                         transparent={true}
                         visible={modalVisible}
                         onRequestClose={() => {
-                            Alert.alert("Modal has been closed.");
                             setModalVisible(!modalVisible);
                         }}
                     >
@@ -98,18 +188,22 @@ const Contact = ({ navigation }) => {
                                             style={styles.input}
                                             placeholder='Phone Number'
                                             autoCapitalize="none"
+                                            keyboardType="number-pad"
                                             value={phonenumber}
                                             placeholderTextColor='#00000080'
                                             onChangeText={(phonenumber) => setPhoneNumber(phonenumber)}
                                         />
                                     </View>
+                                    <Pressable
+                                        onPress={() => { AddContact(); setModalVisible(!modalVisible); }}
+                                        style={styles.addbutton1}>
+                                        <Text >Add</Text>
+                                    </Pressable>
                                 </View>
 
 
 
-                                <Pressable onPress={() => AddContact()}>
-                                    <Text style={styles.addbutton}>Add</Text>
-                                </Pressable>
+
                             </View>
                         </View>
                     </Modal>
@@ -132,6 +226,10 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         flex: 1,
         padding: '4%',
+    },
+    container1: {
+        backgroundColor: "#359A8E20",
+        borderRadius: 40,
     },
     contactview: {
         flex: 1,
@@ -156,6 +254,21 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end",
         alignItems: "flex-end",
         flexDirection: "column",
+    },
+    addbutton1: {
+        alignItems: "center",
+        justifyContent: "flex-end",
+        padding: "3%",
+        marginLeft: "50%",
+        marginTop: "10%",
+        borderRadius: 10,
+        elevation: 3,
+        borderColor: "#359A8E",
+        backgroundColor: "#fff",
+        shadowColor: "#359A8E",
+        shadowOpacity: 0.2,
+        shadowRadius: 1.22,
+        elevation: 11,
     },
     image: {
         height: 200,
