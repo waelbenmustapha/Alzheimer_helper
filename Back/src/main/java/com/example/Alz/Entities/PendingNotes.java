@@ -16,7 +16,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class PendingNotes extends Notes{
+public class PendingNotes {
 
   @GeneratedValue(generator = "uuid")
   @GenericGenerator(name = "uuid", strategy = "uuid")
@@ -28,6 +28,14 @@ public class PendingNotes extends Notes{
   private String action;
   private String status;
 
+  private String description;
+  private String title;
+
+  private Date date;
+
+  @ManyToOne
+  @JsonIgnore
+  private Dementia dementia;
 
 
 }
