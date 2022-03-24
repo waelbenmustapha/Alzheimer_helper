@@ -25,7 +25,14 @@ const CheckPendingNote = ({ route, navigation }) => {
     navigation.navigate("CheckPendingNotes")})
 
   }
+  function DeletePending()
+  { 
+    axios.delete(`http://192.168.1.39:8090/pending-notes/delete-pending-note/${route.params.el.id}`)           
+  .then((res) => {
+    
+    navigation.navigate("CheckPendingNotes")})
 
+  }
    
   
   
@@ -57,15 +64,15 @@ const CheckPendingNote = ({ route, navigation }) => {
             }}
             style={styles.deletebutton}
           >
-            <Text> Decline</Text>
+            <Text> Accept</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              deltenote();
+              DeletePending();
             }}
             style={styles.deletebutton}
           >
-            <Text> Accept</Text>
+            <Text> Decline</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

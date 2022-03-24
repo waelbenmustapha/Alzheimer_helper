@@ -68,7 +68,8 @@ const CheckPendingNotes = ({ navigation }) => {
 
                 <ScrollView style={styles.scrollView}>
                   {notes.map((el) => (<TouchableOpacity key={el.id}
-                    onPress={() => navigation.navigate("CheckPendingNote", { el })} style={styles.item}>
+                    onPress={() => navigation.navigate("CheckPendingNote", { el })} style={[el.status=="accepted"?styles.item:styles.item2]}>
+                    <Text>{el.action}</Text>
                     <Text>Title : {el.title}</Text>
                     <Text>Date : {el.date}</Text>
                     <Text>Description : {el.description}</Text>
@@ -98,6 +99,14 @@ const styles = StyleSheet.create({
     padding: 0,
   },
   item: {
+    backgroundColor: "#98FB98",
+    margin: 5,
+    padding: 5,
+    paddingStart: 20,
+    borderRadius: 10,
+
+  },
+  item2: {
     backgroundColor: "#fff",
     margin: 5,
     padding: 5,

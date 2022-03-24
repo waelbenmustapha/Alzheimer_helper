@@ -28,7 +28,7 @@ const UpdateNote = ({ route, navigation }) => {
       .then(value=>{console.log(JSON.parse(value));
         console.log(JSON.parse(value).type)
         if(JSON.parse(value).type =='dementia'){
-        axios.put(`http://192.168.1.39:8090/pending-notes/edit-note/${route.params.el.id}`,
+        axios.put(`http://192.168.1.39:8090/pending-notes/edit-note/${JSON.parse(value).id}/${route.params.el.id}`,
         {description:description, title:title,date:date})
         .then((res) => {
           axios.get(`http://192.168.1.39:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)

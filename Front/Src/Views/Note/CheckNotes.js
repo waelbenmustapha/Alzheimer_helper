@@ -41,7 +41,6 @@ const CheckNotes = ({ navigation }) => {
             if(res.data!=null)
 
             setNotes(res.data)
-            console.log("el data "+JSON.parse(res.data).status)
           }
           )
 
@@ -83,7 +82,6 @@ const CheckNotes = ({ navigation }) => {
 
                 <ScrollView style={styles.scrollView}>
                   {notes.map((el) => 
-                  {el.status=="accepted"?
                   (<TouchableOpacity key={el.id}
                     onPress={() => navigation.navigate("CheckNote", { el })} style={styles.item}>
 
@@ -97,7 +95,7 @@ const CheckNotes = ({ navigation }) => {
                     
                     
                     
-                  </TouchableOpacity>):null})}
+                  </TouchableOpacity>))}
                 </ScrollView>
               </View>
             </View>
