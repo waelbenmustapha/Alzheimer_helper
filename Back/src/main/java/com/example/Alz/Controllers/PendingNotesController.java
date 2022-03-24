@@ -3,7 +3,6 @@ package com.example.Alz.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,8 +45,13 @@ public class PendingNotesController {
   @PostMapping("/delete-note/{noteid}")
   public ResponseEntity deleteNote(@PathVariable("noteid") String noteid) {
     PendingNotes pendingnote = new PendingNotes();
+    Notes notedb =notesRepository.findById(noteid).get();
     pendingnote.setNoteToEditId(noteid);
     pendingnote.setAction("delete");
+    pendingnote.setDate(notedb.getDate());
+    pendingnote.setTitle(notedb.getTitle());
+    pendingnote.setDescription(notedb.getDescription());
+    pendingnote.setDementia(notedb.getDementia());
     pendingnote.setStatus("pending");
     pendingNotesRepository.save(pendingnote);
     return new ResponseEntity("saved", HttpStatus.OK);
@@ -67,6 +71,7 @@ public class PendingNotesController {
 
     note.setStatus("pending");
     note.setAction("edit");
+    note.setDementia(notesRepository.findById(noteid).get().getDementia());
     note.setNoteToEditId(noteid);
     pendingNotesRepository.save(note);
     return new ResponseEntity("okah", HttpStatus.OK);
