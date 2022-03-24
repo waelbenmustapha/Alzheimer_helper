@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,6 +54,14 @@ public class PendingNotesController {
 
   }
 
+  @DeleteMapping("/delete-pending-note/{noteid}")
+  public ResponseEntity deletenote(@PathVariable("noteid") String noteid) {
+
+    pendingNotesRepository.deleteById(noteid);
+    return new ResponseEntity("okah", HttpStatus.OK);
+
+  }
+
   @PutMapping("/edit-note/{noteid}")
   public ResponseEntity editnote(@PathVariable("noteid") String noteid, @RequestBody PendingNotes note) {
 
@@ -87,19 +96,18 @@ public class PendingNotesController {
       pendingNotesRepository.save(pendingnote);
       return new ResponseEntity("ok", HttpStatus.OK);
 
-    }else if (pendingnote.getAction().equals("edit")) {
+    } else if (pendingnote.getAction().equals("edit")) {
 
-     Notes note = notesRepository.findById(pendingnote.getNoteToEditId()).get();
+      Notes note = notesRepository.findById(pendingnote.getNoteToEditId()).get();
 
-     note.setDate(pendingnote.getDate());
-     note.setDescription(pendingnote.getDescription());
-     note.setTitle(pendingnote.getTitle());
-     notesRepository.save(note);
+      note.setDate(pendingnote.getDate());
+      note.setDescription(pendingnote.getDescription());
+      note.setTitle(pendingnote.getTitle());
+      notesRepository.save(note);
 
       return new ResponseEntity("ok", HttpStatus.OK);
 
     }
-
 
     return new ResponseEntity("ok", HttpStatus.OK);
 
@@ -111,5 +119,13 @@ public class PendingNotesController {
     PendingNotes pendingnote = pendingNotesRepository.findById(noteId).get();
     pendingnote.setStatus("denied");
     return new ResponseEntity("ok", HttpStatus.OK);
+  }
+
+  @GetMapping("/get/{dim}")
+  public ResponseEntity getPendingNotes(@PathVariable("dim") String id) {
+
+    return new ResponseEntity(dementiaRepository.findById(id).get().getPendingNotes()
+        , HttpStatus.OK);
+
   }
 }
