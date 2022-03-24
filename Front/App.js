@@ -43,8 +43,11 @@ export default function App() {
         setInt("SignIn")
       }
       else{
-        setInt("drawer")
-    
+        if(userData.type=="guardian")
+       { setInt("drawer")}
+        else{
+          setInt("Home")
+        }
       } 
     }
     
@@ -72,7 +75,7 @@ export default function App() {
 
 
 
-      <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+      <Stack.Screen name="Home" component={Home}  />
 
       <Stack.Screen name="SignupDementia" component={SignupDementia} />
 
