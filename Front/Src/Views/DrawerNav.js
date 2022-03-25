@@ -26,8 +26,8 @@ const DrawerNav = ({ navigation }) => {
 
   const Logout = () => {
     try {
-       AsyncStorage.removeItem("user")
-      navigation.replace("SignIn")
+       AsyncStorage.clear()
+      navigation.push("SignIn")
 
 
     } catch(e) {
@@ -58,16 +58,9 @@ const DrawerNav = ({ navigation }) => {
     
   return (
    
-    <Drawer.Navigator initialRouteName="Home"drawerContent={props => {
-      return (
-        <DrawerContentScrollView {...props}>
-          <DrawerItemList {...props} />
-          <DrawerItem label="Logout" onPress={() =>Logout() } />
-        </DrawerContentScrollView>
-      )
-    }}>
+    <Drawer.Navigator>
     <Drawer.Screen name="Home" component={Home} />
-    {/* <Drawer.Screen name="Settings" component={SettingsScreen} /> */}
+       {/* <Drawer.Screen name="Settings" component={SettingsScreen} /> */}
     </Drawer.Navigator>
   );
 }

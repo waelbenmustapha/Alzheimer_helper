@@ -1,4 +1,4 @@
-  import { View, Text,StyleSheet,Image,ScrollView,TouchableOpacity } from 'react-native'
+import { View, Text,StyleSheet,Image,ScrollView,TouchableOpacity } from 'react-native'
   import React, { useState,useEffect  } from 'react'
   import { useIsFocused } from "@react-navigation/native"
   import axios from "axios";
@@ -75,8 +75,7 @@
         <ProfileElement userData={userData}/> 
 
         <ScrollView style={styles.scrollView}> 
-        <TouchableOpacity style={styles.microphone} 
-        onPress={()=>runSpeech()}><Feather name='mic'></Feather></TouchableOpacity>
+        <TouchableOpacity style={styles.microphone} onPress={()=>runSpeech()}><Feather name='mic'></Feather></TouchableOpacity>
           <Text style={styles.square}>{history}</Text>
           {userData.type=="guardian"?<View style={styles.fixToText}>
           <TouchableOpacity
@@ -101,7 +100,6 @@
     )
   }
 
-  export default HistoryDementia
 
 
   const styles = StyleSheet.create({
@@ -189,3 +187,5 @@
         
     
       });
+
+      export default HistoryDementia;

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { View, ImageBackground, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import React, { Component, useState } from 'react'
 import axios from 'axios';
@@ -18,16 +18,19 @@ const PinCodeVerif = ({ navigation }) => {
                 if (!pincode.trim()) {
                     alert("Please Entry Pin code");
                     return;
-                } 
-               
-                
+                }
+
+
                 axios.get(`http://192.168.1.26:8090/guardian/test-pin/${JSON.parse(value).id}/${pincode}`, {
                 })
                     .then((res) => {
                         console.log()
-                        navigation.navigate("Home")
-                        alert("Pin code is not correct");
+                        if (res.data == false) {
+                            alert("Pin code is not correct");
+                        } else {
+                            navigation.navigate("drawer")
 
+                        }
                     })
                     .catch((error) => {
                         alert(error);
@@ -39,30 +42,36 @@ const PinCodeVerif = ({ navigation }) => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <View style={styles.container}>
-                <Text style={styles.passcodeText}>Pin Code</Text>
-                <View style={styles.codeContainer}>
-                    <TextInput
-                        style={styles.code1}
-                        placeholder='****'
-                        secureTextEntry={true}
-                        maxLength={4}
-                        keyboardType="number-pad"
-                        onChangeText={(pincode) => setCode(pincode)}
-                    />
-                    <TouchableOpacity onPress={() => handleSubmitPress()}>
-                        <Text style={[styles.buttonText, { color: "#359A8E" }]}>Submit Pin Code</Text>
-                    </TouchableOpacity>
+            <ImageBackground
+                source={require("./../../../assets/old.png")} style={styles.image}
+            >
+                <View style={styles.container}>
+                    <View style={styles.back}>
+                        <Text style={styles.passcodeText}>Pin Code</Text>
+                        <View style={styles.codeContainer}>
+                            <TextInput
+                                style={styles.code1}
+                                placeholder='****'
+                                secureTextEntry={true}
+                                maxLength={4}
+                                keyboardType="number-pad"
+                                onChangeText={(pincode) => setCode(pincode)}
+                            />
+                            <TouchableOpacity onPress={() => handleSubmitPress()}>
+                                <Text style={[styles.buttonText, { color: "#359A8E" }]}>Submit Pin Code</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                 </View>
-            </View>
 
-            <View style={styles.buttons}>
+                <View style={styles.buttons}>
 
-                <TouchableOpacity>
-                    <Text style={[styles.buttonText, { color: "red" }]}>Forgot Pin Code</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity>
+                        <Text style={[styles.buttonText, { color: "red" }]}>Forgot Pin Code</Text>
+                    </TouchableOpacity>
 
-            </View>
+                </View>
+            </ImageBackground>
         </SafeAreaView>
     )
 
@@ -73,18 +82,24 @@ const styles = StyleSheet.create({
     container: {
         flex: 20,
         justifyContent: "flex-end",
-        alignItems: "center",
-        backgroundColor: "violet"
+
     },
+    image: {
 
+        height: '100%',
+        width: '100%',
 
-
+    },
+    back: {
+        paddingLeft: "20%",
+        paddingRight: "20%",
+        backgroundColor: "#ffffff90",
+        alignItems:"center"
+    },
     passcodeText: {
         fontSize: 32,
         color: '#359A8E',
         letterSpacing: 0.34,
-        justifyContent: "center",
-
     },
     codeContainer: {
         marginTop: 12,
@@ -98,7 +113,7 @@ const styles = StyleSheet.create({
         color: "#000",
         paddingLeft: "20%",
         paddingRight: "20%",
-        padding: 10,
+        padding: "2%",
         borderRadius: 50,
         borderWidth: 1,
         borderColor: "#359A8E",

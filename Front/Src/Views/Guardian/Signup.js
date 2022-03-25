@@ -69,7 +69,7 @@ const Signup = ({ navigation }) => {
     if (!regx.test(userEmail))
       return alert("invalid Email");
 
-    if (userPassword.length < 8)
+    if (!userPassword.length > 8)
       return alert("Password is less then 8 characters!");
 
     if (userPassword !== userConfirmPassword)
@@ -79,6 +79,7 @@ const Signup = ({ navigation }) => {
   };
 
   //inser
+
   const handleSubmitPress = async (event) => {
     if (isValid()) {
 
@@ -102,6 +103,7 @@ const Signup = ({ navigation }) => {
       }).catch((error) => { alert(error); setIsLoading(false); })
     }
   }
+
 
   return (
     <View style={styles.container}>

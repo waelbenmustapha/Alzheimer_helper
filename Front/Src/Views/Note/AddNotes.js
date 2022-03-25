@@ -4,6 +4,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import heure from '../../../assets/heure.png'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { sendPushNotification } from '../../Utils/Notif';
 
 const AddNotes = ({ navigation }) => {
   const [date, setDate] = useState(new Date(1598051730000));
@@ -23,7 +24,16 @@ const AddNotes = ({ navigation }) => {
           if(JSON.parse(value).type =='dementia'){
             axios.post(`http://192.168.1.26:8090/pending-notes/add-note/${JSON.parse(value).id}`,
           {description:description, title:title,date:date})
-          .then((res) => navigation.navigate("CheckNotes"))
+          .then((res) =>{
+            axios.get(`http://192.168.1.26:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
+            .then((res) =>{
+              sendPushNotification(res.data,message.title,message.body)
+            })
+
+            
+
+             navigation.navigate("CheckNotes")
+            })
 
         }
         else {
@@ -61,7 +71,6 @@ const AddNotes = ({ navigation }) => {
     showMode('time');
   };
 
-  const [value, onChangeText] = React.useState('Useless Multiline Placeholder');
 
 
 
@@ -69,18 +78,12 @@ const AddNotes = ({ navigation }) => {
   return (
 
     <View style={styles.container}>
-      <TextInput
-       multiline numberOfLines={1}
-        onChangeText={(text) => setTitle(text)}
-         style={styles.input}
-        placeholder="Note title" 
-        />
-      <TextInput 
-      multiline numberOfLines={4}
-        onChangeText={(text) => setDescription(text)} 
-        style={styles.input}
-        placeholder="Description" 
-        />
+      <TextInput multiline numberOfLines={1}
+        onChangeText={(text) => setTitle(text)} style={styles.input}
+        placeholder="Note title" />
+      <TextInput multiline numberOfLines={4}
+        onChangeText={(text) => setDescription(text)} style={styles.input}
+        placeholder="Description" />
       <View style={styles.pad}>
         <View>
           <TouchableOpacity onPress={showDatepicker}>
@@ -110,7 +113,6 @@ const AddNotes = ({ navigation }) => {
           <View>
             <TouchableOpacity onPress={showDatepicker}><Image style={styles.DateTimePicker} source={heure} /></TouchableOpacity>
           </View>
-
           {show && (
             <DateTimePicker
               testID="dateTimePicker"

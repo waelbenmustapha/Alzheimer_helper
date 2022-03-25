@@ -7,20 +7,19 @@ import {
   Image,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import NoteElement from "../../Components/NoteElement";
 import { AntDesign } from "@expo/vector-icons";
 import { URL } from "@env"
 
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
-import   AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import ProfileElement from "../../Components/ProfileElement";
 
 const CheckNotes = ({ navigation }) => {
   const isFocused = useIsFocused();
 
   const [notes, setNotes] = useState([]);
-  const [userData, setuserData] =useState(null);
+  const [userData, setuserData] = useState(null);
 
 
   function getData() {
@@ -29,30 +28,31 @@ const CheckNotes = ({ navigation }) => {
     //     `http://192.168.1.26:8090/notes/get-notes-by-dementia-id/`
     //   )
 
-      AsyncStorage.getItem('user')
-      .then(value=>{
+    AsyncStorage.getItem('user')
+      .then(value => {
         console.log(JSON.parse(value));
         console.log(JSON.parse(value).type)
-        if(JSON.parse(value).type =='dementia'){
+        if (JSON.parse(value).type == 'dementia') {
           axios.get(`http://192.168.1.26:8090/notes/get-notes-by-dementia-id/${JSON.parse(value).id}`)
-          .then((res) => 
+            .then((res) => {
+              console.log(res.data)
+              if (res.data != null)
 
-          { console.log(res.data)
-            if(res.data!=null)
-            setNotes(res.data)
-          }
-          )
+                setNotes(res.data)
+            }
+            )
 
 
-      }
-      else {
-        axios.get(`http://192.168.1.26:8090/notes/get-notes-by-dementia-id/${JSON.parse(value).dementia.id}`)
-           .then((res) => {setNotes(res.data);console.log(res.data)})
-     }})
+        }
+        else {
+          axios.get(`http://192.168.1.26:8090/notes/get-notes-by-dementia-id/${JSON.parse(value).dementia.id}`)
+            .then((res) => { setNotes(res.data); console.log(res.data) })
+        }
+      })
   }
 
   useEffect(() => {
-    AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item)) ;console.log("++++++"+item)})
+    AsyncStorage.getItem('user', (err, item) => { setuserData(JSON.parse(item)); console.log("++++++" + item) })
 
     getData();
   }, [isFocused]);
@@ -65,8 +65,8 @@ const CheckNotes = ({ navigation }) => {
   return (
 
     <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
-      
-          {userData&&  <ProfileElement userData={userData}/>}
+
+      {userData && <ProfileElement userData={userData} />}
 
 
       <View style={[styles.container, { flex: 4, flexDirection: "column" }]}>
@@ -80,11 +80,20 @@ const CheckNotes = ({ navigation }) => {
               <View >
 
                 <ScrollView style={styles.scrollView}>
-                  {notes.map((el) => (<TouchableOpacity key={el.id}
+                  {notes.map((el) =>
+                  (<TouchableOpacity key={el.id}
                     onPress={() => navigation.navigate("CheckNote", { el })} style={styles.item}>
-                    <Text>Title : {el.title}</Text>
-                    <Text>Date : {el.date}</Text>
-                    <Text>Description : {el.description}</Text>
+
+
+                    <View>
+                      <Text>Title : {el.title}</Text>
+                      <Text>Date : {el.date}</Text>
+                      <Text>Description : {el.description}</Text>
+                    </View>
+
+
+
+
                   </TouchableOpacity>))}
                 </ScrollView>
               </View>

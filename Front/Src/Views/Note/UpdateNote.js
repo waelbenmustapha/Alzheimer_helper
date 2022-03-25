@@ -9,40 +9,17 @@ import {
 } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { sendPushNotification } from "../../Utils/Notif";
 
 const UpdateNote = ({ route, navigation }) => {
 
     const [date, setDate] = useState(new Date(1598051730000));
-    const [mode, setMode] = useState('date');
-    const [show, setShow] = useState(false);
     const [description, setDescription] = useState(route.params.el.description);
     const [title, setTitle] = useState(route.params.el.title);
     const messageUpdate = {   
       'title': 'Note Update',
      'body': 'Your dementia has Update a note'
    } 
-   const messageDelete = {   
-    'title': 'Note Removed',
-   'body': 'Your dementia has delete a note'
- }  
- 
-    function deltenote() {
-      AsyncStorage.getItem('user')
-      .then(value=>{console.log(JSON.parse(value));
-        console.log(JSON.parse(value).type)
-        if(JSON.parse(value).type =='dementia'){
-        axios.delete(`http://192.168.1.26:8090/pending-notes/delete-note/${route.params.el.id}`,
-        )           
-        .then((res) => navigation.navigate("CheckNotes"))
-
-
-      }
-      else {
-           axios.delete(`http://192.168.1.26:8090/notes/delete-note/${route.params.el.id}`,
-           )
-           .then((res) => navigation.navigate("CheckNotes"))
-     }})
-      }
 
 
    function UpdateNote() {
@@ -51,8 +28,14 @@ const UpdateNote = ({ route, navigation }) => {
       .then(value=>{console.log(JSON.parse(value));
         console.log(JSON.parse(value).type)
         if(JSON.parse(value).type =='dementia'){
-        axios.put(`http://192.168.1.26:8090/pending-notes/edit-note/${route.params.el.id}`,
+        axios.put(`http://192.168.1.26:8090/pending-notes/edit-note/${JSON.parse(value).id}/${route.params.el.id}`,
         {description:description, title:title,date:date})
+        .then((res) => {
+          axios.get(`http://192.168.1.26:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
+            .then((res) =>{
+              sendPushNotification(res.data,messageUpdate.title,messageUpdate.body)
+            })
+          navigation.navigate("CheckNotes")})
 
       }
       else {
@@ -84,14 +67,7 @@ const UpdateNote = ({ route, navigation }) => {
         </View>
 
         <View style={styles.fixToText}>
-          <TouchableOpacity
-            onPress={() => {
-              deltenote();
-            }}
-            style={styles.deletebutton}
-          >
-            <Text> Delete</Text>
-          </TouchableOpacity>
+
           <TouchableOpacity
             onPress={() => {
               UpdateNote();

@@ -4,115 +4,75 @@ import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
+import * as ImagePicker from 'expo-image-picker';
+
 
 const Contact = ({ navigation }) => {
 
     const [modalVisible, setModalVisible] = useState(false);
-    const [phonenumber, setPhoneNumber] = useState(false);
-    const [name, setName] = useState(false);
+    const [phonenumber, setPhoneNumber] = useState('');
+    const [name, setName] = useState('');
     const [contact, setContact] = useState([]);
     const [userData, setuserData] = useState(null);
 
     const isFocused = useIsFocused();
 
-    function AddContact () {
-        if (!name.trim() || !phonenumber.trim()) {
 
-            alert("Please fill in all fields are required")}
+    //image piker
+
+
+
+
+    //addcontact
+    function AddContact( async) {
+        
         AsyncStorage.getItem('user')
             .then(value => {
                 console.log(JSON.parse(value));
                 console.log(JSON.parse(value).type)
-                if (JSON.parse(value).type ) {
-                    axios.post(`http://192.168.1.26:8090/contacts/add/${JSON.parse(value).id}`,
+                if (JSON.parse(value).type) {
+                    axios.post(`http://192.168.1.26:8090/contacts/add/${JSON.parse(value).dementia.id}`,
                         { phonenumber: phonenumber, name: name /*, image */ })
                     alert("Successful contact added!");
 
                 }
             })
     }
-/* 
+
     function getData() {
         AsyncStorage.getItem('user')
             .then(value => {
+                console.log(JSON.parse(value));
+                console.log(JSON.parse(value).type)
                 if (JSON.parse(value).type) {
-                    axios.get(`http://192.168.1.26:8090/get-contacts/${JSON.parse(value).id}`)
-                    .then((res) => 
-
-                    { console.log(res.data)
-                      if(res.data!=null)
-                      setContact(res.data)
-                    }
-                    )                }
+                    axios.get(`http://192.168.1.26:8090/get-contacts/${JSON.parse(value).dementia.id}`)
+                        .then((res) => {
+                            console.log(res.data)
+                            if (res.data != null)
+                                setContact(res.data)
+                        }
+                        )
+                }
             })
     }
     useEffect(() => {
         AsyncStorage.getItem('user', (err, item) => { setuserData(JSON.parse(item)); console.log("++++++" + item) })
 
         getData();
-    }, [isFocused]); */
+    }, [isFocused]);
 
 
-
-  const [notes, setNotes] = useState([]);
-
-
-  function getData() {
-    // axios
-    //   .get(
-    //     `http://192.168.1.26:8090/notes/get-notes-by-dementia-id/`
-    //   )
-
-      AsyncStorage.getItem('user')
-      .then(value=>{
-        console.log(JSON.parse(value));
-        console.log(JSON.parse(value).type)
-        if(JSON.parse(value).type =='dementia'){
-          axios.get(`http://192.168.1.26:8090/notes/get-notes-by-dementia-id/${JSON.parse(value).id}`)
-          .then((res) => 
-
-          { console.log(res.data)
-            if(res.data!=null)
-            setNotes(res.data)
-          }
-          )
-
-
-      }
-      else {
-        axios.get(`http://192.168.1.26:8090/notes/get-notes-by-dementia-id/${JSON.parse(value).dementia.id}`)
-           .then((res) => {setNotes(res.data);console.log(res.data)})
-     }})
-  }
-
-  useEffect(() => {
-    AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item)) ;console.log("++++++"+item)})
-
-    getData();
-  }, [isFocused]);
 
     return (
 
         <View style={styles.container}>
 
+
+
             <Text style={styles.sectionTitle}>Add Contact</Text>
-
-
-
-
             <View style={[styles.container, { flexDirection: "column" }]}>
 
- <ScrollView style={styles.scrollView}>
-                  {notes.map((el) => (<TouchableOpacity key={el.id}
-                    onPress={() => navigation.navigate("CheckNote", { el })} style={styles.item}>
-                    <Text>Title : {el.title}</Text>
-                    <Text>Date : {el.date}</Text>
-                    <Text>Description : {el.description}</Text>
-                  </TouchableOpacity>))}
-                </ScrollView>
-
-
-                {/* <ScrollView style={styles.scrollView}>
+                <ScrollView style={styles.scrollView}>
                     <View style={styles.contactview} >
                         <View style={styles.container1}>
                             <View style={{ alignItems: 'center' }} >
@@ -120,29 +80,23 @@ const Contact = ({ navigation }) => {
                                 {/* <View style={styles.item}>
                                     <Text style={{ fontSize: 32 }}>Name</Text>
                                     <Text style={{ fontSize: 18 }}>Phone Number</Text>
-                                </View> 
+                                </View> */}
 
                                 {contact.map((el) => (
-                                    <View key={el.id}
+                                    <View
                                         style={styles.item}>
-                                        {/*  <TouchableOpacity >
-                                    <Image
-                                    />
-                                </TouchableOpacity> 
+                                        <TouchableOpacity >
+                                            <Image
+                                            />
+                                        </TouchableOpacity>
                                         <Text>Name : {el.name}</Text>
                                         <Text>Phone : {el.phonenumber}</Text>
                                     </View>
                                 ))}
                             </View>
-
                         </View>
-
-
-
-
                     </View>
-                </ScrollView> */}
-
+                </ScrollView>
 
                 <View style={styles.addbutton}>
                     <Pressable
@@ -151,9 +105,6 @@ const Contact = ({ navigation }) => {
                     >
                         <AntDesign name="pluscircleo" size={50} color="#4A0D66" />
                     </Pressable>
-
-
-
                     <Modal
                         animationType="slide"
                         transparent={true}
@@ -162,18 +113,13 @@ const Contact = ({ navigation }) => {
                             setModalVisible(!modalVisible);
                         }}
                     >
-
-
                         <View style={styles.centeredView}>
                             <View style={styles.modalView}>
                                 <Pressable onPress={() => setModalVisible(!modalVisible)}>
                                     <AntDesign name="closecircleo" size={40} color="black" />
                                 </Pressable>
-
-
                                 <View>
                                     <View style={styles.form} >
-
                                         <TextInput
                                             style={styles.input}
                                             value={name}
@@ -182,8 +128,6 @@ const Contact = ({ navigation }) => {
                                             placeholderTextColor='#00000080'
                                             onChangeText={(name) => setName(name)}
                                         />
-
-
                                         <TextInput
                                             style={styles.input}
                                             placeholder='Phone Number'
@@ -200,22 +144,11 @@ const Contact = ({ navigation }) => {
                                         <Text >Add</Text>
                                     </Pressable>
                                 </View>
-
-
-
-
                             </View>
                         </View>
                     </Modal>
-
                 </View>
-
-
-
             </View>
-
-
-
         </View>
 
 
