@@ -28,10 +28,10 @@ const CheckNote = ({ route, navigation }) => {
         .then(value=>{
           console.log(JSON.parse(value).type)
           if(JSON.parse(value).type =='dementia'){
-          axios.put(`http://192.168.1.17:8090/pending-notes/delete-note/${JSON.parse(value).id}/${route.params.el.id}`,
+          axios.post(`http://192.168.1.18:8090/pending-notes/delete-note/${route.params.el.id}`,
           )           
           .then((res) => {
-            axios.get(`http://192.168.1.17:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
+            axios.get(`http://192.168.1.18:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
               .then((res) =>{
                 sendPushNotification(res.data,messageDelete.title,messageDelete.body)
               })
@@ -40,7 +40,7 @@ const CheckNote = ({ route, navigation }) => {
   
         }
         else {
-             axios.delete(`http://192.168.1.17:8090/notes/delete-note/${route.params.el.id}`,
+             axios.delete(`http://192.168.1.18:8090/notes/delete-note/${route.params.el.id}`,
              )
              .then((res) => navigation.navigate("CheckNotes"))
        }})
@@ -53,22 +53,29 @@ const CheckNote = ({ route, navigation }) => {
   
   return (
     <View style={styles.container}>
-      <View style={styles.items}>
         <View style={styles.items}>
-          <Text style={styles.sectionTitle}>{note.title}</Text>
-          <Text style={{fontSize:20}}>Description :</Text>
+          <View style={{padding:"3%"}}>
+          <Text style={{fontSize:20}}>Title :</Text>
 
           <View style={styles.item}>
-            <Text style={styles.square}>{note.description}</Text>
+            <Text style={styles.square}>{note.title}</Text>
+            </View>
+                    </View>
+          
+      <View style={{padding:"3%"}}>
+                  <Text style={{fontSize:22}}>Description :</Text>
+
+            <View style={styles.item}>
+              <Text style={styles.square}>{note.description}</Text>
 
 
-          </View>
+            </View>
+      </View>
           <Text style={styles.square}>{JSON.stringify((note.date)
                   ).substring(1, 11)} {JSON.stringify((note.date)
                     ).substring(12, 20)}</Text>
 
         </View>
-      </View>
 
       <ScrollView style={styles.scrollView}>
         
@@ -131,7 +138,7 @@ const styles = StyleSheet.create({
     margin:"2%",
     width: 300,
     fontSize:25,
-    padding: 15,
+  
     alignSelf: "center",
   
   },

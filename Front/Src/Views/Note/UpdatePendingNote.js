@@ -14,8 +14,10 @@ import UpdateNote from "./UpdateNote";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { sendPushNotification } from "../../Utils/Notif";
 
-const CheckPendingNote = ({ route, navigation }) => {
+const UpdatePendingNote = ({ route, navigation }) => {
   const [note, setNote] = useState(route.params.el);
+  const [Oldnote, setOldNote] = useState(null);
+
 
   function AcceptPending()
   { 
@@ -37,23 +39,71 @@ const CheckPendingNote = ({ route, navigation }) => {
   
   
   useEffect(() => {
-    console.log(note);
+    console.log(route.params.el.noteToEditId)
+    axios.get(`http://192.168.1.18:8090/notes/get-note/${route.params.el.noteToEditId}`)           
+    .then((res) => {
+      
+      setOldNote(res.data)
+   }
+      )
+      
   }, []);
-  
+  if (Oldnote == null) {
+    return (
+      <View>
+        <Text>loading</Text>
+        </View>
+    )}
   return (
     <View style={styles.container}>
-      <View style={styles.items}>
+      <Text>New NOTE</Text>
         <View style={styles.items}>
-          <Text style={styles.sectionTitle}>Check Note</Text>
-          <View style={styles.item}>
-            <Text>{note.title}</Text>
-            <Text>{note.date}</Text>
-          </View>
-        </View>
-      </View>
+          <View style={{padding:"3%"}}>
+          <Text style={{fontSize:20}}>Title :</Text>
 
-        <View style={styles.item}>
-          <Text style={styles.square}>{note.description}</Text>
+          <View style={styles.item}>
+            <Text style={styles.square}>{note.title}</Text>
+            </View>
+                    </View>
+          
+      <View style={{padding:"3%"}}>
+                  <Text style={{fontSize:22}}>Description :</Text>
+
+            <View style={styles.item}>
+              <Text style={styles.square}>{note.description}</Text>
+
+
+            </View>
+      </View>
+          <Text style={styles.square}>{JSON.stringify((note.date)
+                  ).substring(1, 11)} {JSON.stringify((note.date)
+                    ).substring(12, 20)}</Text>
+
+        </View>
+        <Text>OLD NOTE</Text>
+
+        <View style={styles.items}>
+          <View style={{padding:"3%"}}>
+          <Text style={{fontSize:20}}>Title :</Text>
+
+          <View style={styles.item}>
+            <Text style={styles.square}>{Oldnote.title}</Text>
+            </View>
+                    </View>
+          
+      <View style={{padding:"3%"}}>
+                  <Text style={{fontSize:22}}>Description :</Text>
+
+            <View style={styles.item}>
+              <Text style={styles.square}>{Oldnote.description}</Text>
+
+
+            </View>
+      </View>
+          <Text style={styles.square}>{JSON.stringify((Oldnote.date)
+                  ).substring(1, 11)} {JSON.stringify((Oldnote.date)
+                    ).substring(12, 20)}</Text>
+
         </View>
 
         {note.status=="pending"?<View style={styles.fixToText}>
@@ -155,4 +205,4 @@ const styles = StyleSheet.create({
     marginRight: "25%",
   },
 });
-export default CheckPendingNote;
+export default UpdatePendingNote;

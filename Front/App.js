@@ -29,6 +29,7 @@ import ProfileGuardian from './Src/Views/ProfileGuardian';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { set } from 'react-native-reanimated';
 import CheckPendingNote from './Src/Views/Note/CheckPendingNote';
+import UpdatePendingNote from './Src/Views/Note/UpdatePendingNote';
 
 export default function App() {
   const [type, setType] = useState('');
@@ -74,7 +75,8 @@ export default function App() {
        
        <Stack.Screen name="CheckPendingNote" options={{ headerShown: false }} component={CheckPendingNote }/>
 
-        
+       <Stack.Screen name="UpdatePendingNote" component={UpdatePendingNote }/>
+
    
 
 

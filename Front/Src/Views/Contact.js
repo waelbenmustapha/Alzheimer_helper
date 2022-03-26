@@ -12,7 +12,7 @@ const Contact = ({ navigation }) => {
 
   function AddContact() {
 
-    axios.post(/* `http://192.168.1.17:8090/notes/add-note/4028819a7fa94d3c017fa95b6dd90001` ,*/
+    axios.post(/* `http://192.168.1.18:8090/notes/add-note/4028819a7fa94d3c017fa95b6dd90001` ,*/
       { phonenumber: phonenumber, name: name /*, image */ })
       .then((res) => setModalVisible(!modalVisible))
   }
