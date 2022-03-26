@@ -16,7 +16,7 @@ import { useIsFocused } from "@react-navigation/native";
 import   AsyncStorage from "@react-native-async-storage/async-storage";
 import ProfileElement from "../../Components/ProfileElement";
 
-const CheckNotes = ({ navigation }) => {
+const CheckPendingNotes = ({ navigation }) => {
   const isFocused = useIsFocused();
 
   const [notes, setNotes] = useState([]);
@@ -32,24 +32,10 @@ const CheckNotes = ({ navigation }) => {
       AsyncStorage.getItem('user')
       .then(value=>{
         console.log(JSON.parse(value));
-        console.log(JSON.parse(value).type)
-        if(JSON.parse(value).type =='dementia'){
-          axios.get(`http://192.168.1.18:8090/notes/get-notes-by-dementia-id/${JSON.parse(value).id}`)
-          .then((res) => 
-
-          { console.log(res.data)
-            if(res.data!=null)
-
-            setNotes(res.data)
-          }
-          )
-
-
-      }
-      else {
-        axios.get(`http://192.168.1.18:8090/notes/get-notes-by-dementia-id/${JSON.parse(value).dementia.id}`)
+        
+        axios.get(`http://192.168.1.18:8090/pending-notes/get/${JSON.parse(value).dementia.id}`)
            .then((res) => {setNotes(res.data);console.log(res.data)})
-     }})
+     })
   }
 
   useEffect(() => {
@@ -62,7 +48,8 @@ const CheckNotes = ({ navigation }) => {
   //   <View><Text>Loading</Text></View>
   //     )
   //   }
-
+function  PageNavigate()
+{ return el.action=="edit"?navigation.navigate("UpdatePendingNote", { el }):navigation.navigate("CheckPendingNote", { el })}
   return (
 
     <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
@@ -77,34 +64,22 @@ const CheckNotes = ({ navigation }) => {
 
           <View style={[styles.container, { flex: 10, flexDirection: "column" }]}>
 
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1 ,widht:'100%'}}>
               <View >
 
                 <ScrollView style={styles.scrollView}>
-                  {notes.map((el) => 
-                  (<TouchableOpacity key={el.id}
-                    onPress={() => navigation.navigate("CheckNote", { el })} style={styles.item}>
-
-                    
-                    <View>
-                    <Text>Title : {el.title}</Text>
-                    <Text>Date : {el.date}</Text>
-                    <Text>Description : {el.description}</Text>
-                    </View>
+                  {notes.map((el) => (<TouchableOpacity key={el.id}
+                    onPress={() =>  el.action=="edit"?navigation.navigate("UpdatePendingNote", { el }):navigation.navigate("CheckPendingNote", { el })} style={[el.status=="accepted"?styles.item:el.status=="denied"?styles.item3:styles.item2]}>
                       
-                    
-                    
-                    
+                      <Text>Title : {el.title}</Text>
+                      <Text>Action : {el.action.toUpperCase()}</Text>
+                      <Text style={styles.littleitem}> {el.status .toUpperCase()}</Text>
                   </TouchableOpacity>))}
                 </ScrollView>
               </View>
             </View>
           </View>
-          <View style={styles.container1}>
-            <TouchableOpacity onPress={() => navigation.navigate("AddNotes")}>
-              <AntDesign name="pluscircleo" size={50} color="#4A0D66" />
-            </TouchableOpacity>
-          </View>
+        
 
 
         </View>
@@ -121,7 +96,36 @@ const styles = StyleSheet.create({
     padding: 0,
   },
   item: {
+    alignItems:'center',
+    backgroundColor: "#98FB9870",
+    margin: 5,
+    padding: 5,
+    paddingStart: 20,
+    borderRadius: 10,
+
+  },
+  littleitem: {
+    borderWidth: 1,
+    width:'100%',
+    borderRadius: 10,
+    textAlign:'center',
+
+
+  },
+  item2: {
+    alignItems:'center',
+
     backgroundColor: "#fff",
+    margin: 5,
+    padding: 5,
+    paddingStart: 20,
+    borderRadius: 10,
+
+  },
+  item3: {
+    alignItems:'center',
+
+    backgroundColor: "#FAA0A070",
     margin: 5,
     padding: 5,
     paddingStart: 20,
@@ -138,10 +142,15 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     flex: 2,
     flexDirection: "column",
-    paddingBottom: 20
+    paddingBottom: 20,
+    marginRight:"3%",
+
+
   },
   scrollView: {
     marginHorizontal: 5,
+    marginRight:"3%",
+    width:'100%',
   },
   image: {
     marginTop: 5,
@@ -195,4 +204,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CheckNotes;
+export default CheckPendingNotes;

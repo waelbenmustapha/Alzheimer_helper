@@ -26,10 +26,14 @@ const CheckMyDemantiasLocation = () => {
     longitude: 10.1411230,
   });
   const [location, setLocation] = useState(null);
-  const message = {   
-    'title': 'Your dementia had runaway',
+  const messageGuardian = {   
+    'title': 'Your dementia passed his Safe zone',
    'body': 'Your dementia is out of his safe zone, make sure to check out for his location and get him as safe as possible.    '
  }
+ const messageDementia = {   
+  'title': 'You go out of green zone',
+ 'body': ''
+}
   function goToLocation() {
     mapRef.current.animateToRegion({
       latitude: location.latitude,
@@ -48,7 +52,7 @@ const CheckMyDemantiasLocation = () => {
    { 
      axios
       .get(
-        `http://192.168.1.17:8090/guardian/getMyDementiaLocation/${JSON.parse(value).id}`
+        `http://192.168.1.18:8090/guardian/getMyDementiaLocation/${JSON.parse(value).id}`
       )
       .then((res) => {
         setLocation(res.data);
@@ -60,7 +64,8 @@ const CheckMyDemantiasLocation = () => {
                 safe
               ) > 300
         ) {
-             sendPushNotification(JSON.parse(value).pushToken,message.title,message.body);
+             sendPushNotification(JSON.parse(value).pushToken,messageGuardian.title,messageGuardian.body);
+             sendPushNotification(JSON.parse(value).dementia.pushToken,messageDementia.title,messageDementia.body);
 
           console.log("danger")
           setDanger(true);

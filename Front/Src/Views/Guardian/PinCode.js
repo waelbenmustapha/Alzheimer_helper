@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Dimensions,TextInput, TouchableOpacity } from 'react-native'
+import { Text, View,ImageBackground , StyleSheet, Dimensions,TextInput, TouchableOpacity } from 'react-native'
 import React, { Component, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import axios from 'axios';
@@ -19,12 +19,12 @@ const PinCodeVerif = ({navigation}) => {
                     alert("Please Entry Pin code");
                     return;
                 }
-                axios.post(`http://192.168.1.26:8090/guardian/add-pin-code/${JSON.parse(value).id}/${pincode}`, 
+                axios.post(`http://192.168.1.18:8090/guardian/add-pin-code/${JSON.parse(value).id}/${pincode}`, 
                 { pincode: pincode})
                     .then((response) => {
                         console.log(response.status)
                         if (response.status === 200) {
-                            navigation.navigate("Signin")
+                            navigation.navigate("PinCodeVerif")
                         }
                     })
                     .catch((error) => {
@@ -37,7 +37,11 @@ const PinCodeVerif = ({navigation}) => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
+             <ImageBackground
+          source={require("./../../../assets/old.png")} style={styles.image}
+        >
             <View style={styles.container}>
+           
                 <Text style={styles.passcodeText}> Enter Pin Code</Text>
                 <View style={styles.codeContainer}>
                     <TextInput
@@ -54,6 +58,7 @@ const PinCodeVerif = ({navigation}) => {
                     </TouchableOpacity>
                 </View>
             </View>
+                </ImageBackground>
 
             <View style={styles.buttons}>
 
@@ -62,6 +67,7 @@ const PinCodeVerif = ({navigation}) => {
                 </TouchableOpacity>
 
             </View>
+
         </SafeAreaView>
     )
 
@@ -73,10 +79,14 @@ const styles = StyleSheet.create({
         flex: 20,
         justifyContent: "flex-end",
         alignItems: "center",
-        backgroundColor:"blue"
     },
 
+    image:{
+        
+    height: '100%',
+    width: '100%',
 
+    },
 
     passcodeText: {
         fontSize: 32,

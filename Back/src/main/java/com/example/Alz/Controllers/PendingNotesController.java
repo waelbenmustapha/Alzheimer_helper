@@ -108,6 +108,9 @@ public class PendingNotesController {
       note.setDate(pendingnote.getDate());
       note.setDescription(pendingnote.getDescription());
       note.setTitle(pendingnote.getTitle());
+      pendingnote.setStatus("accepted");
+      pendingNotesRepository.save(pendingnote);
+
       notesRepository.save(note);
 
       return new ResponseEntity("ok", HttpStatus.OK);
@@ -123,7 +126,9 @@ public class PendingNotesController {
   public ResponseEntity denyPendingNote(@PathVariable("noteid") String noteId) {
     PendingNotes pendingnote = pendingNotesRepository.findById(noteId).get();
     pendingnote.setStatus("denied");
-    return new ResponseEntity("ok", HttpStatus.OK);
+      pendingNotesRepository.save(pendingnote);
+
+      return new ResponseEntity("ok", HttpStatus.OK);
   }
 
   @GetMapping("/get/{dim}")

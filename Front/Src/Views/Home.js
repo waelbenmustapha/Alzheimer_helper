@@ -10,7 +10,8 @@ import {
   TextInput,
   TouchableOpacity,
   Pressable,
-  BackHandler, 
+  BackHandler,
+  ImageBackground,
   Alert
 } from "react-native";
 import React, { useEffect, useState } from "react";
@@ -25,22 +26,49 @@ import ProfileElement from "../Components/ProfileElement";
 const Home = ({ navigation }) => {
 
   const [userData, setuserData] = useState(null);
-  const [dir, setdir] = useState('');
   const isFocused = useIsFocused()
 
+  const Logout = () => {
+    try {
+       AsyncStorage.removeItem("user")
+      navigation.navigate("IntroSliderScreen")
+
+    } catch(e) {
+      console.log(e) 
+     }
+    console.log('Done.')
+  }  
 
   //localStorage
 
 
   useEffect(() => {
-    AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item))})
-   
-     
-  },[isFocused]  );
+    AsyncStorage.getItem('user', (err, item) => { setuserData(JSON.parse(item)) })
+
+
+  }, [isFocused]);
 
   if (userData == null) {
     return (
-      <View><Text>Loading</Text></View>
+      <View>
+        <Text>loading</Text>
+        </View>
+    )}
+
+  if (userData.dementia == null&&userData.type=="guardian") {
+    return (
+      <View>
+        <ImageBackground
+          source={require("./../../../Front/assets/old.png")} style={styles.image1}
+        >
+
+          <View style={{flex:1, justifyContent: "center", backgroundColor: "#ffffff80"}}>
+            <TouchableOpacity onPress={()=>Logout()} >
+              <Text style={{padding:"10%", fontSize: 32 ,textAlign:"center", color:"#359A8E", backgroundColor: "#ffffff"}}>You must have a dementia account related.</Text>
+              </TouchableOpacity>
+          </View>
+        </ImageBackground>
+      </View>
     )
   }
 
@@ -48,7 +76,7 @@ const Home = ({ navigation }) => {
 
 
     <View style={styles.container}>
-     <ProfileElement userData={userData}/>
+      <ProfileElement userData={userData} />
       <View style={{ flex: 9 }}>
         <View style={{ flexDirection: "row" }}>
 
@@ -65,32 +93,32 @@ const Home = ({ navigation }) => {
                 }} />
               <Text style={styles.Title2}>Contact</Text>
             </TouchableOpacity>
-            {  userData.type=="guardian"&& userData.dementia.story==null?
-                  <TouchableOpacity style={{ alignItems: "center" }}
-                              onPress={() => navigation.navigate("AddHistoryDementia")}>
-                              
-                  <Image
-                    source={require("./../../assets/profile.png")}
-                    style={{
-                      width: 150,
-                      height: 180,
-                      borderRadius: 40 / 2,
-                    }} />
-                  <Text style={styles.Title2}>History</Text>
-            </TouchableOpacity>
+            {userData.type == "guardian" && userData.dementia.story == null ?
+              <TouchableOpacity style={{ alignItems: "center" }}
+                onPress={() => navigation.navigate("AddHistoryDementia")}>
+
+                <Image
+                  source={require("./../../assets/profile.png")}
+                  style={{
+                    width: 150,
+                    height: 180,
+                    borderRadius: 40 / 2,
+                  }} />
+                <Text style={styles.Title2}>History</Text>
+              </TouchableOpacity>
               :
-                  <TouchableOpacity style={{ alignItems: "center" }}
-                              onPress={() => navigation.navigate("HistoryDementia")}>
-                              
-                  <Image
-                    source={require("./../../assets/profile.png")}
-                    style={{
-                      width: 150,
-                      height: 180,
-                      borderRadius: 40 / 2,
-                    }} />
-                  <Text style={styles.Title2}>History</Text>
-            </TouchableOpacity>}
+              <TouchableOpacity style={{ alignItems: "center" }}
+                onPress={() => navigation.navigate("HistoryDementia")}>
+
+                <Image
+                  source={require("./../../assets/profile.png")}
+                  style={{
+                    width: 150,
+                    height: 180,
+                    borderRadius: 40 / 2,
+                  }} />
+                <Text style={styles.Title2}>History</Text>
+              </TouchableOpacity>}
           </View>
 
 
@@ -119,8 +147,8 @@ const Home = ({ navigation }) => {
                   marginTop: 10,
                 }} />
               <Text style={styles.Title2}>Location</Text>
-            </TouchableOpacity>: null}
-            
+            </TouchableOpacity> : null}
+
 
 
             {/*  <Modal.Dialog>
@@ -190,6 +218,10 @@ const styles = StyleSheet.create({
     width: "40%",
     height: "90%",
     borderRadius: 40 / 2,
+  },
+  image1: {
+    height: '100%',
+    width: '100%',
   },
   Title: {
     fontWeight: "bold",

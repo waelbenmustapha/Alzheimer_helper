@@ -84,7 +84,7 @@ const SignupDementia = ({ navigation }) => {
     if (isValid()) {
       setIsLoading(true);
 
-      axios.post(`http://192.168.1.17:8090/dementia/SignUp/${guardianEmail}`, {
+      axios.post(`http://192.168.1.18:8090/dementia/SignUp/${guardianEmail}`, {
         name: userName,
         email: userEmail,
         password: userPassword,

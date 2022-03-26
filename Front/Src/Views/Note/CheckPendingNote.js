@@ -7,44 +7,35 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
+import {URL} from "@env"
+import UpdateNote from "./UpdateNote";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { sendPushNotification } from "../../Utils/Notif";
 
-const UpdateNote = ({ route, navigation }) => {
-
-    const [date, setDate] = useState(new Date(1598051730000));
-    const [description, setDescription] = useState(route.params.el.description);
-    const [title, setTitle] = useState(route.params.el.title);
-    const messageUpdate = {   
-      'title': 'Note Update',
-     'body': 'Your dementia has Update a note'
-   } 
-
-
-   function UpdateNote() {
-
-    AsyncStorage.getItem('user')
-      .then(value=>{console.log(JSON.parse(value));
-        console.log(JSON.parse(value).type)
-        if(JSON.parse(value).type =='dementia'){
-        axios.put(`http://192.168.1.18:8090/pending-notes/edit-note/${route.params.el.id}`,
-        {description:description, title:title,date:date})
-        .then((res) => {
-          axios.get(`http://192.168.1.18:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
-            .then((res) =>{
-              sendPushNotification(res.data,messageUpdate.title,messageUpdate.body)
-            })
-          navigation.navigate("CheckNotes")})
-
-      }
-      else {
-           axios.put(`http://192.168.1.18:8090/notes/edit-note/${route.params.el.id}`,
-           {description: description, title: title, date: date })
-           .then((res) => navigation.navigate("CheckNotes"))
-     }})
-  }
+const CheckPendingNote = ({ route, navigation }) => {
   const [note, setNote] = useState(route.params.el);
+
+  function AcceptPending()
+  { 
+    axios.post(`http://192.168.1.18:8090/pending-notes/accept/${route.params.el.id}`)           
+  .then((res) => {
+    
+    navigation.navigate("CheckPendingNotes")})
+
+  }
+  function DeclinePending()
+  { 
+    axios.post(`http://192.168.1.18:8090/pending-notes/deny/${route.params.el.id}`)           
+  .then((res) => {
+    
+    navigation.navigate("CheckPendingNotes")})
+
+  }
+   
+  
+  
   useEffect(() => {
     console.log(note);
   }, []);
@@ -55,29 +46,34 @@ const UpdateNote = ({ route, navigation }) => {
         <View style={styles.items}>
           <Text style={styles.sectionTitle}>Check Note</Text>
           <View style={styles.item}>
-            <TextInput value={title} onChangeText={(value) => setTitle(value)}></TextInput>
+            <Text>{note.title}</Text>
             <Text>{note.date}</Text>
           </View>
         </View>
       </View>
 
-      <ScrollView style={styles.scrollView}>
         <View style={styles.item}>
-          <TextInput value={description} onChangeText={(value) => setDescription(value)} style={styles.square}></TextInput>
+          <Text style={styles.square}>{note.description}</Text>
         </View>
 
-        <View style={styles.fixToText}>
-
+        {note.status=="pending"?<View style={styles.fixToText}>
           <TouchableOpacity
             onPress={() => {
-              UpdateNote();
+              AcceptPending();
             }}
-            style={styles.donebutton}
+            style={styles.deletebutton}
           >
-            <Text>Updated</Text>
+            <Text> Accept</Text>
           </TouchableOpacity>
-        </View>
-      </ScrollView>
+          <TouchableOpacity
+            onPress={() => {
+              DeclinePending();
+            }}
+            style={styles.deletebutton}
+          >
+            <Text> Decline</Text>
+          </TouchableOpacity>
+        </View>:null}
     </View>
   );
 };
@@ -159,4 +155,4 @@ const styles = StyleSheet.create({
     marginRight: "25%",
   },
 });
-export default UpdateNote;
+export default CheckPendingNote;

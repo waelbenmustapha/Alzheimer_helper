@@ -15,56 +15,68 @@ const SignIn = ({ navigation }) => {
 
   const [Data, setData] = useState('');
   useEffect(() => {
-    registerForPushNotificationsAsync().then(token =>{console.log(token) ;setExpoPushToken(token)});
+    registerForPushNotificationsAsync().then(token => { console.log(token); setExpoPushToken(token) });
 
-    }  , []);
+  }, []);
   const _removeValue = async () => {
     try {
       const value = await AsyncStorage.getItem('user')
-    if(value !== null) {
-      await AsyncStorage.removeItem('user')}
-    } catch(e) {
+      if (value !== null) {
+        await AsyncStorage.removeItem('user')
+      }
+    } catch (e) {
       // remove error
     }
-  
+
     console.log('Done.')
   }
-  
+
   _storeData = async () => {
     try {
       await AsyncStorage.setItem("token",expoPushToken);
-       AsyncStorage.setItem("user",JSON.stringify(Data)).then(()=>navigation.replace("drawer"))
+       AsyncStorage.setItem("user",JSON.stringify(Data)).then((value)=>
+       {
+         if(Data.type=="dementia")
+       {
+         navigation.replace("Home")
+      return;
+      }
+      if(Data.pinCode==null)
+      {
+        navigation.replace("PinCode")
+     return;
+     }
+     navigation.replace("PinCodeVerif")
 
-      console.log("el token "+expoPushToken)
-      console.log("el user "+JSON.stringify(Data))
-      
+       })
+
 
     } catch (error) {
-    console.log(error) 
-   }
+      console.log(error)
+    }
   };
- 
+
 
   const handleSubmitPress = async (event) => {
     if (!userEmail.trim() || !userPassword.trim()) {
-     
-        alert("Please fell Email or Password")
-        
+
+      alert("Please fell Email or Password")
+
       return;
     } setIsLoading(true);
-      axios.post(encodeURI(`http://192.168.1.17:8090/auth/login/${expoPushToken}`), {
+      axios.post(encodeURI(`http://192.168.1.18:8090/auth/login/${expoPushToken}`), {
        email: userEmail,
       password: userPassword,
-      }).then((response) => {
-        if (response.status === 200) {
-          setData(response.data)
-          _storeData()
+    }).then((response) => {
+      if (response.status === 200) {
+        setData(response.data)
+        _storeData()
 
-          console.log("singin data "+JSON.stringify(Data))
-          console.log('done');
-        } 
-      }).catch((error) => { console.log("ell error "+error); alert("Email or Password is wrong "); setIsLoading(false); })
-    
+        console.log("singin data " + JSON.stringify(Data))
+        console.log('done');
+      }
+    }).catch((error) => { console.log("ell error " + error); alert("Email or Password is wrong "); setIsLoading(false); })
+
   }
 
 

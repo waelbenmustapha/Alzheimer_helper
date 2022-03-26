@@ -14,45 +14,49 @@ import UpdateNote from "./UpdateNote";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { sendPushNotification } from "../../Utils/Notif";
 
-const CheckNote = ({ route, navigation }) => {
-
-
-
-    const messageDelete = {   
-      'title': 'Note Removed',
-     'body': 'Your dementia has delete a note'
-   }  
-   
-      function deltenote() {
-        AsyncStorage.getItem('user')
-        .then(value=>{
-          console.log(JSON.parse(value).type)
-          if(JSON.parse(value).type =='dementia'){
-          axios.post(`http://192.168.1.18:8090/pending-notes/delete-note/${route.params.el.id}`,
-          )           
-          .then((res) => {
-            axios.get(`http://192.168.1.18:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
-              .then((res) =>{
-                sendPushNotification(res.data,messageDelete.title,messageDelete.body)
-              })
-            navigation.navigate("CheckNotes")})
-  
-  
-        }
-        else {
-             axios.delete(`http://192.168.1.18:8090/notes/delete-note/${route.params.el.id}`,
-             )
-             .then((res) => navigation.navigate("CheckNotes"))
-       }})
-        }
-  
+const UpdatePendingNote = ({ route, navigation }) => {
   const [note, setNote] = useState(route.params.el);
-  useEffect(() => {
-    console.log(note);
-  }, []);
+  const [Oldnote, setOldNote] = useState(null);
+
+
+  function AcceptPending()
+  { 
+    axios.post(`http://192.168.1.18:8090/pending-notes/accept/${route.params.el.id}`)           
+  .then((res) => {
+    
+    navigation.navigate("CheckPendingNotes")})
+
+  }
+  function DeclinePending()
+  { 
+    axios.post(`http://192.168.1.18:8090/pending-notes/deny/${route.params.el.id}`)           
+  .then((res) => {
+    
+    navigation.navigate("CheckPendingNotes")})
+
+  }
+   
   
+  
+  useEffect(() => {
+    console.log(route.params.el.noteToEditId)
+    axios.get(`http://192.168.1.18:8090/notes/get-note/${route.params.el.noteToEditId}`)           
+    .then((res) => {
+      
+      setOldNote(res.data)
+   }
+      )
+      
+  }, []);
+  if (Oldnote == null) {
+    return (
+      <View>
+        <Text>loading</Text>
+        </View>
+    )}
   return (
     <View style={styles.container}>
+      <Text>New NOTE</Text>
         <View style={styles.items}>
           <View style={{padding:"3%"}}>
           <Text style={{fontSize:20}}>Title :</Text>
@@ -76,29 +80,50 @@ const CheckNote = ({ route, navigation }) => {
                     ).substring(12, 20)}</Text>
 
         </View>
+        <Text>OLD NOTE</Text>
 
-      <ScrollView style={styles.scrollView}>
-        
+        <View style={styles.items}>
+          <View style={{padding:"3%"}}>
+          <Text style={{fontSize:20}}>Title :</Text>
 
-        <View style={styles.fixToText}>
+          <View style={styles.item}>
+            <Text style={styles.square}>{Oldnote.title}</Text>
+            </View>
+                    </View>
+          
+      <View style={{padding:"3%"}}>
+                  <Text style={{fontSize:22}}>Description :</Text>
+
+            <View style={styles.item}>
+              <Text style={styles.square}>{Oldnote.description}</Text>
+
+
+            </View>
+      </View>
+          <Text style={styles.square}>{JSON.stringify((Oldnote.date)
+                  ).substring(1, 11)} {JSON.stringify((Oldnote.date)
+                    ).substring(12, 20)}</Text>
+
+        </View>
+
+        {note.status=="pending"?<View style={styles.fixToText}>
           <TouchableOpacity
             onPress={() => {
-              deltenote();
+              AcceptPending();
             }}
             style={styles.deletebutton}
           >
-            <Text> Delete</Text>
+            <Text> Accept</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('UpdateNote', {el: route.params.el});
+              DeclinePending();
             }}
-            style={styles.donebutton}
+            style={styles.deletebutton}
           >
-            <Text >Updated</Text>
+            <Text> Decline</Text>
           </TouchableOpacity>
-        </View>
-      </ScrollView>
+        </View>:null}
     </View>
   );
 };
@@ -112,14 +137,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "space-between",
     marginBottom: 0,
-    backgroundColor: "#fff",
-    borderRadius: 20,
-    padding: 15,
-    alignSelf: "center",
-    shadowColor: "#093F38",
-    shadowOpacity: 0.55,
-    shadowRadius: 2.22,
-    elevation: 8,
   },
   container: {
     flex: 1,
@@ -135,12 +152,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   square: {
-    margin:"2%",
     width: 300,
-    fontSize:25,
-  
+    backgroundColor: "#fff",
+    borderRadius: 20,
+    padding: 15,
     alignSelf: "center",
-  
+    shadowColor: "#093F38",
+    shadowOpacity: 0.55,
+    shadowRadius: 2.22,
+    elevation: 8,
   },
   backarrow: {
     paddingLeft: 50,
@@ -185,4 +205,4 @@ const styles = StyleSheet.create({
     marginRight: "25%",
   },
 });
-export default CheckNote;
+export default UpdatePendingNote;
