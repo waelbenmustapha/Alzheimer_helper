@@ -15,25 +15,34 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { sendPushNotification } from "../../Utils/Notif";
 
 const CheckPendingNote = ({ route, navigation }) => {
-  const [note, setNote] = useState(route.params.el);
+  const [note, setNote] = useState(route.params.note);
 
   function AcceptPending()
   { 
-    axios.post(`http://192.168.1.18:8090/pending-notes/accept/${route.params.el.id}`)           
+    axios.post(`http://192.168.1.39:8090/pending-notes/accept/${route.params.note.id}`)           
   .then((res) => {
     
-    navigation.navigate("CheckPendingNotes")})
+    navigation.replace("CheckPendingNote", { note })  }
+    )
 
   }
   function DeclinePending()
   { 
-    axios.post(`http://192.168.1.18:8090/pending-notes/deny/${route.params.el.id}`)           
+    axios.post(`http://192.168.1.39:8090/pending-notes/deny/${route.params.note.id}`)           
+  .then((res) => {
+    
+    navigation.replcae("CheckPendingNote", { note })
+
+  })
+}
+  function DeletePending()
+  { 
+    axios.delete(`http://192.168.1.39:8090/pending-notes/delete-pending-note/${route.params.note.id}`)           
   .then((res) => {
     
     navigation.navigate("CheckPendingNotes")})
 
   }
-   
   
   
   useEffect(() => {
@@ -73,7 +82,15 @@ const CheckPendingNote = ({ route, navigation }) => {
           >
             <Text> Decline</Text>
           </TouchableOpacity>
-        </View>:null}
+        </View>:
+        <TouchableOpacity
+            onPress={() => {
+              DeletePending();
+            }}
+            style={styles.deletebtn}
+          >
+            <Text> Delete</Text>
+          </TouchableOpacity>}
     </View>
   );
 };
@@ -119,6 +136,18 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 6,
+  },
+  
+  deletebtn: {
+    margin:"5%",
+    alignItems: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 10,
+    borderColor: "#D86363",
+    backgroundColor: "#ff000080",
+    shadowOpacity: 0.2,
+    shadowRadius: 1.22,
   },
   deletebutton: {
     alignItems: "center",

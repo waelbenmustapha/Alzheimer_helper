@@ -26,14 +26,14 @@ const CheckPendingNotes = ({ navigation }) => {
   function getData() {
     // axios
     //   .get(
-    //     `http://192.168.1.18:8090/notes/get-notes-by-dementia-id/`
+    //     `http://192.168.1.39:8090/notes/get-notes-by-dementia-id/`
     //   )
 
       AsyncStorage.getItem('user')
       .then(value=>{
         console.log(JSON.parse(value));
         
-        axios.get(`http://192.168.1.18:8090/pending-notes/get/${JSON.parse(value).dementia.id}`)
+        axios.get(`http://192.168.1.39:8090/pending-notes/get/${JSON.parse(value).dementia.id}`)
            .then((res) => {setNotes(res.data);console.log(res.data)})
      })
   }
@@ -49,7 +49,7 @@ const CheckPendingNotes = ({ navigation }) => {
   //     )
   //   }
 function  PageNavigate()
-{ return el.action=="edit"?navigation.navigate("UpdatePendingNote", { el }):navigation.navigate("CheckPendingNote", { el })}
+{ return note.action=="edit"?navigation.navigate("UpdatePendingNote", { note }):navigation.navigate("CheckPendingNote", { note })}
   return (
 
     <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
@@ -68,12 +68,12 @@ function  PageNavigate()
               <View >
 
                 <ScrollView style={styles.scrollView}>
-                  {notes.map((el) => (<TouchableOpacity key={el.id}
-                    onPress={() =>  el.action=="edit"?navigation.navigate("UpdatePendingNote", { el }):navigation.navigate("CheckPendingNote", { el })} style={[el.status=="accepted"?styles.item:el.status=="denied"?styles.item3:styles.item2]}>
+                  {notes.map((note) => (<TouchableOpacity key={note.id}
+                    onPress={() =>  note.action=="edit"&&note.status=="pending"?navigation.navigate("UpdatePendingNote", { note }):navigation.navigate("CheckPendingNote", { note })} style={[note.status=="accepted"?styles.item:note.status=="denied"?styles.item3:styles.item2]}>
                       
-                      <Text>Title : {el.title}</Text>
-                      <Text>Action : {el.action.toUpperCase()}</Text>
-                      <Text style={styles.littleitem}> {el.status .toUpperCase()}</Text>
+                      <Text>Title : {note.title}</Text>
+                      <Text>Action : {note.action.toUpperCase()}</Text>
+                      <Text style={styles.littleitem}> {note.status .toUpperCase()}</Text>
                   </TouchableOpacity>))}
                 </ScrollView>
               </View>
