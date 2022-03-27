@@ -24,7 +24,8 @@ public class Guardian {
 private String pinCode;
 
   private String name;
-
+  private Boolean verified = false;
+private String verificationCode;
   @OneToOne
   private Dementia dementia;
 

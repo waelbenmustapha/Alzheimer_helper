@@ -40,7 +40,9 @@ public class Dementia {
   private String name;
   private Date birthdate;
   private String email;
+  private Boolean verified = false;
   private String password;
+  private String verificationCode;
   private String type = "dementia";
   private String PushToken;
 
