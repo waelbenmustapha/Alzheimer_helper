@@ -2,6 +2,7 @@ package com.example.Alz.Controllers;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -20,11 +21,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.Alz.Dto.Safezone;
 import com.example.Alz.Entities.Dementia;
 import com.example.Alz.Entities.Guardian;
+import com.example.Alz.Entities.SafeZone;
 import com.example.Alz.Repositories.DementiaRepository;
 import com.example.Alz.Repositories.GuardianRepository;
+import com.example.Alz.Repositories.SafeZoneRepository;
 
 import net.bytebuddy.utility.RandomString;
 
@@ -41,57 +43,61 @@ public class DementiaController {
   private DementiaRepository dementiaRepository;
   @Autowired
   private GuardianRepository guardianRepository;
-@Autowired
-private BCryptPasswordEncoder bCryptPasswordEncoder;
+  @Autowired
+  private SafeZoneRepository safeZoneRepository;
+  @Autowired
+  private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-@PostMapping("/post-location/{demid}/{latitude}/{longitude}")
-    public ResponseEntity postlocation(@PathVariable("demid") String demid,@PathVariable("latitude") BigDecimal latitude,@PathVariable("longitude") BigDecimal longitude){
+  @PostMapping("/post-location/{demid}/{latitude}/{longitude}")
+  public ResponseEntity postlocation(@PathVariable("demid") String demid, @PathVariable("latitude") BigDecimal latitude,
+      @PathVariable("longitude") BigDecimal longitude) {
 
     Dementia dementia = dementiaRepository.findById(demid).get();
     dementia.setLatitude(latitude);
     dementia.setLongitude(longitude);
     dementiaRepository.save(dementia);
-    return new ResponseEntity("Position Updated",HttpStatus.OK);
-
-}
-
-@PutMapping("/edit-profile/{dim}")
-public ResponseEntity editprofile(@PathVariable("dim") String id,@RequestBody Dementia dementia){
-
-
-  dementia.setId(dementiaRepository.findById(id).get().getId());
-  dementiaRepository.save(dementia);
-  return new ResponseEntity("edited",HttpStatus.OK);
-
-}
-  @GetMapping("/guardian-push-token/{dim}")
-  public ResponseEntity getguardianpustoken(@PathVariable("dim") String id){
-
-
-    return new ResponseEntity(dementiaRepository.findById(id).get().getGuardian().getPushToken(),HttpStatus.OK);
+    return new ResponseEntity("Position Updated", HttpStatus.OK);
 
   }
-  @PostMapping("/SignUp/{email}")
-  public ResponseEntity create(@RequestBody Dementia dementia,@PathVariable("email") String email)throws UnsupportedEncodingException, MessagingException {
 
-    Guardian guardian= guardianRepository.findByEmail(email);
-    if(guardian!=null) {
-      if(dementiaRepository.findByEmail(dementia.getEmail())==null){
-      dementia.setGuardian(guardian);
-      guardian.setDementia(dementia);
+  @PutMapping("/edit-profile/{dim}")
+  public ResponseEntity editprofile(@PathVariable("dim") String id, @RequestBody Dementia dementia) {
+
+    dementia.setId(dementiaRepository.findById(id).get().getId());
+    dementiaRepository.save(dementia);
+    return new ResponseEntity("edited", HttpStatus.OK);
+
+  }
+
+  @GetMapping("/guardian-push-token/{dim}")
+  public ResponseEntity getguardianpustoken(@PathVariable("dim") String id) {
+
+    return new ResponseEntity(dementiaRepository.findById(id).get().getGuardian().getPushToken(), HttpStatus.OK);
+
+  }
+
+  @PostMapping("/SignUp/{email}")
+  public ResponseEntity create(@RequestBody Dementia dementia, @PathVariable("email") String email)
+      throws UnsupportedEncodingException, MessagingException {
+
+    Guardian guardian = guardianRepository.findByEmail(email);
+    if (guardian != null) {
+      if (dementiaRepository.findByEmail(dementia.getEmail()) == null) {
+        dementia.setGuardian(guardian);
+        guardian.setDementia(dementia);
 
         dementia.setVerificationCode(RandomString.make(6));
-      dementia.setPassword(bCryptPasswordEncoder.encode(dementia.getPassword()));
-      dementiaRepository.save(dementia);
-      guardianRepository.save(guardian);
+        dementia.setPassword(bCryptPasswordEncoder.encode(dementia.getPassword()));
+        dementiaRepository.save(dementia);
+        guardianRepository.save(guardian);
         sendVerificationEmail(dementia);
 
-        return new ResponseEntity("Signup successful", HttpStatus.OK);}
-      else{
-        return new ResponseEntity("Email Already exist", HttpStatus.IM_USED);}
-    }
-    else{
+        return new ResponseEntity("Signup successful", HttpStatus.OK);
+      } else {
+        return new ResponseEntity("Email Already exist", HttpStatus.IM_USED);
+      }
+    } else {
       return new ResponseEntity("Guardian Does not exist", HttpStatus.NOT_FOUND);
 
     }
@@ -99,15 +105,34 @@ public ResponseEntity editprofile(@PathVariable("dim") String id,@RequestBody De
 
 
   @PostMapping("/safezone/{demid}")
-  public ResponseEntity safezone(@RequestBody Safezone safezone,@PathVariable("demid") String demid){
-
-  Dementia dementia = dementiaRepository.findById(demid).get();
-  dementia.setSafePlaceLatitude(safezone.getLatitude());
-  dementia.setSafePlaceLongitude(safezone.getLongitude());
-  dementia.setDiameter(safezone.getDiameter());
-  dementiaRepository.save(dementia);
-  return new ResponseEntity("All good",HttpStatus.OK);
+  public ResponseEntity safezone(@RequestBody SafeZone safezone, @PathVariable("demid") String demid) {
+    Dementia dementia = dementiaRepository.findById(demid).get();
+    safezone.setDementia(dementia);
+    safeZoneRepository.save(safezone);
+    return new ResponseEntity("All good", HttpStatus.OK);
   }
+
+  @GetMapping("/get-safezones/{demid}")
+  public ResponseEntity safezone(@PathVariable("demid") String demid) {
+
+    return new ResponseEntity(dementiaRepository.findById(demid).get().getSafeZone(), HttpStatus.OK);
+
+  }
+
+  @PostMapping("/enable-safezone/{dim}/{safezoneid}")
+  public ResponseEntity enableSafezone(@PathVariable("dim") String demid, @PathVariable("safezoneid") String safezoneid) {
+
+    List<SafeZone> safezones = dementiaRepository.findById(demid).get().getSafeZone();
+    for (int i = 0; i < safezones.size(); i++) {
+      safezones.get(i).setActive(false);
+      safeZoneRepository.save(safezones.get(i));
+    }
+    SafeZone ss = safeZoneRepository.findById(safezoneid).get();
+    ss.setActive(true);
+    safeZoneRepository.save(ss);
+    return new ResponseEntity("done", HttpStatus.OK);
+  }
+
   private void sendVerificationEmail(Dementia dementia)
       throws MessagingException, UnsupportedEncodingException {
 
@@ -126,7 +151,6 @@ public ResponseEntity editprofile(@PathVariable("dim") String id,@RequestBody De
     helper.setTo(toAddress);
     helper.setSubject(subject);
 
-
     helper.setText(content, true);
 
     mailSender.send(message);
@@ -140,11 +164,13 @@ public ResponseEntity editprofile(@PathVariable("dim") String id,@RequestBody De
         "\n" +
         "<span style=\"display:none;font-size:1px;color:#fff;max-height:0\"></span>\n" +
         "\n" +
-        "  <table role=\"presentation\" width=\"100%\" style=\"border-collapse:collapse;min-width:100%;width:100%!important\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n" +
+        "  <table role=\"presentation\" width=\"100%\" style=\"border-collapse:collapse;min-width:100%;width:100%!important\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n"
+        +
         "    <tbody><tr>\n" +
         "      <td width=\"100%\" height=\"53\" bgcolor=\"#0b0c0c\">\n" +
         "        \n" +
-        "        <table role=\"presentation\" width=\"100%\" style=\"border-collapse:collapse;max-width:580px\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\">\n" +
+        "        <table role=\"presentation\" width=\"100%\" style=\"border-collapse:collapse;max-width:580px\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\">\n"
+        +
         "          <tbody><tr>\n" +
         "            <td width=\"70\" bgcolor=\"#0b0c0c\" valign=\"middle\">\n" +
         "                <table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse\">\n" +
@@ -153,7 +179,8 @@ public ResponseEntity editprofile(@PathVariable("dim") String id,@RequestBody De
         "                  \n" +
         "                    </td>\n" +
         "                    <td style=\"font-size:28px;line-height:1.315789474;Margin-top:4px;padding-left:10px\">\n" +
-        "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">Confirm your email</span>\n" +
+        "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">Confirm your email</span>\n"
+        +
         "                    </td>\n" +
         "                  </tr>\n" +
         "                </tbody></table>\n" +
@@ -165,12 +192,14 @@ public ResponseEntity editprofile(@PathVariable("dim") String id,@RequestBody De
         "      </td>\n" +
         "    </tr>\n" +
         "  </tbody></table>\n" +
-        "  <table role=\"presentation\" class=\"m_-6186904992287805515content\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse;max-width:580px;width:100%!important\" width=\"100%\">\n" +
+        "  <table role=\"presentation\" class=\"m_-6186904992287805515content\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse;max-width:580px;width:100%!important\" width=\"100%\">\n"
+        +
         "    <tbody><tr>\n" +
         "      <td width=\"10\" height=\"10\" valign=\"middle\"></td>\n" +
         "      <td>\n" +
         "        \n" +
-        "                <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse\">\n" +
+        "                <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse\">\n"
+        +
         "                  <tbody><tr>\n" +
         "                    <td bgcolor=\"#1D70B8\" width=\"100%\" height=\"10\"></td>\n" +
         "                  </tr>\n" +
@@ -183,7 +212,8 @@ public ResponseEntity editprofile(@PathVariable("dim") String id,@RequestBody De
         "\n" +
         "\n" +
         "\n" +
-        "  <table role=\"presentation\" class=\"m_-6186904992287805515content\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse;max-width:580px;width:100%!important\" width=\"100%\">\n" +
+        "  <table role=\"presentation\" class=\"m_-6186904992287805515content\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse;max-width:580px;width:100%!important\" width=\"100%\">\n"
+        +
         "    <tbody><tr>\n" +
         "      <td height=\"30\"><br></td>\n" +
         "    </tr>\n" +
@@ -191,7 +221,9 @@ public ResponseEntity editprofile(@PathVariable("dim") String id,@RequestBody De
         "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
         "      <td style=\"font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\">\n" +
         "        \n" +
-        "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi " + name + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> Thank you for registering. Please copy the below code to activate your account: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <p>"+link+"</a> </p></blockquote>\n <p>See you soon</p>" +
+        "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi " + name
+        + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> Thank you for registering. Please copy the below code to activate your account: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <p>"
+        + link + "</a> </p></blockquote>\n <p>See you soon</p>" +
         "        \n" +
         "      </td>\n" +
         "      <td width=\"10\" valign=\"middle\"><br></td>\n" +

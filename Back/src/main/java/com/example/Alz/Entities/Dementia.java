@@ -31,12 +31,6 @@ public class Dementia {
   @Id
   private String id;
   private String image;
-  @Digits(integer=3, fraction=7)
-  private BigDecimal safePlaceLatitude;
-  @Digits(integer=3, fraction=7)
-  private BigDecimal safePlaceLongitude;
-
-  private int diameter;
   private String name;
   private Date birthdate;
   private String email;
@@ -52,7 +46,8 @@ public class Dementia {
   private List<Contacts> contacts;
   @OneToMany(mappedBy="dementia")
   private List<PendingNotes> pendingNotes;
-
+  @OneToMany(mappedBy="dementia")
+  private List<SafeZone>  safeZone;
   @Digits(integer=3, fraction=7)
   private BigDecimal latitude;
   @Digits(integer=3, fraction=7)
