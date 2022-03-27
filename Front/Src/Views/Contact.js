@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
+import * as Contacts from 'expo-contacts';
 
 
 const reload = () => window.location.reload();
@@ -17,17 +18,24 @@ const Contact = ({ navigation }) => {
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
     const [contact, setContact] = useState([]);
-
+const [modal, setModal] =useState();
     const [userData, setuserData] = useState(null);
 
     const isFocused = useIsFocused();
-
     //image piker
+    let base64Img = `data:image/jpg;base64,${image}`;
+
+
     const loadImages = async () => {
         try {
-            const res = await fetch('/api/images');
+            const res = await fetch('https://api.cloudinary.com/v1_1/elaa/image/upload');
             const data = await res.json();
             setImage(data);
+            /*  data.append(image, {
+                 uri : localImage.full,
+                 type: 'image/jpeg',
+                 name: image
+                }) */
         } catch (err) {
             console.error(err);
         }
@@ -36,31 +44,40 @@ const Contact = ({ navigation }) => {
         loadImages();
     }, []);
 
-    const pickFromCamera = async () => {
-        const { granted } = await Permissions.askAsync(Permissions.CAMERA)
-        if (granted) {
-            let data = await ImagePicker.launchCameraAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.Images,
-                allowsEditing: true,
-                aspect: [1, 1],
-                quality: 0.5
-            })
-            if (!data.cancelled) {
-                let newfile = {
-                    uri: data.uri,
-                    type: `test/${data.uri.split(".")[1]}`,
-                    name: `test.${data.uri.split(".")[1]}`
-
-                }
-                handleUpload(newfile)
-            }
-        } else {
-            Alert.alert("you need to give up permission to work")
-        }
-    }
 
 
-    const pickFromGallery = async () => {
+    /*  const selectPhotoTapped = () => {
+         const options = {
+             title: 'Select Photo',
+             storageOptions: {
+                 skipBackup: true,
+                 path: 'images',
+             },
+         };
+         ImagePicker.showImagePicker(options, (response) => {
+ 
+             // console.log('Response = ', response);
+             if (response.didCancel) {
+                 console.log('User cancelled image picker');
+             } else if (response.error) {
+                 console.log('ImagePicker Error: ', response.error);
+             } else {
+                 const uri = response.uri;
+                 const type = response.type;
+                 const name = response.fileName;
+                 const source = {
+                     uri,
+                     type,
+                     name,
+                 }
+                 cloudinaryUpload(source)
+             }
+         });
+     } */
+
+
+
+    /* const pickFromGallery = async () => {
         const { granted } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
         if (granted) {
             let data = await ImagePicker.launchImageLibraryAsync({
@@ -79,42 +96,90 @@ const Contact = ({ navigation }) => {
                 handleUpload(newfile)
             }
         } else {
-            Alert.alert("you need to give up permission to work")
+            alert("you need to give up permission to work")
         }
-    }
+    } */
+    const handleUploadOne = (image) => {
+        const data = new FormData();
+        data.append("file", image);
+        data.append("upload_preset", "dementia");
+        data.append("cloud_name", "elaa");
+        data.append("api_key", "872948247576765");
+        data.append("timestamp", (Date.now() / 1000) | 0);
+        axios
+          .post("https://api.cloudinary.com/v1_1/elaa/image/upload", data)
+          .then((response) => {
+            console.log(response.data);
+            /* setPictureone(response.data.url); */
+          })
+          .catch((err) => {
+            console.log(err);
+            alert("Erreur de téléchargement");
+          });
+      };
+      let openImagePickerAsyncOne = async () => {
+        const { granted } = await Permissions.askAsync(Permissions.CAMERA_ROLL) ;
+        if (granted) {
+          let data = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 0.5,
+          });
+          if (!data.cancelled) {
+            let newfile = {
+              uri: data.uri,
+              type: `test/${data.uri.split(".")[1]}`,
+              name: `test.${data.uri.split(".")[1]}`
+            };
+            handleUploadOne(newfile);
+          }
+        } else {
+          alert("Il faut donner la permission");
+        }
+      };
 
-    const handleUpload = (image) => {
+
+  /*   const handleUpload = (image) => {
         const data = new FormData()
         data.append('file', image)
         data.append('upload_preset', 'dementia')
         data.append("cloud_name", "elaa")
-
         fetch("https://api.cloudinary.com/v1_1/elaa/image/upload", {
             method: "post",
             body: data
-        }).then(res => res.json()).
-            then(data => {
-                setImage(data.url)
-                setModal(false)
-            }).catch(err => {
-                Alert.alert("error while uploading")
+        }).then(res => 
+            console.log(res.data)
+            ).catch(err => {
+                alert("error while uploading" + err)
             })
-    }
+    } */
 
     //addcontact
+
+   /*  const isValid = () => {
+        if (!name.trim() || !phonenumber.trim())
+            return alert("Please fill in all fields are required ");
+        if (name.length > 30)
+            return alert("Name is too long");
+        if (phonenumber.length > 8)
+        return alert("Invalid number")
+    } */
+
+
     function AddContact(async) {
-
-        AsyncStorage.getItem('user')
-            .then(value => {
-                console.log(JSON.parse(value));
-                console.log(JSON.parse(value).type)
-                if (JSON.parse(value).type) {
-                    axios.post(`http://192.168.1.26:8090/contacts/add/${JSON.parse(value).dementia.id}`,
-                        { phonenumber: phonenumber, name: name /*, image */ })
-                    alert("Successful contact added!");
-                }
-            }).then(reload)
-
+       
+            AsyncStorage.getItem('user')
+                .then(value => {
+                    console.log(JSON.parse(value));
+                    console.log(JSON.parse(value).type)
+                    if (JSON.parse(value).type) {
+                        axios.post(`http://192.168.1.26:8090/contacts/add/${JSON.parse(value).dementia.id}`,
+                            { phonenumber: phonenumber, name: name, image: image })
+                        alert("Successful contact added!");
+                    }
+                })
+        
     }
 
     function getData() {
@@ -138,11 +203,8 @@ const Contact = ({ navigation }) => {
                             if (res.data != null)
                                 setContact(res.data)
                             navigation.navigate("Contact")
-
                         }
                         )
-
-
                 }
                 else {
                     axios.get(`http://192.168.1.26:8090/contacts/get-contacts/${JSON.parse(value).dementia.id}`)
@@ -157,6 +219,24 @@ const Contact = ({ navigation }) => {
     }, [isFocused]);
 
 
+    //contact permission
+    /* useEffect(() => {
+        (async () => {
+            const { status } = await Contacts.requestPermissionsAsync();
+            if (status === 'granted') {
+                const { data } = await Contacts.getContactsAsync({
+                    fields: [Contacts.Fields.Emails],
+                });
+
+                if (data.length > 0) {
+                    const contact = data[0];
+                    console.log(contact);
+                }
+            }
+        })();
+    }, []); */
+
+
 
     return (
 
@@ -169,7 +249,7 @@ const Contact = ({ navigation }) => {
 
                 <ScrollView style={styles.scrollView}>
                     <View style={styles.contactview} >
-                        <View style={styles.container1}>
+                        <View >
                             <View style={{ alignItems: 'center' }} >
 
                                 {/* <View style={styles.item}>
@@ -178,16 +258,18 @@ const Contact = ({ navigation }) => {
                                 </View> */}
 
                                 {contact.map((el) => (
-                                    <View>
-                                        <View key={el.id}
+                                    <View style={styles.container1}
+                                        key={el.id}>
+                                        <View
                                             style={styles.item}>
                                             <TouchableOpacity >
                                                 <Image
                                                     source={{ uri: 'data:image/png;base64,' + image }}
                                                 />
+
+                                                <Text style={{ fontSize: 18 }}>Name : {el.name}</Text>
+                                                <Text style={{ fontSize: 14 }}>Phone number : {el.phonenumber}</Text>
                                             </TouchableOpacity>
-                                            <Text>Name : {el.name}</Text>
-                                            <Text>Phone : {el.phonenumber}</Text>
                                         </View>
                                     </View>
                                 ))}
@@ -218,12 +300,12 @@ const Contact = ({ navigation }) => {
                                 </Pressable>
                                 <View>
                                     <View style={styles.form} >
-                                        <View style={{ alignItems: "center",flexDirection:"row" }}>
-                                            <Text>Choose picture
-                                                <Pressable
-                                                    onPress={() => pickFromGallery()}>
-                                                    <Entypo name="image" size={40} color="black" />
-                                                </Pressable></Text>
+                                        <View style={{ alignItems: "center", flexDirection: "row" }}>
+                                            
+                                            <Pressable
+                                                onPress={() => openImagePickerAsyncOne()}>
+                                                <Entypo name="image" size={40} color="black" />
+                                            </Pressable>
                                         </View>
                                         <TextInput
                                             style={styles.input}
@@ -244,7 +326,7 @@ const Contact = ({ navigation }) => {
                                         />
                                     </View>
                                     <Pressable
-                                        onPress={() => { AddContact(); setModalVisible(!modalVisible); }}
+                                        onPress={() => { AddContact(); reload, setModalVisible(!modalVisible); }}
                                         style={styles.addbutton1}>
                                         <Text >Add</Text>
                                     </Pressable>
@@ -266,8 +348,10 @@ const styles = StyleSheet.create({
         padding: '4%',
     },
     container1: {
-        backgroundColor: "#359A8E20",
-        borderRadius: 40,
+        backgroundColor: "#359A8E90",
+        borderRadius: 20,
+        padding: "10%",
+        margin: "2%"
     },
     contactview: {
         flex: 1,
@@ -278,11 +362,13 @@ const styles = StyleSheet.create({
     },
     item: {
         alignItems: "center",
-        padding: "7%",
         paddingStart: 20,
         borderRadius: 10,
     },
+    case: {
+        backgroundColor: "red",
 
+    },
     Title: {
         fontWeight: "bold",
         fontSize: 24,
