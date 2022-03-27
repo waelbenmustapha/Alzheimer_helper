@@ -10,6 +10,7 @@ import React, { useState, useEffect } from "react";
 import NoteElement from "../../Components/NoteElement";
 import { AntDesign } from "@expo/vector-icons";
 import { URL } from "@env"
+import SelectDropdown from 'react-native-select-dropdown'
 
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
@@ -20,7 +21,10 @@ const CheckPendingNotes = ({ navigation }) => {
   const isFocused = useIsFocused();
 
   const [notes, setNotes] = useState([]);
+  const [notesCopy, setNotesCopy] = useState([]);
+
   const [userData, setuserData] =useState(null);
+  const vals= ["all", "accepted", "denied", "pending"]
 
 
   function getData() {
@@ -34,7 +38,7 @@ const CheckPendingNotes = ({ navigation }) => {
         console.log(JSON.parse(value));
         
         axios.get(`http://192.168.1.16:8090/pending-notes/get/${JSON.parse(value).dementia.id}`)
-           .then((res) => {setNotes(res.data);console.log(res.data)})
+           .then((res) => {setNotes(res.data);setNotesCopy(res.data);console.log(res.data)})
      })
   }
 
@@ -55,11 +59,21 @@ function  PageNavigate()
     <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
       
           {userData&&  <ProfileElement userData={userData}/>}
-
+          <SelectDropdown
+	data={vals}
+	onSelect={(selectedItem, index) => {
+		console.log(selectedItem, index)
+{ selectedItem=="all"?setNotes(notesCopy):
+setNotes 
+    (notesCopy.filter(function(event){
+      return event.status==selectedItem}))}
+	}}
+	
+/>
 
       <View style={[styles.container, { flex: 4, flexDirection: "column" }]}>
         <View style={[styles.container, { flexDirection: "row" }]}>
-
+  
           <View style={styles.barre} />
 
           <View style={[styles.container, { flex: 10, flexDirection: "column" }]}>

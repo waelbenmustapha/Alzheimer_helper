@@ -41,6 +41,7 @@ function saveSafeArea(){
   }
 
   useEffect(() => {
+    
     getlocation();
   }, []);
   if (location == null) {
