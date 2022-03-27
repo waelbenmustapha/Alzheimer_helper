@@ -23,7 +23,7 @@ const CheckMyLocation = () => {
       console.log("**********************************");
     axios
       .post(
-        `http://192.168.1.39:8090/dementia/post-location/${
+        `http://192.168.1.16:8090/dementia/post-location/${
             value
         }/${latitude.toFixed(7)}/${longitude.toFixed(7)}`
       )
@@ -74,8 +74,10 @@ const CheckMyLocation = () => {
   }
   if (location == null) {
     return (
-      <View>
-        <Text>Loading</Text>
+      <View style={{flex:1,justifyContent:"center",  flexDirection: "row",
+      justifyContent: "space-around",
+      padding: 10}}>
+        <ActivityIndicator size="large" />
       </View>
     );
   } else {

@@ -13,6 +13,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Button,
+  ActivityIndicator 
 } from "react-native";
 import * as Location from "expo-location";
 import axios from "axios";
@@ -52,7 +53,7 @@ const CheckMyDemantiasLocation = () => {
    { 
      axios
       .get(
-        `http://192.168.1.39:8090/guardian/getMyDementiaLocation/${JSON.parse(value).id}`
+        `http://192.168.1.16:8090/guardian/getMyDementiaLocation/${JSON.parse(value).id}`
       )
       .then((res) => {
         setLocation(res.data);
@@ -100,8 +101,10 @@ const CheckMyDemantiasLocation = () => {
 
   if (location == null) {
     return (
-      <View>
-        <Text>Loading </Text>
+      <View style={{flex:1,justifyContent:"center",  flexDirection: "row",
+      justifyContent: "space-around",
+      padding: 10}}>
+        <ActivityIndicator size="large" />
       </View>
     );
   } else {

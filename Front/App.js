@@ -34,29 +34,18 @@ import UpdatePendingNote from './Src/Views/Note/UpdatePendingNote';
 export default function App() {
   const [type, setType] = useState('');
   const [userData, setuserData] = useState(null);
+  const [token, setToken] = useState(null);
 
-  const [int, setInt] = useState("");
+
 
   
 
   useEffect(() => {
-    AsyncStorage.getItem('user', (err, item) => { setuserData(JSON.parse(item))
-      if(userData==null){
-        setInt("SignIn")
-      }
-      else{
-        if(userData.type=="guardian")
-       { setInt("drawer")}
-        else{
-          setInt("Home")
-        }
-        setType(userData.type)
-      } 
-      console.log(int)
-    }
-    
+    AsyncStorage.getItem('user', (err, item) => { setuserData(JSON.parse(item))})
+    AsyncStorage.getItem('token', (err, value) => { setToken(value)})
+     
    
-    )
+    
 
 
   }, []);
@@ -68,11 +57,11 @@ export default function App() {
   return (
     
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={int}>
-     <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
+      <Stack.Navigator initialRouteName={[token==null?"IntroSliderScreen":userData==null?"SignIn":"drawer"]}>
        <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav}/>
           
-       
+       <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
+
        <Stack.Screen name="CheckPendingNote" options={{ headerShown: false }} component={CheckPendingNote }/>
 
        <Stack.Screen name="UpdatePendingNote" component={UpdatePendingNote }/>
@@ -97,7 +86,7 @@ export default function App() {
 
         
         <Stack.Screen name="Notif" options={{ headerShown: false }} component={Notif} />
-        <Stack.Screen name="SpecifySafeArea" options={{ headerShown: false }} component={SpecifySafeArea}  />
+        <Stack.Screen name="SpecifySafeArea"  component={SpecifySafeArea}  />
         <Stack.Screen name="AddNotes" options={{ headerShown: false }} component={AddNotes} />
         <Stack.Screen name="CheckNote" options={{ title: 'Check Note' }} component={CheckNote} />
         <Stack.Screen name="CheckNotes"  options={{ title: 'Notes' }} component={CheckNotes} />

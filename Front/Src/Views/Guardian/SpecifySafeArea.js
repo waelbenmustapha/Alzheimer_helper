@@ -7,6 +7,7 @@ import {
   View,
   Dimensions,
   TextInput,
+  ActivityIndicator,
 } from "react-native";
 import * as Location from "expo-location";
 import axios from "axios";
@@ -22,7 +23,7 @@ function saveSafeArea(){
   console.log(marker.longitude.toFixed(7))
   AsyncStorage.getItem('user')
   .then(value=>
-  {axios.post(`http://192.168.1.39:8090/dementia/safezone/${JSON.parse(value).dementia.id}`,
+  {axios.post(`http://192.168.1.16:8090/dementia/safezone/${JSON.parse(value).dementia.id}`,
   {latitude:marker.latitude.toFixed(7),longitude:marker.longitude.toFixed(7),diameter:radius})})
 }
 
@@ -44,8 +45,10 @@ function saveSafeArea(){
   }, []);
   if (location == null) {
     return (
-      <View>
-        <Text>Loading</Text>
+      <View style={{flex:1,justifyContent:"center",  flexDirection: "row",
+      justifyContent: "space-around",
+      padding: 10}}>
+        <ActivityIndicator size="large" />
       </View>
     );
   }

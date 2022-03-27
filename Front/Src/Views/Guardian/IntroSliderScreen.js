@@ -1,9 +1,11 @@
 import { StatusBar, Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import Swiper from 'react-native-swiper'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const IntroSliderScreen = ({ navigation }) => {
+
   return (
     <View style={styles.container}>
 
