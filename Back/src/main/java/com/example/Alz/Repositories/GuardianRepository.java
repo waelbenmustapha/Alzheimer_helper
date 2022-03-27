@@ -9,4 +9,5 @@ import com.example.Alz.Entities.Guardian;
 @Repository
 public interface GuardianRepository extends JpaRepository<Guardian, String> {
 public Guardian findByEmail(String s);
+public Guardian findByVerificationCode(String s);
 }
