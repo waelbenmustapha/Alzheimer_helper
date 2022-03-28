@@ -30,14 +30,14 @@ const CheckPendingNotes = ({ navigation }) => {
   function getData() {
     // axios
     //   .get(
-    //     `http://192.168.1.16:8090/notes/get-notes-by-dementia-id/`
+    //     `http://192.168.96.99:8090/notes/get-notes-by-dementia-id/`
     //   )
 
       AsyncStorage.getItem('user')
       .then(value=>{
         console.log(JSON.parse(value));
         
-        axios.get(`http://192.168.1.16:8090/pending-notes/get/${JSON.parse(value).dementia.id}`)
+        axios.get(`http://192.168.96.99:8090/pending-notes/get/${JSON.parse(value).dementia.id}`)
            .then((res) => {setNotes(res.data);setNotesCopy(res.data);console.log(res.data)})
      })
   }
@@ -47,13 +47,7 @@ const CheckPendingNotes = ({ navigation }) => {
 
     getData();
   }, [isFocused]);
-  // if(userData==null){
-  //   return (
-  //   <View><Text>Loading</Text></View>
-  //     )
-  //   }
-function  PageNavigate()
-{ return note.action=="edit"?navigation.navigate("UpdatePendingNote", { note }):navigation.navigate("CheckPendingNote", { note })}
+  
   return (
 
     <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
