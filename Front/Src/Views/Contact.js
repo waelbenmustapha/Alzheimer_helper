@@ -6,84 +6,37 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
-import * as Contacts from 'expo-contacts';
 
-
-const reload = () => window.location.reload();
 
 const Contact = ({ navigation }) => {
+
 
     const [modalVisible, setModalVisible] = useState(false);
     const [phonenumber, setPhoneNumber] = useState('');
     const [name, setName] = useState('');
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState(null);
     const [contact, setContact] = useState([]);
-const [modal, setModal] =useState();
-    const [userData, setuserData] = useState(null);
-
+    const [userData, setuserData] = useState();
     const isFocused = useIsFocused();
-    //image piker
+    const [loader, setloader] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     let base64Img = `data:image/jpg;base64,${image}`;
 
+    //image piker
 
-    const loadImages = async () => {
-        try {
-            const res = await fetch('https://api.cloudinary.com/v1_1/elaa/image/upload');
-            const data = await res.json();
-            setImage(data);
-            /*  data.append(image, {
-                 uri : localImage.full,
-                 type: 'image/jpeg',
-                 name: image
-                }) */
-        } catch (err) {
-            console.error(err);
-        }
-    };
     useEffect(() => {
-        loadImages();
     }, []);
 
 
-
-    /*  const selectPhotoTapped = () => {
-         const options = {
-             title: 'Select Photo',
-             storageOptions: {
-                 skipBackup: true,
-                 path: 'images',
-             },
-         };
-         ImagePicker.showImagePicker(options, (response) => {
- 
-             // console.log('Response = ', response);
-             if (response.didCancel) {
-                 console.log('User cancelled image picker');
-             } else if (response.error) {
-                 console.log('ImagePicker Error: ', response.error);
-             } else {
-                 const uri = response.uri;
-                 const type = response.type;
-                 const name = response.fileName;
-                 const source = {
-                     uri,
-                     type,
-                     name,
-                 }
-                 cloudinaryUpload(source)
-             }
-         });
-     } */
-
-
-
-    /* const pickFromGallery = async () => {
+    const pickFromGallery = async () => {
         const { granted } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
         if (granted) {
             let data = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.Images,
                 allowsEditing: true,
-                aspect: [2, 1],
+                aspect: [1, 1],
                 quality: 0.5
             })
             if (!data.cancelled) {
@@ -98,49 +51,11 @@ const [modal, setModal] =useState();
         } else {
             alert("you need to give up permission to work")
         }
-    } */
-    const handleUploadOne = (image) => {
-        const data = new FormData();
-        data.append("file", image);
-        data.append("upload_preset", "dementia");
-        data.append("cloud_name", "elaa");
-        data.append("api_key", "872948247576765");
-        data.append("timestamp", (Date.now() / 1000) | 0);
-        axios
-          .post("https://api.cloudinary.com/v1_1/elaa/image/upload", data)
-          .then((response) => {
-            console.log(response.data);
-            /* setPictureone(response.data.url); */
-          })
-          .catch((err) => {
-            console.log(err);
-            alert("Erreur de téléchargement");
-          });
-      };
-      let openImagePickerAsyncOne = async () => {
-        const { granted } = await Permissions.askAsync(Permissions.CAMERA_ROLL) ;
-        if (granted) {
-          let data = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
-            aspect: [1, 1],
-            quality: 0.5,
-          });
-          if (!data.cancelled) {
-            let newfile = {
-              uri: data.uri,
-              type: `test/${data.uri.split(".")[1]}`,
-              name: `test.${data.uri.split(".")[1]}`
-            };
-            handleUploadOne(newfile);
-          }
-        } else {
-          alert("Il faut donner la permission");
-        }
-      };
+    }
 
+    const handleUpload = (image) => {
+        setloader(true)
 
-  /*   const handleUpload = (image) => {
         const data = new FormData()
         data.append('file', image)
         data.append('upload_preset', 'dementia')
@@ -148,38 +63,29 @@ const [modal, setModal] =useState();
         fetch("https://api.cloudinary.com/v1_1/elaa/image/upload", {
             method: "post",
             body: data
-        }).then(res => 
-            console.log(res.data)
-            ).catch(err => {
-                alert("error while uploading" + err)
+        }).then(res => res.json()).
+            then(data => {
+                setloader(false)
+
+                setImage(data.url)
+            }).catch(err => {
+                alert("error while uploading")
             })
-    } */
+    }
 
     //addcontact
 
-   /*  const isValid = () => {
-        if (!name.trim() || !phonenumber.trim())
-            return alert("Please fill in all fields are required ");
-        if (name.length > 30)
-            return alert("Name is too long");
-        if (phonenumber.length > 8)
-        return alert("Invalid number")
-    } */
-
-
     function AddContact(async) {
-       
-            AsyncStorage.getItem('user')
-                .then(value => {
-                    console.log(JSON.parse(value));
-                    console.log(JSON.parse(value).type)
-                    if (JSON.parse(value).type) {
-                        axios.post(`http://192.168.1.26:8090/contacts/add/${JSON.parse(value).dementia.id}`,
-                            { phonenumber: phonenumber, name: name, image: image })
-                        alert("Successful contact added!");
-                    }
-                })
-        
+        AsyncStorage.getItem('user')
+            .then(value => {
+                console.log(JSON.parse(value));
+                console.log(JSON.parse(value).type)
+                if (JSON.parse(value).type) {
+                    axios.post(`http://192.168.96.104:8090/contacts/add/${JSON.parse(value).dementia.id}`,
+                        { number: phonenumber, name: name, image: image })
+                    alert("Successful contact added!");
+                }
+            })
     }
 
     function getData() {
@@ -188,7 +94,7 @@ const [modal, setModal] =useState();
                 console.log(JSON.parse(value));
                 console.log(JSON.parse(value).type)
                 /* if (JSON.parse(value).type) {
-                    axios.get(`http://192.168.1.26:8090/contacts/get-contacts/${JSON.parse(value).dementia.id}`)
+                    axios.get(`http://192.168.96.104:8090/contacts/get-contacts/${JSON.parse(value).dementia.id}`)
                         .then((res) => {
                             console.log(res.data)
                             if (res.data != null)
@@ -197,7 +103,7 @@ const [modal, setModal] =useState();
                         )
                 } */
                 if (JSON.parse(value).type == 'dementia') {
-                    axios.get(`http://192.168.1.26:8090/contacts/get-contacts/${JSON.parse(value).id}`)
+                    axios.get(`http://192.168.96.104:8090/contacts/get-contacts/${JSON.parse(value).id}`)
                         .then((res) => {
                             console.log(res.data)
                             if (res.data != null)
@@ -207,7 +113,7 @@ const [modal, setModal] =useState();
                         )
                 }
                 else {
-                    axios.get(`http://192.168.1.26:8090/contacts/get-contacts/${JSON.parse(value).dementia.id}`)
+                    axios.get(`http://192.168.96.104:8090/contacts/get-contacts/${JSON.parse(value).dementia.id}`)
                         .then((res) => { setContact(res.data); console.log(res.data) })
                 }
             })
@@ -227,7 +133,6 @@ const [modal, setModal] =useState();
                 const { data } = await Contacts.getContactsAsync({
                     fields: [Contacts.Fields.Emails],
                 });
-
                 if (data.length > 0) {
                     const contact = data[0];
                     console.log(contact);
@@ -237,47 +142,46 @@ const [modal, setModal] =useState();
     }, []); */
 
 
-
     return (
 
         <View style={styles.container}>
-
-
-
             <Text style={styles.sectionTitle}>Add Contact</Text>
             <View style={[styles.container, { flexDirection: "column" }]}>
-
                 <ScrollView style={styles.scrollView}>
                     <View style={styles.contactview} >
                         <View >
-                            <View style={{ alignItems: 'center' }} >
-
-                                {/* <View style={styles.item}>
-                                    <Text style={{ fontSize: 32 }}>Name</Text>
-                                    <Text style={{ fontSize: 18 }}>Phone Number</Text>
-                                </View> */}
-
+                            <View>
                                 {contact.map((el) => (
                                     <View style={styles.container1}
                                         key={el.id}>
+
                                         <View
                                             style={styles.item}>
-                                            <TouchableOpacity >
-                                                <Image
-                                                    source={{ uri: 'data:image/png;base64,' + image }}
-                                                />
-
-                                                <Text style={{ fontSize: 18 }}>Name : {el.name}</Text>
-                                                <Text style={{ fontSize: 14 }}>Phone number : {el.phonenumber}</Text>
+                                            <TouchableOpacity style={{ alignItems: 'center', flexDirection: "row" }} >
+                                                <View >
+                                                    <Image
+                                                        resizeMode='stretch'
+                                                        style={styles.image}
+                                                        source={{ uri: el.image }}
+                                                    />
+                                                </View>
+                                                <View style={{ padding: "5%", }}>
+                                                    <Text style={{ fontSize: 18 }}>Name : {el.name}</Text>
+                                                    <Text style={{ fontSize: 14 }}>Phone number : {el.phonenumber}</Text>
+                                                </View>
                                             </TouchableOpacity>
+
                                         </View>
+                                        <Pressable style={{ alignItems: "flex-end" }}
+                                            onPress={() => updateContact()}>
+                                            <AntDesign name="edit" size={40} color="black" />
+                                        </Pressable>
                                     </View>
                                 ))}
                             </View>
                         </View>
                     </View>
                 </ScrollView>
-
                 <View style={styles.addbutton}>
                     <Pressable
                         style={styles.addbutton}
@@ -301,12 +205,16 @@ const [modal, setModal] =useState();
                                 <View>
                                     <View style={styles.form} >
                                         <View style={{ alignItems: "center", flexDirection: "row" }}>
-                                            
                                             <Pressable
-                                                onPress={() => openImagePickerAsyncOne()}>
-                                                <Entypo name="image" size={40} color="black" />
+                                                onPress={() => pickFromGallery()}>
+                                                {loader == false ? <Entypo name="image" size={40} color="black" /> : <Text>loading</Text>}
                                             </Pressable>
                                         </View>
+                                        {image === null ? null : <Image
+                                            resizeMode='stretch'
+                                            style={styles.image}
+                                            source={{ uri: image }}
+                                        />}
                                         <TextInput
                                             style={styles.input}
                                             value={name}
@@ -324,9 +232,10 @@ const [modal, setModal] =useState();
                                             placeholderTextColor='#00000080'
                                             onChangeText={(phonenumber) => setPhoneNumber(phonenumber)}
                                         />
+                                        <Text>{phonenumber}</Text>
                                     </View>
                                     <Pressable
-                                        onPress={() => { AddContact(); reload, setModalVisible(!modalVisible); }}
+                                        onPress={() => { AddContact(); setModalVisible(!modalVisible); }}
                                         style={styles.addbutton1}>
                                         <Text >Add</Text>
                                     </Pressable>
@@ -337,21 +246,18 @@ const [modal, setModal] =useState();
                 </View>
             </View>
         </View >
-
-
     );
 }
 const styles = StyleSheet.create({
     container: {
         flexDirection: "column",
         flex: 1,
-        padding: '4%',
+        padding: '3%',
     },
     container1: {
         backgroundColor: "#359A8E90",
         borderRadius: 20,
-        padding: "10%",
-        margin: "2%"
+        margin: "2%",
     },
     contactview: {
         flex: 1,
@@ -364,9 +270,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingStart: 20,
         borderRadius: 10,
-    },
-    case: {
-        backgroundColor: "red",
+        padding: "2%"
 
     },
     Title: {
@@ -388,7 +292,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         elevation: 3,
         borderColor: "#359A8E",
-        backgroundColor: "#fff",
+        backgroundColor: "#359A8E",
         shadowColor: "#359A8E",
         shadowOpacity: 0.2,
         shadowRadius: 1.22,
@@ -396,6 +300,7 @@ const styles = StyleSheet.create({
     },
     image: {
         height: 200,
+        width: 200,
         borderRadius: 20
     },
     sectionTitle: {

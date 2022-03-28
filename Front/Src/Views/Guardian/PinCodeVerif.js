@@ -21,7 +21,7 @@ const PinCodeVerif = ({ navigation }) => {
                 }
 
 
-                axios.get(`http://192.168.1.26:8090/guardian/test-pin/${JSON.parse(value).id}/${pincode}`, {
+                axios.get(`http://192.168.96.104:8090/guardian/test-pin/${JSON.parse(value).id}/${pincode}`, {
                 })
                     .then((res) => {
                         console.log()
