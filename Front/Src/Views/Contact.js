@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
-
+import { Linking } from 'react-native';
 
 const Contact = ({ navigation }) => {
 
@@ -79,10 +79,9 @@ const Contact = ({ navigation }) => {
         AsyncStorage.getItem('user')
             .then(value => {
                 console.log(JSON.parse(value));
-                console.log(JSON.parse(value).type)
                 if (JSON.parse(value).type) {
-                    axios.post(`http://192.168.96.104:8090/contacts/add/${JSON.parse(value).dementia.id}`,
-                        { number: phonenumber, name: name, image: image })
+                    axios.post(`http://172.16.17.177:8090/contacts/add/${JSON.parse(value).dementia.id}`,
+                        { number: phonenumber, name: name, image: image }).then(res => getData())
                     alert("Successful contact added!");
                 }
             })
@@ -94,7 +93,7 @@ const Contact = ({ navigation }) => {
                 console.log(JSON.parse(value));
                 console.log(JSON.parse(value).type)
                 /* if (JSON.parse(value).type) {
-                    axios.get(`http://192.168.96.104:8090/contacts/get-contacts/${JSON.parse(value).dementia.id}`)
+                    axios.get(`http://172.16.17.177:8090/contacts/get-contacts/${JSON.parse(value).dementia.id}`)
                         .then((res) => {
                             console.log(res.data)
                             if (res.data != null)
@@ -103,17 +102,16 @@ const Contact = ({ navigation }) => {
                         )
                 } */
                 if (JSON.parse(value).type == 'dementia') {
-                    axios.get(`http://192.168.96.104:8090/contacts/get-contacts/${JSON.parse(value).id}`)
+                    axios.get(`http://172.16.17.177:8090/contacts/get-contacts/${JSON.parse(value).id}`)
                         .then((res) => {
                             console.log(res.data)
                             if (res.data != null)
                                 setContact(res.data)
-                            navigation.navigate("Contact")
                         }
                         )
                 }
                 else {
-                    axios.get(`http://192.168.96.104:8090/contacts/get-contacts/${JSON.parse(value).dementia.id}`)
+                    axios.get(`http://172.16.17.177:8090/contacts/get-contacts/${JSON.parse(value).dementia.id}`)
                         .then((res) => { setContact(res.data); console.log(res.data) })
                 }
             })
@@ -141,7 +139,11 @@ const Contact = ({ navigation }) => {
         })();
     }, []); */
 
-
+if (userData ==null){
+    return (
+        <Text> Loading  </Text>
+    )
+}
     return (
 
         <View style={styles.container}>
@@ -157,7 +159,9 @@ const Contact = ({ navigation }) => {
 
                                         <View
                                             style={styles.item}>
-                                            <TouchableOpacity style={{ alignItems: 'center', flexDirection: "row" }} >
+                                            <TouchableOpacity 
+                                            onPress={()=> Linking.openURL(`tel:${el.number}`)}
+                                            style={{ alignItems: 'center', flexDirection: "row" }} >
                                                 <View >
                                                     <Image
                                                         resizeMode='stretch'
@@ -189,7 +193,7 @@ const Contact = ({ navigation }) => {
                     >
                         <AntDesign name="pluscircleo" size={50} color="#4A0D66" />
                     </Pressable>
-                    <Modal
+                   <Modal
                         animationType="slide"
                         transparent={true}
                         visible={modalVisible}
@@ -232,7 +236,6 @@ const Contact = ({ navigation }) => {
                                             placeholderTextColor='#00000080'
                                             onChangeText={(phonenumber) => setPhoneNumber(phonenumber)}
                                         />
-                                        <Text>{phonenumber}</Text>
                                     </View>
                                     <Pressable
                                         onPress={() => { AddContact(); setModalVisible(!modalVisible); }}

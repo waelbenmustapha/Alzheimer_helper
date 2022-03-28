@@ -13,7 +13,7 @@ const AddHistoryDementia = ({navigation}) => {
     function AddHistory() {
       AsyncStorage.getItem('user')
       .then(value=>{
-        axios.post(`http://192.168.96.104:8090/story/add/${JSON.parse(value).dementia.id}`,
+        axios.post(`http://172.16.17.177:8090/story/add/${JSON.parse(value).dementia.id}`,
         { history: history})
         .then((res) => navigation.navigate("drawer"))
      })
