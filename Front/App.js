@@ -16,7 +16,6 @@ import SpecifySafeArea from './Src/Views/Guardian/SpecifySafeArea';
 import Notif, { registerForPushNotificationsAsync } from './Src/Utils/Notif';
 import CheckNote from './Src/Views/Note/CheckNote';
 import CheckNotes from './Src/Views/Note/CheckNotes';
-import PinCodeVerif from './Src/Views/Guardian/PinCodeVerif';
 import PinCode from './Src/Views/Guardian/PinCode';
 import { useEffect, useState } from 'react';
 
@@ -38,7 +37,7 @@ export default function App() {
 
 
 
-  
+
 
   useEffect(() => {
     AsyncStorage.getItem('user', (err, item) => { setuserData(JSON.parse(item))})
@@ -69,6 +68,8 @@ export default function App() {
    
 
 
+        <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
+        <Stack.Screen name='IntroSlider' options={{ headerShown: false }} component={IntroSlider} />
 
       <Stack.Screen name="Home" component={Home}  />
 

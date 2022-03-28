@@ -34,6 +34,7 @@ const IntroSliderScreen = ({ navigation }) => {
             </View>
 
 
+          
             <View style={styles.slide2}>
               <View style={{ flexDirection: 'column' }}>
                 <TouchableOpacity style={styles.buttonG} onPress={() =>

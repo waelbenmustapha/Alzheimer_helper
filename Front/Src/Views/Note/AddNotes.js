@@ -113,7 +113,6 @@ const AddNotes = ({ navigation }) => {
           <View>
             <TouchableOpacity onPress={showDatepicker}><Image style={styles.DateTimePicker} source={heure} /></TouchableOpacity>
           </View>
-
           {show && (
             <DateTimePicker
               testID="dateTimePicker"

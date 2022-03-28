@@ -51,7 +51,6 @@ const IntroSlider = ({ navigation, route }) => {
         onPress={() => navigation.push(route.params.signup)}>
         <Text style={styles.titlebutton}>SignUp</Text>
       </TouchableOpacity>
-
     </View>
 
 
@@ -130,5 +129,5 @@ const styles = StyleSheet.create({
   }
 })
 
-export default IntroSlider
+export default IntroSlider;
 

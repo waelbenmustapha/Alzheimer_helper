@@ -1,4 +1,4 @@
-  import { View, Text,StyleSheet,Image,ScrollView,TouchableOpacity } from 'react-native'
+import { View, Text,StyleSheet,Image,ScrollView,TouchableOpacity } from 'react-native'
   import React, { useState,useEffect  } from 'react'
   import { useIsFocused } from "@react-navigation/native"
   import axios from "axios";
@@ -100,7 +100,6 @@
     )
   }
 
-  export default HistoryDementia
 
 
   const styles = StyleSheet.create({
@@ -188,3 +187,5 @@
         
     
       });
+
+      export default HistoryDementia;

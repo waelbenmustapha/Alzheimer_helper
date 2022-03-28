@@ -5,9 +5,9 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const PinCodeVerif = ({navigation}) => {
+const PinCodeVerif = ({ navigation }) => {
 
-    
+
     const [pincode, setCode] = useState('');
 
 
@@ -93,12 +93,12 @@ const styles = StyleSheet.create({
         color: '#359A8E',
         letterSpacing: 0.34,
         justifyContent: "center",
-
+        backgroundColor: "#ffffff60"
     },
     codeContainer: {
         marginTop: 12,
         flexDirection: 'column',
-        alignItems:"center",
+        alignItems: "center",
         justifyContent: 'center',
         color: "#359A8E",
     },
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     buttonText: {
         fontSize: 16,
         color: '#000',
-        padding:"10%",
+        padding: "10%",
         letterSpacing: -0.39,
     }
 })
