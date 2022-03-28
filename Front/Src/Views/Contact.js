@@ -169,31 +169,31 @@ if (userData ==null){
                                                         source={{ uri: el.image }}
                                                     />
                                                 </View>
-                                                <View style={{ padding: "5%", }}>
-                                                    <Text style={{ fontSize: 18 }}>Name : {el.name}</Text>
-                                                    <Text style={{ fontSize: 14 }}>Phone number : {el.phonenumber}</Text>
+                                                <View style={{ padding: "5%",alignItems: 'center',  }}>
+                                                    <Text style={{ fontSize: 28 }}>{el.name}</Text>
+                                                    <Text style={{ fontSize: 18 }}>{el.number}</Text>
                                                 </View>
                                             </TouchableOpacity>
 
                                         </View>
-                                        <Pressable style={{ alignItems: "flex-end" }}
+                                        { userData.type == "guardian" ?   <Pressable style={{ alignItems: "flex-end" }}
                                             onPress={() => updateContact()}>
                                             <AntDesign name="edit" size={40} color="black" />
-                                        </Pressable>
+                                        </Pressable> :null}
                                     </View>
                                 ))}
                             </View>
                         </View>
                     </View>
                 </ScrollView>
-                <View style={styles.addbutton}>
+                { userData.type == "guardian" ?  <View style={styles.addbutton}>
                     <Pressable
                         style={styles.addbutton}
                         onPress={() => setModalVisible(true)}
                     >
                         <AntDesign name="pluscircleo" size={50} color="#4A0D66" />
                     </Pressable>
-                   <Modal
+                 <Modal
                         animationType="slide"
                         transparent={true}
                         visible={modalVisible}
@@ -246,7 +246,7 @@ if (userData ==null){
                             </View>
                         </View>
                     </Modal>
-                </View>
+                </View>:null}
             </View>
         </View >
     );
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
         padding: '3%',
     },
     container1: {
-        backgroundColor: "#359A8E90",
+        backgroundColor: "#359A8E10",
         borderRadius: 20,
         margin: "2%",
     },
