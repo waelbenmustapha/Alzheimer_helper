@@ -8,6 +8,5 @@ import org.springframework.stereotype.Repository;
 import com.example.Alz.Entities.Guardian;
 @Repository
 public interface GuardianRepository extends JpaRepository<Guardian, String> {
-
-  public Guardian findByRelationKey(String key);
+public Guardian findByEmail(String s);
 }
