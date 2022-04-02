@@ -30,6 +30,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { set } from 'react-native-reanimated';
 import CheckPendingNote from './Src/Views/Note/CheckPendingNote';
 import UpdatePendingNote from './Src/Views/Note/UpdatePendingNote';
+import ForgotPassword from './Src/Views/ForgotPassword';
 
 export default function App() {
   const [type, setType] = useState('');
@@ -69,6 +70,9 @@ export default function App() {
     
     <NavigationContainer>
       <Stack.Navigator initialRouteName={int}>
+
+           <Stack.Screen name="SignUpGuardian" options={{ headerShown: false }} component={Signup} />
+
      <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
        <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav}/>
           
@@ -78,8 +82,7 @@ export default function App() {
        <Stack.Screen name="UpdatePendingNote" component={UpdatePendingNote }/>
 
    
-
-
+       <Stack.Screen name="ForgotPassword" component={ForgotPassword}  />
 
       <Stack.Screen name="Home" component={Home}  />
 
@@ -88,7 +91,6 @@ export default function App() {
 
       <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
         <Stack.Screen name="IntroSlider" options={{ headerShown: false }} component={IntroSlider} />
-   <Stack.Screen name="SignUpGuardian" options={{ headerShown: false }} component={Signup} />
 
       <Stack.Screen name="Contact"options={{ headerShown: false }}  component={Contact} />
 

@@ -64,7 +64,7 @@ const SignIn = ({ navigation }) => {
 
       return;
     } setIsLoading(true);
-      axios.post(encodeURI(`http://192.168.1.18:8090/auth/login/${expoPushToken}`), {
+      axios.post(encodeURI(`http://192.168.1.16:8090/auth/login/${expoPushToken}`), {
        email: userEmail,
       password: userPassword,
     }).then((response) => {
@@ -107,7 +107,7 @@ const SignIn = ({ navigation }) => {
         </View>
         <View>
           <View style={styles.textCenter}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>navigation.replace("ForgotPassword")}>
               <Text>Forgot password?</Text>
             </TouchableOpacity>
           </View>
