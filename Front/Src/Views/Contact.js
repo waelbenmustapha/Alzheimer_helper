@@ -61,7 +61,7 @@ const Contact = ({ navigation, route }) => {
         }).then(res => res.json()).
             then(data => {
                 setloader(false)
-
+                console.log(data.url)
                 setImage(data.url)
             }).catch(err => {
                 alert("error while uploading")
@@ -70,13 +70,12 @@ const Contact = ({ navigation, route }) => {
 
     //updatecontact
 
-    const updateContact = (id) => {
-        console.log(id)
-        axios.put(`http://192.168.1.16:8090/contacts/edit/${id}`,
+    const updateContact = () => {
+        console.log(edit)
+        axios.put(`http://192.168.1.16:8090/contacts/edit/${edit}`,
             { number: phonenumber, name: name, image: image })
-            .then((res) => {
-                setContact(res.data)
-            })
+            .then(getData()
+            )
         alert("Successful contact updated!");
     }
 
@@ -89,11 +88,9 @@ const Contact = ({ navigation, route }) => {
           alert("Successful contact deleted!");
       } */
 
-    const deleteContact = (id) => {
-        axios.delete(`http://192.168.1.16:8090/contacts/delete/${id}`)
-            .then((res) => {
-                setContact(res.data)
-            })
+    const deleteContact = () => {
+        axios.delete(`http://192.168.1.16:8090/contacts/delete/${edit}`)
+            .then(getData())
         getData();
     }
 
@@ -149,7 +146,7 @@ const Contact = ({ navigation, route }) => {
     }, [isFocused]);
 
 
-
+    const [edit, setedit] = useState();
 
     //contact permission
     /* useEffect(() => {
@@ -209,7 +206,7 @@ const Contact = ({ navigation, route }) => {
                                         {userData.type == "guardian" ?
 
                                             <Pressable style={{ alignItems: "flex-end" }}
-                                                onPress={() => setModalVisibleUpdate(true)}>
+                                                onPress={() => [setedit(el.id), setModalVisibleUpdate(true)]}>
                                                 <AntDesign name="edit" size={40} color="black" />
                                             </Pressable>
                                             : null}
@@ -223,20 +220,13 @@ const Contact = ({ navigation, route }) => {
                                     setModalVisibleUpdate(!modalVisibleUpdate);
                                 }}
                             ><ScrollView>
-                                <View style={styles.centeredView}>
-                                    <View style={styles.modalView}>
-                                        <Pressable onPress={() => setModalVisibleUpdate(!modalVisibleUpdate)}>
-                                            <AntDesign name="closecircleo" size={40} color="black" />
-                                        </Pressable>
-                                        
-                                            <View style={styles.form} >
+                                    <View style={styles.centeredView}>
+                                        <View style={styles.modalView}>
+                                            <Pressable onPress={() => setModalVisibleUpdate(!modalVisibleUpdate)}>
+                                                <AntDesign name="closecircleo" size={40} color="black" />
+                                            </Pressable>
 
-                                                 {/* {contact.map((el) => ( 
-                                                    <Image key={el.id}
-                                                        resizeMode='stretch'
-                                                        style={styles.image}
-                                                        source={{ uri: el.image }}
-                                                /> ))} */}
+                                            <View style={styles.form} >
 
                                                 <Pressable
                                                     onPress={() => pickFromGallery()}>
@@ -248,7 +238,7 @@ const Contact = ({ navigation, route }) => {
                                                     value={name}
                                                     placeholder='Name'
                                                     placeholderTextColor='#00000080'
-                                                    onChangeText={(name) => setName(name)}
+                                                    onChangeText={(value) => setName(value)}
                                                 />
                                                 <TextInput
                                                     style={styles.input}
@@ -257,24 +247,24 @@ const Contact = ({ navigation, route }) => {
                                                     keyboardType="number-pad"
                                                     value={phonenumber}
                                                     placeholderTextColor='#00000080'
-                                                    onChangeText={(phonenumber) => setPhoneNumber(phonenumber)}
+                                                    onChangeText={(value) => setPhoneNumber(value)}
                                                 />
                                             </View>
                                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", }}>
                                                 <Pressable
-                                                    onPress={() => { updateContact(id); setModalVisibleUpdate(!modalVisibleUpdate); }}
+                                                    onPress={() => { updateContact(); setModalVisibleUpdate(!modalVisibleUpdate); }}
                                                     style={styles.addbutton1}>
                                                     <Text>Update</Text>
                                                 </Pressable>
                                                 <Pressable
-                                                    onPress={() => { deleteContact(id); setModalVisibleUpdate(!modalVisibleUpdate); }}
+                                                    onPress={() => { deleteContact(); setModalVisibleUpdate(!modalVisibleUpdate); }}
                                                     style={styles.deletebutton}>
                                                     <Text>Delete</Text>
                                                 </Pressable>
                                             </View>
-                                       
+
+                                        </View>
                                     </View>
-                                </View> 
                                 </ScrollView>
                             </Modal>
                         </View>
