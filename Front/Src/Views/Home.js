@@ -30,14 +30,14 @@ const Home = ({ navigation }) => {
 
   const Logout = () => {
     try {
-       AsyncStorage.removeItem("user")
+      AsyncStorage.removeItem("user")
       navigation.navigate("IntroSliderScreen")
 
-    } catch(e) {
-      console.log(e) 
-     }
+    } catch (e) {
+      console.log(e)
+    }
     console.log('Done.')
-  }  
+  }
 
   //localStorage
 
@@ -52,20 +52,21 @@ const Home = ({ navigation }) => {
     return (
       <View>
         <Text>loading</Text>
-        </View>
-    )}
+      </View>
+    )
+  }
 
-  if (userData.dementia == null&&userData.type=="guardian") {
+  if (userData.dementia == null && userData.type == "guardian") {
     return (
       <View>
         <ImageBackground
           source={require("./../../../Front/assets/old.png")} style={styles.image1}
         >
 
-          <View style={{flex:1, justifyContent: "center", backgroundColor: "#ffffff80"}}>
-            <TouchableOpacity onPress={()=>Logout()} >
-              <Text style={{padding:"10%", fontSize: 32 ,textAlign:"center", color:"#359A8E", backgroundColor: "#ffffff"}}>You must have a dementia account related.</Text>
-              </TouchableOpacity>
+          <View style={{ flex: 1, justifyContent: "center", backgroundColor: "#ffffff80" }}>
+            <TouchableOpacity onPress={() => Logout()} >
+              <Text style={{ padding: "10%", fontSize: 32, textAlign: "center", color: "#359A8E", backgroundColor: "#ffffff" }}>You must have a dementia account related.</Text>
+            </TouchableOpacity>
           </View>
         </ImageBackground>
       </View>
@@ -123,46 +124,45 @@ const Home = ({ navigation }) => {
 
 
           <View style={{ flex: 2 }} >
-            {userData.type == "dementia" ? <TouchableOpacity
-              style={{ alignItems: "center" }}
-              onPress={() => navigation.navigate("DemantiaLocation")}>
-              <Image
-                source={require("./../../assets/map.png")}
-                style={{
-                  width: 150,
-                  height: 180,
-                  borderRadius: 40 / 2,
-                  marginTop: 10,
-                }} />
-              <Text style={styles.Title2}>Location</Text>
-            </TouchableOpacity> : userData.type == "guardian" ? <TouchableOpacity
-              style={{ alignItems: "center" }}
-              onPress={() => navigation.navigate("Location")}>
-              <Image
-                source={require("./../../assets/map.png")}
-                style={{
-                  width: 150,
-                  height: 180,
-                  borderRadius: 40 / 2,
-                  marginTop: 10,
-                }} />
-              <Text style={styles.Title2}>Location</Text>
-            </TouchableOpacity> : null}
+            
+           {/* dementia access */}
+            {userData.type == "dementia" ?
+              <TouchableOpacity
+                style={{ alignItems: "center" }}
+                onPress={() => navigation.navigate("DemantiaLocation")}>
+                <Image
+                  source={require("./../../assets/map.png")}
+                  style={{
+                    width: 150,
+                    height: 180,
+                    borderRadius: 40 / 2,
+                    marginTop: 10,
+                  }} />
+                <Text style={styles.Title2}>Location</Text>
+              </TouchableOpacity>
+
+             /*  guardian access */
+              : userData.type == "guardian" ?
+                <TouchableOpacity
+                  style={{ alignItems: "center" }}
+                  onPress={() => navigation.navigate("Location")}>
+                  <Image
+                    source={require("./../../assets/map.png")}
+                    style={{
+                      width: 150,
+                      height: 180,
+                      borderRadius: 40 / 2,
+                      marginTop: 10,
+                    }} />
+                  <Text style={styles.Title2}>Location</Text>
+                </TouchableOpacity> : null}
 
 
 
-            {/*  <Modal.Dialog>
-              <Modal.Body>
-                <TouchableOpacity style={styles.donebutton}
-                  onPress={() => navigation.navigate('CheckDemantiaLocation')}>
-                  <Text>Go check my demantia location</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.donebutton}
-                  onPress={() => navigation.navigate('DemantiaLocation')}>
-                  <Text>Go my location</Text>
-                </TouchableOpacity>
-              </Modal.Body>
-            </Modal.Dialog> */}
+
+
+
+
 
 
             <TouchableOpacity

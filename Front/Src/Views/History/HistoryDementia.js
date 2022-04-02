@@ -34,7 +34,7 @@ import { View, Text,StyleSheet,Image,ScrollView,TouchableOpacity } from 'react-n
               if(JSON.parse(value).type =='dementia'){
                 axios
                 .get(
-                  `http://172.16.17.177:8090/story/get/${JSON.parse(value).id}`
+                  `http://192.168.1.16:8090/story/get/${JSON.parse(value).id}`
                 )
                 .then((res) => {
                   setHistory(JSON.stringify(res.data.history));
@@ -44,7 +44,7 @@ import { View, Text,StyleSheet,Image,ScrollView,TouchableOpacity } from 'react-n
             else {
               axios
               .get(
-                `http://172.16.17.177:8090/story/get/${JSON.parse(value).dementia.id}`
+                `http://192.168.1.16:8090/story/get/${JSON.parse(value).dementia.id}`
               )
               .then((res) => {
                 console.log("************************");

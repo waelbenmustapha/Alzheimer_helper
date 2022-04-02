@@ -64,7 +64,7 @@ const SignIn = ({ navigation }) => {
 
       return;
     } setIsLoading(true);
-      axios.post(encodeURI(`http://172.16.17.177:8090/auth/login/${expoPushToken}`), {
+      axios.post(encodeURI(`http://192.168.1.16:8090/auth/login/${expoPushToken}`), {
        email: userEmail,
       password: userPassword,
     }).then((response) => {

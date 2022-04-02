@@ -13,42 +13,44 @@ import { sendPushNotification } from "../../Utils/Notif";
 
 const UpdateNote = ({ route, navigation }) => {
 
-    const [date, setDate] = useState(new Date(1598051730000));
-    const [description, setDescription] = useState(route.params.el.description);
-    const [title, setTitle] = useState(route.params.el.title);
-    const messageUpdate = {   
-      'title': 'Note Update',
-     'body': 'Your dementia has Update a note'
-   } 
-
-
-   function UpdateNote() {
-
-    AsyncStorage.getItem('user')
-      .then(value=>{console.log(JSON.parse(value));
-        console.log(JSON.parse(value).type)
-        if(JSON.parse(value).type =='dementia'){
-        axios.put(`http://172.16.17.177:8090/pending-notes/edit-note/${JSON.parse(value).id}/${route.params.el.id}`,
-        {description:description, title:title,date:date})
-        .then((res) => {
-          axios.get(`http://172.16.17.177:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
-            .then((res) =>{
-              sendPushNotification(res.data,messageUpdate.title,messageUpdate.body)
-            })
-          navigation.navigate("CheckNotes")})
-
-      }
-      else {
-           axios.put(`http://172.16.17.177:8090/notes/edit-note/${route.params.el.id}`,
-           {description: description, title: title, date: date })
-           .then((res) => navigation.navigate("CheckNotes"))
-     }})
+  const [date, setDate] = useState(new Date(1598051730000));
+  const [description, setDescription] = useState(route.params.el.description);
+  const [title, setTitle] = useState(route.params.el.title);
+  const messageUpdate = {
+    'title': 'Note Update',
+    'body': 'Your dementia has Update a note'
   }
+
+
+  function UpdateNote() {
+    AsyncStorage.getItem('user')
+      .then(value => {
+        console.log(JSON.parse(value));
+        console.log(JSON.parse(value).type)
+        if (JSON.parse(value).type == 'dementia') {
+          axios.put(`http://192.168.1.16:8090/pending-notes/edit-note/${JSON.parse(value).id}/${route.params.el.id}`,
+            { description: description, title: title, date: date })
+            .then((res) => {
+              axios.get(`http://192.168.1.16:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
+                .then((res) => {
+                  sendPushNotification(res.data, messageUpdate.title, messageUpdate.body)
+                })
+              navigation.navigate("CheckNotes")
+            })
+        }
+        else {
+          axios.put(`http://192.168.1.16:8090/notes/edit-note/${route.params.el.id}`,
+            { description: description, title: title, date: date })
+            .then((res) => navigation.navigate("CheckNotes"))
+        }
+      })
+  }
+
   const [note, setNote] = useState(route.params.el);
   useEffect(() => {
     console.log(note);
   }, []);
-  
+
   return (
     <View style={styles.container}>
       <View style={styles.items}>
@@ -60,14 +62,12 @@ const UpdateNote = ({ route, navigation }) => {
           </View>
         </View>
       </View>
-
       <ScrollView style={styles.scrollView}>
         <View style={styles.item}>
-          <TextInput value={description} onChangeText={(value) => setDescription(value)} style={styles.square}></TextInput>
+          <TextInput value={description} onChangeText={(value) => setDescription(value)} style={styles.square}>
+          </TextInput>
         </View>
-
         <View style={styles.fixToText}>
-
           <TouchableOpacity
             onPress={() => {
               UpdateNote();
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   fixToText: {
     flexDirection: "row",
     justifyContent: "space-evenly",
-    margin:"5%",
+    margin: "5%",
     paddingLeft: "25%",
     marginRight: "25%",
   },
