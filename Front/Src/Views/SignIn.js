@@ -107,7 +107,7 @@ const SignIn = ({ navigation }) => {
         </View>
         <View>
           <View style={styles.textCenter}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=> navigation.replace("ForgotPassword")}>
               <Text>Forgot password?</Text>
             </TouchableOpacity>
           </View>

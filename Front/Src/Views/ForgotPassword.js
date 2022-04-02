@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
-        backgroundColor: '#fff',
+        backgroundColor: '#F5F5F3',
 
     },
 
@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     title2: {
+        textAlign:"center",
         marginTop: 14,
         marginBottom: 18,
         fontSize: 20,
@@ -113,6 +114,7 @@ const styles = StyleSheet.create({
     Signupbutton: {
         alignItems: "center",
         backgroundColor: '#359A8E',
+        margin:10,
         padding: 10,
         width: 220,
         height: 50,

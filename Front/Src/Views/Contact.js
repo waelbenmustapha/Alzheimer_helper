@@ -222,21 +222,20 @@ const Contact = ({ navigation, route }) => {
                                 onRequestClose={() => {
                                     setModalVisibleUpdate(!modalVisibleUpdate);
                                 }}
-                            >
+                            ><ScrollView>
                                 <View style={styles.centeredView}>
                                     <View style={styles.modalView}>
                                         <Pressable onPress={() => setModalVisibleUpdate(!modalVisibleUpdate)}>
                                             <AntDesign name="closecircleo" size={40} color="black" />
                                         </Pressable>
-                                        <View>
+                                        
                                             <View style={styles.form} >
 
-                                                {/*  {contact.map((el) => ( 
+                                                 {/* {contact.map((el) => ( 
                                                     <Image key={el.id}
                                                         resizeMode='stretch'
                                                         style={styles.image}
                                                         source={{ uri: el.image }}
-
                                                 /> ))} */}
 
                                                 <Pressable
@@ -249,7 +248,7 @@ const Contact = ({ navigation, route }) => {
                                                     value={name}
                                                     placeholder='Name'
                                                     placeholderTextColor='#00000080'
-                                                    onChangeText={(value) => setName(value)}
+                                                    onChangeText={(name) => setName(name)}
                                                 />
                                                 <TextInput
                                                     style={styles.input}
@@ -258,7 +257,7 @@ const Contact = ({ navigation, route }) => {
                                                     keyboardType="number-pad"
                                                     value={phonenumber}
                                                     placeholderTextColor='#00000080'
-                                                    onChangeText={(value) => setPhoneNumber(value)}
+                                                    onChangeText={(phonenumber) => setPhoneNumber(phonenumber)}
                                                 />
                                             </View>
                                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", }}>
@@ -273,9 +272,10 @@ const Contact = ({ navigation, route }) => {
                                                     <Text>Delete</Text>
                                                 </Pressable>
                                             </View>
-                                        </View>
+                                       
                                     </View>
-                                </View>
+                                </View> 
+                                </ScrollView>
                             </Modal>
                         </View>
                     </View>

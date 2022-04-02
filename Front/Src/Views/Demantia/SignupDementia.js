@@ -189,7 +189,7 @@ const SignupDementia = ({ navigation }) => {
 
         </View>
         <View style={styles.textCenter}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=> navigation.navigate("ForgotPassword")}>
             <Text style={styles.textCenter}>Forgot password?</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
