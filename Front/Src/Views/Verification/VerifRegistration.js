@@ -47,7 +47,6 @@ const VerifRegistration = ({ navigation }) => {
   )
 }
 
-export default VerifRegistration;
 const styles = StyleSheet.create({
     container: {
         flex: 50,
@@ -85,3 +84,5 @@ donebutton: {
     elevation: 11,
   },
 })
+
+export default VerifRegistration;

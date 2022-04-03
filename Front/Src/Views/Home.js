@@ -41,6 +41,16 @@ const Home = ({ navigation }) => {
     }
   //localStorage
 
+  const Logout = () => {
+    try {
+       AsyncStorage.removeItem("user")
+      navigation.navigate("IntroSliderScreen")
+
+    } catch(e) {
+      console.log(e) 
+     }
+    console.log('Done.')
+  }  
  
   useEffect(() => {
   
