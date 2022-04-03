@@ -21,9 +21,16 @@ const Contact = ({ navigation, route }) => {
     const isFocused = useIsFocused();
     const [loader, setloader] = useState(false);
 
+<<<<<<< HEAD
     let base64Img = `data:image/jpg;base64,${image}`;
 
     //image piker
+=======
+    axios.post(/* `http://192.168.8.100:8090/notes/add-note/4028819a7fa94d3c017fa95b6dd90001` ,*/
+      { phonenumber: phonenumber, name: name /*, image */ })
+      .then((res) => setModalVisible(!modalVisible))
+  }
+>>>>>>> origin/Sprint-4
 
 
 

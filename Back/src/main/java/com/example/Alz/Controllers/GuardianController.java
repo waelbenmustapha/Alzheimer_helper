@@ -16,10 +16,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.Alz.Entities.Dementia;
 import com.example.Alz.Entities.Guardian;
 import com.example.Alz.Repositories.DementiaRepository;
 import com.example.Alz.Repositories.GuardianRepository;
@@ -145,6 +147,15 @@ else{
     mailSender.send(message);
 
     System.out.println("Email has been sent");
+
+  }
+
+  @PutMapping("/edit-profile/{gid}")
+  public ResponseEntity editprofile(@PathVariable("gid") String id, @RequestBody Guardian guardian) {
+
+    guardian.setId(guardianRepository.findById(id).get().getId());
+    guardianRepository.save(guardian);
+    return new ResponseEntity("edited", HttpStatus.OK);
 
   }
 

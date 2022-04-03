@@ -4,7 +4,6 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import heure from '../../../assets/heure.png'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { sendPushNotification } from '../../Utils/Notif';
 
 const AddNotes = ({ navigation }) => {
   const [date, setDate] = useState(new Date(1598051730000));
@@ -14,70 +13,72 @@ const AddNotes = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const message = {
     'title': 'Note Addition',
-    'body': 'Your dementia has added a note'
-  }
-  function AddNote() {
+   'body': 'Your dementia has added a note'
+ }
 
-    AsyncStorage.getItem('user')
-      .then(value => {
-        console.log(JSON.parse(value));
+ function AddNote() {
+
+  AsyncStorage.getItem('user')
+      .then(value=>{console.log(JSON.parse(value));
         console.log(JSON.parse(value).type)
-        if (JSON.parse(value).type == 'dementia') {
-          axios.post(`http://192.168.1.16:8090/pending-notes/add-note/${JSON.parse(value).id}`,
-            { description: description, title: title, date: date })
-            .then((res) => {
-              axios.get(`http://192.168.1.16:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
-                .then((res) => {
-                  sendPushNotification(res.data, message.title, message.body)
-                })
+        if(JSON.parse(value).type =='dementia'){
+          axios.post(`http://192.168.8.100:8090/pending-notes/add-note/${JSON.parse(value).id}`,
+        {description:description, title:title,date:date})
+        .then((res) =>{
+          axios.get(`http://192.168.8.100:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
+          .then((res) =>{
+            sendPushNotification(res.data,message.title,message.body)
+          })
+           navigation.navigate("CheckNotes")
+          })
+
+      }
+      else {
+        axios.post(`http://192.168.8.100:8090/notes/add-note/${JSON.parse(value).dementia.id}`,
+           {description: description, title: title, date: date })
+           .then((res) => navigation.navigate("CheckNotes"))
+     }})
+
+}
 
 
+const onChange = (event, selectedDate) => {
+  const currentDate = selectedDate || date;
+  setShow(Platform.OS === 'ios');
 
-              navigation.navigate("CheckNotes")
-            })
-
+  setDate(currentDate);
+  if (mode == "date") {
+    setMode("time");
+    setShow(true);
         }
         else {
           axios.post(`http://192.168.1.16:8090/notes/add-note/${JSON.parse(value).dementia.id}`,
-            { description: description, title: title, date: date })
-            .then((res) => navigation.navigate("CheckNotes"))
-        }
-      })
+             {description: description, title: title, date: date })
+             .then((res) => navigation.navigate("CheckNotes"))
+       }
 
   }
 
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
 
-    setDate(currentDate);
-    if (mode == "date") {
-      setMode("time");
-      setShow(true);
+const showMode = (currentMode) => {
+  setShow(true);
+  setMode(currentMode);
+};
 
-    }
+const showDatepicker = () => {
+  showMode('date');
+};
 
-  };
-
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
-
-  const showDatepicker = () => {
-    showMode('date');
-  };
-
-  const showTimepicker = () => {
-    showMode('time');
-  };
+const showTimepicker = () => {
+  showMode('time');
+};
 
 
 
 
 
-  return (
+return (
 
     <View style={styles.container}>
       
@@ -121,23 +122,9 @@ const AddNotes = ({ navigation }) => {
         <View>
           <View>
             <TouchableOpacity onPress={showDatepicker}><Image style={styles.DateTimePicker} source={heure} /></TouchableOpacity>
-          </View>
+          </View>*/
 
-          {show && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={date}
-              mode={mode}
-              is24Hour={true}
-              display="default"
-              onChange={onChange}
-            />
-          )}
-        </View>
-        <TouchableOpacity onPress={() => { AddNote() }} style={styles.btnVal}><Text style={styles.txtVal}>Save</Text></TouchableOpacity>
-      </View> */
-
-  );
+);
 };
 
 
@@ -195,13 +182,13 @@ const styles = StyleSheet.create({
     elevation: 11,
   },
 
-  DateTimePicker: {
-    width: 50,
-    height: 50,
-    resizeMode: 'contain',
-    alignItems: "center"
+DateTimePicker: {
+  width: 50,
+  height: 50,
+  resizeMode: 'contain',
+  alignItems: "center"
 
-  }
+}
 
 });
 

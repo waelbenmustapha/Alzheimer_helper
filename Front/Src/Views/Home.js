@@ -1,3 +1,4 @@
+
 import {
   View,
   Text,
@@ -10,41 +11,45 @@ import {
   TextInput,
   TouchableOpacity,
   Pressable,
-  BackHandler,
   ImageBackground,
-  Alert
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Icon } from "react-native-elements";
 import { useIsFocused } from '@react-navigation/native'
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getUser } from "../Utils/user";
-import ProfileElement from "../Components/ProfileElement";
 
 
 const Home = ({ navigation }) => {
 
-  const [userData, setuserData] = useState(null);
+  const [userData, setuserData] =useState(null);
+  const [dir, setdir] =useState('');
   const isFocused = useIsFocused()
 
-  const Logout = () => {
-    try {
-       AsyncStorage.removeItem("user")
-      navigation.navigate("IntroSliderScreen")
 
-    } catch(e) {
-      console.log(e) 
-     }
-    console.log('Done.')
-  }  
-
+  function getAge(dateString) 
+  {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+    {
+        age--;
+    }
+    return age;
+    }
   //localStorage
 
-
+ 
   useEffect(() => {
-    AsyncStorage.getItem('user', (err, item) => { setuserData(JSON.parse(item)) })
-  }, [isFocused]);
+  
+    console.log("******************************************************************")
+    AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item))})
+    console.log(isFocused)
+    return ()=>{console.log("++++++++++"+isFocused);console.log("cleanup")}
+ 
+  },[isFocused]  );
 
   if (userData == null) {
     return (
@@ -62,7 +67,7 @@ const Home = ({ navigation }) => {
 
           <View style={{flex:1, justifyContent: "center", backgroundColor: "#ffffff80"}}>
             <TouchableOpacity onPress={()=>Logout()} >
-              <Text style={{padding:"10%", fontSize: 32 ,textAlign:"center", color:"#359A8E", backgroundColor: "#ffffff"}}>You must have a dementia account related.</Text>
+              <Text style={{padding:"10%" , fontSize: 32 ,textAlign:"center", color:"#359A8E", backgroundColor: "#ffffff"}}>You must have a dementia account related.</Text>
               </TouchableOpacity>
           </View>
         </ImageBackground>
@@ -72,15 +77,41 @@ const Home = ({ navigation }) => {
 
   return (
 
-
+    
     <View style={styles.container}>
-      <ProfileElement userData={userData} />
+      <View style={{ flex: 3, alignItems:"center" }}>
+        <View style={{ flex: 1,width:"90%", flexDirection:"row" ,alignItems:"center"}}>
+          <Image
+            source={require("./../../assets/profile.png")}
+            style={styles.image}
+          ></Image>
+          <View style={styles.firstItem}>
+            <Text style={styles.Title}>Welcome {userData.name} </Text>
+            {userData.type=="dementia"?<Text style={styles.Title}> you are age is {getAge(userData.birthdate) } </Text> :userData.type=="guardian"?<Text style={styles.Title}> you are a guardian of {userData.dementia.name} </Text>: null}
+            {/* <Text style={styles.Title}>Your age is  </Text> */}
+          </View>
+        </View>
+{/* 
+        <View style={{ flex: 0, flexDirection: "column" }}>
+          <View style={styles.searchSection}>
+            <Icon style={styles.searchIcon} name="search" size={20} color="#000" />
+            <TextInput
+              style={styles.input}
+              placeholder="User Nickname"
+              onChangeText={(searchString) => {
+                this.setState({ searchString });
+              }}
+              underlineColorAndroid="transparent"
+            />
+          </View>
+        </View> */}
+      </View>
+
       <View style={{ flex: 9 }}>
         <View style={{ flexDirection: "row" }}>
 
           <View style={{ flex: 2 }} >
-            <TouchableOpacity style={{ alignItems: "center" }}
-              onPress={() => navigation.navigate("Contact")}>
+            <TouchableOpacity style={{ alignItems: "center" }}>
               <Image
                 source={require("./../../assets/Contact.png")}
                 style={{
@@ -91,37 +122,33 @@ const Home = ({ navigation }) => {
                 }} />
               <Text style={styles.Title2}>Contact</Text>
             </TouchableOpacity>
-            {userData.type == "guardian" && userData.dementia.story == null ?
-              <TouchableOpacity style={{ alignItems: "center" }}
-                onPress={() => navigation.navigate("AddHistoryDementia")}>
-
-                <Image
-                  source={require("./../../assets/profile.png")}
-                  style={{
-                    width: 150,
-                    height: 180,
-                    borderRadius: 40 / 2,
-                  }} />
-                <Text style={styles.Title2}>History</Text>
-              </TouchableOpacity>
-              :
-              <TouchableOpacity style={{ alignItems: "center" }}
-                onPress={() => navigation.navigate("HistoryDementia")}>
-
-                <Image
-                  source={require("./../../assets/profile.png")}
-                  style={{
-                    width: 150,
-                    height: 180,
-                    borderRadius: 40 / 2,
-                  }} />
-                <Text style={styles.Title2}>History</Text>
-              </TouchableOpacity>}
+            {userData.type=="dementia"?<TouchableOpacity style={{ alignItems: "center" }}  onPress={() => navigation.navigate("HistoryDementia")}>
+              <Image
+                source={require("./../../assets/profile.png")}
+                style={{
+                  width: 150,
+                  height: 180,
+                  borderRadius: 40 / 2,
+                }} />
+              <Text style={styles.Title2}>History</Text>
+              
+            </TouchableOpacity>:userData.type=="guardian"?<TouchableOpacity style={{ alignItems: "center" }}  onPress={() => navigation.navigate("AddHistoryDementia")}>
+              <Image
+                source={require("./../../assets/profile.png")}
+                style={{
+                  width: 150,
+                  height: 180,
+                  borderRadius: 40 / 2,
+                }} />
+              <Text style={styles.Title2}>History</Text>
+              
+            </TouchableOpacity>:null}
+              
           </View>
 
 
           <View style={{ flex: 2 }} >
-            {userData.type == "dementia" ? <TouchableOpacity
+          {userData.type=="dementia"?<TouchableOpacity
               style={{ alignItems: "center" }}
               onPress={() => navigation.navigate("DemantiaLocation")}>
               <Image
@@ -133,7 +160,7 @@ const Home = ({ navigation }) => {
                   marginTop: 10,
                 }} />
               <Text style={styles.Title2}>Location</Text>
-            </TouchableOpacity> : userData.type == "guardian" ? <TouchableOpacity
+            </TouchableOpacity>:userData.type=="guardian"?<TouchableOpacity
               style={{ alignItems: "center" }}
               onPress={() => navigation.navigate("Location")}>
               <Image
@@ -145,11 +172,10 @@ const Home = ({ navigation }) => {
                   marginTop: 10,
                 }} />
               <Text style={styles.Title2}>Location</Text>
-            </TouchableOpacity> : null}
+            </TouchableOpacity>: null}
+            
 
-
-
-            {/*  <Modal.Dialog>
+           {/*  <Modal.Dialog>
               <Modal.Body>
                 <TouchableOpacity style={styles.donebutton}
                   onPress={() => navigation.navigate('CheckDemantiaLocation')}>
@@ -202,6 +228,10 @@ const Home = ({ navigation }) => {
   );
 };
 const styles = StyleSheet.create({
+  image1: {
+    height: '100%',
+    width: '100%',
+  },
   container: {
     flexDirection: "column",
     flex: 1,
@@ -216,10 +246,6 @@ const styles = StyleSheet.create({
     width: "40%",
     height: "90%",
     borderRadius: 40 / 2,
-  },
-  image1: {
-    height: '100%',
-    width: '100%',
   },
   Title: {
     fontWeight: "bold",
