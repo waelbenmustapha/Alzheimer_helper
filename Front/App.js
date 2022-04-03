@@ -33,6 +33,8 @@ import UpdatePendingNote from './Src/Views/Note/UpdatePendingNote';
 import VerifRegistration from './Src/Views/Verification/VerifRegistration';
 import UpdateHistory from './Src/Views/History/UpdateHistory';
 import ForgotPassword from './Src/Views/ForgotPassword';
+import FVerificationCode from './Src/Views/FVerificationCode';
+import FChangePassword from './Src/Views/FChangePassword';
 
 export default function App() {
   const [type, setType] = useState('');
@@ -73,6 +75,8 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName={int}>
 
+      <Stack.Screen name="SignupDementia" options={{headerShow: false}} component={SignupDementia}/>
+
       <Stack.Screen name="SignUpGuardian" options={{ headerShown: false }} component={Signup} />
 
      <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
@@ -81,10 +85,12 @@ export default function App() {
        
        <Stack.Screen name="CheckPendingNote" options={{ headerShown: false }} component={CheckPendingNote }/>
 
-       <Stack.Screen name="UpdatePendingNote" component={UpdatePendingNote }/>
+       <Stack.Screen name="UpdatePendingNote" options={{ headerShown: false }} component={UpdatePendingNote }/>
 
    
        <Stack.Screen name="ForgotPassword" component={ForgotPassword}  />
+       <Stack.Screen name="FVerificationCode" component={FVerificationCode}  />
+       <Stack.Screen name="FChangePassword" component={FChangePassword}  />
 
       <Stack.Screen name="Home" component={Home}  />
 
@@ -95,7 +101,6 @@ export default function App() {
    <Stack.Screen name="VerifRegistration" options={{ headerShown: false }} component={VerifRegistration}/>
 
 
-   <Stack.Screen name="SignupDementia" options={{headerShow: false}} component={SignupDementia}/>
 
 
 
@@ -107,7 +112,7 @@ export default function App() {
         
         <Stack.Screen name="Notif" options={{ headerShown: false }} component={Notif} />
         <Stack.Screen name="SpecifySafeArea" options={{ headerShown: false }} component={SpecifySafeArea}  />
-        <Stack.Screen name="AddNotes" options={{ headerShown: false }} component={AddNotes} />
+        <Stack.Screen name="AddNotes" options={{ title: 'Add Note' }} component={AddNotes} />
         <Stack.Screen name="CheckNote" options={{ title: 'Check Note' }} component={CheckNote} />
         <Stack.Screen name="CheckNotes"  options={{ title: 'Notes' }} component={CheckNotes} />
         <Stack.Screen name="UpdateNote" options={{ headerShown: false }} component={UpdateNote} />

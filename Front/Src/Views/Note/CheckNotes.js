@@ -13,47 +13,47 @@ import { URL } from "@env"
 
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
-import   AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import ProfileElement from "../../Components/ProfileElement";
 
 const CheckNotes = ({ navigation }) => {
   const isFocused = useIsFocused();
 
   const [notes, setNotes] = useState([]);
-  const [userData, setuserData] =useState(null);
+  const [userData, setuserData] = useState(null);
 
 
   function getData() {
     // axios
     //   .get(
-    //     `http://192.168.8.100:8090/notes/get-notes-by-dementia-id/`
+    //     `http://192.168.1.16:8090/notes/get-notes-by-dementia-id/`
     //   )
 
-      AsyncStorage.getItem('user')
-      .then(value=>{
+    AsyncStorage.getItem('user')
+      .then(value => {
         console.log(JSON.parse(value));
         console.log(JSON.parse(value).type)
-        if(JSON.parse(value).type =='dementia'){
-          axios.get(`http://192.168.8.100:8090/notes/get-notes-by-dementia-id/${JSON.parse(value).id}`)
-          .then((res) => 
+        if (JSON.parse(value).type == 'dementia') {
+          axios.get(`http://192.168.1.16:8090/notes/get-notes-by-dementia-id/${JSON.parse(value).id}`)
+            .then((res) => {
+              console.log(res.data)
+              if (res.data != null)
 
-          { console.log(res.data)
-            if(res.data!=null)
-
-            setNotes(res.data)
-          }
-          )
+                setNotes(res.data)
+            }
+            )
 
 
-      }
-      else {
-        axios.get(`http://192.168.8.100:8090/notes/get-notes-by-dementia-id/${JSON.parse(value).dementia.id}`)
-           .then((res) => {setNotes(res.data);console.log(res.data)})
-     }})
+        }
+        else {
+          axios.get(`http://192.168.1.16:8090/notes/get-notes-by-dementia-id/${JSON.parse(value).dementia.id}`)
+            .then((res) => { setNotes(res.data); console.log(res.data) })
+        }
+      })
   }
 
   useEffect(() => {
-    AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item)) ;console.log("++++++"+item)})
+    AsyncStorage.getItem('user', (err, item) => { setuserData(JSON.parse(item)); console.log("++++++" + item) })
 
     getData();
   }, [isFocused]);
@@ -66,35 +66,28 @@ const CheckNotes = ({ navigation }) => {
   return (
 
     <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
-      
-          {userData&&  <ProfileElement userData={userData}/>}
+
+      {userData && <ProfileElement userData={userData} />}
 
 
-      <View style={[styles.container, { flex: 4, flexDirection: "column" }]}>
+      <View style={[styles.container, { flex: 7, flexDirection: "column" }]}>
         <View style={[styles.container, { flexDirection: "row" }]}>
-
           <View style={styles.barre} />
-
           <View style={[styles.container, { flex: 10, flexDirection: "column" }]}>
-
             <View style={{ flex: 1 }}>
               <View >
-
                 <ScrollView style={styles.scrollView}>
-                  {notes.map((el) => 
+                  {notes.map((el) =>
                   (<TouchableOpacity key={el.id}
                     onPress={() => navigation.navigate("CheckNote", { el })} style={styles.item}>
-
-                    
                     <View>
-                    <Text>Title : {el.title}</Text>
-                    <Text>Date : {el.date}</Text>
-                    <Text>Description : {el.description}</Text>
+                      <Text style={styles.subtitle}>Title : </Text><Text>{el.title}</Text>
+                      <Text style={styles.subtitle}>Date :</Text>
+                      <Text style={styles.square}>{JSON.stringify((el.date)
+                      ).substring(1, 11)} at {JSON.stringify((el.date)
+                      ).substring(12, 20)}</Text>
+                      <Text style={styles.subtitle}>Description : </Text><Text>{el.description}</Text>
                     </View>
-                      
-                    
-                    
-                    
                   </TouchableOpacity>))}
                 </ScrollView>
               </View>
@@ -131,6 +124,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
 
+  },
+  subtitle: {
+    fontSize: 18,
   },
   container1:
   {

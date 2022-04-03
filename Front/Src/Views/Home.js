@@ -43,6 +43,7 @@ const Home = ({ navigation }) => {
 
  
   useEffect(() => {
+  
     console.log("******************************************************************")
     AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item))})
     console.log(isFocused)
@@ -110,7 +111,8 @@ const Home = ({ navigation }) => {
         <View style={{ flexDirection: "row" }}>
 
           <View style={{ flex: 2 }} >
-            <TouchableOpacity style={{ alignItems: "center" }}>
+            <TouchableOpacity onPress={()=>navigation.navigate("Contact")}
+            style={{ alignItems: "center" }}>
               <Image
                 source={require("./../../assets/Contact.png")}
                 style={{

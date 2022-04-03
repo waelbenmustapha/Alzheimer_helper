@@ -13,33 +13,33 @@ import { URL } from "@env"
 
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
-import   AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import ProfileElement from "../../Components/ProfileElement";
 
 const CheckPendingNotes = ({ navigation }) => {
   const isFocused = useIsFocused();
 
   const [notes, setNotes] = useState([]);
-  const [userData, setuserData] =useState(null);
+  const [userData, setuserData] = useState(null);
 
 
   function getData() {
     // axios
     //   .get(
-    //     `http://192.168.8.100:8090/notes/get-notes-by-dementia-id/`
+    //     `http://192.168.1.39:8090/notes/get-notes-by-dementia-id/`
     //   )
 
-      AsyncStorage.getItem('user')
-      .then(value=>{
+    AsyncStorage.getItem('user')
+      .then(value => {
         console.log(JSON.parse(value));
-        
-        axios.get(`http://192.168.8.100:8090/pending-notes/get/${JSON.parse(value).dementia.id}`)
-           .then((res) => {setNotes(res.data);console.log(res.data)})
-     })
+
+        axios.get(`http://192.168.1.16:8090/pending-notes/get/${JSON.parse(value).dementia.id}`)
+          .then((res) => { setNotes(res.data); console.log(res.data) })
+      })
   }
 
   useEffect(() => {
-    AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item)) ;console.log("++++++"+item)})
+    AsyncStorage.getItem('user', (err, item) => { setuserData(JSON.parse(item)); console.log("++++++" + item) })
 
     getData();
   }, [isFocused]);
@@ -48,38 +48,43 @@ const CheckPendingNotes = ({ navigation }) => {
   //   <View><Text>Loading</Text></View>
   //     )
   //   }
-function  PageNavigate()
-{ return el.action=="edit"?navigation.navigate("UpdatePendingNote", { el }):navigation.navigate("CheckPendingNote", { el })}
+
   return (
 
     <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
-      
-          {userData&&  <ProfileElement userData={userData}/>}
+
+      {userData && <ProfileElement userData={userData} />}
 
 
-      <View style={[styles.container, { flex: 4, flexDirection: "column" }]}>
+      <View style={[styles.container, { flex: 7, flexDirection: "column" }]}>
         <View style={[styles.container, { flexDirection: "row" }]}>
 
           <View style={styles.barre} />
 
           <View style={[styles.container, { flex: 10, flexDirection: "column" }]}>
 
-            <View style={{ flex: 1 ,widht:'100%'}}>
+            <View style={{ flex: 1 }}>
               <View >
 
                 <ScrollView style={styles.scrollView}>
                   {notes.map((el) => (<TouchableOpacity key={el.id}
-                    onPress={() =>  el.action=="edit"?navigation.navigate("UpdatePendingNote", { el }):navigation.navigate("CheckPendingNote", { el })} style={[el.status=="accepted"?styles.item:el.status=="denied"?styles.item3:styles.item2]}>
-                      
-                      <Text>Title : {el.title}</Text>
-                      <Text>Action : {el.action.toUpperCase()}</Text>
-                      <Text style={styles.littleitem}> {el.status .toUpperCase()}</Text>
+                    onPress={() => navigation.navigate("CheckPendingNote", { el })} style={[el.status == "accepted" ? styles.item : styles.item2]}>
+                    <Text style={styles.title}>{el.action}</Text>
+                    <Text style={styles.subtitle}>Title : </Text>
+                    <Text> {el.title}</Text>
+                    <Text style={styles.subtitle}>Date : </Text>
+                    <Text>{el.date}</Text>
+                    <Text style={styles.subtitle}>Description : </Text><Text>{el.description}</Text>
                   </TouchableOpacity>))}
                 </ScrollView>
               </View>
             </View>
           </View>
-        
+          {/*  <View style={styles.container1}>
+            <TouchableOpacity onPress={() => navigation.navigate("AddNotes")}>
+              <AntDesign name="pluscircleo" size={50} color="#4A0D66" />
+            </TouchableOpacity>
+          </View> */}
 
 
         </View>
@@ -96,36 +101,15 @@ const styles = StyleSheet.create({
     padding: 0,
   },
   item: {
-    alignItems:'center',
-    backgroundColor: "#98FB9870",
+    backgroundColor: "#98FB98",
     margin: 5,
     padding: 5,
     paddingStart: 20,
     borderRadius: 10,
-
-  },
-  littleitem: {
-    borderWidth: 1,
-    width:'100%',
-    borderRadius: 10,
-    textAlign:'center',
-
 
   },
   item2: {
-    alignItems:'center',
-
     backgroundColor: "#fff",
-    margin: 5,
-    padding: 5,
-    paddingStart: 20,
-    borderRadius: 10,
-
-  },
-  item3: {
-    alignItems:'center',
-
-    backgroundColor: "#FAA0A070",
     margin: 5,
     padding: 5,
     paddingStart: 20,
@@ -142,15 +126,10 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     flex: 2,
     flexDirection: "column",
-    paddingBottom: 20,
-    marginRight:"3%",
-
-
+    paddingBottom: 20
   },
   scrollView: {
     marginHorizontal: 5,
-    marginRight:"3%",
-    width:'100%',
   },
   image: {
     marginTop: 5,
@@ -181,9 +160,14 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
     elevation: 5,
   },
-  Title: {
+  title: {
+    fontSize: 24,
+    textAlign: "center",
     fontWeight: "bold",
-    fontSize: 20,
+    color: "#093F38"
+  },
+  subtitle: {
+    fontSize: 18,
   },
   firstItem: {
     alignItems: "flex-end",

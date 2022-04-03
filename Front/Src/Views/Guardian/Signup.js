@@ -85,7 +85,7 @@ const Signup = ({ navigation }) => {
 
       setIsLoading(true);
 
-      axios.post(`http://192.168.8.100:8090/guardian/SignUp`, {
+      axios.post(`http://192.168.1.16:8090/guardian/SignUp`, {
         name: userName,
         email: userEmail,
         password: userPassword,
@@ -160,7 +160,7 @@ const Signup = ({ navigation }) => {
         </View>
         <View style={styles.textCenter}>
           <TouchableOpacity>
-            <Text style={styles.textCenter}>Forgot password?</Text>
+            <Text style={styles.textCenter} onPress={()=> navigation.replace("ForgotPassword")}>Forgot password?</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
             <Text style={{ color: '#359A8E' }}>
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   title: {
-    marginTop: "10%",
+    marginTop: "20%",
     marginBottom: 18,
     fontSize: 24,
     color: '#359A8E',

@@ -1,59 +1,76 @@
 import React, { useEffect, createRef, useState, hasError } from 'react'
 import { View, ScrollView, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
-import { Fontisto } from '@expo/vector-icons';
+import { MaterialCommunityIcons} from '@expo/vector-icons';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
-
-const ForgotPassword = () => {
-    const [email, setemail]=useState("");
+const FChangePassword = () => {
+    const [email, setEmail]= useState("");
+    const [password, setPassword] =useState("");
     const navigation = useNavigation();
-    const sendEmail = async () => {
-        if (!email.trim()) {
-            alert("Please fell the field to send you an email rest password")
+
+    const submitChangePassword = async () => {
+        if (!email.trim() || !password.trim()) {
+            alert("Please fell all field ")
             return;
         }
-        console.log(`http://192.168.1.16:8090/auth/forgot-password/${email}`)
-        axios.post(`http://192.168.1.16:8090/auth/forgot-password/${email}`)
-        .then((response) => {
-            if (response.status === 200) {
-                console.log('done');
-                navigation.navigate("FVerificationCode")
-
-            }})
+        console.log(`http://192.168.1.16:8090/auth/change-password/${email}`)
+        console.log(`http://192.168.1.16:8090/auth/change-password/${password}`)
+        axios.put(`http://192.168.1.16:8090/auth/change-password/${email}`,
+        password,{headers:{ 
+            'Content-Type': 'text/plain'
+          }})
+            .then((response) => {
+                if (response.status === 200) {
+                    navigation.navigate("SignIn")
+                    console.log('done');
+                }
+                if (response.status == 401) {
+                    alert("One Time Code is not valid")
+                    return;
+                }
+            })
     }
-
-
-    return (
-        <View style={styles.container}>
+    
+  return (
+    <View style={styles.container}>
             <ScrollView>
             <View style={{ alignItems: "center", }}>
-                <Text style={styles.title} >Forgot password?</Text>
+                <Text style={styles.title} >Change your password</Text>
 
-                <Fontisto style={{ justifyContent: "center", paddingTop: 15, color: "#359A8E" }} name="email" size={40} />
+                <MaterialCommunityIcons style={{ justifyContent: "center", paddingTop: 15, color: "#359A8E" }} name="key-change" size={40} />
 
                 <View style={styles.form} >
-                    <Text style={styles.title2} >Enter the email address associated with your account. And we will send you a One Time Code to reset your password.</Text>
+                    <Text style={styles.title2} >Enter your Email</Text>
                     <View style={{ flexDirection: "row" }}>
-
-
                         <TextInput
                             style={styles.input}
                             placeholder='Email'
                             autoCapitalize="none"
                             placeholderTextColor='#00000080'
-                            onChangeText={(value) => setemail(value)}
+                            onChangeText={(value) => setEmail(value)}
+                        />
+                    </View>
+                    <Text style={styles.title2} >Enter your new password</Text>
+                    <View style={{ flexDirection: "row" }}>
+                        <TextInput
+                            style={styles.input}
+                            placeholder='New password'
+                            autoCapitalize="none"
+                            placeholderTextColor='#00000080'
+                            onChangeText={(value) => setPassword(value)}
                         />
                     </View>
                 </View>
 
                 <View style={{ justifyContent: "flex-end", }}>
-                    <TouchableOpacity style={styles.Signupbutton} onPress={() => sendEmail()}>
-                        <Text style={styles.title3} >Get OTC</Text>
+                    <TouchableOpacity style={styles.Signupbutton} onPress={() => submitChangePassword()}>
+                        <Text style={styles.title3} >Submit changes</Text>
                     </TouchableOpacity>
                 </View>
 
             </View>
+
             </ScrollView>
         </View>
     )
@@ -64,13 +81,12 @@ const ForgotPassword = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center",
         backgroundColor: '#F5F5F3',
 
     },
 
     form: {
-        alignItems: "center",
+        alignItems: "flex-start",
         padding: 20
     },
     input: {
@@ -96,18 +112,17 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     title: {
-        marginTop: "20%",
+        marginTop: "10%",
         marginBottom: 18,
         fontSize: 28,
         color: "#359A8E",
         justifyContent: "center"
     },
     title2: {
-        textAlign:"center",
         marginTop: 14,
         marginBottom: 18,
         fontSize: 20,
-        color: "#359A8E"
+        color: "#000"
     },
     title3: {
         fontSize: 18,
@@ -116,7 +131,7 @@ const styles = StyleSheet.create({
     Signupbutton: {
         alignItems: "center",
         backgroundColor: '#359A8E',
-        margin:10,
+        margin: 10,
         padding: 10,
         width: 220,
         height: 50,
@@ -134,4 +149,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default ForgotPassword
+export default FChangePassword
