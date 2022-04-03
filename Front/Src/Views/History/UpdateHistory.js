@@ -11,70 +11,62 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { sendPushNotification } from "../../Utils/Notif";
 
-const UpdateNote = ({ route, navigation }) => {
+const UpdateHistory = ({ route, navigation }) => {
 
-    const [date, setDate] = useState(new Date(1598051730000));
-    const [description, setDescription] = useState(route.params.el.description);
-    const [title, setTitle] = useState(route.params.el.title);
-    const messageUpdate = {   
-      'title': 'Note Update',
-     'body': 'Your dementia has Update a note'
-   } 
+    const [history, setHistory] = useState(route.params.history);
+   
 
 
-   function UpdateNote() {
+   function UpdateHistory() {
 
     AsyncStorage.getItem('user')
       .then(value=>{console.log(JSON.parse(value));
         console.log(JSON.parse(value).type)
-        if(JSON.parse(value).type =='dementia'){
-        axios.put(`http://192.168.8.100:8090/pending-notes/edit-note/${route.params.el.id}`,
-        {description:description, title:title,date:date})
-        .then((res) => {
-          axios.get(`http://192.168.8.100:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
-            .then((res) =>{
-              sendPushNotification(res.data,messageUpdate.title,messageUpdate.body)
-            })
-          navigation.navigate("CheckNotes")})
-
-      }
-      else {
-           axios.put(`http://192.168.8.100:8090/notes/edit-note/${route.params.el.id}`,
-           {description: description, title: title, date: date })
-           .then((res) => navigation.navigate("CheckNotes"))
+        if(JSON.parse(value).type =='guardian'){
+       
+           axios.put(`http://192.168.8.100:8090/story/update/${JSON.parse(value).dementia.id}`,
+           history,{headers:{ 
+            'Content-Type': 'text/plain'
+          }})
+           .then((res) => navigation.navigate("drawer"))
      }})
   }
-  const [note, setNote] = useState(route.params.el);
-  useEffect(() => {
-    console.log(note);
-  }, []);
+
+  function DeleteHistory(){
+    AsyncStorage.getItem('user')
+    .then(value=>{console.log(JSON.parse(value));
+      console.log(JSON.parse(value).type)
+      if(JSON.parse(value).type =='guardian'){
+     
+         axios.delete(`http://192.168.8.100:8090/story/delete/${JSON.parse(value).dementia.id}`,
+         {history:history })
+         .then((res) => navigation.navigate("drawer"))
+   }})
+
+  }
+
   
   return (
     <View style={styles.container}>
       <View style={styles.items}>
         <View style={styles.items}>
-          <Text style={styles.sectionTitle}>Check Note</Text>
-          <View style={styles.item}>
-            <TextInput value={title} onChangeText={(value) => setTitle(value)}></TextInput>
-            <Text>{note.date}</Text>
-          </View>
+          <Text style={styles.sectionTitle}>Update and delete History</Text>
         </View>
       </View>
 
       <ScrollView style={styles.scrollView}>
         <View style={styles.item}>
-          <TextInput value={description} onChangeText={(value) => setDescription(value)} style={styles.square}></TextInput>
+          <TextInput value={history} onChangeText={(value) => setHistory(value)} style={styles.square}></TextInput>
         </View>
 
         <View style={styles.fixToText}>
 
-          <TouchableOpacity
-            onPress={() => {
-              UpdateNote();
-            }}
-            style={styles.donebutton}
-          >
-            <Text>Updated</Text>
+          <TouchableOpacity  onPress={() => {UpdateHistory()}}>
+            <Text style={styles.updatebutton}>Update</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => {DeleteHistory()}}>
+            <Text style={styles.deletebutton}> Delete</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -115,6 +107,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 8,
+    color:"black"
   },
   backarrow: {
     paddingLeft: 50,
@@ -131,18 +124,20 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 3,
     borderColor: "#D86363",
+    color:'#359A8E',
     backgroundColor: "#fff",
     shadowColor: "#D86363",
     shadowOpacity: 0.2,
     shadowRadius: 1.22,
     elevation: 11,
   },
-  donebutton: {
+  updatebutton: {
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 10,
+    color:'#359A8E',
     elevation: 3,
     borderColor: "#093F38",
     backgroundColor: "#fff",
@@ -159,4 +154,4 @@ const styles = StyleSheet.create({
     marginRight: "25%",
   },
 });
-export default UpdateNote;
+export default UpdateHistory;

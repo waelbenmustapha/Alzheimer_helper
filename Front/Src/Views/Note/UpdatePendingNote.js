@@ -21,7 +21,7 @@ const UpdatePendingNote = ({ route, navigation }) => {
 
   function AcceptPending()
   { 
-    axios.post(`http://192.168.1.18:8090/pending-notes/accept/${route.params.el.id}`)           
+    axios.post(`http://192.168.8.100:8090/pending-notes/accept/${route.params.el.id}`)           
   .then((res) => {
     
     navigation.navigate("CheckPendingNotes")})
@@ -29,7 +29,7 @@ const UpdatePendingNote = ({ route, navigation }) => {
   }
   function DeclinePending()
   { 
-    axios.post(`http://192.168.1.18:8090/pending-notes/deny/${route.params.el.id}`)           
+    axios.post(`http://192.168.8.100:8090/pending-notes/deny/${route.params.el.id}`)           
   .then((res) => {
     
     navigation.navigate("CheckPendingNotes")})
@@ -40,7 +40,7 @@ const UpdatePendingNote = ({ route, navigation }) => {
   
   useEffect(() => {
     console.log(route.params.el.noteToEditId)
-    axios.get(`http://192.168.1.18:8090/notes/get-note/${route.params.el.noteToEditId}`)           
+    axios.get(`http://192.168.8.100:8090/notes/get-note/${route.params.el.noteToEditId}`)           
     .then((res) => {
       
       setOldNote(res.data)
