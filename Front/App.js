@@ -75,10 +75,11 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName={int}>
 
+       <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav}/>
+
       <Stack.Screen name="SignUpGuardian" options={{ headerShown: false }} component={Signup} />
 
      <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
-       <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav}/>
           
        
        <Stack.Screen name="CheckPendingNote" options={{ headerShown: false }} component={CheckPendingNote }/>
@@ -89,10 +90,7 @@ export default function App() {
        <Stack.Screen name="ForgotPassword" component={ForgotPassword}  />
        <Stack.Screen name="FVerificationCode" component={FVerificationCode}  />
        <Stack.Screen name="FChangePassword" component={FChangePassword}  />
-
-      <Stack.Screen name="Home" component={Home}  />
-
-
+       <Stack.Screen name="Home" component={Home}  />
 
       <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
         <Stack.Screen name="IntroSlider" options={{ headerShown: false }} component={IntroSlider} />

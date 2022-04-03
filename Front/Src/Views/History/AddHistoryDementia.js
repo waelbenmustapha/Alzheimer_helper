@@ -55,15 +55,12 @@ const AddHistoryDementia = ({navigation}) => {
       <ScrollView style={styles.scrollView}>
         <View style={styles.item}>
           <TextInput multiline numberOfLines={4} style={styles.square} onChangeText={(text) => setHistory(text)} value={history}/>
-
         </View>
-    
         <View>
         <TouchableOpacity onPress={()=>{AddHistory()}}>
         <Text  style={styles.donebutton}>Save</Text>
         </TouchableOpacity>
-          <TouchableOpacity  onPress={() => navigation.navigate("UpdateHistory",{history:history})}
-          >
+          <TouchableOpacity  onPress={() => navigation.navigate("UpdateHistory",{history:history})}>
             <Text style={styles.updatebutton} >Update</Text>
           </TouchableOpacity>
       </View>

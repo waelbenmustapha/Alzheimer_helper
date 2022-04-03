@@ -15,36 +15,42 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { sendPushNotification } from "../../Utils/Notif";
 
 const UpdatePendingNote = ({ route, navigation }) => {
-  const [note, setNote] = useState(route.params.el);
+  const [note, setNote] = useState(route.params.note);
   const [Oldnote, setOldNote] = useState(null);
 
 
   function AcceptPending()
   { 
-    axios.post(`http://192.168.1.16:8090/pending-notes/accept/${route.params.el.id}`)           
+    axios.post(`http://192.168.1.16:8090/pending-notes/accept/${route.params.note.id}`)           
   .then((res) => {
     
-    navigation.navigate("CheckPendingNotes")})
+    navigation.replace("CheckNotes"
+    )
+  })
 
   }
   function DeclinePending()
   { 
-    axios.post(`http://192.168.1.16:8090/pending-notes/deny/${route.params.el.id}`)           
+    axios.post(`http://192.168.1.16:8090/pending-notes/deny/${route.params.note.id}`)           
   .then((res) => {
     
-    navigation.navigate("CheckPendingNotes")})
+    navigation.replace("CheckNotes"
+    )
+  })
 
   }
    
   
   
   useEffect(() => {
-    console.log(route.params.el.noteToEditId)
-    axios.get(`http://192.168.1.16:8090/notes/get-note/${route.params.el.noteToEditId}`)           
+    console.log(route.params.note.noteToEditId)
+
+    axios.get(`http://192.168.1.16:8090/notes/get-note/${route.params.note.noteToEditId}`)           
     .then((res) => {
       
       setOldNote(res.data)
    }
+   
       )
       
   }, []);

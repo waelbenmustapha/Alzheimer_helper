@@ -15,18 +15,27 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { sendPushNotification } from "../../Utils/Notif";
 
 const CheckPendingNote = ({ route, navigation }) => {
-  const [note, setNote] = useState(route.params.el);
+  const [note, setNote] = useState(route.params.note);
 
   function AcceptPending() {
-    axios.post(`http://192.168.1.16:8090/pending-notes/accept/${route.params.el.id}`)
+    axios.post(`http://192.168.1.16:8090/pending-notes/accept/${route.params.note.id}`)
       .then((res) => {
 
-        navigation.navigate("CheckPendingNotes")
+        navigation.navigate("CheckNotes")
       })
 
   }
+  function DeclinePending()
+  { 
+    axios.post(`http://192.168.1.16:8090/pending-notes/deny/${route.params.note.id}`)           
+  .then((res) => {
+    
+    navigation.navigate("CheckNotes")
+
+  })
+}
   function DeletePending() {
-    axios.delete(`http://192.168.1.16:8090/pending-notes/delete-pending-note/${route.params.el.id}`)
+    axios.delete(`http://192.168.1.16:8090/pending-notes/delete-pending-note/${route.params.note.id}`)
       .then((res) => {
 
         navigation.navigate("CheckPendingNotes")
@@ -54,22 +63,32 @@ const CheckPendingNote = ({ route, navigation }) => {
             <Text style={ styles.square}>{note.description}</Text>
           </View>
           <View style={styles.fixToText}>
-            <TouchableOpacity
-              onPress={() => {
-                AcceptPending();
-              }}
-              style={styles.donebutton}
-            >
-              <Text> Accept</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                DeletePending();
-              }}
-              style={styles.deletebutton}
-            >
-              <Text> Decline</Text>
-            </TouchableOpacity>
+          {note.status=="pending"?<View style={styles.fixToText}>
+          <TouchableOpacity
+            onPress={() => {
+              AcceptPending();
+            }}
+            style={styles.deletebutton}
+          >
+            <Text> Accept</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              DeclinePending();
+            }}
+            style={styles.deletebutton}
+          >
+            <Text> Decline</Text>
+          </TouchableOpacity>
+        </View>:
+        <TouchableOpacity
+            onPress={() => {
+              DeletePending();
+            }}
+            style={styles.deletebtn}
+          >
+            <Text> Delete</Text>
+          </TouchableOpacity>}
           </View>
         </ScrollView>
       </View>

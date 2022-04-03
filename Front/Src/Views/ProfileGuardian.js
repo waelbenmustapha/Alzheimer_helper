@@ -24,11 +24,7 @@ const ProfileGuardian = () => {
   }
   return (
     <View style={styles.container}>
-      <View style={{ backgroundColor: "#359A8E", flex: 1, borderBottomLeftRadius: 60, borderBottomEndRadius: 20 }}>
-        <Image>
-
-        </Image>
-      </View>
+     
       <Text style={styles.title}>Your informations :</Text>
         <View style={styles.items}>
           <Text style={styles.subtitle}>Name</Text><Text style={styles.sectionTitle}>{userData.name}</Text>
