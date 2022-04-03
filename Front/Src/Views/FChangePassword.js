@@ -17,8 +17,9 @@ const FChangePassword = () => {
         console.log(`http://192.168.1.16:8090/auth/change-password/${email}`)
         console.log(`http://192.168.1.16:8090/auth/change-password/${password}`)
         axios.put(`http://192.168.1.16:8090/auth/change-password/${email}`,
-        {password: password})
-
+        password,{headers:{ 
+            'Content-Type': 'text/plain'
+          }})
             .then((response) => {
                 if (response.status === 200) {
                     navigation.navigate("SignIn")

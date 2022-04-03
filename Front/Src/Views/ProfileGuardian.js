@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler'
 import { useIsFocused } from '@react-navigation/native';
@@ -19,35 +19,35 @@ const ProfileGuardian = () => {
     return (
       <View>
         <Text>loading</Text>
-        </View>
-    )}
+      </View>
+    )
+  }
   return (
     <View style={styles.container}>
-      <View style={styles.items}>
-        <View style={styles.items}>
-          <View style={styles.item}>
-            <Text>Name :{userData.name}</Text>
-            <Text>Email :{userData.email}</Text>
-          </View>
-        </View>
+      <View style={{ backgroundColor: "#359A8E", flex: 1, borderBottomLeftRadius: 60, borderBottomEndRadius: 20 }}>
+        <Image>
+
+        </Image>
       </View>
-      <Text>Your Dementia :</Text>
+
+      <Text style={styles.title}>Your Dementia informations:</Text>
 
       <ScrollView style={styles.scrollView}>
         <View style={styles.item}>
-        <DementiaProfileElement  userData={userData}/>
+          <DementiaProfileElement userData={userData} />
         </View>
 
         <View style={styles.fixToText}>
-    
           <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('UpdateNote', {el: route.params.el});
-            }}
-            style={styles.donebutton}
-          >
-            <Text >Updated</Text>
+            onPress={() => { navigation.navigate('UpdateNote', { el: route.params.el }); }}
+            style={styles.donebutton}>
+            <Text>Update</Text>
           </TouchableOpacity>
+        </View>
+        <Text style={styles.title}>Your informations :</Text>
+        <View style={styles.items}>
+          <Text style={styles.subtitle}>Name</Text><Text style={styles.sectionTitle}>{userData.name}</Text>
+          <Text style={styles.subtitle}>Email</Text><Text style={styles.sectionTitle}>{userData.email}</Text>
         </View>
       </ScrollView>
     </View>
@@ -67,12 +67,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  sectionTitle: {
-    margin: "5%",
-    marginLeft: "10%",
-    fontSize: 28,
-    fontWeight: "bold",
+  title: {
+    fontSize: 24,
     color: "#359A8E",
+    marginLeft: "1%",
+
+  },
+  subtitle: {
+    fontSize: 20,
+    color: "#00000090",
+    marginLeft: "1%",
+
+  },
+  sectionTitle: {
+    margin: "2%",
+    marginLeft: "5%",
+    fontSize: 24,
+    textDecorationLine: 'underline'
+
   },
   scrollView: {
     marginHorizontal: 5,
@@ -125,10 +137,8 @@ const styles = StyleSheet.create({
   },
   fixToText: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
-    margin:"5%",
-    paddingLeft: "25%",
-    marginRight: "25%",
+    justifyContent: "flex-end",
+    margin: "5%",
   },
 });
 export default ProfileGuardian

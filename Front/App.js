@@ -81,7 +81,7 @@ export default function App() {
        
        <Stack.Screen name="CheckPendingNote" options={{ headerShown: false }} component={CheckPendingNote }/>
 
-       <Stack.Screen name="UpdatePendingNote" component={UpdatePendingNote }/>
+       <Stack.Screen name="UpdatePendingNote" options={{ headerShown: false }} component={UpdatePendingNote }/>
 
    
        <Stack.Screen name="ForgotPassword" component={ForgotPassword}  />
@@ -104,7 +104,7 @@ export default function App() {
         
         <Stack.Screen name="Notif" options={{ headerShown: false }} component={Notif} />
         <Stack.Screen name="SpecifySafeArea" options={{ headerShown: false }} component={SpecifySafeArea}  />
-        <Stack.Screen name="AddNotes" options={{ headerShown: false }} component={AddNotes} />
+        <Stack.Screen name="AddNotes" options={{ title: 'Add Note' }} component={AddNotes} />
         <Stack.Screen name="CheckNote" options={{ title: 'Check Note' }} component={CheckNote} />
         <Stack.Screen name="CheckNotes"  options={{ title: 'Notes' }} component={CheckNotes} />
         <Stack.Screen name="UpdateNote" options={{ headerShown: false }} component={UpdateNote} />

@@ -44,8 +44,6 @@ const Home = ({ navigation }) => {
 
   useEffect(() => {
     AsyncStorage.getItem('user', (err, item) => { setuserData(JSON.parse(item)) })
-
-
   }, [isFocused]);
 
   if (userData == null) {

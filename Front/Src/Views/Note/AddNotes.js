@@ -12,38 +12,40 @@ const AddNotes = ({ navigation }) => {
   const [show, setShow] = useState(false);
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
-  const message = {   
+  const message = {
     'title': 'Note Addition',
-   'body': 'Your dementia has added a note'
- }
+    'body': 'Your dementia has added a note'
+  }
   function AddNote() {
 
     AsyncStorage.getItem('user')
-        .then(value=>{console.log(JSON.parse(value));
-          console.log(JSON.parse(value).type)
-          if(JSON.parse(value).type =='dementia'){
-            axios.post(`http://192.168.1.16:8090/pending-notes/add-note/${JSON.parse(value).id}`,
-          {description:description, title:title,date:date})
-          .then((res) =>{
-            axios.get(`http://192.168.1.16:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
-            .then((res) =>{
-              sendPushNotification(res.data,message.title,message.body)
-            })
+      .then(value => {
+        console.log(JSON.parse(value));
+        console.log(JSON.parse(value).type)
+        if (JSON.parse(value).type == 'dementia') {
+          axios.post(`http://192.168.1.16:8090/pending-notes/add-note/${JSON.parse(value).id}`,
+            { description: description, title: title, date: date })
+            .then((res) => {
+              axios.get(`http://192.168.1.16:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
+                .then((res) => {
+                  sendPushNotification(res.data, message.title, message.body)
+                })
 
-            
 
-             navigation.navigate("CheckNotes")
+
+              navigation.navigate("CheckNotes")
             })
 
         }
         else {
           axios.post(`http://192.168.1.16:8090/notes/add-note/${JSON.parse(value).dementia.id}`,
-             {description: description, title: title, date: date })
-             .then((res) => navigation.navigate("CheckNotes"))
-       }})
+            { description: description, title: title, date: date })
+            .then((res) => navigation.navigate("CheckNotes"))
+        }
+      })
 
   }
-  
+
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -78,33 +80,40 @@ const AddNotes = ({ navigation }) => {
   return (
 
     <View style={styles.container}>
-      <TextInput multiline numberOfLines={1}
-        onChangeText={(text) => setTitle(text)} style={styles.input}
-        placeholder="Note title" />
-      <TextInput multiline numberOfLines={4}
-        onChangeText={(text) => setDescription(text)} style={styles.input}
-        placeholder="Description" />
-      <View style={styles.pad}>
-        <View>
-          <TouchableOpacity onPress={showDatepicker}>
-            <Image style={styles.DateTimePicker} source={heure} />
-          </TouchableOpacity>
-        </View>
-
-        {show && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={date}
-            mode={mode}
-            is24Hour={true}
-            display="default"
-            onChange={onChange}
-          />
-        )}
+      
+      
+      <View style={{justifyContent:"flex-start" }}>
+        <TextInput multiline numberOfLines={1}
+          onChangeText={(text) => setTitle(text)} style={styles.square}
+          placeholder="Note title" />
+        <TextInput multiline numberOfLines={4}
+          onChangeText={(text) => setDescription(text)} style={styles.square}
+          placeholder="Description" />
+          
       </View>
-      <TouchableOpacity onPress={() => { AddNote() }} >
-        <Text style={styles.donebutton}>Save</Text>
-      </TouchableOpacity>
+      <View style={{padding:"3%", alignItems:"center"}}>
+          <View>
+            <TouchableOpacity onPress={showDatepicker}>
+              <Image style={styles.DateTimePicker} source={heure} />
+            </TouchableOpacity>
+          </View>
+
+          {show && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode={mode}
+              is24Hour={true}
+              display="default"
+              onChange={onChange}
+            />
+          )}
+        </View>
+        <View style={{flex:1, alignItems:"flex-end", }}>
+        <TouchableOpacity onPress={() => { AddNote() }} >
+          <Text style={styles.donebutton}>Save</Text>
+        </TouchableOpacity>
+        </View>
     </View>
     /*  <View style={styles.container}>
         <TextInput onChangeText={(text) => setTitle(text)} style={styles.input} placeholder="Note title" />
@@ -134,36 +143,46 @@ const AddNotes = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
     flex: 1,
-
-
+    paddingTop:"10%"
   },
   setFontSize: {
     fontSize: 20,
   },
-  pad: {
-    padding: 25,
+ 
+  items: {
+    padding: "6%",
+  },
+  sectionTitle: {
+    marginTop: "10%",
+    marginLeft: "10%",
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#359A8E",
+  },
+  square: {
+  width: 300,
+  backgroundColor: "#fff",
+  color:"#000",
+  borderRadius: 20,
+  padding: "5%",
+  margin:"3%",
+  alignSelf: "center",
+  shadowColor: "#093F38",
+  shadowOpacity: 0.55,
+  shadowRadius: 2.22,
+  elevation: 8,
+  fontSize:18,
+  },
+  subtitle: {
+    fontSize: 24,
+  },
 
-  },
-  input: {
-    width: 300,
-    borderRadius: 20,
-    padding: 10,
-    marginTop: 20,
-    backgroundColor: '#fff',
-    borderColor: "#093F38",
-    backgroundColor: "#fff",
-    shadowColor: "#093F38",
-    shadowOpacity: 0.55,
-    shadowRadius: 2.22,
-    elevation: 6,
-  },
 
   donebutton: {
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 5,
+    margin:" 5%",
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 10,
