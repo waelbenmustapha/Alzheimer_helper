@@ -160,7 +160,7 @@ const Signup = ({ navigation }) => {
         </View>
         <View style={styles.textCenter}>
           <TouchableOpacity>
-            <Text style={styles.textCenter}>Forgot password?</Text>
+            <Text style={styles.textCenter} onPress={()=> navigation.replace("ForgotPassword")}>Forgot password?</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
             <Text style={{ color: '#359A8E' }}>

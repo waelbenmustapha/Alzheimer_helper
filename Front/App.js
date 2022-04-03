@@ -31,6 +31,8 @@ import { set } from 'react-native-reanimated';
 import CheckPendingNote from './Src/Views/Note/CheckPendingNote';
 import UpdatePendingNote from './Src/Views/Note/UpdatePendingNote';
 import ForgotPassword from './Src/Views/ForgotPassword';
+import FVerificationCode from './Src/Views/FVerificationCode';
+import FChangePassword from './Src/Views/FChangePassword';
 
 export default function App() {
   const [type, setType] = useState('');
@@ -83,6 +85,8 @@ export default function App() {
 
    
        <Stack.Screen name="ForgotPassword" component={ForgotPassword}  />
+       <Stack.Screen name="FVerificationCode" component={FVerificationCode}  />
+       <Stack.Screen name="FChangePassword" component={FChangePassword}  />
 
       <Stack.Screen name="Home" component={Home}  />
 
