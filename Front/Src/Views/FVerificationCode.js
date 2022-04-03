@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 const FVerificationCode = () => {
-    const [code, setCode] = useState();
+    const [code, setCode] = useState("");
     const navigation = useNavigation();
 
     const submitCode = async () => {
