@@ -50,10 +50,16 @@ const onChange = (event, selectedDate) => {
   if (mode == "date") {
     setMode("time");
     setShow(true);
+        }
+        else {
+          axios.post(`http://192.168.1.16:8090/notes/add-note/${JSON.parse(value).dementia.id}`,
+             {description: description, title: title, date: date })
+             .then((res) => navigation.navigate("CheckNotes"))
+       }
 
   }
 
-};
+
 
 const showMode = (currentMode) => {
   setShow(true);

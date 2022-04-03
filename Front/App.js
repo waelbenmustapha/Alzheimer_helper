@@ -32,6 +32,7 @@ import CheckPendingNote from './Src/Views/Note/CheckPendingNote';
 import UpdatePendingNote from './Src/Views/Note/UpdatePendingNote';
 import VerifRegistration from './Src/Views/Verification/VerifRegistration';
 import UpdateHistory from './Src/Views/History/UpdateHistory';
+import ForgotPassword from './Src/Views/ForgotPassword';
 
 export default function App() {
   const [type, setType] = useState('');
@@ -83,8 +84,7 @@ export default function App() {
        <Stack.Screen name="UpdatePendingNote" component={UpdatePendingNote }/>
 
    
-
-
+       <Stack.Screen name="ForgotPassword" component={ForgotPassword}  />
 
       <Stack.Screen name="Home" component={Home}  />
 
