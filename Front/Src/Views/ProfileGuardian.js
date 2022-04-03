@@ -29,7 +29,11 @@ const ProfileGuardian = () => {
 
         </Image>
       </View>
-
+      <Text style={styles.title}>Your informations :</Text>
+        <View style={styles.items}>
+          <Text style={styles.subtitle}>Name</Text><Text style={styles.sectionTitle}>{userData.name}</Text>
+          <Text style={styles.subtitle}>Email</Text><Text style={styles.sectionTitle}>{userData.email}</Text>
+        </View>
       <Text style={styles.title}>Your Dementia informations:</Text>
 
       <ScrollView style={styles.scrollView}>
@@ -44,11 +48,7 @@ const ProfileGuardian = () => {
             <Text>Update</Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.title}>Your informations :</Text>
-        <View style={styles.items}>
-          <Text style={styles.subtitle}>Name</Text><Text style={styles.sectionTitle}>{userData.name}</Text>
-          <Text style={styles.subtitle}>Email</Text><Text style={styles.sectionTitle}>{userData.email}</Text>
-        </View>
+        
       </ScrollView>
     </View>
   );

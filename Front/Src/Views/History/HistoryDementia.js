@@ -35,7 +35,7 @@
               if(JSON.parse(value).type =='dementia'){
                 axios
                 .get(
-                  `http://192.168.8.100:8090/story/get/${JSON.parse(value).id}`
+                  `http://192.168.1.16:8090/story/get/${JSON.parse(value).id}`
                 )
 
                 .then((res) => {
@@ -50,7 +50,7 @@
             else {
               axios
               .get(
-                `http://192.168.8.100:8090/story/get/${JSON.parse(value).dementia.id}`
+                `http://192.168.1.16:8090/story/get/${JSON.parse(value).dementia.id}`
               )
               .then((res) => {
                 console.log("************************");

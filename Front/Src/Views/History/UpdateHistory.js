@@ -24,7 +24,7 @@ const UpdateHistory = ({ route, navigation }) => {
         console.log(JSON.parse(value).type)
         if(JSON.parse(value).type =='guardian'){
        
-           axios.put(`http://192.168.8.100:8090/story/update/${JSON.parse(value).dementia.id}`,
+           axios.put(`http://192.168.1.16:8090/story/update/${JSON.parse(value).dementia.id}`,
            history,{headers:{ 
             'Content-Type': 'text/plain'
           }})
@@ -38,7 +38,7 @@ const UpdateHistory = ({ route, navigation }) => {
       console.log(JSON.parse(value).type)
       if(JSON.parse(value).type =='guardian'){
      
-         axios.delete(`http://192.168.8.100:8090/story/delete/${JSON.parse(value).dementia.id}`,
+         axios.delete(`http://192.168.1.16:8090/story/delete/${JSON.parse(value).dementia.id}`,
          {history:history })
          .then((res) => navigation.navigate("drawer"))
    }})

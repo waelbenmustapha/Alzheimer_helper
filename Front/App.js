@@ -75,6 +75,8 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName={int}>
 
+      <Stack.Screen name="SignupDementia" options={{headerShow: false}} component={SignupDementia}/>
+
       <Stack.Screen name="SignUpGuardian" options={{ headerShown: false }} component={Signup} />
 
      <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
@@ -99,7 +101,6 @@ export default function App() {
    <Stack.Screen name="VerifRegistration" options={{ headerShown: false }} component={VerifRegistration}/>
 
 
-   <Stack.Screen name="SignupDementia" options={{headerShow: false}} component={SignupDementia}/>
 
 
 
