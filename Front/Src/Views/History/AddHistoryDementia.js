@@ -13,8 +13,10 @@ const AddHistoryDementia = ({navigation}) => {
     function AddHistory() {
       AsyncStorage.getItem('user')
       .then(value=>{
-        axios.post(`http://192.168.1.16:8090/story/add/${JSON.parse(value).dementia.id}`,
-        { history: history})
+        axios.post(`http://192.168.8.100:8090/story/add/${JSON.parse(value).dementia.id}`,
+        history,{headers:{ 
+          'Content-Type': 'text/plain'
+        }})
         .then((res) => navigation.navigate("drawer"))
      })
       
@@ -22,6 +24,7 @@ const AddHistoryDementia = ({navigation}) => {
       useEffect(() => {
         console.log("******************************************************************")
         AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item))})
+        getStory()
      
       },[]  );
     
@@ -30,6 +33,18 @@ const AddHistoryDementia = ({navigation}) => {
         <View><Text>Loading</Text></View>
           )
       }
+
+
+      function getStory(){
+        AsyncStorage.getItem('user')
+      .then(value=>{
+        axios.get(`http://192.168.8.100:8090/story/get/${JSON.parse(value).dementia.id}`
+      )
+        .then((res) => setHistory(res.data))
+     })
+      
+      }
+
   return (
     <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
     <View style={{ flex: 1, padding: '5%' }}>
@@ -39,16 +54,24 @@ const AddHistoryDementia = ({navigation}) => {
     
       <ScrollView style={styles.scrollView}>
         <View style={styles.item}>
-          <TextInput multiline numberOfLines={4} style={styles.square} onChangeText={(text) => setHistory(text)} placeholder="History"/>
-         
-       
+          <TextInput multiline numberOfLines={4} style={styles.square} onChangeText={(text) => setHistory(text)} value={history}/>
+
         </View>
-        </ScrollView>
+    
+        <View>
         <TouchableOpacity onPress={()=>{AddHistory()}}>
-        <Text style={styles.donebutton}>Save</Text>
-      </TouchableOpacity>
+        <Text  style={styles.donebutton}>Save</Text>
+        </TouchableOpacity>
+          <TouchableOpacity  onPress={() => navigation.navigate("UpdateHistory",{history:history})}
+          >
+            <Text style={styles.updatebutton} >Update</Text>
+          </TouchableOpacity>
+      </View>
+      </ScrollView>
       </View>
       </View>
+
+
       
 
   )
@@ -91,6 +114,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 0,
+    color:"black"
+
     
   },
   
@@ -112,7 +137,27 @@ const styles = StyleSheet.create({
     shadowOpacity: 3,
     shadowRadius: 2.22,
     elevation: 11,
-  }
+  },
+  
+  updatebutton: {
+    width: 100,
+    marginLeft:150,
+    paddingVertical: 12,
+    marginTop:10,
+    paddingHorizontal:0,
+    textAlign:'center',
+    borderRadius: 10,
+    borderColor: '#359A8E',
+    backgroundColor: '#fff',
+    color:'#359A8E',
+    shadowColor: '#359A8E',
+    shadowOpacity: 3,
+    shadowRadius: 2.22,
+    elevation: 11,
+  
+  },
+
+  
 
       
       

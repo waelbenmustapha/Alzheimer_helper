@@ -25,6 +25,7 @@
         })
       }
 
+
       function getHistory() {
       
             AsyncStorage.getItem('user')
@@ -34,25 +35,36 @@
               if(JSON.parse(value).type =='dementia'){
                 axios
                 .get(
-                  `http://192.168.1.16:8090/story/get/${JSON.parse(value).id}`
+                  `http://192.168.8.100:8090/story/get/${JSON.parse(value).id}`
                 )
+
                 .then((res) => {
-                  setHistory(JSON.stringify(res.data.history));
+                  setHistory(JSON.stringify(res.data));
+                 console.log(res.data.history)
+
                 });
-      
+
             }
+
+            
             else {
               axios
               .get(
-                `http://192.168.1.16:8090/story/get/${JSON.parse(value).dementia.id}`
+                `http://192.168.8.100:8090/story/get/${JSON.parse(value).dementia.id}`
               )
               .then((res) => {
                 console.log("************************");
-                setHistory(JSON.stringify(res.data.history));
+                setHistory(JSON.stringify(res.data));
+
               });
+
     
           }
+
           })
+
+          
+
         }
 
         useEffect(() => {
@@ -77,20 +89,6 @@
         <ScrollView style={styles.scrollView}> 
         <TouchableOpacity style={styles.microphone} onPress={()=>runSpeech()}><Feather name='mic'></Feather></TouchableOpacity>
           <Text style={styles.square}>{history}</Text>
-          {userData.type=="guardian"?<View style={styles.fixToText}>
-          <TouchableOpacity
-      
-            style={styles.deletebutton}
-          >
-            <Text> Delete</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-         
-            style={styles.donebutton}
-          >
-            <Text >Updated</Text>
-          </TouchableOpacity>
-        </View>: null}
           </ScrollView>
 
         </View>

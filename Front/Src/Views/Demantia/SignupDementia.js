@@ -84,7 +84,7 @@ const SignupDementia = ({ navigation }) => {
     if (isValid()) {
       setIsLoading(true);
 
-      axios.post(`http://192.168.1.16:8090/dementia/SignUp/${guardianEmail}`, {
+      axios.post(`http://192.168.8.100:8090/dementia/SignUp/${guardianEmail}`, {
         name: userName,
         email: userEmail,
         password: userPassword,
@@ -95,7 +95,7 @@ const SignupDementia = ({ navigation }) => {
         if (response.status === 200) {
           _storeData()
           alert("successful Email creation!")
-          navigation.navigate("SignIn")
+          navigation.navigate("VerifRegistration")
         }
         if (response.status === 226) {
           alert("Email already exist!")

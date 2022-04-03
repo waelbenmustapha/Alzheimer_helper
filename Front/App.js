@@ -30,6 +30,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { set } from 'react-native-reanimated';
 import CheckPendingNote from './Src/Views/Note/CheckPendingNote';
 import UpdatePendingNote from './Src/Views/Note/UpdatePendingNote';
+import VerifRegistration from './Src/Views/Verification/VerifRegistration';
+import UpdateHistory from './Src/Views/History/UpdateHistory';
 import ForgotPassword from './Src/Views/ForgotPassword';
 
 export default function App() {
@@ -71,7 +73,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName={int}>
 
-           <Stack.Screen name="SignUpGuardian" options={{ headerShown: false }} component={Signup} />
+      <Stack.Screen name="SignUpGuardian" options={{ headerShown: false }} component={Signup} />
 
      <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
        <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav}/>
@@ -86,11 +88,16 @@ export default function App() {
 
       <Stack.Screen name="Home" component={Home}  />
 
-      <Stack.Screen name="SignupDementia" component={SignupDementia} />
 
 
       <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
         <Stack.Screen name="IntroSlider" options={{ headerShown: false }} component={IntroSlider} />
+   <Stack.Screen name="VerifRegistration" options={{ headerShown: false }} component={VerifRegistration}/>
+
+
+   <Stack.Screen name="SignupDementia" options={{headerShow: false}} component={SignupDementia}/>
+
+
 
       <Stack.Screen name="Contact"options={{ headerShown: false }}  component={Contact} />
 
@@ -110,6 +117,7 @@ export default function App() {
         <Stack.Screen name="HistoryDementia" options={{ title: 'History' }} component={HistoryDementia}/>
         <Stack.Screen name="AddHistoryDementia" options={{ title: 'Add History' }} component={AddHistoryDementia}/>
         <Stack.Screen name="History" component={History}/>
+        <Stack.Screen name="UpdateHistory" options={{ title: 'UpdateHistory' }} component={UpdateHistory}/>
 
 
 

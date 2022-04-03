@@ -26,14 +26,14 @@ const CheckPendingNotes = ({ navigation }) => {
   function getData() {
     // axios
     //   .get(
-    //     `http://192.168.1.16:8090/notes/get-notes-by-dementia-id/`
+    //     `http://192.168.8.100:8090/notes/get-notes-by-dementia-id/`
     //   )
 
       AsyncStorage.getItem('user')
       .then(value=>{
         console.log(JSON.parse(value));
         
-        axios.get(`http://192.168.1.16:8090/pending-notes/get/${JSON.parse(value).dementia.id}`)
+        axios.get(`http://192.168.8.100:8090/pending-notes/get/${JSON.parse(value).dementia.id}`)
            .then((res) => {setNotes(res.data);console.log(res.data)})
      })
   }

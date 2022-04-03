@@ -23,8 +23,8 @@ const CheckMyLocation = () => {
       console.log("**********************************");
     axios
       .post(
-        `http://192.168.1.16:8090/dementia/post-location/${
-            value
+        `http://192.168.8.100:8090/dementia/post-location/${
+          value
         }/${latitude.toFixed(7)}/${longitude.toFixed(7)}`
       )
       .then((res) => console.log(res.data))
