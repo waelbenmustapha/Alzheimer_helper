@@ -21,10 +21,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CheckMyDemantiasLocation = () => {
   const[Danger, setDanger] = useState(false);
-  const [safe, setSafeArea] = useState({
-    latitude: 36.4048249,
-    longitude: 10.1411230,
-  });
+  const [safe, setSafeArea] = useState(null);
+  const[safezones, setSafezones] = useState(false);
+
   const [location, setLocation] = useState(null);
   const messageGuardian = {   
     'title': 'Your dementia passed his Safe zone',
@@ -46,59 +45,73 @@ const CheckMyDemantiasLocation = () => {
   const mapRef = useRef();
 
     
-  async function getDemantiaLocation() {
+  async function getDemantiaLocation(vall) {
       AsyncStorage.getItem('user')
       .then(value=>
    { 
+     console.log(`http://172.16.22.246:8090/guardian/getMyDementiaLocation/${JSON.parse(value).id}`
+     )
      axios
       .get(
-        `http://192.168.1.16:8090/guardian/getMyDementiaLocation/${JSON.parse(value).id}`
+        `http://172.16.22.246:8090/guardian/getMyDementiaLocation/${JSON.parse(value).id}`
       )
       .then((res) => {
         setLocation(res.data);
-        console.log(res.data);
-        console.log("el distance between them");
         if (
             getDistance(
-                { latitude: res.data.latitude, longitude: res.data.longitude },
-                safe
-              ) > 300
+                { latitude: res.data.latitude, longitude: res.data.longitude },vall) > 300
         ) {
              sendPushNotification(JSON.parse(value).pushToken,messageGuardian.title,messageGuardian.body);
              sendPushNotification(JSON.parse(value).dementia.pushToken,messageDementia.title,messageDementia.body);
 
-          console.log("danger")
           setDanger(true);
         } else {
-            console.log("saaaaafe")
           setDanger(false);
         }
-        console.log(
-          getDistance(
-            { latitude: res.data.latitude, longitude: res.data.longitude },
-            safe
-          )
-        );
+        
       })
       .catch((err) => console.log("ell error" + err));}
   
   )}
-  useEffect(() => {
-      console.log("is it rexecuting ?")
-    getDemantiaLocation();
+  function getEnableSafeZone(){
+return safezones.filter(safe =>safe.active==true)  }
+ 
+
+async function getAllSafeZones(){
+   AsyncStorage.getItem('user')
+    .then(value=>
+ {
+   axios
+    .get(
+      `http://172.16.22.246:8090/dementia/get-safezones/${JSON.parse(value).dementia.id}`
+    ).then(res=> {
+    setSafezones(res.data)
+
+
+setSafeArea(res.data.filter(safe =>safe.active==true)[0])  
+getDemantiaLocation(res.data.filter(safe =>safe.active==true)[0]);
+ 
+
+    // setSafeArea()  
+  }
+  )}
+  )}
+
+  useEffect(  () => {
+    getAllSafeZones();
 
     const interval = setInterval(() => {
-      getDemantiaLocation();
-      console.log("seconds 10 getting");
+      getAllSafeZones()
     }, 15000);
+    console.log(interval)
     return () => {
-      console.log("Cleaning useEffect")
       clearInterval(interval);
+      console.log("clearing useeffect")
 
   }    
   }, []);
 
-  if (location == null) {
+  if (location == null||safe==null) {
     return (
       <View>
         <Text>Loading </Text>
@@ -118,13 +131,13 @@ const CheckMyDemantiasLocation = () => {
             longitudeDelta: 0.005,
           }}
         >
-          <Circle
+          {safe==null?null:<Circle
             strokeColor="red"
             strokeWidth={4}
             fillColor="rgba(90, 162, 124, 0.2)"
-            center={safe}
-            radius={300}
-          />
+            center={{ latitude: safe.latitude, longitude: safe.longitude }}
+            radius={safe.diameter}
+          />}
           <Marker
             coordinate={{
               latitude: location.latitude,

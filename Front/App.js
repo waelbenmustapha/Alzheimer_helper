@@ -35,6 +35,7 @@ import UpdateHistory from './Src/Views/History/UpdateHistory';
 import ForgotPassword from './Src/Views/ForgotPassword';
 import FVerificationCode from './Src/Views/FVerificationCode';
 import FChangePassword from './Src/Views/FChangePassword';
+import { getUserData } from './Src/Utils/user';
 
 export default function App() {
   const [type, setType] = useState('');
@@ -44,26 +45,10 @@ export default function App() {
 
   
 
-  useEffect(() => {
-    AsyncStorage.getItem('user', (err, item) => { setuserData(JSON.parse(item))
-      if(userData==null){
-        setInt("SignIn")
-      }
-      else{
-        if(userData.type=="guardian")
-       { setInt("drawer")}
-        else{
-          setInt("Home")
-        }
-        setType(userData.type)
-      } 
-      console.log(int)
-    }
-    
-   
-    )
+  const [user, setUser] = useState("");
 
-
+  useEffect(async () => {
+    setUser(await getUserData());
   }, []);
   const Stack = createNativeStackNavigator();
 
@@ -73,11 +58,11 @@ export default function App() {
   return (
     
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={int}>
+      <Stack.Navigator initialRouteName={user == null ? "SignIn" : "drawer"}>
+      <Stack.Screen name="SignUpGuardian" options={{ headerShown: false }} component={Signup} />
 
        <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav}/>
 
-      <Stack.Screen name="SignUpGuardian" options={{ headerShown: false }} component={Signup} />
 
      <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
           

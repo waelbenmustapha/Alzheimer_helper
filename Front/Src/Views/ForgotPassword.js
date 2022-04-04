@@ -13,8 +13,8 @@ const ForgotPassword = () => {
             alert("Please fell the field to send you an email rest password")
             return;
         }
-        console.log(`http://192.168.1.16:8090/auth/forgot-password/${email}`)
-        axios.post(`http://192.168.1.16:8090/auth/forgot-password/${email}`)
+        console.log(`http://172.16.22.246:8090/auth/forgot-password/${email}`)
+        axios.post(`http://172.16.22.246:8090/auth/forgot-password/${email}`)
         .then((response) => {
             if (response.status === 200) {
                 console.log('done');

@@ -14,9 +14,9 @@ const FChangePassword = () => {
             alert("Please fell all field ")
             return;
         }
-        console.log(`http://192.168.1.16:8090/auth/change-password/${email}`)
-        console.log(`http://192.168.1.16:8090/auth/change-password/${password}`)
-        axios.put(`http://192.168.1.16:8090/auth/change-password/${email}`,
+        console.log(`http://172.16.22.246:8090/auth/change-password/${email}`)
+        console.log(`http://172.16.22.246:8090/auth/change-password/${password}`)
+        axios.put(`http://172.16.22.246:8090/auth/change-password/${email}`,
         password,{headers:{ 
             'Content-Type': 'text/plain'
           }})

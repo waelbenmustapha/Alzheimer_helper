@@ -14,6 +14,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SpecifySafeArea = () => {
   const [marker, setMarker] = useState(null);
+  const [title, setTitle] = useState(null);
+
   const [radius, setRadius] = useState(300);
   const [location, setLocation] = useState(null);
 
@@ -22,8 +24,8 @@ function saveSafeArea(){
   console.log(marker.longitude.toFixed(7))
   AsyncStorage.getItem('user')
   .then(value=>
-  {axios.post(`http://192.168.1.16:8090/dementia/safezone/${JSON.parse(value).dementia.id}`,
-  {latitude:marker.latitude.toFixed(7),longitude:marker.longitude.toFixed(7),diameter:radius})})
+  {axios.post(`http://172.16.22.246:8090/dementia/safezone/${JSON.parse(value).dementia.id}`,
+  {latitude:marker.latitude.toFixed(7),longitude:marker.longitude.toFixed(7),diameter:radius,title:title})})
 }
 
   function getlocation() {
@@ -111,6 +113,20 @@ function saveSafeArea(){
             marginBottom: 10,
           }}
           keyboardType="number-pad"
+        ></TextInput>
+              <TextInput
+          onChangeText={(text) => {setTitle(text)}}
+          placeholder="Title"
+          style={{
+            backgroundColor: "white",
+            borderRadius: 8,
+            textAlign:'center',
+            padding: 5,
+            height: 40,
+            marginBottom: 10,
+            width:"45%"
+          }}
+      
         ></TextInput>
         <TouchableOpacity
           style={{ backgroundColor: "white", borderWidth:1,borderColor:'gray',padding: 10, borderRadius: 8 }}
