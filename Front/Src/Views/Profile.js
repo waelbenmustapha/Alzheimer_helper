@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import ProfileElement from "../Components/ProfileElement";
 import DementiaProfileElement from '../Components/DementiaProfileElement';
 
-const ProfileGuardian = () => {
+const Profile = () => {
   const [userData, setuserData] = useState(null);
   const isFocused = useIsFocused()
   useEffect(() => {
@@ -21,7 +21,8 @@ const ProfileGuardian = () => {
         <Text>loading</Text>
         </View>
     )}
-  return (
+    if(userData.type=="guardian")
+{  return (
     <View style={styles.container}>
       <View style={styles.items}>
         <View style={styles.items}>
@@ -42,16 +43,41 @@ const ProfileGuardian = () => {
     
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('UpdateNote', {el: route.params.el});
+              navigation.navigate('UpdateProfile');
             }}
             style={styles.donebutton}
           >
-            <Text >Updated</Text>
+            <Text >Update Your Profile </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
-  );
+  );}
+  else{
+  return (
+    <View style={styles.container}>
+   
+      <Text>Your Dementia :</Text>
+
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.item}>
+        <DementiaProfileElement  userData={userData}/>
+        </View>
+
+        <View style={styles.fixToText}>
+    
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('UpdateProfile');
+            }}
+            style={styles.donebutton}
+          >
+            <Text >Update Your Profile </Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </View>
+  );}
 };
 
 const styles = StyleSheet.create({
@@ -131,4 +157,4 @@ const styles = StyleSheet.create({
     marginRight: "25%",
   },
 });
-export default ProfileGuardian
+export default Profile

@@ -53,7 +53,7 @@ const CheckMyDemantiasLocation = () => {
    { 
      axios
       .get(
-        `http://192.168.96.99:8090/guardian/getMyDementiaLocation/${JSON.parse(value).id}`
+        `http://192.168.1.15:8090/guardian/getMyDementiaLocation/${JSON.parse(value).id}`
       )
       .then((res) => {
         setLocation(res.data);
@@ -128,7 +128,8 @@ const CheckMyDemantiasLocation = () => {
             center={safe}
             radius={300}
           />
-          <Marker
+
+          {<Marker
             coordinate={{
               latitude: location.latitude,
               longitude: location.longitude,
@@ -139,7 +140,7 @@ const CheckMyDemantiasLocation = () => {
           source={Danger?alarm:demloc}
           style={{width: 26, height: 28}}
           resizeMode="contain"
-        /></Marker>
+        /></Marker>}
           <View style={{backgroundColor:''}}>
            {Danger?<Text
               style={{

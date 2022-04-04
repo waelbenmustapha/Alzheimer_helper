@@ -24,11 +24,12 @@ import DrawerNav from './Src/Views/DrawerNav';
 import History from './Src/Views/History';
 import AddNotes from './Src/Views/Note/AddNotes';
 import Contact from './Src/Views/Contact';
-import ProfileGuardian from './Src/Views/ProfileGuardian';
+import ProfileGuardian from './Src/Views/Profile';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { set } from 'react-native-reanimated';
 import CheckPendingNote from './Src/Views/Note/CheckPendingNote';
 import UpdatePendingNote from './Src/Views/Note/UpdatePendingNote';
+import PinCodeVerif from './Src/Views/Guardian/PinCodeVerif';
 
 export default function App() {
   const [type, setType] = useState('');
@@ -76,9 +77,7 @@ export default function App() {
       <Stack.Screen name="SignupDementia" component={SignupDementia} />
 
 
-      <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
-        <Stack.Screen name="IntroSlider" options={{ headerShown: false }} component={IntroSlider} />
-   <Stack.Screen name="SignUpGuardian" options={{ headerShown: false }} component={Signup} />
+    <Stack.Screen name="SignUpGuardian" options={{ headerShown: false }} component={Signup} />
 
       <Stack.Screen name="Contact"options={{ headerShown: false }}  component={Contact} />
 

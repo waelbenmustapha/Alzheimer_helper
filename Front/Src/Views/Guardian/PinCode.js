@@ -5,7 +5,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const PinCodeVerif = ({ navigation }) => {
+const PinCode = ({ navigation }) => {
 
 
     const [pincode, setCode] = useState('');
@@ -19,7 +19,7 @@ const PinCodeVerif = ({ navigation }) => {
                     alert("Please Entry Pin code");
                     return;
                 }
-                axios.post(`http://192.168.96.99:8090/guardian/add-pin-code/${JSON.parse(value).id}/${pincode}`, 
+                axios.post(`http://192.168.1.15:8090/guardian/add-pin-code/${JSON.parse(value).id}/${pincode}`, 
                 { pincode: pincode})
                     .then((response) => {
                         console.log(response.status)
@@ -130,4 +130,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default PinCodeVerif;
+export default PinCode;

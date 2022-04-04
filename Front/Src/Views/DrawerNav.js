@@ -6,7 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import 'react-native-gesture-handler';
 import Home from './Home';
-import ProfileGuardian from './ProfileGuardian';
+import ProfileGuardian from './Profile';
 import CheckPendingNotes from './Note/CheckPendingNotes';
 
 const Drawer = createDrawerNavigator();
@@ -28,7 +28,7 @@ const DrawerNav = ({ navigation }) => {
 
   const Logout = () => {
     try {
-       AsyncStorage.clear()
+       AsyncStorage.removeItem("user")
       navigation.push("SignIn")
 
 

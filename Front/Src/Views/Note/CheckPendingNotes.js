@@ -7,7 +7,6 @@ import {
   Image,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import NoteElement from "../../Components/NoteElement";
 import { AntDesign } from "@expo/vector-icons";
 import { URL } from "@env"
 import SelectDropdown from 'react-native-select-dropdown'
@@ -30,14 +29,14 @@ const CheckPendingNotes = ({ navigation }) => {
   function getData() {
     // axios
     //   .get(
-    //     `http://192.168.96.99:8090/notes/get-notes-by-dementia-id/`
+    //     `http://192.168.1.15:8090/notes/get-notes-by-dementia-id/`
     //   )
 
       AsyncStorage.getItem('user')
       .then(value=>{
         console.log(JSON.parse(value));
         
-        axios.get(`http://192.168.96.99:8090/pending-notes/get/${JSON.parse(value).dementia.id}`)
+        axios.get(`http://192.168.1.15:8090/pending-notes/get/${JSON.parse(value).dementia.id}`)
            .then((res) => {setNotes(res.data);setNotesCopy(res.data);console.log(res.data)})
      })
   }
