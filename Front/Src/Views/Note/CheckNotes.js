@@ -15,6 +15,7 @@ import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ProfileElement from "../../Components/ProfileElement";
+import { color } from "react-native-reanimated";
 
 const CheckNotes = ({ navigation }) => {
   const isFocused = useIsFocused();
@@ -81,12 +82,12 @@ const CheckNotes = ({ navigation }) => {
                   (<TouchableOpacity key={el.id}
                     onPress={() => navigation.navigate("CheckNote", { el })} style={styles.item}>
                     <View>
-                      <Text style={styles.subtitle}>Title : </Text><Text>{el.title}</Text>
+                      <Text style={styles.subtitle}>Title : </Text><Text style={styles.Title}>{el.title}</Text>
                       <Text style={styles.subtitle}>Date :</Text>
-                      <Text style={styles.square}>{JSON.stringify((el.date)
+                      <Text style={styles.Title}>{JSON.stringify((el.date)
                       ).substring(1, 11)} at {JSON.stringify((el.date)
                       ).substring(12, 20)}</Text>
-                      <Text style={styles.subtitle}>Description : </Text><Text>{el.description}</Text>
+                      <Text style={styles.subtitle}>Description : </Text><Text style={styles.Title}>{el.description}</Text>
                     </View>
                   </TouchableOpacity>))}
                 </ScrollView>
@@ -126,9 +127,9 @@ const styles = StyleSheet.create({
 
   },
   subtitle: {
-    fontSize: 18,
-    padding:"2%"
-
+    fontSize: 24  ,
+    padding:"2%",
+color:"#4A0D66"
   },
   container1:
   {
@@ -157,16 +158,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 10,
     elevation: 3,
-    borderColor: "#093F38",
+    borderColor: "#359A8E",
     backgroundColor: "#fff",
-    shadowColor: "#093F38",
+    shadowColor: "#359A8E",
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 5,
   },
   Title: {
-    fontWeight: "bold",
     fontSize: 20,
+    color:"#000"
+
   },
   firstItem: {
     alignItems: "flex-end",

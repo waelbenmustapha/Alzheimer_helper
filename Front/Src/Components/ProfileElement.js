@@ -35,7 +35,7 @@ export default function ProfileElement(props) {
     <View style={{ flex: 3, alignItems: "center" }}>
       <View style={{ flex: 1, width: "90%", flexDirection: "row", alignItems: "center" }}>
         <Image
-          source={{ uri: props.userData.dementia.image }}
+          source={{  uri: props.userData.type == "dementia" ? props.userData.image : props.userData.dementia.image}}
           style={styles.image}
         ></Image>
         <View style={styles.firstItem}>

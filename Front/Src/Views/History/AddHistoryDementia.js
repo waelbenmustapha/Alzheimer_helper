@@ -53,6 +53,7 @@ const AddHistoryDementia = ({ navigation }) => {
       {userData && <ProfileElement userData={userData} />}
       <View style={styles.item}>
         <Text style={styles.sectionTitle}>Insert History</Text>
+        
         <ScrollView style={styles.scrollView}>
           
             <TextInput multiline numberOfLines={1}
@@ -105,12 +106,13 @@ const styles = StyleSheet.create({
     color: "#359A8E",
   },
   square: {
+    fontSize:22,
     width: "100%",
     backgroundColor: "#fff",
     borderRadius: 20,
     padding: 30,
     alignSelf: "center",
-    shadowColor: "#093F38",
+    shadowColor: "#359A8E",
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 0,
@@ -129,9 +131,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 10,
     elevation: 3,
-    borderColor: "#093F38",
+    borderColor: "#359A8E",
     backgroundColor: "#fff",
-    shadowColor: "#093F38",
+    shadowColor: "#359A8E",
     shadowOpacity: 0.2,
     shadowRadius: 1.22,
     elevation: 11,
@@ -143,9 +145,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 10,
     elevation: 3,
-    borderColor: "#093F38",
+    borderColor: "#359A8E",
     backgroundColor: "#fff",
-    shadowColor: "#093F38",
+    shadowColor: "#359A8E",
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 11,
