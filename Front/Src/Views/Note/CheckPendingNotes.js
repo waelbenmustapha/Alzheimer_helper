@@ -80,10 +80,10 @@ const CheckPendingNotes = ({ navigation }) => {
 
 
       <View style={[styles.container, { flex: 3, flexDirection: "column" }]}>
-        <View style={[styles.container, { flexDirection: "row" }]}>
+          <View style={[styles.container, { flexDirection: "row" }]}>
 
-          <View style={styles.barre} />
-
+{/*           <View style={styles.barre} />
+ */}
           <View style={[styles.container, { flex: 10, flexDirection: "column" }]}>
 
             <View style={{ flex: 1 }}>
@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    padding: "1%",
 
   },
   littleitem: {
@@ -182,9 +183,9 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 32,
     elevation: 3,
-    borderColor: "#093F38",
+    borderColor: "#359A8E",
     backgroundColor: "#fff",
-    shadowColor: "#093F38",
+    shadowColor: "#359A8E",
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 5,
@@ -193,7 +194,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: "center",
     fontWeight: "bold",
-    color: "#093F38"
+    color: "#359A8E"
   },
   subtitle: {
     fontSize: 18,

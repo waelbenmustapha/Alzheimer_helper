@@ -87,8 +87,10 @@
         <ProfileElement userData={userData}/> 
 
         <ScrollView style={styles.scrollView}> 
-        <TouchableOpacity style={styles.microphone} onPress={()=>runSpeech()}><Feather name='mic'></Feather></TouchableOpacity>
-          <Text style={styles.square}>{history}</Text>
+        <TouchableOpacity style={styles.microphone} onPress={()=>runSpeech()}>
+          <Feather name='mic' size={40}></Feather></TouchableOpacity>
+          <Text multiline 
+              style={styles.square}>{history}</Text>
           </ScrollView>
 
         </View>
@@ -125,16 +127,18 @@
     },
   
     square: {
-      width: 300,
+      fontSize:24 ,
+      width: "100%",
       backgroundColor: "#fff",
       borderRadius: 20,
       padding: 30,
       alignSelf: "center",
-      shadowColor: "#093F38",
+      shadowColor: "#359A8E",
       shadowOpacity: 0.55,
       shadowRadius: 2.22,
       elevation: 0,
-      
+      color: "black"
+  
     },
     
     scrollView: {
@@ -142,7 +146,7 @@
       marginTop:4,
   },
     microphone:{
-      marginLeft:200,
+     alignItems:"flex-end",
       padding:15,
 
     },
@@ -166,9 +170,9 @@
       paddingHorizontal: 32,
       borderRadius: 10,
       elevation: 3,
-      borderColor: "#093F38",
+      borderColor: "#359A8E",
       backgroundColor: "#fff",
-      shadowColor: "#093F38",
+      shadowColor: "#359A8E",
       shadowOpacity: 0.55,
       shadowRadius: 2.22,
       elevation: 11,

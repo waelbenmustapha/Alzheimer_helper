@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 15,
     alignSelf: "center",
-    shadowColor: "#093F38",
+    shadowColor: "#359A8E",
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 8,
@@ -129,15 +129,19 @@ const styles = StyleSheet.create({
   borderRadius: 20,
   padding: 15,
   alignSelf: "center",
-  shadowColor: "#093F38",
+  shadowColor: "#359A8E",
   shadowOpacity: 0.55,
   shadowRadius: 2.22,
   elevation: 8,
   fontSize:18,
   },
   subtitle: {
-    fontSize: 24,
-    padding:"2%"
+    fontSize: 26,
+    padding:"2%",
+    color:"#359A8E"
+  },
+  title:{
+    fontSize:20
   },
   backarrow: {
     paddingLeft: 50,
@@ -167,9 +171,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 10,
     elevation: 3,
-    borderColor: "#093F38",
+    borderColor: "#359A8E",
     backgroundColor: "#fff",
-    shadowColor: "#093F38",
+    shadowColor: "#359A8E",
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 11,
@@ -178,7 +182,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   justifyContent: "space-between",
   margin: "5%",
-  paddingLeft: "20%",
+  paddingLeft: "35%",
   marginRight: "15%",
   },
 });
