@@ -55,18 +55,14 @@ const CheckNote = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.items}>
-     
-          <Text style={[styles.subtitle, { padding: "5%" }]}>Title : </Text>
-          <Text style={styles.square}>{note.title}</Text>
-          <Text style={[styles.subtitle, { padding: "5%" }]}>Date :</Text>
-          <Text style={styles.square}>  
-           <Text style={styles.square}>{JSON.stringify((note.date)
-          ).substring(1, 11)} at {JSON.stringify((note.date)
-          ).substring(12, 20)}</Text></Text>
-          <Text style={[styles.subtitle, { padding: "5%" }]}>Description :</Text>
-          <Text style={styles.square}>{note.description}</Text>
-
+      <View style={[styles.square, styles.items]}>
+        <Text style={styles.subtitle}>Title : </Text>
+        <Text style={styles.title}> {note.title}</Text>
+        <Text style={styles.subtitle}>Date : </Text>
+        <Text style={styles.title}>{JSON.stringify((note.date)
+        ).substring(1, 11)} {JSON.stringify((note.date)
+        ).substring(12, 20)}</Text>
+        <Text style={styles.subtitle}>Description : </Text><Text style={styles.title}>{note.description}</Text>
       </View>
 
       <ScrollView style={styles.scrollView}>
@@ -87,7 +83,7 @@ const CheckNote = ({ route, navigation }) => {
             }}
             style={styles.donebutton}
           >
-            <Text >Updated</Text>
+            <Text >Update</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -115,6 +111,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    paddingTop:"20%"
   },
   sectionTitle: {
     margin: "5%",
@@ -140,6 +137,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 24,
+    padding:"2%"
   },
   backarrow: {
     paddingLeft: 50,

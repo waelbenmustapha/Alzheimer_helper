@@ -65,12 +65,12 @@ const CheckNotes = ({ navigation }) => {
 
   return (
 
-    <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
+    <View style={styles.container}>
 
       {userData && <ProfileElement userData={userData} />}
 
 
-      <View style={[styles.container, { flex: 7, flexDirection: "column" }]}>
+      <View style={[{ flex:4, flexDirection: "column" }]}>
         <View style={[styles.container, { flexDirection: "row" }]}>
           <View style={styles.barre} />
           <View style={[styles.container, { flex: 10, flexDirection: "column" }]}>
@@ -127,6 +127,8 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 18,
+    padding:"2%"
+
   },
   container1:
   {
@@ -139,13 +141,7 @@ const styles = StyleSheet.create({
   scrollView: {
     marginHorizontal: 5,
   },
-  image: {
-    marginTop: 5,
-    marginLeft: 20,
-    fontSize: 28,
-    fontWeight: "bold",
 
-  },
   backarrow: {
     paddingLeft: 50,
     paddingTop: 50,
@@ -177,11 +173,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     margin: "4%",
   },
-  image: {
-    width: 100,
-    height: 100,
-    borderRadius: 40 / 2,
-  },
+  
   barre: {
     flex: 0,
     backgroundColor: "#4A0D66",

@@ -173,7 +173,7 @@ const Contact = ({ navigation, route }) => {
     return (
 
         <View style={styles.container}>
-            <Text style={styles.sectionTitle}>Add Contact</Text>
+            <Text style={styles.sectionTitle}>Contact</Text>
             <View style={[styles.container, { flexDirection: "column" }]}>
                 <ScrollView style={styles.scrollView}>
                     <View style={styles.contactview} >
@@ -225,44 +225,54 @@ const Contact = ({ navigation, route }) => {
                                             <Pressable onPress={() => setModalVisibleUpdate(!modalVisibleUpdate)}>
                                                 <AntDesign name="closecircleo" size={40} color="black" />
                                             </Pressable>
+                                            <ScrollView>
+                                                <View style={styles.form} >
 
-                                            <View style={styles.form} >
+                                                    <Pressable
+                                                        onPress={() => pickFromGallery()}>
+                                                        {loader == false ? <Entypo name="image" size={40} color="black" /> :
+                                                            <Text>loading</Text>}
+                                                        <View >
+                                                           <Image
+                                                                resizeMode='stretch'
+                                                                style={styles.image}
+                                                                source={{ uri: image }}
+                                                            />
+                                                        </View>
+                                                    </Pressable>
 
-                                                <Pressable
-                                                    onPress={() => pickFromGallery()}>
-                                                    {loader == false ? <Entypo name="image" size={40} color="black" /> :
-                                                        <Text>loading</Text>}
-                                                </Pressable>
-                                                <TextInput
-                                                    style={styles.input}
-                                                    value={name}
-                                                    placeholder='Name'
-                                                    placeholderTextColor='#00000080'
-                                                    onChangeText={(value) => setName(value)}
-                                                />
-                                                <TextInput
-                                                    style={styles.input}
-                                                    placeholder='Phone Number'
-                                                    autoCapitalize="none"
-                                                    keyboardType="number-pad"
-                                                    value={phonenumber}
-                                                    placeholderTextColor='#00000080'
-                                                    onChangeText={(value) => setPhoneNumber(value)}
-                                                />
-                                            </View>
-                                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", }}>
-                                                <Pressable
-                                                    onPress={() => { updateContact(); setModalVisibleUpdate(!modalVisibleUpdate); }}
-                                                    style={styles.addbutton1}>
-                                                    <Text>Update</Text>
-                                                </Pressable>
-                                                <Pressable
-                                                    onPress={() => { deleteContact(); setModalVisibleUpdate(!modalVisibleUpdate); }}
-                                                    style={styles.deletebutton}>
-                                                    <Text>Delete</Text>
-                                                </Pressable>
-                                            </View>
+                                                    <TextInput
+                                                        style={styles.input}
+                                                        value={name}
+                                                        placeholder='Name'
+                                                        placeholderTextColor='#00000080'
+                                                        onChangeText={(value) => setName(value)}
+                                                    />
+                                                    <TextInput
+                                                        style={styles.input}
+                                                        placeholder='Phone Number'
+                                                        autoCapitalize="none"
+                                                        keyboardType="number-pad"
+                                                        value={phonenumber}
+                                                        placeholderTextColor='#00000080'
+                                                        onChangeText={(value) => setPhoneNumber(value)}
+                                                    />
+                                                </View>
 
+                                                <View style={{ flexDirection: "row", justifyContent: "space-evenly", }}>
+                                                    <Pressable
+                                                        onPress={() => { deleteContact(); setModalVisibleUpdate(!modalVisibleUpdate); }}
+                                                        style={styles.deletebutton}>
+                                                        <Text>Delete</Text>
+                                                    </Pressable>
+                                                    <Pressable
+                                                        onPress={() => { updateContact(); setModalVisibleUpdate(!modalVisibleUpdate); }}
+                                                        style={styles.addbutton1}>
+                                                        <Text>Update</Text>
+                                                    </Pressable>
+
+                                                </View>
+                                            </ScrollView>
                                         </View>
                                     </View>
                                 </ScrollView>
@@ -403,8 +413,8 @@ const styles = StyleSheet.create({
         borderRadius: 20
     },
     sectionTitle: {
-        margin: "5%",
-        marginLeft: "10%",
+        marginTop: "10%",
+        textAlign:"center",
         fontSize: 28,
         fontWeight: "bold",
         color: "#359A8E",

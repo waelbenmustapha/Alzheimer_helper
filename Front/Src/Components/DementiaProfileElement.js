@@ -13,15 +13,16 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useIsFocused } from '@react-navigation/native'
-
+import { Entypo } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
 
 export default function DementiaProfileElement(props) {
 
   const [userData, setuserData] = useState(null);
   const [image, setImage] = useState(null);
+  const [loader, setloader] = useState(false);
   const isFocused = useIsFocused()
 
   let base64Img = `data:image/jpg;base64,${image}`;
@@ -36,8 +37,6 @@ export default function DementiaProfileElement(props) {
     }
     return age;
   }
-
-
 
   const pickFromGallery = async () => {
     const { granted } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
@@ -81,33 +80,40 @@ export default function DementiaProfileElement(props) {
   }
 
 
-
   return (
-    <View style={{ flex: 3, alignItems: "center" }}>
-      <View style={{ flex: 1, width: "90%", flexDirection: "row", alignItems: "center" }}>
-        <View style={styles.firstItem}>
-          <Text style={styles.subtitle}>Dementia name </Text><Text style={styles.sectionTitle}>{props.userData.dementia.name} </Text>
-          <Text style={styles.subtitle}> Birthdate </Text><Text style={styles.sectionTitle}>{JSON.stringify((props.userData.dementia.birthdate)).substring(1, 11)} </Text>
-          <Text style={styles.subtitle}>Dementia email </Text><Text style={styles.sectionTitle}>{props.userData.dementia.email} </Text>
+    <View style={styles.container}>
+      <View style={styles.firstItem}>
+        <Text style={styles.subtitle}>Dementia name </Text>
+        <Text style={styles.sectionTitle}>{props.userData.dementia.name} </Text>
+        <Text style={styles.subtitle}> Birthdate </Text>
+        <Text style={styles.sectionTitle}>{JSON.stringify((props.userData.dementia.birthdate)).substring(1, 11)} </Text>
+        <Text style={styles.subtitle}>Dementia email </Text>
+        <Text style={styles.sectionTitle}>{props.userData.dementia.email}</Text>
+
+        <View style={{ padding: "2%", justifyContent: "center", flexDirection: "row" }}>
+          <Image
+            resizeMode='stretch'
+            style={styles.image}
+            source={{ uri: props.userData.dementia.image }}
+          />
         </View>
+        
       </View>
 
     </View>)
 }
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "column",
+    flexDirection: "row",
     flex: 1,
-    padding: '5%',
   },
   firstItem: {
-
     justifyContent: "center",
-    // marginLeft: 10,
+    flex: 1,
+    flexDirection: "column"
   },
   image: {
-    width: 150,
-    height: 150,
+    padding: "20%",
     borderRadius: 40 / 2,
   },
   title: {
@@ -126,6 +132,9 @@ const styles = StyleSheet.create({
     margin: "2%",
     marginLeft: "5%",
     fontSize: 24,
+    color: "black",
+    borderBottomWidth: 1,
+    borderBottomColor: "#00000010",
   },
   searchSection: {
     flexDirection: "row",
@@ -134,10 +143,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: "#fff",
   },
-  searchIcon: {
-    padding: 10,
-    color: "red",
-  },
+
   input: {
     backgroundColor: "#fff",
     color: "#424242",

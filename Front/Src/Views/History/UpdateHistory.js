@@ -61,12 +61,12 @@ const UpdateHistory = ({ route, navigation }) => {
 
         <View style={styles.fixToText}>
 
-          <TouchableOpacity  onPress={() => {UpdateHistory()}}>
-            <Text style={styles.updatebutton}>Update</Text>
+          <TouchableOpacity style={styles.updatebutton} onPress={() => {UpdateHistory()}}>
+            <Text style={styles.color}>Update</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => {DeleteHistory()}}>
-            <Text style={styles.deletebutton}> Delete</Text>
+          <TouchableOpacity style={styles.deletebutton} onPress={() => {DeleteHistory()}}>
+            <Text style={styles.color}> Delete</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -79,13 +79,11 @@ const styles = StyleSheet.create({
     padding: "5%",
   },
   item: {
-    margin: "1%",
-    borderRadius: 10,
-    justifyContent: "space-between",
-    marginBottom: 0,
+    flex:3
   },
   container: {
     flex: 1,
+    padding:"5%"
   },
   sectionTitle: {
     margin: "5%",
@@ -98,7 +96,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   square: {
-    width: 300,
+    width: "100%",
     backgroundColor: "#fff",
     borderRadius: 20,
     padding: 15,
@@ -116,6 +114,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 6,
+  },
+  color: {
+    color: "black",
+    fontSize: 18
   },
   deletebutton: {
     alignItems: "center",
@@ -148,10 +150,10 @@ const styles = StyleSheet.create({
   },
   fixToText: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
-    margin:"5%",
-    paddingLeft: "25%",
-    marginRight: "25%",
+    justifyContent: "space-between",
+    margin: "5%",
+    paddingLeft: "20%",
+    marginRight: "15%",
   },
 });
 export default UpdateHistory;

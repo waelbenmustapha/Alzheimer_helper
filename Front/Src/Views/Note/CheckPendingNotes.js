@@ -5,11 +5,13 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import NoteElement from "../../Components/NoteElement";
 import { AntDesign } from "@expo/vector-icons";
 import { URL } from "@env"
+import SelectDropdown from 'react-native-select-dropdown'
 
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
@@ -20,7 +22,11 @@ const CheckPendingNotes = ({ navigation }) => {
   const isFocused = useIsFocused();
 
   const [notes, setNotes] = useState([]);
+  const [notesCopy, setNotesCopy] = useState([]);
+
   const [userData, setuserData] = useState(null);
+  const vals = ["all", "accepted", "denied", "pending"]
+
 
 
   function getData() {
@@ -34,7 +40,7 @@ const CheckPendingNotes = ({ navigation }) => {
         console.log(JSON.parse(value));
 
         axios.get(`http://192.168.1.16:8090/pending-notes/get/${JSON.parse(value).dementia.id}`)
-          .then((res) => { setNotes(res.data); console.log(res.data) })
+          .then((res) => { setNotes(res.data); setNotesCopy(res.data); console.log(res.data) })
       })
   }
 
@@ -54,9 +60,26 @@ const CheckPendingNotes = ({ navigation }) => {
     <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
 
       {userData && <ProfileElement userData={userData} />}
+      <View style={{ alignItems: "center"}}>
+        <SelectDropdown
+        buttonStyle={styles.donebutton}
+          data={vals}
+          onSelect={(selectedItem, index) => {
+            console.log(selectedItem, index)
+            {
+              selectedItem == "all" ? setNotes(notesCopy) :
+                setNotes
+                  (notesCopy.filter(function (event) {
+                    return event.status == selectedItem
+                  }))
+            }
+          }}
+
+        />
+      </View>
 
 
-      <View style={[styles.container, { flex: 7, flexDirection: "column" }]}>
+      <View style={[styles.container, { flex: 3, flexDirection: "column" }]}>
         <View style={[styles.container, { flexDirection: "row" }]}>
 
           <View style={styles.barre} />
@@ -67,26 +90,20 @@ const CheckPendingNotes = ({ navigation }) => {
               <View >
 
                 <ScrollView style={styles.scrollView}>
-                  {notes.map((el) => (<TouchableOpacity key={el.id}
-                    onPress={() => navigation.navigate("CheckPendingNote", { el })} style={[el.status == "accepted" ? styles.item : styles.item2]}>
-                    <Text style={styles.title}>{el.action}</Text>
+                  {notes.map((note) => (<TouchableOpacity key={note.id}
+                    onPress={() => note.action == "edit" && note.status == "pending" ? navigation.navigate("UpdatePendingNote", { note }) : navigation.navigate("CheckPendingNote", { note })} style={[note.status == "accepted" ? styles.item : note.status == "denied" ? styles.item3 : styles.item2]}>
+                    <Text style={styles.title}>{note.action}</Text>
                     <Text style={styles.subtitle}>Title : </Text>
-                    <Text> {el.title}</Text>
+                    <Text> {note.title}</Text>
                     <Text style={styles.subtitle}>Date : </Text>
-                    <Text>{el.date}</Text>
-                    <Text style={styles.subtitle}>Description : </Text><Text>{el.description}</Text>
+                    <Text>{note.date}</Text>
+                    <Text style={styles.subtitle}>Description : </Text><Text>{note.description}</Text>
+                    <Text style={styles.littleitem}> {note.status.toUpperCase()}</Text>
                   </TouchableOpacity>))}
                 </ScrollView>
               </View>
             </View>
           </View>
-          {/*  <View style={styles.container1}>
-            <TouchableOpacity onPress={() => navigation.navigate("AddNotes")}>
-              <AntDesign name="pluscircleo" size={50} color="#4A0D66" />
-            </TouchableOpacity>
-          </View> */}
-
-
         </View>
       </View>
     </View>
@@ -120,6 +137,19 @@ const styles = StyleSheet.create({
     flex: 1,
 
   },
+  littleitem: {
+    width: '100%',
+    textAlign: 'center',
+
+
+  },
+  item3: {
+    backgroundColor: "#FF000090",
+    margin: 5,
+    padding: 5,
+    paddingStart: 20,
+    borderRadius: 10,
+  },
   container1:
   {
     position: "relative",
@@ -151,7 +181,6 @@ const styles = StyleSheet.create({
     margin: 5,
     paddingVertical: 12,
     paddingHorizontal: 32,
-    borderRadius: 10,
     elevation: 3,
     borderColor: "#093F38",
     backgroundColor: "#fff",
@@ -168,6 +197,8 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 18,
+    padding: "2%"
+
   },
   firstItem: {
     alignItems: "flex-end",

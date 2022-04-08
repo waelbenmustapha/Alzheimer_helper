@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text,ImageBackground, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import React, { Component, useState } from 'react'
 import axios from 'axios';
@@ -42,30 +42,34 @@ const PinCodeVerif = ({ navigation }) => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <View style={styles.container}>
-                <Text style={styles.passcodeText}>Pin Code</Text>
-                <View style={styles.codeContainer}>
-                    <TextInput
-                        style={styles.code1}
-                        placeholder='****'
-                        secureTextEntry={true}
-                        maxLength={4}
-                        keyboardType="number-pad"
-                        onChangeText={(pincode) => setCode(pincode)}
-                    />
-                    <TouchableOpacity onPress={() => handleSubmitPress()}>
-                        <Text style={[styles.buttonText, { color: "#359A8E" }]}>Submit Pin Code</Text>
-                    </TouchableOpacity>
+            <ImageBackground
+                source={require("./../../../assets/old.png")} style={styles.image}
+            >
+                <View style={styles.container}>
+                    <Text style={styles.passcodeText}>Pin Code</Text>
+                    <View style={styles.codeContainer}>
+                        <TextInput
+                            style={styles.code1}
+                            placeholder='****'
+                            secureTextEntry={true}
+                            maxLength={4}
+                            keyboardType="number-pad"
+                            onChangeText={(pincode) => setCode(pincode)}
+                        />
+                        <TouchableOpacity onPress={() => handleSubmitPress()}>
+                            <Text style={[styles.buttonText, { color: "#359A8E" }]}>Submit Pin Code</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
 
-            <View style={styles.buttons}>
+                <View style={styles.buttons}>
 
-                <TouchableOpacity>
-                    <Text style={[styles.buttonText, { color: "red" }]}>Forgot Pin Code</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity>
+                        <Text style={[styles.buttonText, { color: "red" }]}>Forgot Pin Code</Text>
+                    </TouchableOpacity>
 
-            </View>
+                </View>
+            </ImageBackground>
         </SafeAreaView>
     )
 
@@ -77,10 +81,13 @@ const styles = StyleSheet.create({
         flex: 20,
         justifyContent: "flex-end",
         alignItems: "center",
-        backgroundColor: "violet"
     },
 
-
+    image:{
+        
+    height: '100%',
+    width: '100%',
+    },
 
     passcodeText: {
         fontSize: 32,
