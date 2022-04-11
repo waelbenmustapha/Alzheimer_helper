@@ -18,7 +18,7 @@ const CheckPendingNote = ({ route, navigation }) => {
   const [note, setNote] = useState(route.params.note);
 
   function AcceptPending() {
-    axios.post(`http://172.16.22.246:8090/pending-notes/accept/${route.params.note.id}`)
+    axios.post(`http://172.16.17.231:8090/pending-notes/accept/${route.params.note.id}`)
       .then((res) => {
 
         navigation.navigate("CheckNotes")
@@ -27,7 +27,7 @@ const CheckPendingNote = ({ route, navigation }) => {
   }
   function DeclinePending()
   { 
-    axios.post(`http://172.16.22.246:8090/pending-notes/deny/${route.params.note.id}`)           
+    axios.post(`http://172.16.17.231:8090/pending-notes/deny/${route.params.note.id}`)           
   .then((res) => {
     
     navigation.navigate("CheckNotes")
@@ -35,7 +35,7 @@ const CheckPendingNote = ({ route, navigation }) => {
   })
 }
   function DeletePending() {
-    axios.delete(`http://172.16.22.246:8090/pending-notes/delete-pending-note/${route.params.note.id}`)
+    axios.delete(`http://172.16.17.231:8090/pending-notes/delete-pending-note/${route.params.note.id}`)
       .then((res) => {
 
         navigation.navigate("CheckPendingNotes")
@@ -54,14 +54,15 @@ const CheckPendingNote = ({ route, navigation }) => {
 
 
         <ScrollView style={styles.scrollView}>
-          <View style={[styles.item]}>
-            <Text style={[styles.subtitle,{ padding:"5%"}]}>Title : </Text>
-            <Text style={ styles.square}>{note.title}</Text>
-            <Text style={[styles.subtitle,{ padding:"5%"}]}>Date :</Text>
-            <Text style={ styles.square}>{note.date}</Text>
-            <Text style={[styles.subtitle,{ padding:"5%"}]}>Description :</Text>
-            <Text style={ styles.square}>{note.description}</Text>
-          </View>
+        <View style={[styles.square, styles.items]}>
+        <Text style={styles.subtitle}>Title : </Text>
+        <Text style={styles.title}> {note.title}</Text>
+        <Text style={styles.subtitle}>Date : </Text>
+        <Text style={styles.title}>{JSON.stringify((note.date)
+        ).substring(1, 11)} {JSON.stringify((note.date)
+        ).substring(12, 20)}</Text>
+        <Text style={styles.subtitle}>Description : </Text><Text style={styles.title}>{note.description}</Text>
+      </View>
           <View style={styles.fixToText}>
           {note.status=="pending"?<View style={styles.fixToText}>
           <TouchableOpacity
@@ -85,7 +86,7 @@ const CheckPendingNote = ({ route, navigation }) => {
             onPress={() => {
               DeletePending();
             }}
-            style={styles.deletebtn}
+            style={styles.deletebutton}
           >
             <Text> Delete</Text>
           </TouchableOpacity>}
@@ -119,6 +120,8 @@ const CheckPendingNote = ({ route, navigation }) => {
   },
       subtitle: {
         fontSize:18,
+        padding:"2%"
+
   },
       square: {
         width: 300,
@@ -126,10 +129,14 @@ const CheckPendingNote = ({ route, navigation }) => {
       borderRadius: 20,
       padding: 15,
       alignSelf: "center",
-      shadowColor: "#093F38",
+      shadowColor: "#359A8E",
       shadowOpacity: 0.55,
       shadowRadius: 2.22,
       elevation: 8,
+  },
+  items: {
+    margin:"10%",
+    padding: "5%",
   },
       backarrow: {
         paddingLeft: 50,
@@ -159,16 +166,16 @@ const CheckPendingNote = ({ route, navigation }) => {
       paddingHorizontal: 32,
       borderRadius: 10,
       elevation: 3,
-      borderColor: "#093F38",
+      borderColor: "#359A8E",
       backgroundColor: "#fff",
-      shadowColor: "#093F38",
+      shadowColor: "#359A8E",
       shadowOpacity: 0.55,
       shadowRadius: 2.22,
       elevation: 11,
   },
       fixToText: {
         flexDirection: "row",
-      justifyContent: "space-between",
+      justifyContent: "flex-end",
       margin: "5%",
       paddingLeft: "20%",
       marginRight: "15%",

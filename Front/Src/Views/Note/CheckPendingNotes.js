@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
-  
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import NoteElement from "../../Components/NoteElement";
@@ -24,8 +23,8 @@ const CheckPendingNotes = ({ navigation }) => {
   const [notes, setNotes] = useState([]);
   const [notesCopy, setNotesCopy] = useState([]);
 
-  const [userData, setuserData] =useState(null);
-  const vals= ["all", "accepted", "denied", "pending"]
+  const [userData, setuserData] = useState(null);
+  const vals = ["all", "accepted", "denied", "pending"]
 
 
 
@@ -39,8 +38,8 @@ const CheckPendingNotes = ({ navigation }) => {
       .then(value => {
         console.log(JSON.parse(value));
 
-        axios.get(`http://172.16.22.246:8090/pending-notes/get/${JSON.parse(value).dementia.id}`)
-        .then((res) => {setNotes(res.data);setNotesCopy(res.data);console.log(res.data)})
+        axios.get(`http://172.16.17.231:8090/pending-notes/get/${JSON.parse(value).dementia.id}`)
+          .then((res) => { setNotes(res.data); setNotesCopy(res.data); console.log(res.data) })
       })
   }
 
@@ -60,26 +59,28 @@ const CheckPendingNotes = ({ navigation }) => {
     <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
 
       {userData && <ProfileElement userData={userData} />}
-      <SelectDropdown
-        data={vals}
-        onSelect={(selectedItem, index) => {
-          console.log(selectedItem, index)
-          {
-            selectedItem == "all" ? setNotes(notesCopy) :
-            setNotes
-              (notesCopy.filter(function (event) {
-                return event.status == selectedItem
-              }))
-          }
-        }}
+      <View style={{ alignItems: "center"}}>
+        <SelectDropdown
+        buttonStyle={styles.donebutton}
+          data={vals}
+          onSelect={(selectedItem, index) => {
+            console.log(selectedItem, index)
+            {
+              selectedItem == "all" ? setNotes(notesCopy) :
+                setNotes
+                  (notesCopy.filter(function (event) {
+                    return event.status == selectedItem
+                  }))
+            }
+          }}
 
-      />
+        />
+      </View>
+      <View style={[styles.container, { flex: 3, flexDirection: "column" }]}>
+          <View style={[styles.container, { flexDirection: "row" }]}>
 
-      <View style={[styles.container, { flex: 7, flexDirection: "column" }]}>
-        <View style={[styles.container, { flexDirection: "row" }]}>
-
-          <View style={styles.barre} />
-
+{/*           <View style={styles.barre} />
+ */}
           <View style={[styles.container, { flex: 10, flexDirection: "column" }]}>
 
             <View style={{ flex: 1 }}>
@@ -94,19 +95,12 @@ const CheckPendingNotes = ({ navigation }) => {
                     <Text style={styles.subtitle}>Date : </Text>
                     <Text>{note.date}</Text>
                     <Text style={styles.subtitle}>Description : </Text><Text>{note.description}</Text>
-                    <Text style={styles.littleitem}> {note.status .toUpperCase()}</Text>
+                    <Text style={styles.littleitem}> {note.status.toUpperCase()}</Text>
                   </TouchableOpacity>))}
                 </ScrollView>
               </View>
             </View>
           </View>
-          {/*  <View style={styles.container1}>
-            <TouchableOpacity onPress={() => navigation.navigate("AddNotes")}>
-              <AntDesign name="pluscircleo" size={50} color="#4A0D66" />
-            </TouchableOpacity>
-          </View> */}
-
-
         </View>
       </View>
     </View>
@@ -138,15 +132,16 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    padding: "1%",
 
   },
   littleitem: {
-    width:'100%',
-    textAlign:'center',
+    width: '100%',
+    textAlign: 'center',
 
 
   },
-  item3:{
+  item3: {
     backgroundColor: "#FF000090",
     margin: 5,
     padding: 5,
@@ -184,11 +179,10 @@ const styles = StyleSheet.create({
     margin: 5,
     paddingVertical: 12,
     paddingHorizontal: 32,
-    borderRadius: 10,
     elevation: 3,
-    borderColor: "#093F38",
+    borderColor: "#359A8E",
     backgroundColor: "#fff",
-    shadowColor: "#093F38",
+    shadowColor: "#359A8E",
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 5,
@@ -197,10 +191,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: "center",
     fontWeight: "bold",
-    color: "#093F38"
+    color: "#359A8E"
   },
   subtitle: {
     fontSize: 18,
+    padding: "2%"
+
   },
   firstItem: {
     alignItems: "flex-end",

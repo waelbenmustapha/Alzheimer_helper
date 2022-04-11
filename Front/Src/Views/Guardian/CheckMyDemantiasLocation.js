@@ -53,7 +53,7 @@ const CheckMyDemantiasLocation = () => {
      )
      axios
       .get(
-        `http://172.16.22.246:8090/guardian/getMyDementiaLocation/${JSON.parse(value).id}`
+        `http://172.16.17.231:8090/guardian/getMyDementiaLocation/${JSON.parse(value).id}`
       )
       .then((res) => {
         setLocation(res.data);

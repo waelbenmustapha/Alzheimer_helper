@@ -19,7 +19,7 @@ const PinCode = ({navigation}) => {
                     alert("Please Entry Pin code");
                     return;
                 }
-                axios.post(`http://172.16.22.246:8090/guardian/add-pin-code/${JSON.parse(value).id}/${pincode}`, 
+                axios.post(`http://172.16.17.231:8090/guardian/add-pin-code/${JSON.parse(value).id}/${pincode}`, 
                 { pincode: pincode})
                     .then((response) => {
                         console.log(response.status)

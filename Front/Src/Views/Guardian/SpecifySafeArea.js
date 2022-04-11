@@ -24,8 +24,8 @@ function saveSafeArea(){
   console.log(marker.longitude.toFixed(7))
   AsyncStorage.getItem('user')
   .then(value=>
-  {axios.post(`http://172.16.22.246:8090/dementia/safezone/${JSON.parse(value).dementia.id}`,
-  {latitude:marker.latitude.toFixed(7),longitude:marker.longitude.toFixed(7),diameter:radius,title:title})})
+  {axios.post(`http://172.16.17.231:8090/dementia/safezone/${JSON.parse(value).dementia.id}`,
+  {latitude:marker.latitude.toFixed(7),longitude:marker.longitude.toFixed(7),diameter:radius})})
 }
 
   function getlocation() {

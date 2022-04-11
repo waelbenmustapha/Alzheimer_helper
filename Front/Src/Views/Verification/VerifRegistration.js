@@ -16,8 +16,8 @@ const VerifRegistration = ({ navigation }) => {
                     alert("Please Entry security code");
                     return;
                 }
-                console.log(`http://172.16.22.246:8090/auth/verify/${verificationcode}`)
-                axios.post(`http://172.16.22.246:8090/auth/verify/${verificationcode}`, 
+                console.log(`http://172.16.17.231:8090/auth/verify/${verificationcode}`)
+                axios.post(`http://172.16.17.231:8090/auth/verify/${verificationcode}`, 
                 { verificationcode: verificationcode})
                     .then((response) => {
                         console.log(response.status)
@@ -76,9 +76,9 @@ donebutton: {
     paddingHorizontal: 32,
     borderRadius: 10,
     elevation: 3,
-    borderColor: '#093F38',
+    borderColor: '#359A8E',
     backgroundColor: '#fff',
-    shadowColor: '#093F38',
+    shadowColor: '#359A8E',
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 11,

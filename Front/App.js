@@ -43,7 +43,7 @@ export default function App() {
 
   const [int, setInt] = useState("");
 
-  
+
 
   const [user, setUser] = useState("");
 
@@ -53,10 +53,10 @@ export default function App() {
   const Stack = createNativeStackNavigator();
 
 
- 
+
 
   return (
-    
+
     <NavigationContainer>
       <Stack.Navigator initialRouteName={user == null ? "SignIn" : "drawer"}>
       <Stack.Screen name="SignUpGuardian" options={{ headerShown: false }} component={Signup} />
@@ -93,22 +93,18 @@ export default function App() {
 
         
         <Stack.Screen name="Notif" options={{ headerShown: false }} component={Notif} />
-        <Stack.Screen name="SpecifySafeArea" options={{ headerShown: false }} component={SpecifySafeArea}  />
+        <Stack.Screen name="SpecifySafeArea" options={{ headerShown: false }} component={SpecifySafeArea} />
         <Stack.Screen name="AddNotes" options={{ title: 'Add Note' }} component={AddNotes} />
         <Stack.Screen name="CheckNote" options={{ title: 'Check Note' }} component={CheckNote} />
-        <Stack.Screen name="CheckNotes"  options={{ title: 'Notes' }} component={CheckNotes} />
+        <Stack.Screen name="CheckNotes" options={{ title: 'Notes' }} component={CheckNotes} />
         <Stack.Screen name="UpdateNote" options={{ headerShown: false }} component={UpdateNote} />
         <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
         <Stack.Screen name="Location" component={Location} />
         <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
-        <Stack.Screen name="HistoryDementia" options={{ title: 'History' }} component={HistoryDementia}/>
-        <Stack.Screen name="AddHistoryDementia" options={{ title: 'Add History' }} component={AddHistoryDementia}/>
-        <Stack.Screen name="History" component={History}/>
-        <Stack.Screen name="UpdateHistory" options={{ title: 'UpdateHistory' }} component={UpdateHistory}/>
-
-
-
-
+        <Stack.Screen name="HistoryDementia" options={{ title: 'History' }} component={HistoryDementia} />
+        <Stack.Screen name="AddHistoryDementia" options={{ title: 'Add History' }} component={AddHistoryDementia} />
+        <Stack.Screen name="History" component={History} />
+        <Stack.Screen name="UpdateHistory" options={{ title: 'UpdateHistory' }} component={UpdateHistory} />
 
       </Stack.Navigator>
     </NavigationContainer>

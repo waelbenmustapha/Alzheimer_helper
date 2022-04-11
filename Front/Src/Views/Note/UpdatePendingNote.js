@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
-import {URL} from "@env"
+import { URL } from "@env"
 import UpdateNote from "./UpdateNote";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { sendPushNotification } from "../../Utils/Notif";
@@ -19,117 +19,90 @@ const UpdatePendingNote = ({ route, navigation }) => {
   const [Oldnote, setOldNote] = useState(null);
 
 
-  function AcceptPending()
-  { 
-    axios.post(`http://172.16.22.246:8090/pending-notes/accept/${route.params.note.id}`)           
-  .then((res) => {
-    
-    navigation.replace("CheckNotes"
-    )
-  })
+  function AcceptPending() {
+    axios.post(`http://172.16.17.231:8090/pending-notes/accept/${route.params.note.id}`)
+      .then((res) => {
+
+        navigation.replace("CheckNotes"
+        )
+      })
 
   }
-  function DeclinePending()
-  { 
-    axios.post(`http://172.16.22.246:8090/pending-notes/deny/${route.params.note.id}`)           
-  .then((res) => {
-    
-    navigation.replace("CheckNotes"
-    )
-  })
+  function DeclinePending() {
+    axios.post(`http://172.16.17.231:8090/pending-notes/deny/${route.params.note.id}`)
+      .then((res) => {
+
+        navigation.replace("CheckNotes"
+        )
+      })
 
   }
-   
-  
-  
+
+
+
   useEffect(() => {
     console.log(route.params.note.noteToEditId)
 
-    axios.get(`http://172.16.22.246:8090/notes/get-note/${route.params.note.noteToEditId}`)           
-    .then((res) => {
-      
-      setOldNote(res.data)
-   }
-   
+    axios.get(`http://172.16.17.231:8090/notes/get-note/${route.params.note.noteToEditId}`)
+      .then((res) => {
+
+        setOldNote(res.data)
+      }
+
       )
-      
+
   }, []);
   if (Oldnote == null) {
     return (
       <View>
         <Text>loading</Text>
-        </View>
-    )}
+      </View>
+    )
+  }
   return (
     <View style={styles.container}>
-      <Text>New NOTE</Text>
-        <View style={styles.items}>
-          <View style={{padding:"3%"}}>
-          <Text style={{fontSize:20}}>Title :</Text>
-
-          <View style={styles.item}>
-            <Text style={styles.square}>{note.title}</Text>
-            </View>
-                    </View>
-          
-      <View style={{padding:"3%"}}>
-                  <Text style={{fontSize:22}}>Description :</Text>
-
-            <View style={styles.item}>
-              <Text style={styles.square}>{note.description}</Text>
-
-
-            </View>
+      <Text style={styles.sectionTitle}>New NOTE</Text>
+      <View style={[styles.square, styles.items]}>
+        <Text style={styles.subtitle}>Title : </Text>
+        <Text style={styles.title}> {note.title}</Text>
+        <Text style={styles.subtitle}>Date : </Text>
+        <Text style={styles.title}>{JSON.stringify((note.date)
+        ).substring(1, 11)} {JSON.stringify((note.date)
+        ).substring(12, 20)}</Text>
+        <Text style={styles.subtitle}>Description : </Text><Text style={styles.title}>{note.description}</Text>
       </View>
-          <Text style={styles.square}>{JSON.stringify((note.date)
-                  ).substring(1, 11)} {JSON.stringify((note.date)
-                    ).substring(12, 20)}</Text>
 
-        </View>
-        <Text>OLD NOTE</Text>
-
-        <View style={styles.items}>
-          <View style={{padding:"3%"}}>
-          <Text style={{fontSize:20}}>Title :</Text>
-
-          <View style={styles.item}>
-            <Text style={styles.square}>{Oldnote.title}</Text>
-            </View>
-                    </View>
-          
-      <View style={{padding:"3%"}}>
-                  <Text style={{fontSize:22}}>Description :</Text>
-
-            <View style={styles.item}>
-              <Text style={styles.square}>{Oldnote.description}</Text>
-
-
-            </View>
+      <Text style={styles.sectionTitle}>OLD NOTE</Text>
+      <View style={[styles.square, styles.items]}>
+        <Text style={styles.subtitle}>Title : </Text>
+        <Text style={styles.title}> {Oldnote.title}</Text>
+        <Text style={styles.subtitle}>Date : </Text>
+        <Text style={styles.title}>{JSON.stringify((Oldnote.date)
+        ).substring(1, 11)} {JSON.stringify((Oldnote.date)
+        ).substring(12, 20)}</Text>
+        <Text style={styles.subtitle}>Description : </Text><Text style={styles.title}>{Oldnote.description}</Text>
       </View>
-          <Text style={styles.square}>{JSON.stringify((Oldnote.date)
-                  ).substring(1, 11)} {JSON.stringify((Oldnote.date)
-                    ).substring(12, 20)}</Text>
 
-        </View>
 
-        {note.status=="pending"?<View style={styles.fixToText}>
-          <TouchableOpacity
-            onPress={() => {
-              AcceptPending();
-            }}
-            style={styles.deletebutton}
-          >
-            <Text> Accept</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              DeclinePending();
-            }}
-            style={styles.deletebutton}
-          >
-            <Text> Decline</Text>
-          </TouchableOpacity>
-        </View>:null}
+      {note.status == "pending" ? <View style={styles.fixToText}>
+      <TouchableOpacity
+          onPress={() => {
+            DeclinePending();
+          }}
+          style={styles.deletebutton}
+        >
+          <Text> Decline</Text>
+        </TouchableOpacity>   
+        <TouchableOpacity
+          onPress={() => {
+            AcceptPending();
+          }}
+          style={styles.donebutton}
+        >
+          <Text> Accept</Text>
+        </TouchableOpacity>
+       
+      </View> : null}
     </View>
   );
 };
@@ -146,13 +119,24 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    padding: "5%"
   },
   sectionTitle: {
-    margin: "5%",
+    margin: "10%",
     marginLeft: "10%",
     fontSize: 28,
     fontWeight: "bold",
     color: "#359A8E",
+  },
+  title: {
+    fontSize: 18,
+    color: "#000"
+  },
+  subtitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    padding:"2%"
+
   },
   scrollView: {
     marginHorizontal: 5,
@@ -163,7 +147,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 15,
     alignSelf: "center",
-    shadowColor: "#093F38",
+    shadowColor: "#359A8E",
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 8,
@@ -196,19 +180,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 10,
     elevation: 3,
-    borderColor: "#093F38",
+    borderColor: "#359A8E",
     backgroundColor: "#fff",
-    shadowColor: "#093F38",
+    shadowColor: "#359A8E",
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 11,
   },
   fixToText: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
-    margin:"5%",
-    paddingLeft: "25%",
-    marginRight: "25%",
+  justifyContent: "space-between",
+  margin: "5%",
+  paddingLeft: "15%",
+  marginRight: "15%",
   },
 });
 export default UpdatePendingNote;

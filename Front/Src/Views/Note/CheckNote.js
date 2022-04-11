@@ -28,10 +28,10 @@ const CheckNote = ({ route, navigation }) => {
       .then(value => {
         console.log(JSON.parse(value).type)
         if (JSON.parse(value).type == 'dementia') {
-          axios.put(`http://172.16.22.246:8090/pending-notes/delete-note/${JSON.parse(value).id}/${route.params.el.id}`,
+          axios.put(`http://172.16.17.231:8090/pending-notes/delete-note/${JSON.parse(value).id}/${route.params.el.id}`,
           )
             .then((res) => {
-              axios.get(`http://172.16.22.246:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
+              axios.get(`http://172.16.17.231:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
                 .then((res) => {
                   sendPushNotification(res.data, messageDelete.title, messageDelete.body)
                 })
@@ -41,7 +41,7 @@ const CheckNote = ({ route, navigation }) => {
 
         }
         else {
-          axios.delete(`http://172.16.22.246:8090/notes/delete-note/${route.params.el.id}`,
+          axios.delete(`http://172.16.17.231:8090/notes/delete-note/${route.params.el.id}`,
           )
             .then((res) => navigation.navigate("CheckNotes"))
         }
@@ -55,18 +55,14 @@ const CheckNote = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.items}>
-     
-          <Text style={[styles.subtitle, { padding: "5%" }]}>Title : </Text>
-          <Text style={styles.square}>{note.title}</Text>
-          <Text style={[styles.subtitle, { padding: "5%" }]}>Date :</Text>
-          <Text style={styles.square}>  
-           <Text style={styles.square}>{JSON.stringify((note.date)
-          ).substring(1, 11)} at {JSON.stringify((note.date)
-          ).substring(12, 20)}</Text></Text>
-          <Text style={[styles.subtitle, { padding: "5%" }]}>Description :</Text>
-          <Text style={styles.square}>{note.description}</Text>
-
+      <View style={[styles.square, styles.items]}>
+        <Text style={styles.subtitle}>Title : </Text>
+        <Text style={styles.title}> {note.title}</Text>
+        <Text style={styles.subtitle}>Date : </Text>
+        <Text style={styles.title}>{JSON.stringify((note.date)
+        ).substring(1, 11)} {JSON.stringify((note.date)
+        ).substring(12, 20)}</Text>
+        <Text style={styles.subtitle}>Description : </Text><Text style={styles.title}>{note.description}</Text>
       </View>
 
       <ScrollView style={styles.scrollView}>
@@ -87,7 +83,7 @@ const CheckNote = ({ route, navigation }) => {
             }}
             style={styles.donebutton}
           >
-            <Text >Updated</Text>
+            <Text >Update</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -108,13 +104,14 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 15,
     alignSelf: "center",
-    shadowColor: "#093F38",
+    shadowColor: "#359A8E",
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 8,
   },
   container: {
     flex: 1,
+    paddingTop:"20%"
   },
   sectionTitle: {
     margin: "5%",
@@ -132,14 +129,19 @@ const styles = StyleSheet.create({
   borderRadius: 20,
   padding: 15,
   alignSelf: "center",
-  shadowColor: "#093F38",
+  shadowColor: "#359A8E",
   shadowOpacity: 0.55,
   shadowRadius: 2.22,
   elevation: 8,
   fontSize:18,
   },
   subtitle: {
-    fontSize: 24,
+    fontSize: 26,
+    padding:"2%",
+    color:"#359A8E"
+  },
+  title:{
+    fontSize:20
   },
   backarrow: {
     paddingLeft: 50,
@@ -169,9 +171,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 10,
     elevation: 3,
-    borderColor: "#093F38",
+    borderColor: "#359A8E",
     backgroundColor: "#fff",
-    shadowColor: "#093F38",
+    shadowColor: "#359A8E",
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 11,
@@ -180,7 +182,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   justifyContent: "space-between",
   margin: "5%",
-  paddingLeft: "20%",
+  paddingLeft: "35%",
   marginRight: "15%",
   },
 });

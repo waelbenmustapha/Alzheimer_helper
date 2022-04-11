@@ -14,108 +14,114 @@ const AddNotes = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const message = {
     'title': 'Note Addition',
-   'body': 'Your dementia has added a note'
- }
+    'body': 'Your dementia has added a note'
+  }
 
- function AddNote() {
+  function AddNote() {
 
-  AsyncStorage.getItem('user')
-      .then(value=>{console.log(JSON.parse(value));
+    AsyncStorage.getItem('user')
+      .then(value => {
+        console.log(JSON.parse(value));
         console.log(JSON.parse(value).type)
-        if(JSON.parse(value).type =='dementia'){
-          axios.post(`http://172.16.22.246:8090/pending-notes/add-note/${JSON.parse(value).id}`,
-        {description:description, title:title,date:date})
-        .then((res) =>{
-          axios.get(`http://172.16.22.246:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
-          .then((res) =>{
-            sendPushNotification(res.data,message.title,message.body)
-          })
-           navigation.navigate("CheckNotes")
-          })
+        if (JSON.parse(value).type == 'dementia') {
+          axios.post(`http://172.16.17.231:8090/pending-notes/add-note/${JSON.parse(value).id}`,
+            { description: description, title: title, date: date })
+            .then((res) => {
+              axios.get(`http://172.16.17.231:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
+                .then((res) => {
+                  sendPushNotification(res.data, message.title, message.body)
+                })
+              navigation.navigate("CheckNotes")
+            })
 
-      }
-      else {
-        axios.post(`http://172.16.22.246:8090/notes/add-note/${JSON.parse(value).dementia.id}`,
-           {description: description, title: title, date: date })
-           .then((res) => navigation.navigate("CheckNotes"))
-     }})
-
-}
-
-
-const onChange = (event, selectedDate) => {
-  const currentDate = selectedDate || date;
-  setShow(Platform.OS === 'ios');
-
-  setDate(currentDate);
-  if (mode == "date") {
-    setMode("time");
-    setShow(true);
         }
         else {
-          axios.post(`http://172.16.22.246:8090/notes/add-note/${JSON.parse(value).dementia.id}`,
-             {description: description, title: title, date: date })
-             .then((res) => navigation.navigate("CheckNotes"))
-       }
+          axios.post(`http://172.16.17.231:8090/notes/add-note/${JSON.parse(value).dementia.id}`,
+            { description: description, title: title, date: date })
+            .then((res) => navigation.navigate("CheckNotes"))
+        }
+      })
+
+  }
+
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+
+    setDate(currentDate);
+    if (mode == "date") {
+      setMode("time");
+      setShow(true);
+    }
+    else {
+      axios.post(`http://172.16.17.231:8090/notes/add-note/${JSON.parse(value).dementia.id}`,
+        { description: description, title: title, date: date })
+        .then((res) => navigation.navigate("CheckNotes"))
+    }
 
   }
 
 
 
-const showMode = (currentMode) => {
-  setShow(true);
-  setMode(currentMode);
-};
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
 
-const showDatepicker = () => {
-  showMode('date');
-};
+  const showDatepicker = () => {
+    showMode('date');
+  };
 
-const showTimepicker = () => {
-  showMode('time');
-};
-
-
+  const showTimepicker = () => {
+    showMode('time');
+  };
 
 
 
-return (
+
+
+  return (
 
     <View style={styles.container}>
-      
-      
-      <View style={{justifyContent:"flex-start" }}>
-        <TextInput multiline numberOfLines={1}
-          onChangeText={(text) => setTitle(text)} style={styles.square}
-          placeholder="Note title" />
-        <TextInput multiline numberOfLines={4}
-          onChangeText={(text) => setDescription(text)} style={styles.square}
-          placeholder="Description" />
-          
-      </View>
-      <View style={{padding:"3%", alignItems:"center"}}>
-          <View>
-            <TouchableOpacity onPress={showDatepicker}>
-              <Image style={styles.DateTimePicker} source={heure} />
-            </TouchableOpacity>
-          </View>
 
-          {show && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={date}
-              mode={mode}
-              is24Hour={true}
-              display="default"
-              onChange={onChange}
-            />
-          )}
+
+
+      <View style={{ alignSelf: "center" }}>
+        <View style={{ alignItems: "flex-start" }}>
+          <Text style={styles.subtitle}>Note title</Text>
+          <TextInput multiline numberOfLines={1}
+            onChangeText={(text) => setTitle(text)} style={styles.square}
+            placeholder="Note title" />
+          <Text style={styles.subtitle}>Description</Text>
+          <TextInput multiline numberOfLines={4}
+            onChangeText={(text) => setDescription(text)} style={styles.square}
+            placeholder="Description" />
         </View>
-        <View style={{flex:1, alignItems:"flex-end", }}>
+      </View>
+      <View style={{ padding: "3%", alignItems: "center" }}>
+        <View>
+          <TouchableOpacity onPress={showDatepicker}>
+            <Image style={styles.DateTimePicker} source={heure} />
+          </TouchableOpacity>
+        </View>
+
+        {show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode={mode}
+            is24Hour={true}
+            display="default"
+            onChange={onChange}
+          />
+        )}
+      </View>
+      <View style={{ flex: 1, alignItems: "flex-end", }}>
         <TouchableOpacity onPress={() => { AddNote() }} >
           <Text style={styles.donebutton}>Save</Text>
         </TouchableOpacity>
-        </View>
+      </View>
     </View>
     /*  <View style={styles.container}>
         <TextInput onChangeText={(text) => setTitle(text)} style={styles.input} placeholder="Note title" />
@@ -125,71 +131,73 @@ return (
             <TouchableOpacity onPress={showDatepicker}><Image style={styles.DateTimePicker} source={heure} /></TouchableOpacity>
           </View>*/
 
-);
+  );
 };
 
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop:"10%"
+    paddingTop: "10%",
   },
-  setFontSize: {
-    fontSize: 20,
+
+  subtitle: {
+    fontSize: 24,
+    padding: "1%",
+    color: "#359A8E",
+
   },
- 
   items: {
-    padding: "6%",
+    padding: "1%",
   },
   sectionTitle: {
     marginTop: "10%",
-    marginLeft: "10%",
+    marginLeft: "1%",
     fontSize: 28,
     fontWeight: "bold",
     color: "#359A8E",
   },
   square: {
-  width: 300,
-  backgroundColor: "#fff",
-  color:"#000",
-  borderRadius: 20,
-  padding: "5%",
-  margin:"3%",
-  alignSelf: "center",
-  shadowColor: "#093F38",
-  shadowOpacity: 0.55,
-  shadowRadius: 2.22,
-  elevation: 8,
-  fontSize:18,
+    width: 300,
+    backgroundColor: "#fff",
+    color: "#000",
+    borderRadius: 20,
+    padding: "5%",
+    margin: "3%",
+    alignSelf: "center",
+    shadowColor: "#359A8E",
+    shadowOpacity: 0.55,
+    shadowRadius: 2.22,
+    elevation: 8,
+    fontSize: 18,
   },
-  subtitle: {
-    fontSize: 24,
-  },
+
 
 
   donebutton: {
+    fontSize: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    margin:" 5%",
+    margin: " 5%",
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 10,
     elevation: 3,
-    borderColor: '#093F38',
+    borderColor: '#359A8E',
     backgroundColor: '#fff',
-    shadowColor: '#093F38',
+    shadowColor: '#359A8E',
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 11,
   },
 
-DateTimePicker: {
-  width: 50,
-  height: 50,
-  resizeMode: 'contain',
-  alignItems: "center"
+  DateTimePicker: {
+    width: 50,
+    height: 50,
+    resizeMode: 'contain',
+    alignItems: "center"
 
-}
+  }
 
 });
 

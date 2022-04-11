@@ -24,7 +24,7 @@ const UpdateHistory = ({ route, navigation }) => {
         console.log(JSON.parse(value).type)
         if(JSON.parse(value).type =='guardian'){
        
-           axios.put(`http://172.16.22.246:8090/story/update/${JSON.parse(value).dementia.id}`,
+           axios.put(`http://172.16.17.231:8090/story/update/${JSON.parse(value).dementia.id}`,
            history,{headers:{ 
             'Content-Type': 'text/plain'
           }})
@@ -38,7 +38,7 @@ const UpdateHistory = ({ route, navigation }) => {
       console.log(JSON.parse(value).type)
       if(JSON.parse(value).type =='guardian'){
      
-         axios.delete(`http://172.16.22.246:8090/story/delete/${JSON.parse(value).dementia.id}`,
+         axios.delete(`http://172.16.17.231:8090/story/delete/${JSON.parse(value).dementia.id}`,
          {history:history })
          .then((res) => navigation.navigate("drawer"))
    }})
@@ -61,12 +61,12 @@ const UpdateHistory = ({ route, navigation }) => {
 
         <View style={styles.fixToText}>
 
-          <TouchableOpacity  onPress={() => {UpdateHistory()}}>
-            <Text style={styles.updatebutton}>Update</Text>
+          <TouchableOpacity style={styles.updatebutton} onPress={() => {UpdateHistory()}}>
+            <Text style={styles.color}>Update</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => {DeleteHistory()}}>
-            <Text style={styles.deletebutton}> Delete</Text>
+          <TouchableOpacity style={styles.deletebutton} onPress={() => {DeleteHistory()}}>
+            <Text style={styles.color}> Delete</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -79,13 +79,11 @@ const styles = StyleSheet.create({
     padding: "5%",
   },
   item: {
-    margin: "1%",
-    borderRadius: 10,
-    justifyContent: "space-between",
-    marginBottom: 0,
+    flex:3
   },
   container: {
     flex: 1,
+    padding:"5%"
   },
   sectionTitle: {
     margin: "5%",
@@ -98,12 +96,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   square: {
-    width: 300,
+    fontSize:22,
+    width: "100%",
     backgroundColor: "#fff",
     borderRadius: 20,
     padding: 15,
     alignSelf: "center",
-    shadowColor: "#093F38",
+    shadowColor: "#359A8E",
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 8,
@@ -116,6 +115,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 6,
+  },
+  color: {
+    color: "black",
+    fontSize: 18
   },
   deletebutton: {
     alignItems: "center",
@@ -139,19 +142,19 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     color:'#359A8E',
     elevation: 3,
-    borderColor: "#093F38",
+    borderColor: "#359A8E",
     backgroundColor: "#fff",
-    shadowColor: "#093F38",
+    shadowColor: "#359A8E",
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 11,
   },
   fixToText: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
-    margin:"5%",
-    paddingLeft: "25%",
-    marginRight: "25%",
+    justifyContent: "space-between",
+    margin: "5%",
+    paddingLeft: "20%",
+    marginRight: "15%",
   },
 });
 export default UpdateHistory;

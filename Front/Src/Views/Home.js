@@ -22,63 +22,65 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = ({ navigation }) => {
 
-  const [userData, setuserData] =useState(null);
-  const [dir, setdir] =useState('');
+  const [userData, setuserData] = useState(null);
+  const [dir, setdir] = useState('');
   const isFocused = useIsFocused()
 
 
-  function getAge(dateString) 
-  {
+  function getAge(dateString) {
     var today = new Date();
     var birthDate = new Date(dateString);
     var age = today.getFullYear() - birthDate.getFullYear();
     var m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
-    {
-        age--;
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
     }
     return age;
-    }
+  }
+
+
+
   //localStorage
 
   const Logout = () => {
     try {
-       AsyncStorage.removeItem("user")
+      AsyncStorage.removeItem("user")
       navigation.navigate("IntroSliderScreen")
 
-    } catch(e) {
-      console.log(e) 
-     }
+    } catch (e) {
+      console.log(e)
+    }
     console.log('Done.')
-  }  
- 
+  }
+
   useEffect(() => {
-  
+
     console.log("******************************************************************")
-    AsyncStorage.getItem('user', (err, item) => {setuserData(JSON.parse(item))})
+    AsyncStorage.getItem('user', (err, item) => { setuserData(JSON.parse(item)) })
     console.log(isFocused)
-    return ()=>{console.log("++++++++++"+isFocused);console.log("cleanup")}
- 
-  },[isFocused]  );
+    return () => { console.log("++++++++++" + isFocused); console.log("cleanup") }
+
+  }, [isFocused]);
 
   if (userData == null) {
     return (
       <View>
         <Text>loading</Text>
-        </View>
-    )}
+      </View>
+    )
+  }
 
-  if (userData.dementia == null&&userData.type=="guardian") {
+  if (userData.dementia == null && userData.type == "guardian") {
     return (
       <View>
         <ImageBackground
           source={require("./../../../Front/assets/old.png")} style={styles.image1}
         >
 
-          <View style={{flex:1, justifyContent: "center", backgroundColor: "#ffffff80"}}>
-            <TouchableOpacity onPress={()=>Logout()} >
-              <Text style={{padding:"10%" , fontSize: 32 ,textAlign:"center", color:"#359A8E", backgroundColor: "#ffffff"}}>You must have a dementia account related.</Text>
-              </TouchableOpacity>
+          <View style={{ flex: 1, justifyContent: "center", backgroundColor: "#ffffff80" }}>
+            <TouchableOpacity onPress={() => Logout()} >
+              <Text style={{ padding: "10%", fontSize: 32, textAlign: "center", color: "#359A8E", backgroundColor: "#ffffff" }}>You must have a dementia account related.</Text>
+            </TouchableOpacity>
           </View>
         </ImageBackground>
       </View>
@@ -87,21 +89,22 @@ const Home = ({ navigation }) => {
 
   return (
 
-    
+
     <View style={styles.container}>
-      <View style={{ flex: 3, alignItems:"center" }}>
-        <View style={{ flex: 1,width:"90%", flexDirection:"row" ,alignItems:"center"}}>
+      <View style={{ flex: 3, alignItems: "center" }}>
+        <View style={{ flex: 1, width: "90%", flexDirection: "row", alignItems: "center" }}>
           <Image
-            source={require("./../../assets/profile.png")}
+            source={{ uri: userData.type == "dementia" ? userData.image : userData.dementia.image }}
             style={styles.image}
           ></Image>
+
           <View style={styles.firstItem}>
             <Text style={styles.Title}>Welcome {userData.name} </Text>
-            {userData.type=="dementia"?<Text style={styles.Title}> you are age is {getAge(userData.birthdate) } </Text> :userData.type=="guardian"?<Text style={styles.Title}> you are a guardian of {userData.dementia.name} </Text>: null}
+            {userData.type == "dementia" ? <Text style={styles.Title}>Your age is {getAge(userData.birthdate)} </Text> : userData.type == "guardian" ? <Text style={styles.Title}>You are the guardian for {userData.dementia.name} </Text> : null}
             {/* <Text style={styles.Title}>Your age is  </Text> */}
           </View>
         </View>
-{/* 
+        {/* 
         <View style={{ flex: 0, flexDirection: "column" }}>
           <View style={styles.searchSection}>
             <Icon style={styles.searchIcon} name="search" size={20} color="#000" />
@@ -121,8 +124,8 @@ const Home = ({ navigation }) => {
         <View style={{ flexDirection: "row" }}>
 
           <View style={{ flex: 2 }} >
-            <TouchableOpacity onPress={()=>navigation.navigate("Contact")}
-            style={{ alignItems: "center" }}>
+            <TouchableOpacity onPress={() => navigation.navigate("Contact")}
+              style={{ alignItems: "center" }}>
               <Image
                 source={require("./../../assets/Contact.png")}
                 style={{
@@ -133,7 +136,7 @@ const Home = ({ navigation }) => {
                 }} />
               <Text style={styles.Title2}>Contact</Text>
             </TouchableOpacity>
-            {userData.type=="dementia"?<TouchableOpacity style={{ alignItems: "center" }}  onPress={() => navigation.navigate("HistoryDementia")}>
+            {userData.type == "dementia" ? <TouchableOpacity style={{ alignItems: "center" }} onPress={() => navigation.navigate("HistoryDementia")}>
               <Image
                 source={require("./../../assets/profile.png")}
                 style={{
@@ -142,8 +145,8 @@ const Home = ({ navigation }) => {
                   borderRadius: 40 / 2,
                 }} />
               <Text style={styles.Title2}>History</Text>
-              
-            </TouchableOpacity>:userData.type=="guardian"?<TouchableOpacity style={{ alignItems: "center" }}  onPress={() => navigation.navigate("AddHistoryDementia")}>
+
+            </TouchableOpacity> : userData.type == "guardian" ? <TouchableOpacity style={{ alignItems: "center" }} onPress={() => navigation.navigate("AddHistoryDementia")}>
               <Image
                 source={require("./../../assets/profile.png")}
                 style={{
@@ -152,14 +155,14 @@ const Home = ({ navigation }) => {
                   borderRadius: 40 / 2,
                 }} />
               <Text style={styles.Title2}>History</Text>
-              
-            </TouchableOpacity>:null}
-              
+
+            </TouchableOpacity> : null}
+
           </View>
 
 
           <View style={{ flex: 2 }} >
-          {userData.type=="dementia"?<TouchableOpacity
+            {userData.type == "dementia" ? <TouchableOpacity
               style={{ alignItems: "center" }}
               onPress={() => navigation.navigate("DemantiaLocation")}>
               <Image
@@ -171,7 +174,7 @@ const Home = ({ navigation }) => {
                   marginTop: 10,
                 }} />
               <Text style={styles.Title2}>Location</Text>
-            </TouchableOpacity>:userData.type=="guardian"?<TouchableOpacity
+            </TouchableOpacity> : userData.type == "guardian" ? <TouchableOpacity
               style={{ alignItems: "center" }}
               onPress={() => navigation.navigate("Location")}>
               <Image
@@ -183,10 +186,10 @@ const Home = ({ navigation }) => {
                   marginTop: 10,
                 }} />
               <Text style={styles.Title2}>Location</Text>
-            </TouchableOpacity>: null}
-            
+            </TouchableOpacity> : null}
 
-           {/*  <Modal.Dialog>
+
+            {/*  <Modal.Dialog>
               <Modal.Body>
                 <TouchableOpacity style={styles.donebutton}
                   onPress={() => navigation.navigate('CheckDemantiaLocation')}>
@@ -249,7 +252,7 @@ const styles = StyleSheet.create({
     padding: '5%',
   },
   firstItem: {
-    alignItems: "flex-end",
+    alignItems: "flex-start",
     justifyContent: "center",
     // marginLeft: 10,
   },
@@ -289,9 +292,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 10,
     elevation: 3,
-    borderColor: '#093F38',
+    borderColor: '#359A8E',
     backgroundColor: '#fff',
-    shadowColor: '#093F38',
+    shadowColor: '#359A8E',
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 11,

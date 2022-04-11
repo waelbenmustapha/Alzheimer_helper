@@ -72,7 +72,7 @@ const Contact = ({ navigation, route }) => {
 
     const updateContact = () => {
         console.log(edit)
-        axios.put(`http://172.16.22.246:8090/contacts/edit/${edit}`,
+        axios.put(`http://172.16.17.231:8090/contacts/edit/${edit}`,
             { number: phonenumber, name: name, image: image })
             .then(getData()
             )
@@ -84,12 +84,12 @@ const Contact = ({ navigation, route }) => {
 
     /*   function deleteContact(id) {
           console.log(id)
-          axios.delete(`http://172.16.22.246:8090/contacts/delete/${id}`);
+          axios.delete(`http://172.16.17.231:8090/contacts/delete/${id}`);
           alert("Successful contact deleted!");
       } */
 
     const deleteContact = () => {
-        axios.delete(`http://172.16.22.246:8090/contacts/delete/${edit}`)
+        axios.delete(`http://172.16.17.231:8090/contacts/delete/${edit}`)
             .then(getData())
         getData();
     }
@@ -110,7 +110,7 @@ const Contact = ({ navigation, route }) => {
             .then(value => {
                 console.log(JSON.parse(value));
                 if (JSON.parse(value).type) {
-                    axios.post(`http://172.16.22.246:8090/contacts/add/${JSON.parse(value).dementia.id}`,
+                    axios.post(`http://172.16.17.231:8090/contacts/add/${JSON.parse(value).dementia.id}`,
                         { number: phonenumber, name: name, image: image }).then(res => getData())
                     alert("Successful contact added!");
                 }
@@ -123,7 +123,7 @@ const Contact = ({ navigation, route }) => {
                 console.log(JSON.parse(value));
                 console.log(JSON.parse(value).type)
                 if (JSON.parse(value).type == 'dementia') {
-                    axios.get(`http://172.16.22.246:8090/contacts/get-contacts/${JSON.parse(value).id}`)
+                    axios.get(`http://172.16.17.231:8090/contacts/get-contacts/${JSON.parse(value).id}`)
                         .then((res) => {
                             console.log(res.data)
                             if (res.data != null)
@@ -131,7 +131,7 @@ const Contact = ({ navigation, route }) => {
                         })
                 }
                 else {
-                    axios.get(`http://172.16.22.246:8090/contacts/get-contacts/${JSON.parse(value).dementia.id}`)
+                    axios.get(`http://172.16.17.231:8090/contacts/get-contacts/${JSON.parse(value).dementia.id}`)
                         .then((res) => {
                             setContact(res.data);
                             console.log(res.data)
@@ -173,7 +173,7 @@ const Contact = ({ navigation, route }) => {
     return (
 
         <View style={styles.container}>
-            <Text style={styles.sectionTitle}>Add Contact</Text>
+            <Text style={styles.sectionTitle}>Contact</Text>
             <View style={[styles.container, { flexDirection: "column" }]}>
                 <ScrollView style={styles.scrollView}>
                     <View style={styles.contactview} >
@@ -225,44 +225,54 @@ const Contact = ({ navigation, route }) => {
                                             <Pressable onPress={() => setModalVisibleUpdate(!modalVisibleUpdate)}>
                                                 <AntDesign name="closecircleo" size={40} color="black" />
                                             </Pressable>
+                                            <ScrollView>
+                                                <View style={styles.form} >
 
-                                            <View style={styles.form} >
+                                                    <Pressable
+                                                        onPress={() => pickFromGallery()}>
+                                                        {loader == false ? <Entypo name="image" size={40} color="black" /> :
+                                                            <Text>loading</Text>}
+                                                        <View >
+                                                           <Image
+                                                                resizeMode='stretch'
+                                                                style={styles.image}
+                                                                source={{ uri: image }}
+                                                            />
+                                                        </View>
+                                                    </Pressable>
 
-                                                <Pressable
-                                                    onPress={() => pickFromGallery()}>
-                                                    {loader == false ? <Entypo name="image" size={40} color="black" /> :
-                                                        <Text>loading</Text>}
-                                                </Pressable>
-                                                <TextInput
-                                                    style={styles.input}
-                                                    value={name}
-                                                    placeholder='Name'
-                                                    placeholderTextColor='#00000080'
-                                                    onChangeText={(value) => setName(value)}
-                                                />
-                                                <TextInput
-                                                    style={styles.input}
-                                                    placeholder='Phone Number'
-                                                    autoCapitalize="none"
-                                                    keyboardType="number-pad"
-                                                    value={phonenumber}
-                                                    placeholderTextColor='#00000080'
-                                                    onChangeText={(value) => setPhoneNumber(value)}
-                                                />
-                                            </View>
-                                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", }}>
-                                                <Pressable
-                                                    onPress={() => { updateContact(); setModalVisibleUpdate(!modalVisibleUpdate); }}
-                                                    style={styles.addbutton1}>
-                                                    <Text>Update</Text>
-                                                </Pressable>
-                                                <Pressable
-                                                    onPress={() => { deleteContact(); setModalVisibleUpdate(!modalVisibleUpdate); }}
-                                                    style={styles.deletebutton}>
-                                                    <Text>Delete</Text>
-                                                </Pressable>
-                                            </View>
+                                                    <TextInput
+                                                        style={styles.input}
+                                                        value={name}
+                                                        placeholder='Name'
+                                                        placeholderTextColor='#00000080'
+                                                        onChangeText={(value) => setName(value)}
+                                                    />
+                                                    <TextInput
+                                                        style={styles.input}
+                                                        placeholder='Phone Number'
+                                                        autoCapitalize="none"
+                                                        keyboardType="number-pad"
+                                                        value={phonenumber}
+                                                        placeholderTextColor='#00000080'
+                                                        onChangeText={(value) => setPhoneNumber(value)}
+                                                    />
+                                                </View>
 
+                                                <View style={{ flexDirection: "row", justifyContent: "space-evenly", }}>
+                                                    <Pressable
+                                                        onPress={() => { deleteContact(); setModalVisibleUpdate(!modalVisibleUpdate); }}
+                                                        style={styles.deletebutton}>
+                                                        <Text>Delete</Text>
+                                                    </Pressable>
+                                                    <Pressable
+                                                        onPress={() => { updateContact(); setModalVisibleUpdate(!modalVisibleUpdate); }}
+                                                        style={styles.addbutton1}>
+                                                        <Text>Update</Text>
+                                                    </Pressable>
+
+                                                </View>
+                                            </ScrollView>
                                         </View>
                                     </View>
                                 </ScrollView>
@@ -403,8 +413,8 @@ const styles = StyleSheet.create({
         borderRadius: 20
     },
     sectionTitle: {
-        margin: "5%",
-        marginLeft: "10%",
+        marginTop: "10%",
+        textAlign:"center",
         fontSize: 28,
         fontWeight: "bold",
         color: "#359A8E",
