@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   square: {
+    fontSize:22,
     width: "100%",
     backgroundColor: "#fff",
     borderRadius: 20,

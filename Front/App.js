@@ -42,25 +42,25 @@ export default function App() {
 
   const [int, setInt] = useState("");
 
-  
+
 
   useEffect(() => {
-    AsyncStorage.getItem('user', (err, item) => { setuserData(JSON.parse(item))
-      if(userData==null){
+    AsyncStorage.getItem('user', (err, item) => {
+      setuserData(JSON.parse(item))
+      if (userData == null) {
         setInt("SignIn")
       }
-      else{
-        if(userData.type=="guardian")
-       { setInt("drawer")}
-        else{
+      else {
+        if (userData.type == "guardian") { setInt("drawer") }
+        else {
           setInt("Home")
         }
         setType(userData.type)
-      } 
+      }
       console.log(int)
     }
-    
-   
+
+
     )
 
 
@@ -68,65 +68,42 @@ export default function App() {
   const Stack = createNativeStackNavigator();
 
 
- 
+
 
   return (
-    
+
     <NavigationContainer>
       <Stack.Navigator initialRouteName={int}>
 
-      <Stack.Screen name="SignupDementia" options={{headerShow: false}} component={SignupDementia}/>
-
-      <Stack.Screen name="SignUpGuardian" options={{ headerShown: false }} component={Signup} />
-
-     <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
-       <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav}/>
-          
-       
-       <Stack.Screen name="CheckPendingNote" options={{ headerShown: false }} component={CheckPendingNote }/>
-
-       <Stack.Screen name="UpdatePendingNote" options={{ headerShown: false }} component={UpdatePendingNote }/>
-
-   
-       <Stack.Screen name="ForgotPassword" component={ForgotPassword}  />
-       <Stack.Screen name="FVerificationCode" component={FVerificationCode}  />
-       <Stack.Screen name="FChangePassword" component={FChangePassword}  />
-
-      <Stack.Screen name="Home" component={Home}  />
-
-
-
-      <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
+        <Stack.Screen name="SignupDementia" options={{ headerShow: false }} component={SignupDementia} />
+        <Stack.Screen name="SignUpGuardian" options={{ headerShown: false }} component={Signup} />
+        <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
+        <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav} />
+        <Stack.Screen name="CheckPendingNote" options={{ headerShown: false }} component={CheckPendingNote} />
+        <Stack.Screen name="UpdatePendingNote" options={{ headerShown: false }} component={UpdatePendingNote} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+        <Stack.Screen name="FVerificationCode" component={FVerificationCode} />
+        <Stack.Screen name="FChangePassword" component={FChangePassword} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
         <Stack.Screen name="IntroSlider" options={{ headerShown: false }} component={IntroSlider} />
-   <Stack.Screen name="VerifRegistration" options={{ headerShown: false }} component={VerifRegistration}/>
-
-
-
-
-
-      <Stack.Screen name="Contact"options={{ headerShown: false }}  component={Contact} />
-
-      <Stack.Screen name="PinCode"options={{ headerShown: false }}  component={PinCode} />
-      <Stack.Screen name="PinCodeVerif"options={{ headerShown: false }}  component={PinCodeVerif} />
-
-        
+        <Stack.Screen name="VerifRegistration" options={{ headerShown: false }} component={VerifRegistration} />
+        <Stack.Screen name="Contact" options={{ headerShown: false }} component={Contact} />
+        <Stack.Screen name="PinCode" options={{ headerShown: false }} component={PinCode} />
+        <Stack.Screen name="PinCodeVerif" options={{ headerShown: false }} component={PinCodeVerif} />
         <Stack.Screen name="Notif" options={{ headerShown: false }} component={Notif} />
-        <Stack.Screen name="SpecifySafeArea" options={{ headerShown: false }} component={SpecifySafeArea}  />
+        <Stack.Screen name="SpecifySafeArea" options={{ headerShown: false }} component={SpecifySafeArea} />
         <Stack.Screen name="AddNotes" options={{ title: 'Add Note' }} component={AddNotes} />
         <Stack.Screen name="CheckNote" options={{ title: 'Check Note' }} component={CheckNote} />
-        <Stack.Screen name="CheckNotes"  options={{ title: 'Notes' }} component={CheckNotes} />
+        <Stack.Screen name="CheckNotes" options={{ title: 'Notes' }} component={CheckNotes} />
         <Stack.Screen name="UpdateNote" options={{ headerShown: false }} component={UpdateNote} />
         <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
         <Stack.Screen name="Location" component={Location} />
         <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
-        <Stack.Screen name="HistoryDementia" options={{ title: 'History' }} component={HistoryDementia}/>
-        <Stack.Screen name="AddHistoryDementia" options={{ title: 'Add History' }} component={AddHistoryDementia}/>
-        <Stack.Screen name="History" component={History}/>
-        <Stack.Screen name="UpdateHistory" options={{ title: 'UpdateHistory' }} component={UpdateHistory}/>
-
-
-
-
+        <Stack.Screen name="HistoryDementia" options={{ title: 'History' }} component={HistoryDementia} />
+        <Stack.Screen name="AddHistoryDementia" options={{ title: 'Add History' }} component={AddHistoryDementia} />
+        <Stack.Screen name="History" component={History} />
+        <Stack.Screen name="UpdateHistory" options={{ title: 'UpdateHistory' }} component={UpdateHistory} />
 
       </Stack.Navigator>
     </NavigationContainer>

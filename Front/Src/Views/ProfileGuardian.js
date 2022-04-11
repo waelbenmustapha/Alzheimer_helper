@@ -311,5 +311,5 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     margin: "2%",
   },
-});
+}); 
 export default ProfileGuardian
