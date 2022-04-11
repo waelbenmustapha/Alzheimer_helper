@@ -35,6 +35,7 @@ import UpdateHistory from './Src/Views/History/UpdateHistory';
 import ForgotPassword from './Src/Views/ForgotPassword';
 import FVerificationCode from './Src/Views/FVerificationCode';
 import FChangePassword from './Src/Views/FChangePassword';
+import { getUserData } from './Src/Utils/user';
 
 export default function App() {
   const [type, setType] = useState('');
@@ -44,26 +45,10 @@ export default function App() {
 
 
 
-  useEffect(() => {
-    AsyncStorage.getItem('user', (err, item) => {
-      setuserData(JSON.parse(item))
-      if (userData == null) {
-        setInt("SignIn")
-      }
-      else {
-        if (userData.type == "guardian") { setInt("drawer") }
-        else {
-          setInt("Home")
-        }
-        setType(userData.type)
-      }
-      console.log(int)
-    }
+  const [user, setUser] = useState("");
 
-
-    )
-
-
+  useEffect(async () => {
+    setUser(await getUserData());
   }, []);
   const Stack = createNativeStackNavigator();
 
@@ -73,24 +58,40 @@ export default function App() {
   return (
 
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={int}>
+      <Stack.Navigator initialRouteName={user == null ? "SignIn" : "drawer"}>
+      <Stack.Screen name="SignUpGuardian" options={{ headerShown: false }} component={Signup} />
 
-        <Stack.Screen name="SignupDementia" options={{ headerShow: false }} component={SignupDementia} />
-        <Stack.Screen name="SignUpGuardian" options={{ headerShown: false }} component={Signup} />
-        <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
-        <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav} />
-        <Stack.Screen name="CheckPendingNote" options={{ headerShown: false }} component={CheckPendingNote} />
-        <Stack.Screen name="UpdatePendingNote" options={{ headerShown: false }} component={UpdatePendingNote} />
-        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-        <Stack.Screen name="FVerificationCode" component={FVerificationCode} />
-        <Stack.Screen name="FChangePassword" component={FChangePassword} />
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
+       <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav}/>
+
+
+     <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
+          
+       
+       <Stack.Screen name="CheckPendingNote" options={{ headerShown: false }} component={CheckPendingNote }/>
+
+       <Stack.Screen name="UpdatePendingNote" options={{ headerShown: false }} component={UpdatePendingNote }/>
+
+   
+       <Stack.Screen name="ForgotPassword" component={ForgotPassword}  />
+       <Stack.Screen name="FVerificationCode" component={FVerificationCode}  />
+       <Stack.Screen name="FChangePassword" component={FChangePassword}  />
+       <Stack.Screen name="Home" component={Home}  />
+
+      <Stack.Screen name="IntroSliderScreen" options={{ headerShown: false }} component={IntroSliderScreen} />
         <Stack.Screen name="IntroSlider" options={{ headerShown: false }} component={IntroSlider} />
-        <Stack.Screen name="VerifRegistration" options={{ headerShown: false }} component={VerifRegistration} />
-        <Stack.Screen name="Contact" options={{ headerShown: false }} component={Contact} />
-        <Stack.Screen name="PinCode" options={{ headerShown: false }} component={PinCode} />
-        <Stack.Screen name="PinCodeVerif" options={{ headerShown: false }} component={PinCodeVerif} />
+   <Stack.Screen name="VerifRegistration" options={{ headerShown: false }} component={VerifRegistration}/>
+
+
+   <Stack.Screen name="SignupDementia" options={{headerShow: false}} component={SignupDementia}/>
+
+
+
+      <Stack.Screen name="Contact"options={{ headerShown: false }}  component={Contact} />
+
+      <Stack.Screen name="PinCode"options={{ headerShown: false }}  component={PinCode} />
+      <Stack.Screen name="PinCodeVerif"options={{ headerShown: false }}  component={PinCodeVerif} />
+
+        
         <Stack.Screen name="Notif" options={{ headerShown: false }} component={Notif} />
         <Stack.Screen name="SpecifySafeArea" options={{ headerShown: false }} component={SpecifySafeArea} />
         <Stack.Screen name="AddNotes" options={{ title: 'Add Note' }} component={AddNotes} />

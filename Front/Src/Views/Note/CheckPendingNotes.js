@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
-
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import NoteElement from "../../Components/NoteElement";
@@ -77,8 +76,6 @@ const CheckPendingNotes = ({ navigation }) => {
 
         />
       </View>
-
-
       <View style={[styles.container, { flex: 3, flexDirection: "column" }]}>
           <View style={[styles.container, { flexDirection: "row" }]}>
 

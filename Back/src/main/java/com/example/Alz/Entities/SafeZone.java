@@ -28,6 +28,7 @@ public class SafeZone {
   @Digits(integer=3, fraction=7)
   private BigDecimal longitude;
   private int diameter;
+  private String Title;
   @ManyToOne
   @JsonIgnore
   private Dementia dementia;
