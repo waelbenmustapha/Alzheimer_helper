@@ -35,7 +35,7 @@ const ProfileGuardian = () => {
       .then(value => {
         console.log(JSON.parse(value));
         if (JSON.parse(value).type) {
-          axios.put(`http://192.168.1.16:8090/dementia/edit-profile/${JSON.parse(value).dementia.id}`,
+          axios.put(`http://172.16.17.231:8090/dementia/edit-profile/${JSON.parse(value).dementia.id}`,
             {
               birthdate: JSON.parse(value).dementia.birthdate,
               email: JSON.parse(value).dementia.email,
