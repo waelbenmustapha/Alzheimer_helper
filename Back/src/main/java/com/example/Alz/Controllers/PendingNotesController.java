@@ -19,6 +19,13 @@ import com.example.Alz.Repositories.DementiaRepository;
 import com.example.Alz.Repositories.NotesRepository;
 import com.example.Alz.Repositories.PendingNotesRepository;
 
+
+
+//Pending notes controller add pending change requests so that the guardian can either accept or deny them
+
+
+
+
 @RestController
 @RequestMapping("/pending-notes")
 public class PendingNotesController {
@@ -31,6 +38,8 @@ public class PendingNotesController {
   @Autowired
   private NotesRepository notesRepository;
 
+  //Add note request
+
   @PostMapping("/add-note/{dim}")
   public ResponseEntity addPendingNote(@PathVariable("dim") String id, @RequestBody PendingNotes note) {
 
@@ -41,6 +50,8 @@ public class PendingNotesController {
     pendingNotesRepository.save(note);
     return new ResponseEntity("Saved", HttpStatus.OK);
   }
+
+  //delete note request
 
   @PostMapping("/delete-note/{noteid}")
   public ResponseEntity deleteNote(@PathVariable("noteid") String noteid) {
@@ -58,6 +69,8 @@ public class PendingNotesController {
 
   }
 
+  //Delete Request from list of requests
+
   @DeleteMapping("/delete-pending-note/{noteid}")
   public ResponseEntity deletenote(@PathVariable("noteid") String noteid) {
 
@@ -65,6 +78,8 @@ public class PendingNotesController {
     return new ResponseEntity("okah", HttpStatus.OK);
 
   }
+
+  //Edit note request
 
   @PutMapping("/edit-note/{noteid}")
   public ResponseEntity editnote(@PathVariable("noteid") String noteid, @RequestBody PendingNotes note) {
@@ -78,10 +93,15 @@ public class PendingNotesController {
   }
 
 
+  //Guardian to accept request
+
   @PostMapping("/accept/{noteid}")
   public ResponseEntity acceptPendingNote(@PathVariable("noteid") String noteId) {
 
     PendingNotes pendingnote = pendingNotesRepository.findById(noteId).get();
+
+    //check if the pending note action is add
+
     if (pendingnote.getAction().equals("add")) {
       Notes note = new Notes();
       note.setTitle(pendingnote.getTitle());
@@ -95,11 +115,17 @@ public class PendingNotesController {
       pendingNotesRepository.save(pendingnote);
       return new ResponseEntity("ok", HttpStatus.OK);
 
+      //check if the pending note action is delete
+
+
     } else if (pendingnote.getAction().equals("delete")) {
       notesRepository.deleteById(pendingnote.getNoteToEditId());
       pendingnote.setStatus("accepted");
       pendingNotesRepository.save(pendingnote);
       return new ResponseEntity("ok", HttpStatus.OK);
+
+      //check if the pending note action is edit
+
 
     } else if (pendingnote.getAction().equals("edit")) {
 
@@ -115,12 +141,14 @@ public class PendingNotesController {
 
       return new ResponseEntity("ok", HttpStatus.OK);
 
-    }
+
 
     return new ResponseEntity("ok", HttpStatus.OK);
 
   }
 
+
+  //deny request
 
   @PostMapping("/deny/{noteid}")
   public ResponseEntity denyPendingNote(@PathVariable("noteid") String noteId) {
@@ -128,8 +156,10 @@ public class PendingNotesController {
     pendingnote.setStatus("denied");
       pendingNotesRepository.save(pendingnote);
 
-      return new ResponseEntity("ok", HttpStatus.OK);
+      return new ResponseEntity("x  ", HttpStatus.OK);
   }
+
+  //get dementia pending notes
 
   @GetMapping("/get/{dim}")
   public ResponseEntity getPendingNotes(@PathVariable("dim") String id) {

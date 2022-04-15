@@ -48,11 +48,10 @@ public class DementiaController {
   @Autowired
   private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
+  //Save user current latitude and longitude
   @PostMapping("/post-location/{demid}/{latitude}/{longitude}")
   public ResponseEntity postlocation(@PathVariable("demid") String demid, @PathVariable("latitude") BigDecimal latitude,
       @PathVariable("longitude") BigDecimal longitude) {
-
     Dementia dementia = dementiaRepository.findById(demid).get();
     dementia.setLatitude(latitude);
     dementia.setLongitude(longitude);
@@ -70,6 +69,7 @@ public class DementiaController {
 
   }
 
+  //find Guardian push token so he can send him a notification
   @GetMapping("/guardian-push-token/{dim}")
   public ResponseEntity getguardianpustoken(@PathVariable("dim") String id) {
 
@@ -82,11 +82,16 @@ public class DementiaController {
       throws UnsupportedEncodingException, MessagingException {
 
     Guardian guardian = guardianRepository.findByEmail(email);
+
+    //if the guardian exists
+
     if (guardian != null) {
+
+      //if email not already used
+
       if (dementiaRepository.findByEmail(dementia.getEmail()) == null) {
         dementia.setGuardian(guardian);
         guardian.setDementia(dementia);
-
         dementia.setVerificationCode(RandomString.make(6));
         dementia.setPassword(bCryptPasswordEncoder.encode(dementia.getPassword()));
         dementiaRepository.save(dementia);
@@ -95,6 +100,7 @@ public class DementiaController {
 
         return new ResponseEntity("Signup successful", HttpStatus.OK);
       } else {
+
         return new ResponseEntity("Email Already exist", HttpStatus.IM_USED);
       }
     } else {
@@ -103,7 +109,7 @@ public class DementiaController {
     }
   }
 
-
+  //Add a safezone to the dementia safezone list
   @PostMapping("/safezone/{demid}")
   public ResponseEntity safezone(@RequestBody SafeZone safezone, @PathVariable("demid") String demid) {
     Dementia dementia = dementiaRepository.findById(demid).get();
@@ -112,6 +118,7 @@ public class DementiaController {
     return new ResponseEntity("All good", HttpStatus.OK);
   }
 
+  //get dementia safezone
   @GetMapping("/get-safezones/{demid}")
   public ResponseEntity safezone(@PathVariable("demid") String demid) {
 
@@ -119,6 +126,7 @@ public class DementiaController {
 
   }
 
+  //enable a safezone
   @PostMapping("/enable-safezone/{dim}/{safezoneid}")
   public ResponseEntity enableSafezone(@PathVariable("dim") String demid, @PathVariable("safezoneid") String safezoneid) {
 

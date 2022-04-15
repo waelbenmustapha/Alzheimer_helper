@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.Alz.Entities.Dementia;
 import com.example.Alz.Entities.Guardian;
 import com.example.Alz.Repositories.DementiaRepository;
 import com.example.Alz.Repositories.GuardianRepository;
@@ -34,6 +33,7 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/guardian")
 @AllArgsConstructor
 public class GuardianController {
+
   @Autowired
   private BCryptPasswordEncoder bCryptPasswordEncoder;
   private JavaMailSender mailSender;
@@ -45,22 +45,17 @@ public class GuardianController {
   @Autowired
   private GuardianRepository guardianRepository;
 
-  @PostMapping("/create")
-  public ResponseEntity CreateGuardian(@RequestBody Guardian guardian) {
-
-    guardianRepository.save(guardian);
-    return new ResponseEntity("Saved", HttpStatus.OK);
-  }
 
   @PostMapping("SignUp")
-  public ResponseEntity SignUpGuardian(@RequestBody Guardian guardian)throws UnsupportedEncodingException, MessagingException {
+  public ResponseEntity SignUpGuardian(@RequestBody Guardian guardian) throws UnsupportedEncodingException, MessagingException {
 
     Boolean emailnotexist = guardianRepository.findByEmail(guardian.getEmail()) == null;
+
+    //check if email not already used
 
     if (emailnotexist) {
       guardian.setPassword(bCryptPasswordEncoder.encode(guardian.getPassword()));
       guardian.setVerificationCode(RandomString.make(6));
-
       guardianRepository.save(guardian);
       sendVerificationEmail(guardian);
       return new ResponseEntity("Signup successful", HttpStatus.OK);
@@ -70,14 +65,14 @@ public class GuardianController {
 
   }
 
-
-
+  //get dementia latest location saved
   @GetMapping("/getMyDementiaLocation/{gid}")
   public ResponseEntity getMyDemantiaLocation(@PathVariable("gid") String gid) {
 
     Guardian guardian = guardianRepository.findById(gid).get();
     HashMap<String, BigDecimal> map = new HashMap<String, BigDecimal>();
 
+    //add latitude and longitude in a hasmap
     map.put("latitude", guardian.getDementia().getLatitude());
     map.put("longitude", guardian.getDementia().getLongitude());
 
@@ -85,29 +80,26 @@ public class GuardianController {
 
   }
 
-
+  //Add pin code for dementia
   @PostMapping("/add-pin-code/{gid}/{pincode}")
-  public ResponseEntity addpincode(@PathVariable("gid") String id,@PathVariable("pincode") String code){
-  Guardian guardian=  guardianRepository.findById(id).get();
+  public ResponseEntity addpincode(@PathVariable("gid") String id, @PathVariable("pincode") String code) {
+    Guardian guardian = guardianRepository.findById(id).get();
     guardian.setPinCode(code);
     guardianRepository.save(guardian);
     return new ResponseEntity("pin added", HttpStatus.OK);
   }
 
+  //test if entered pin code is correct
   @GetMapping("/test-pin/{gid}/{pincode}")
-  public ResponseEntity testpincode(@PathVariable("gid") String id,@PathVariable("pincode") String  code){
-    Guardian guardian=  guardianRepository.findById(id).get();
-if(code.equals(guardian.getPinCode())){    return new ResponseEntity(true, HttpStatus.OK);}
-else{
-  return new ResponseEntity(false, HttpStatus.OK);
+  public ResponseEntity testpincode(@PathVariable("gid") String id, @PathVariable("pincode") String code) {
+    Guardian guardian = guardianRepository.findById(id).get();
+    if (code.equals(guardian.getPinCode())) {
+      return new ResponseEntity(true, HttpStatus.OK);
+    } else {
+      return new ResponseEntity(false, HttpStatus.OK);
 
-}
+    }
 
-
-  }
-  @GetMapping("/get")
-  public ResponseEntity findguardians() {
-    return new ResponseEntity(guardianRepository.findAll(), HttpStatus.OK);
   }
 
   @GetMapping("/get/{Gid}")
@@ -116,13 +108,6 @@ else{
   }
 
 
-  @PostMapping("/adddem/{gid}/{did}")
-  public ResponseEntity adddem(@PathVariable("gid") String gid, @PathVariable("did") String did) {
-    Guardian guardiantochange = guardianRepository.findById(gid).get();
-    guardiantochange.setDementia(dementiaRepository.findById(did).get());
-    guardianRepository.save(guardiantochange);
-    return new ResponseEntity("good", HttpStatus.OK);
-  }
   private void sendVerificationEmail(Guardian guardian)
       throws MessagingException, UnsupportedEncodingException {
 
@@ -140,7 +125,6 @@ else{
     helper.setFrom(fromAddress, senderName);
     helper.setTo(toAddress);
     helper.setSubject(subject);
-
 
     helper.setText(content, true);
 
@@ -164,11 +148,13 @@ else{
         "\n" +
         "<span style=\"display:none;font-size:1px;color:#fff;max-height:0\"></span>\n" +
         "\n" +
-        "  <table role=\"presentation\" width=\"100%\" style=\"border-collapse:collapse;min-width:100%;width:100%!important\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n" +
+        "  <table role=\"presentation\" width=\"100%\" style=\"border-collapse:collapse;min-width:100%;width:100%!important\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n"
+        +
         "    <tbody><tr>\n" +
         "      <td width=\"100%\" height=\"53\" bgcolor=\"#0b0c0c\">\n" +
         "        \n" +
-        "        <table role=\"presentation\" width=\"100%\" style=\"border-collapse:collapse;max-width:580px\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\">\n" +
+        "        <table role=\"presentation\" width=\"100%\" style=\"border-collapse:collapse;max-width:580px\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\">\n"
+        +
         "          <tbody><tr>\n" +
         "            <td width=\"70\" bgcolor=\"#0b0c0c\" valign=\"middle\">\n" +
         "                <table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse\">\n" +
@@ -177,7 +163,8 @@ else{
         "                  \n" +
         "                    </td>\n" +
         "                    <td style=\"font-size:28px;line-height:1.315789474;Margin-top:4px;padding-left:10px\">\n" +
-        "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">Confirm your email</span>\n" +
+        "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">Confirm your email</span>\n"
+        +
         "                    </td>\n" +
         "                  </tr>\n" +
         "                </tbody></table>\n" +
@@ -189,12 +176,14 @@ else{
         "      </td>\n" +
         "    </tr>\n" +
         "  </tbody></table>\n" +
-        "  <table role=\"presentation\" class=\"m_-6186904992287805515content\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse;max-width:580px;width:100%!important\" width=\"100%\">\n" +
+        "  <table role=\"presentation\" class=\"m_-6186904992287805515content\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse;max-width:580px;width:100%!important\" width=\"100%\">\n"
+        +
         "    <tbody><tr>\n" +
         "      <td width=\"10\" height=\"10\" valign=\"middle\"></td>\n" +
         "      <td>\n" +
         "        \n" +
-        "                <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse\">\n" +
+        "                <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse\">\n"
+        +
         "                  <tbody><tr>\n" +
         "                    <td bgcolor=\"#1D70B8\" width=\"100%\" height=\"10\"></td>\n" +
         "                  </tr>\n" +
@@ -207,7 +196,8 @@ else{
         "\n" +
         "\n" +
         "\n" +
-        "  <table role=\"presentation\" class=\"m_-6186904992287805515content\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse;max-width:580px;width:100%!important\" width=\"100%\">\n" +
+        "  <table role=\"presentation\" class=\"m_-6186904992287805515content\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse;max-width:580px;width:100%!important\" width=\"100%\">\n"
+        +
         "    <tbody><tr>\n" +
         "      <td height=\"30\"><br></td>\n" +
         "    </tr>\n" +
@@ -215,7 +205,9 @@ else{
         "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
         "      <td style=\"font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\">\n" +
         "        \n" +
-        "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi " + name + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> Thank you for registering. Please copy the below code to activate your account: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <p>"+link+"</a> </p></blockquote>\n <p>See you soon</p>" +
+        "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi " + name
+        + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> Thank you for registering. Please copy the below code to activate your account: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <p>"
+        + link + "</a> </p></blockquote>\n <p>See you soon</p>" +
         "        \n" +
         "      </td>\n" +
         "      <td width=\"10\" valign=\"middle\"><br></td>\n" +

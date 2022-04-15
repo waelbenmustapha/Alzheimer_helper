@@ -27,44 +27,42 @@ public class ContactsController {
   DementiaRepository dementiaRepository;
 
   @PostMapping("/add/{dim}")
-  public ResponseEntity add(@PathVariable("dim") String id,@RequestBody Contacts contacts){
+  public ResponseEntity add(@PathVariable("dim") String id, @RequestBody Contacts contacts) {
 
     Dementia dementia = dementiaRepository.findById(id).get();
     contacts.setDementia(dementia);
     contactsRepository.save(contacts);
 
-
     return new ResponseEntity("added", HttpStatus.OK);
   }
 
   @DeleteMapping("/delete/{contactid}")
-  public ResponseEntity delete(@PathVariable("contactid") String id){
+  public ResponseEntity delete(@PathVariable("contactid") String id) {
 
     contactsRepository.deleteById(id);
 
-
-    return new ResponseEntity("added", HttpStatus.OK);
+    return new ResponseEntity("deleted", HttpStatus.OK);
   }
 
   @PutMapping("/edit/{contactid}")
-  public ResponseEntity edit(@PathVariable("contactid") String id,@RequestBody Contacts contacts){
+  public ResponseEntity edit(@PathVariable("contactid") String id, @RequestBody Contacts contacts) {
 
-   Contacts contactondb=contactsRepository.findById(id).get();
-   contactondb.setImage(contacts.getImage());
-   contactondb.setName(contacts.getName());
-   contactondb.setNumber(contacts.getNumber());
+
+    Contacts contactondb = contactsRepository.findById(id).get();
+    contactondb.setImage(contacts.getImage());
+    contactondb.setName(contacts.getName());
+    contactondb.setNumber(contacts.getNumber());
     contactsRepository.save(contactondb);
 
-
-    return new ResponseEntity("added", HttpStatus.OK);
+    return new ResponseEntity("edited", HttpStatus.OK);
   }
+
   @GetMapping("/get-contacts/{dim}")
-  public ResponseEntity get(@PathVariable("dim") String id){
+  public ResponseEntity get(@PathVariable("dim") String id) {
 
     Dementia dementia = dementiaRepository.findById(id).get();
 
     return new ResponseEntity(dementiaRepository.findById(id).get().getContacts(), HttpStatus.OK);
   }
-
 
 }

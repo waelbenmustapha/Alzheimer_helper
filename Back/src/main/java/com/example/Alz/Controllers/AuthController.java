@@ -40,24 +40,38 @@ public class AuthController {
   @Autowired
   private DementiaRepository dementiaRepository;
 
+  //login while saving pushtoken ( notification token )
   @PostMapping("/login/{pushtoken}")
   public ResponseEntity login(@RequestBody Guardian guardian, @PathVariable("pushtoken") String pushtoken) {
 
     Guardian DbGuardian = guardianRepository.findByEmail(guardian.getEmail());
+    //check if user is a guardian
     if (DbGuardian != null) {
       if (DbGuardian.getVerified() == true) {
         if (bCryptPasswordEncoder.matches(guardian.getPassword(), DbGuardian.getPassword())) {
           DbGuardian.setPushToken(pushtoken);
           guardianRepository.save(DbGuardian);
+
+          //When login success
+
           return new ResponseEntity(DbGuardian, HttpStatus.OK);
         } else {
+
+          //When login fails
+
           return new ResponseEntity("Wrong Info", HttpStatus.FORBIDDEN);
         }
       } else {
+
+        //If account is not verified
+
         return new ResponseEntity("Account Not verified", HttpStatus.UNAUTHORIZED);
 
       }
     } else {
+
+      //if user is Dementia
+
       Dementia dbDementia = dementiaRepository.findByEmail(guardian.getEmail());
       if (dbDementia != null) {
         if (dbDementia.getVerified() == true) {
@@ -66,27 +80,48 @@ public class AuthController {
             dementiaRepository.save(dbDementia);
             return new ResponseEntity(dbDementia, HttpStatus.OK);
           } else {
+
+            //login sucess
+
             return new ResponseEntity("Wrong Info", HttpStatus.FORBIDDEN);
           }
         } else {
+
+          //login fail
+
           return new ResponseEntity("Account Not verified", HttpStatus.UNAUTHORIZED);
 
         }
       }
     }
+
+    //if none of the above wrong info
+
     return new ResponseEntity("Wrong Info", HttpStatus.FORBIDDEN);
   }
 
   @PostMapping("/verify/{verificationcode}")
   public ResponseEntity login(@PathVariable("verificationcode") String verifcode) {
+
+    //Find the unique verification code on the DB if it's a guardian or a user
+
     Guardian DbGuardian = guardianRepository.findByVerificationCode(verifcode);
     if (DbGuardian != null) {
+
+      //Set verified to true for that user
+
       DbGuardian.setVerified(true);
+
+      //Empty the verification code so it can't be used again
+
       DbGuardian.setVerificationCode(null);
       guardianRepository.save(DbGuardian);
       return new ResponseEntity("Verifted", HttpStatus.OK);
 
     } else {
+
+      //if the user is a dementia
+
       Dementia dbDementia = dementiaRepository.findByVerificationCode(verifcode);
       if (dbDementia != null) {
         dbDementia.setVerified(true);
@@ -96,6 +131,9 @@ public class AuthController {
 
       }
     }
+
+    //if verification code doesn't exist
+
     return new ResponseEntity("Wrong verification Code", HttpStatus.UNAUTHORIZED);
 
   }
@@ -103,30 +141,44 @@ public class AuthController {
   @PostMapping("/forgot-password/{email}")
   public ResponseEntity forgot(@PathVariable("email") String email) throws UnsupportedEncodingException, MessagingException {
 
+    //find user by email
+
     Guardian DbGuardian = guardianRepository.findByEmail(email);
+
+    //If it's a guardian
+
     if (DbGuardian != null) {
+
+      //Create a new verification code and send it to that email
+
       DbGuardian.setVerificationCode(RandomString.make(6));
       guardianRepository.save(DbGuardian);
       sendVerificationEmail(DbGuardian.getVerificationCode(), DbGuardian.getEmail(), DbGuardian.getName());
       return new ResponseEntity("sent", HttpStatus.OK);
 
     } else {
+
+      // Create a new Verification and send it to that email
       Dementia dbDementia = dementiaRepository.findByEmail(email);
       if (dbDementia != null) {
         DbGuardian.setVerificationCode(RandomString.make(6));
         dementiaRepository.save(dbDementia);
         sendVerificationEmail(dbDementia.getVerificationCode(), dbDementia.getEmail(), dbDementia.getName());
-
         return new ResponseEntity("ok", HttpStatus.OK);
 
       }
     }
+
+    //if email doesn't exist
+
     return new ResponseEntity("email does not exist", HttpStatus.FORBIDDEN);
 
   }
 
   @PutMapping("/change-password/{email}")
   public ResponseEntity changepassword(@PathVariable("email") String email, @RequestBody String password) {
+
+
     Guardian DbGuardian = guardianRepository.findByEmail(email);
     if (DbGuardian != null) {
 
@@ -155,6 +207,9 @@ public class AuthController {
     String fromAddress = "Alzh@application.tn";
     String senderName = "Alzheimer Helper";
     String subject = "Your password recovery code";
+
+    //Create email form with the username and the Verification code
+
     String content = emailform(username, link);
 
     MimeMessage message = mailSender.createMimeMessage();
@@ -163,6 +218,8 @@ public class AuthController {
     helper.setFrom(fromAddress, senderName);
     helper.setTo(toAddress);
     helper.setSubject(subject);
+
+    //so the form is in HTML
 
     helper.setText(content, true);
 
