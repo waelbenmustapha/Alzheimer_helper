@@ -101,23 +101,18 @@ const Home = ({ navigation }) => {
           <View style={styles.firstItem}>
             <Text style={styles.Title}>Welcome {userData.name} </Text>
             {userData.type == "dementia" ? <Text style={styles.Title}>Your age is {getAge(userData.birthdate)} </Text> : userData.type == "guardian" ? <Text style={styles.Title}>You are the guardian for {userData.dementia.name} </Text> : null}
-            {/* <Text style={styles.Title}>Your age is  </Text> */}
           </View>
         </View>
-        {/* 
-        <View style={{ flex: 0, flexDirection: "column" }}>
+        <View style={{ flex: 1, flexDirection: "column" }}>
           <View style={styles.searchSection}>
-            <Icon style={styles.searchIcon} name="search" size={20} color="#000" />
-            <TextInput
+            <TextInput placeholder="Search" onChangeText={(value) => setSearch(value)}></TextInput>
+            <TouchableOpacity
               style={styles.input}
-              placeholder="User Nickname"
-              onChangeText={(searchString) => {
-                this.setState({ searchString });
-              }}
-              underlineColorAndroid="transparent"
-            />
+              onPress={() => GoogleApi()}>
+              <Icon style={styles.searchIcon} name="search" size={20} color="#000" />
+            </TouchableOpacity>
           </View>
-        </View> */}
+        </View>
       </View>
 
       <View style={{ flex: 9 }}>
@@ -136,7 +131,7 @@ const Home = ({ navigation }) => {
                 }} />
               <Text style={styles.Title2}>Contact</Text>
             </TouchableOpacity>
-            {userData.type == "dementia" ? <TouchableOpacity style={{ alignItems: "center" }} onPress={() => navigation.navigate("HistoryDementia")}>
+              <TouchableOpacity style={{ alignItems: "center" }} onPress={() => navigation.navigate(userData.type=="guardian"&&userData.dementia.story==null?"AddHistoryDementia":"HistoryDementia")}>
               <Image
                 source={require("./../../assets/profile.png")}
                 style={{
@@ -146,17 +141,7 @@ const Home = ({ navigation }) => {
                 }} />
               <Text style={styles.Title2}>History</Text>
 
-            </TouchableOpacity> : userData.type == "guardian" ? <TouchableOpacity style={{ alignItems: "center" }} onPress={() => navigation.navigate("AddHistoryDementia")}>
-              <Image
-                source={require("./../../assets/profile.png")}
-                style={{
-                  width: 150,
-                  height: 180,
-                  borderRadius: 40 / 2,
-                }} />
-              <Text style={styles.Title2}>History</Text>
-
-            </TouchableOpacity> : null}
+            </TouchableOpacity> 
 
           </View>
 

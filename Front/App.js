@@ -54,6 +54,13 @@ export default function App() {
 
 
 
+  if (user == "") {
+    return (
+      <View>
+        <Text>loading</Text>
+      </View>
+    )
+  } 
 
   return (
 

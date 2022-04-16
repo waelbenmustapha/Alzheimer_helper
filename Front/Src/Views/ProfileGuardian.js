@@ -12,6 +12,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { BackgroundImage } from 'react-native-elements/dist/config';
 import axios from 'axios';
+import { updateUser } from '../Utils/user';
 
 const ProfileGuardian = () => {
   const [userData, setuserData] = useState(null);
@@ -24,9 +25,7 @@ const ProfileGuardian = () => {
 
 
 
-  async function updateUser(user) {
-    await AsyncStorage.setItem("user", JSON.stringify(user))
-  }
+
 
 
   const submitUpdate = () => {
@@ -35,7 +34,7 @@ const ProfileGuardian = () => {
       .then(value => {
         console.log(JSON.parse(value));
         if (JSON.parse(value).type) {
-          axios.put(`http://172.16.17.231:8090/dementia/edit-profile/${JSON.parse(value).dementia.id}`,
+          axios.put(`http://192.168.122.104:8090/dementia/edit-profile/${JSON.parse(value).dementia.id}`,
             {
               birthdate: JSON.parse(value).dementia.birthdate,
               email: JSON.parse(value).dementia.email,
@@ -49,7 +48,7 @@ const ProfileGuardian = () => {
                 const user = userData;
                 user.dementia.image = image;
                 updateUser(user);
-                
+                navigation.navigate("ProfileGuardian")
                 alert("Image added!")
 
               }

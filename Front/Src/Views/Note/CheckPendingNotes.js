@@ -38,7 +38,7 @@ const CheckPendingNotes = ({ navigation }) => {
       .then(value => {
         console.log(JSON.parse(value));
 
-        axios.get(`http://172.16.17.231:8090/pending-notes/get/${JSON.parse(value).dementia.id}`)
+        axios.get(`http://192.168.122.104:8090/pending-notes/get/${JSON.parse(value).dementia.id}`)
           .then((res) => { setNotes(res.data); setNotesCopy(res.data); console.log(res.data) })
       })
   }

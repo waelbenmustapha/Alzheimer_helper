@@ -38,7 +38,7 @@ const SignIn = ({ navigation }) => {
        {
          if(Data.type=="dementia")
        {
-         navigation.replace("Home")
+         navigation.replace("drawer")
       return;
       }
       if(Data.pinCode==null)
@@ -64,7 +64,7 @@ const SignIn = ({ navigation }) => {
 
       return;
     } setIsLoading(true);
-      axios.post(encodeURI(`http://172.16.17.231:8090/auth/login/${expoPushToken}`), {
+      axios.post(encodeURI(`http://192.168.122.104:8090/auth/login/${expoPushToken}`), {
        email: userEmail,
       password: userPassword,
     }).then((response) => {

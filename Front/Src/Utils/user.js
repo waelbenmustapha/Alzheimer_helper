@@ -28,3 +28,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
         } catch(e) {
       console.log(e)  }
       }
+
+      export   async function updateUser(user) {
+        await AsyncStorage.setItem("user", JSON.stringify(user))
+      }

@@ -10,6 +10,7 @@ import {
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { sendPushNotification } from "../../Utils/Notif";
+import { updateUser } from "../../Utils/user";
 
 const UpdateHistory = ({ route, navigation }) => {
 
@@ -24,26 +25,19 @@ const UpdateHistory = ({ route, navigation }) => {
         console.log(JSON.parse(value).type)
         if(JSON.parse(value).type =='guardian'){
        
-           axios.put(`http://172.16.17.231:8090/story/update/${JSON.parse(value).dementia.id}`,
+           axios.put(`http://192.168.122.104:8090/story/update/${JSON.parse(value).dementia.id}`,
            history,{headers:{ 
             'Content-Type': 'text/plain'
           }})
-           .then((res) => navigation.navigate("drawer"))
+           .then((res) => {
+              const user = userData;
+              user.dementia.story = history;
+              updateUser(user); 
+            navigation.navigate("HistoryDementia")})
      }})
   }
 
-  function DeleteHistory(){
-    AsyncStorage.getItem('user')
-    .then(value=>{console.log(JSON.parse(value));
-      console.log(JSON.parse(value).type)
-      if(JSON.parse(value).type =='guardian'){
-     
-         axios.delete(`http://172.16.17.231:8090/story/delete/${JSON.parse(value).dementia.id}`,
-         {history:history })
-         .then((res) => navigation.navigate("drawer"))
-   }})
 
-  }
 
   
   return (
@@ -65,9 +59,7 @@ const UpdateHistory = ({ route, navigation }) => {
             <Text style={styles.color}>Update</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.deletebutton} onPress={() => {DeleteHistory()}}>
-            <Text style={styles.color}> Delete</Text>
-          </TouchableOpacity>
+         
         </View>
       </ScrollView>
     </View>

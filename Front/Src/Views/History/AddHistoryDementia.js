@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ProfileElement from '../../Components/ProfileElement';
+import { updateUser } from '../../Utils/user';
 
 
 const AddHistoryDementia = ({ navigation }) => {
@@ -13,13 +14,17 @@ const AddHistoryDementia = ({ navigation }) => {
   function AddHistory() {
     AsyncStorage.getItem('user')
       .then(value => {
-        axios.post(`http://172.16.17.231:8090/story/add/${JSON.parse(value).dementia.id}`,
+        axios.post(`http://192.168.122.104:8090/story/add/${JSON.parse(value).dementia.id}`,
           history, {
           headers: {
             'Content-Type': 'text/plain'
           }
         })
-          .then((res) => navigation.navigate("drawer"))
+          .then((res) => {
+          const user = userData;
+          user.dementia.story = history;
+          updateUser(user);
+          navigation.navigate("HistoryDementia")})
       })
 
   }
@@ -40,9 +45,9 @@ const AddHistoryDementia = ({ navigation }) => {
   function getStory() {
     AsyncStorage.getItem('user')
       .then(value => {
-        axios.get(`http://172.16.17.231:8090/story/get/${JSON.parse(value).dementia.id}`
+        axios.get(`http://192.168.122.104:8090/story/get/${JSON.parse(value).dementia.id}`
         )
-          .then((res) => setHistory(res.data))
+          .then((res) => {console.log(res.data);setHistory(res.data)})
       })
 
   }
@@ -65,9 +70,7 @@ const AddHistoryDementia = ({ navigation }) => {
             <TouchableOpacity style={styles.donebutton} onPress={() => { AddHistory() }}>
               <Text style={styles.color}>Save</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.updatebutton} onPress={() => navigation.navigate("UpdateHistory", { history: history })}>
-              <Text style={styles.color}>Update</Text>
-            </TouchableOpacity>
+
           </View>
         </ScrollView>
       </View>
