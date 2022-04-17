@@ -16,16 +16,27 @@ import {
 import React, { useEffect, useState } from "react";
 import { Icon } from "react-native-elements";
 import { useIsFocused } from '@react-navigation/native'
+import axios from "axios";
+import * as Linking from 'expo-linking';
+
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ProfileElement from "../Components/ProfileElement";
 
 
 const Home = ({ navigation }) => {
 
   const [userData, setuserData] = useState(null);
   const [dir, setdir] = useState('');
+  const [search, setSearch] = useState('');
+
   const isFocused = useIsFocused()
 
+
+  const GoogleApi = () => {
+    Linking.openURL(`https://www.google.com/search?q=${search}&tbm=vid`);
+    console.log("google");
+  }
 
   function getAge(dateString) {
     var today = new Date();
@@ -101,27 +112,21 @@ const Home = ({ navigation }) => {
           <View style={styles.firstItem}>
             <Text style={styles.Title}>Welcome {userData.name} </Text>
             {userData.type == "dementia" ? <Text style={styles.Title}>Your age is {getAge(userData.birthdate)} </Text>
-             : userData.type == "guardian" ? <Text style={styles.Title}>You are the guardian for {userData.dementia.name} </Text> : null}
+              : userData.type == "guardian" ? <Text style={styles.Title}>You are the guardian for {userData.dementia.name} </Text> : null}
             {/* <Text style={styles.Title}>Your age is  </Text> */}
           </View>
         </View>
-        {/* 
-        <View style={{ flex: 0, flexDirection: "column" }}>
           <View style={styles.searchSection}>
-            <Icon style={styles.searchIcon} name="search" size={20} color="#000" />
-            <TextInput
-              style={styles.input}
-              placeholder="User Nickname"
-              onChangeText={(searchString) => {
-                this.setState({ searchString });
-              }}
-              underlineColorAndroid="transparent"
-            />
+            <TextInput style={styles.input} placeholder="Search" onChangeText={(value) => setSearch(value)}></TextInput>
+            <TouchableOpacity
+              
+              onPress={() => GoogleApi()}>
+              <Icon style={styles.searchIcon} name="search" size={20} color="#000" />
+            </TouchableOpacity>
           </View>
-        </View> */}
       </View>
 
-      <View style={{ flex: 9 }}>
+      <View style={{ flex: 6 }}>
         <View style={{ flexDirection: "row" }}>
 
           <View style={{ flex: 2 }} >
@@ -271,18 +276,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   searchSection: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 20,
-    backgroundColor: "#fff",
+   
   },
   searchIcon: {
-    padding: 10,
-    color: "red",
+    alignItems:"flex-end",
   },
   input: {
+    margin:"2%",
     backgroundColor: "#fff",
+    width:"70%",
     color: "#424242",
   },
   donebutton: {
@@ -299,8 +301,19 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 11,
-  }
-
+  },
+  searchSection: {
+    padding: 5,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 20,
+    backgroundColor: "#fff",
+  },
+  searchIcon: {
+    padding: 10,
+    color: "red",
+  },
 
 });
 

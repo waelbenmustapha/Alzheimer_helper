@@ -24,10 +24,17 @@ const AddNotes = ({ navigation }) => {
         console.log(JSON.parse(value));
         console.log(JSON.parse(value).type)
         if (JSON.parse(value).type == 'dementia') {
+<<<<<<< HEAD
           axios.post(`http://192.168.1.16:8090/pending-notes/add-note/${JSON.parse(value).id}`,
             { description: description, title: title, date: date })
             .then((res) => {
               axios.get(`http://192.168.1.16:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
+=======
+          axios.post(`http://192.168.1.60:8090/pending-notes/add-note/${JSON.parse(value).id}`,
+            { description: description, title: title, date: date })
+            .then((res) => {
+              axios.get(`http://192.168.1.60:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
+>>>>>>> origin/Sprint-4
                 .then((res) => {
                   sendPushNotification(res.data, message.title, message.body)
                 })
@@ -36,7 +43,11 @@ const AddNotes = ({ navigation }) => {
 
         }
         else {
+<<<<<<< HEAD
           axios.post(`http://192.168.1.16:8090/notes/add-note/${JSON.parse(value).dementia.id}`,
+=======
+          axios.post(`http://192.168.1.60:8090/notes/add-note/${JSON.parse(value).dementia.id}`,
+>>>>>>> origin/Sprint-4
             { description: description, title: title, date: date })
             .then((res) => navigation.navigate("CheckNotes"))
         }
@@ -55,7 +66,11 @@ const AddNotes = ({ navigation }) => {
       setShow(true);
     }
     else {
+<<<<<<< HEAD
       axios.post(`http://192.168.1.16:8090/notes/add-note/${JSON.parse(value).dementia.id}`,
+=======
+      axios.post(`http://192.168.1.60:8090/notes/add-note/${JSON.parse(value).dementia.id}`,
+>>>>>>> origin/Sprint-4
         { description: description, title: title, date: date })
         .then((res) => navigation.navigate("CheckNotes"))
     }

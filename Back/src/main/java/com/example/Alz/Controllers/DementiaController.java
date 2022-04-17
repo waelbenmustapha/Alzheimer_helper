@@ -77,6 +77,14 @@ public class DementiaController {
 
   }
 
+  //find Guardian phone nmber
+  @GetMapping("/guardian-phone-number/{dim}")
+  public ResponseEntity getguardiannumber(@PathVariable("dim") String id) {
+
+    return new ResponseEntity(dementiaRepository.findById(id).get().getGuardian().getPhoneNumber(), HttpStatus.OK);
+
+  }
+
   @PostMapping("/SignUp/{email}")
   public ResponseEntity create(@RequestBody Dementia dementia, @PathVariable("email") String email)
       throws UnsupportedEncodingException, MessagingException {

@@ -31,7 +31,7 @@ const CheckPendingNotes = ({ navigation }) => {
   function getData() {
     // axios
     //   .get(
-    //     `http://192.168.1.39:8090/notes/get-notes-by-dementia-id/`
+    //     `http://192.168.1.60:8090/notes/get-notes-by-dementia-id/`
     //   )
 
     AsyncStorage.getItem('user')

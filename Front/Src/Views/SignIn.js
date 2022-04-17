@@ -1,151 +1,199 @@
-import React, { useEffect, createRef, useState, hasError } from 'react'
-import { View, ScrollView, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
-import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import React, { useEffect, createRef, useState, hasError } from "react";
+import {
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Text,
+  TextInput,
+  StyleSheet,
+  Image,
+} from "react-native";
+import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { registerForPushNotificationsAsync } from '../Utils/Notif';
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { registerForPushNotificationsAsync } from "../Utils/Notif";
 
 const SignIn = ({ navigation }) => {
-
-  const [userEmail, setUserEmail] = useState('');
-  const [userPassword, setUserPassword] = useState('');
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [expoPushToken, setExpoPushToken] = useState('');
+  const [expoPushToken, setExpoPushToken] = useState("");
 
-  const [Data, setData] = useState('');
+  const [Data, setData] = useState("");
   useEffect(() => {
-    registerForPushNotificationsAsync().then(token => { console.log(token); setExpoPushToken(token) });
-
+    registerForPushNotificationsAsync().then((token) => {
+      console.log(token);
+      setExpoPushToken(token);
+    });
   }, []);
   const _removeValue = async () => {
     try {
-      const value = await AsyncStorage.getItem('user')
+      const value = await AsyncStorage.getItem("user");
       if (value !== null) {
-        await AsyncStorage.removeItem('user')
+        await AsyncStorage.removeItem("user");
       }
     } catch (e) {
       // remove error
     }
 
-    console.log('Done.')
-  }
+    console.log("Done.");
+  };
 
   _storeData = async () => {
     try {
-      await AsyncStorage.setItem("token",expoPushToken);
-       AsyncStorage.setItem("user",JSON.stringify(Data)).then((value)=>
-       {
-         if(Data.type=="dementia")
-       {
-         navigation.replace("Home")
-      return;
-      }
-      if(Data.pinCode==null)
-      {
-        navigation.replace("PinCode")
-     return;
-     }
-     navigation.replace("PinCodeVerif")
-
-       })
-
-
+      await AsyncStorage.setItem("token", expoPushToken);
+      AsyncStorage.setItem("user", JSON.stringify(Data)).then((value) => {
+        if (Data.type == "dementia") {
+          navigation.replace("Home");
+          return;
+        }
+        if (Data.pinCode == null) {
+          navigation.replace("PinCode");
+          return;
+        }
+        navigation.replace("PinCodeVerif");
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
-
   const handleSubmitPress = async (event) => {
     if (!userEmail.trim() || !userPassword.trim()) {
-
-      alert("Please fell Email or Password")
+      alert("Please fell Email or Password");
 
       return;
-    } setIsLoading(true);
-      axios.post(encodeURI(`http://192.168.1.16:8090/auth/login/${expoPushToken}`), {
-       email: userEmail,
-      password: userPassword,
-    }).then((response) => {
-      if (response.status === 200) {
-        setData(response.data)
-        _storeData()
+    }
+    setIsLoading(true);
+    axios
+      .post(encodeURI(`http://192.168.1.60:8090/auth/login/${expoPushToken}`), {
+        email: userEmail,
+        password: userPassword,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          setData(response.data);
+          _storeData();
 
-        console.log("singin data " + JSON.stringify(Data))
-        console.log('done');
-      }
-    }).catch((error) => { console.log("ell error " + error); alert("Email or Password is wrong "); setIsLoading(false); })
-
-  }
-
-
-
+          console.log("singin data " + JSON.stringify(Data));
+          console.log("done");
+        }
+      })
+      .catch((error) => {
+        console.log("ell error " + error);
+        alert("Email or Password is wrong ");
+        setIsLoading(false);
+      });
+  };
 
   return (
-    <View style={styles.container}>
+    <LinearGradient
+      // Button Linear Gradient
+      colors={["#5f0a87", "#a4508b"]}
+      style={styles.container}
+      end={{ x: 0.8, y: 0.5 }}
+    >
+      <View
+        // Button Linear Gradient
 
-      <Text style={styles.title}>Glad to see you here</Text>
-
-      <View>
-        <View style={styles.form} >
-          <TextInput
-            style={styles.input}
-            placeholder='Email'
-            autoCapitalize="none"
-            placeholderTextColor='#00000080'
-            onChangeText={(UserEmail) => setUserEmail(UserEmail)}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder='Password'
-            autoCapitalize="none"
-            secureTextEntry={true}
-            placeholderTextColor='#00000080'
-            onChangeText={(UserPassword) => setUserPassword(UserPassword)}
-          />
-        </View>
-        <View>
-          <View style={styles.textCenter}>
-            <TouchableOpacity onPress={()=>navigation.replace("ForgotPassword")}>
-              <Text>Forgot password?</Text>
-            </TouchableOpacity>
-          </View>
-
-          <TouchableOpacity style={styles.Signupbutton} onPress={handleSubmitPress}>
-            <AntDesign name="arrowright" style={styles.arrow} size={44} />
-          </TouchableOpacity>
-
-        </View>
+        style={{ flex: 2, justifyContent: "center", alignItems: "center" }}
+      >
+        <Image
+          source={require("../../images/logo.png")}
+          style={{ height: 250, width: 250 }}
+        />
       </View>
 
-    </View>
-  )
-}
+      <View style={{ flex: 3, backgroundColor: "white",borderTopLeftRadius:25,borderTopRightRadius:25 }}>
+        <Text style={styles.title}>Login</Text>
 
+        <View>
+          <View style={styles.form}>
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              autoCapitalize="none"
+              placeholderTextColor="#00000080"
+              onChangeText={(UserEmail) => setUserEmail(UserEmail)}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              autoCapitalize="none"
+              secureTextEntry={true}
+              placeholderTextColor="#00000080"
+              onChangeText={(UserPassword) => setUserPassword(UserPassword)}
+            />
+          </View>
+        
+              <TouchableOpacity
+              style={{alignSelf:'flex-end',marginRight:'20%',marginBottom:10}}
+                onPress={() => navigation.replace("ForgotPassword")}
+              >
+                <Text style={{fontSize:13}}>Forgot password?</Text>
+              </TouchableOpacity>
+            
+          <View
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <TouchableOpacity
+              style={styles.Signupbutton}
+              onPress={handleSubmitPress}
+            >
+              <Text
+                style={{
+                  textAlign: "center",
+                  color: "white",
+                  fontSize:15,
+                  fontWeight: "500",
+                }}
+              >
+                Log In
+              </Text>
+            </TouchableOpacity>
+            
+            <View style={styles.textCenter}>
+              
+                <Text style={{ fontSize: 13, opacity: 0.7 }}>Don't have an account? <Text  onPress={() => navigation.navigate("IntroSliderScreen")} style={{fontSize:15,color:'blue',opacity:0.85}}>Sign Up</Text></Text>
+             
+            </View>
+          </View>
+        </View>
+      </View>
+    </LinearGradient>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+    justifyContent: "space-between",
+   
   },
 
   form: {
     alignItems: "center",
-    padding: 20
+    padding: 20,
   },
   input: {
-    alignItems: 'center',
+    alignItems: "center",
     width: 300,
     height: 50,
-    backgroundColor: '#fff',
-    borderColor: '#4A0D66',
-    color: 'black',
+    backgroundColor: "#fff",
+    borderColor: "#4A0D66",
+    color: "black",
     margin: 10,
     padding: 8,
     borderRadius: 10,
     fontSize: 18,
-    fontWeight: '500',
+    fontWeight: "500",
     shadowColor: "#4A0D66",
     shadowOffset: {
       width: 0,
@@ -156,10 +204,10 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   title: {
-    marginTop: 140,
     marginBottom: 18,
-    fontSize: 24,
-    color: '#359A8E'
+    fontSize: 30,
+    padding:25,
+    color: "#5f0a87",
   },
   tilte2: {
     marginTop: 12,
@@ -167,13 +215,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   Signupbutton: {
-    margin: 10,
-    marginLeft: "60%",
-    backgroundColor: '#359A8E',
-    width: 70,
-    height: 49,
+    display: "flex",
+
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#5f0a87",
+    width: "50%",
+    height: 45,
+    textAlign: "center",
     borderRadius: 20,
-    marginEnd: 80,
+
     shadowColor: "#000000",
     shadowOffset: {
       width: 0,
@@ -185,13 +236,12 @@ const styles = StyleSheet.create({
   },
   arrow: {
     marginLeft: 13,
-    color: "white"
+    color: "white",
   },
   textCenter: {
     alignItems: "center",
-    margin: 5
-  }
-
-})
+    margin: 5,
+  },
+});
 
 export default SignIn;
