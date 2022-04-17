@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    padding:20
 
   },
   subtitle: {
@@ -180,7 +181,6 @@ color:"#4A0D66"
     flex: 0,
     backgroundColor: "#4A0D66",
     padding: 1,
-    marginLeft: 40,
 
   }
 });

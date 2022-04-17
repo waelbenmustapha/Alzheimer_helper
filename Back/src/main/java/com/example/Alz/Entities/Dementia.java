@@ -30,7 +30,7 @@ public class Dementia {
   @Column(columnDefinition = "CHAR(32)")
   @Id
   private String id;
-  private String image;
+  private String image="https://i.ibb.co/MkV5yzg/icon.png";
   private String name;
   private Date birthdate;
   private String email;

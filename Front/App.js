@@ -60,7 +60,7 @@ else{
   return (
 
     <NavigationContainer>
-      <Stack.Navigator /* initialRouteName={user == null ? "SignIn" : "drawer"} */>
+      <Stack.Navigator  initialRouteName={user == null ? "SignIn" : "drawer"} >
       <Stack.Screen name="SignUpGuardian" options={{ headerShown: false }} component={Signup} />
 
        <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav}/>

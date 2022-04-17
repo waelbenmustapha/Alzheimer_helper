@@ -1,5 +1,7 @@
 package com.example.Alz.Entities;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +21,7 @@ public class Guardian {
   @Column(columnDefinition = "CHAR(32)")
   @Id
   private String id;
-
+private Double phoneNumber;
   private String PushToken;
 private String pinCode;
 

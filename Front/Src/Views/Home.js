@@ -18,6 +18,7 @@ import { Icon } from "react-native-elements";
 import { useIsFocused } from '@react-navigation/native'
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ProfileElement from "../Components/ProfileElement";
 
 
 const Home = ({ navigation }) => {
@@ -91,35 +92,9 @@ const Home = ({ navigation }) => {
 
 
     <View style={styles.container}>
-      <View style={{ flex: 3, alignItems: "center" }}>
-        <View style={{ flex: 1, width: "90%", flexDirection: "row", alignItems: "center" }}>
-          <Image
-            source={{ uri: userData.type == "dementia" ? userData.image : userData.dementia.image }}
-            style={styles.image}
-          ></Image>
-
-          <View style={styles.firstItem}>
-            <Text style={styles.Title}>Welcome {userData.name} </Text>
-            {userData.type == "dementia" ? <Text style={styles.Title}>Your age is {getAge(userData.birthdate)} </Text>
-             : userData.type == "guardian" ? <Text style={styles.Title}>You are the guardian for {userData.dementia.name} </Text> : null}
-            {/* <Text style={styles.Title}>Your age is  </Text> */}
-          </View>
-        </View>
-        {/* 
-        <View style={{ flex: 0, flexDirection: "column" }}>
-          <View style={styles.searchSection}>
-            <Icon style={styles.searchIcon} name="search" size={20} color="#000" />
-            <TextInput
-              style={styles.input}
-              placeholder="User Nickname"
-              onChangeText={(searchString) => {
-                this.setState({ searchString });
-              }}
-              underlineColorAndroid="transparent"
-            />
-          </View>
-        </View> */}
-      </View>
+      
+       
+    <ProfileElement userData={userData}/>
 
       <View style={{ flex: 9 }}>
         <View style={{ flexDirection: "row" }}>
