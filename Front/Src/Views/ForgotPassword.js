@@ -1,59 +1,64 @@
 import React, { useEffect, createRef, useState, hasError } from 'react'
-import { View, ScrollView, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
+import { View, ScrollView, TouchableOpacity, ActivityIndicator, Text, TextInput, StyleSheet } from 'react-native'
 import { Fontisto } from '@expo/vector-icons';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
 
+
 const ForgotPassword = () => {
-    const [email, setemail]=useState("");
+    const [email, setemail] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const navigation = useNavigation();
+
     const sendEmail = async () => {
         if (!email.trim()) {
             alert("Please fell the field to send you an email rest password")
             return;
-        }
-        console.log(`http://172.16.17.231:8090/auth/forgot-password/${email}`)
-        axios.post(`http://172.16.17.231:8090/auth/forgot-password/${email}`)
-        .then((response) => {
-            if (response.status === 200) {
-                console.log('done');
-                navigation.navigate("FVerificationCode")
+        } setIsLoading(true);
+        console.log(`http://192.168.1.21:8090/auth/forgot-password/${email}`)
+        axios.post(`http://192.168.1.21:8090/auth/forgot-password/${email}`)
+            .then((response) => {
+                if (response.status === 200) {
+                    console.log('done');
+                    navigation.navigate("FVerificationCode")
 
-            }})
+                }
+            })
     }
 
 
     return (
         <View style={styles.container}>
             <ScrollView>
-            <View style={{ alignItems: "center", }}>
-                <Text style={styles.title} >Forgot password?</Text>
+                <View style={{ alignItems: "center", }}>
+                    <Text style={styles.title} >Forgot password?</Text>
 
-                <Fontisto style={{ justifyContent: "center", paddingTop: 15, color: "#359A8E" }} name="email" size={40} />
+                    <Fontisto style={{ justifyContent: "center", paddingTop: 15, color: "#359A8E" }} name="email" size={40} />
+                    <ActivityIndicator size="large" color="#359A8E" animating={isLoading} />
 
-                <View style={styles.form} >
-                    <Text style={styles.title2} >Enter the email address associated with your account. And we will send you a One Time Code to reset your password.</Text>
-                    <View style={{ flexDirection: "row" }}>
+                    <View style={styles.form} >
+                        <Text style={styles.title2} >Enter the email address associated with your account. And we will send you a One Time Code to reset your password.</Text>
+                        <View style={{ flexDirection: "row" }}>
 
 
-                        <TextInput
-                            style={styles.input}
-                            placeholder='Email'
-                            autoCapitalize="none"
-                            placeholderTextColor='#00000080'
-                            onChangeText={(value) => setemail(value)}
-                        />
+                            <TextInput
+                                style={styles.input}
+                                placeholder='Email'
+                                autoCapitalize="none"
+                                placeholderTextColor='#00000080'
+                                onChangeText={(value) => setemail(value)}
+                            />
+                        </View>
                     </View>
-                </View>
 
-                <View style={{ justifyContent: "flex-end", }}>
-                    <TouchableOpacity style={styles.Signupbutton} onPress={() => sendEmail()}>
-                        <Text style={styles.title3} >Get OTC</Text>
-                    </TouchableOpacity>
-                </View>
+                    <View style={{ justifyContent: "flex-end", }}>
+                        <TouchableOpacity style={styles.Signupbutton} onPress={() => sendEmail()}>
+                            <Text style={styles.title3} >Get OTC</Text>
+                        </TouchableOpacity>
+                    </View>
 
-            </View>
+                </View>
             </ScrollView>
         </View>
     )
@@ -103,7 +108,7 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     title2: {
-        textAlign:"center",
+        textAlign: "center",
         marginTop: 14,
         marginBottom: 18,
         fontSize: 20,
@@ -116,7 +121,7 @@ const styles = StyleSheet.create({
     Signupbutton: {
         alignItems: "center",
         backgroundColor: '#359A8E',
-        margin:10,
+        margin: 10,
         padding: 10,
         width: 220,
         height: 50,

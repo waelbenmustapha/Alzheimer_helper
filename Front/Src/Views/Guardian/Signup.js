@@ -85,7 +85,7 @@ const Signup = ({ navigation }) => {
 
       setIsLoading(true);
 
-      axios.post(`http://172.16.17.231:8090/guardian/SignUp`, {
+      axios.post(`http://192.168.1.21:8090/guardian/SignUp`, {
         name: userName,
         email: userEmail,
         password: userPassword,

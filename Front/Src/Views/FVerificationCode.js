@@ -1,19 +1,21 @@
 import React, { useEffect, createRef, useState, hasError } from 'react'
-import { View, ScrollView, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
+import { View, ScrollView,ActivityIndicator, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 const FVerificationCode = () => {
     const [code, setCode] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+
     const navigation = useNavigation();
 
     const submitCode = async () => {
         if (!code.trim()) {
             alert("Please fell the field to verify the code")
             return;
-        }
-        console.log(`http://172.16.17.231:8090/auth/verify/${code}`)
-        axios.post(`http://172.16.17.231:8090/auth/verify/${code}`)
+        }setIsLoading(true);
+        console.log(`http://192.168.1.21:8090/auth/verify/${code}`)
+        axios.post(`http://192.168.1.21:8090/auth/verify/${code}`)
 
             .then((response) => {
                 if (response.status === 200) {
@@ -34,6 +36,7 @@ const FVerificationCode = () => {
                 <Text style={styles.title} >Verification</Text>
 
                 <Ionicons style={{ justifyContent: "center", paddingTop: 15, color: "#359A8E" }} name="mail-open-outline" size={40} />
+                <ActivityIndicator size="large" color="#359A8E" animating={isLoading} />
 
                 <View style={styles.form} >
                     <Text style={styles.title2} >Enter the One Time Code Verification.</Text>
