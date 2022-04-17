@@ -16,9 +16,9 @@ const VerifRegistration = ({ navigation }) => {
                     alert("Please Entry security code");
                     return;
                 }
-                console.log(`http://192.168.122.104:8090/auth/verify/${verificationcode}`)
-                axios.post(`http://192.168.122.104:8090/auth/verify/${verificationcode}`,
-                    { verificationcode: verificationcode })
+                console.log(`http://192.168.1.60:8090/auth/verify/${verificationcode}`)
+                axios.post(`http://192.168.1.60:8090/auth/verify/${verificationcode}`, 
+                { verificationcode: verificationcode})
                     .then((response) => {
                         console.log(response.status)
                         if (response.status === 200) {

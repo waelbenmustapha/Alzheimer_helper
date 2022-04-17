@@ -15,10 +15,10 @@ const FChangePassword = () => {
         if (!email.trim() || !password.trim()) {
             alert("Please fell all field ")
             return;
-        }setIsLoading(true);
-        console.log(`http://192.168.1.21:8090/auth/change-password/${email}`)
-        console.log(`http://192.168.1.21:8090/auth/change-password/${password}`)
-        axios.put(`http://192.168.1.21:8090/auth/change-password/${email}`,
+        }
+        console.log(`http://192.168.1.60:8090/auth/change-password/${email}`)
+        console.log(`http://192.168.1.60:8090/auth/change-password/${password}`)
+        axios.put(`http://192.168.1.60:8090/auth/change-password/${email}`,
         password,{headers:{ 
             'Content-Type': 'text/plain'
           }})

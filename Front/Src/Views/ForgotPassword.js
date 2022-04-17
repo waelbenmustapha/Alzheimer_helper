@@ -15,16 +15,15 @@ const ForgotPassword = () => {
         if (!email.trim()) {
             alert("Please fell the field to send you an email rest password")
             return;
-        } setIsLoading(true);
-        console.log(`http://192.168.1.21:8090/auth/forgot-password/${email}`)
-        axios.post(`http://192.168.1.21:8090/auth/forgot-password/${email}`)
-            .then((response) => {
-                if (response.status === 200) {
-                    console.log('done');
-                    navigation.navigate("FVerificationCode")
+        }
+        console.log(`http://192.168.1.60:8090/auth/forgot-password/${email}`)
+        axios.post(`http://192.168.1.60:8090/auth/forgot-password/${email}`)
+        .then((response) => {
+            if (response.status === 200) {
+                console.log('done');
+                navigation.navigate("FVerificationCode")
 
-                }
-            })
+            }})
     }
 
 
