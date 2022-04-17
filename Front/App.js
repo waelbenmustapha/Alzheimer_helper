@@ -39,7 +39,7 @@ import { getUserData } from './Src/Utils/user';
 
 export default function App() {
   const [type, setType] = useState('');
-  const [userData, setuserData] = useState(null);
+  const [userData, setuserData] = useState('');
 
   const [int, setInt] = useState("");
 
@@ -53,8 +53,10 @@ export default function App() {
   const Stack = createNativeStackNavigator();
 
 
-
-
+if(user==''){
+  return (<Text>Loading</Text>)
+}
+else{
   return (
 
     <NavigationContainer>
@@ -112,7 +114,7 @@ export default function App() {
 
   )
 }
-
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
