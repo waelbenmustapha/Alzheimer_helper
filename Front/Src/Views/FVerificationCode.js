@@ -14,8 +14,8 @@ const FVerificationCode = () => {
             alert("Please fell the field to verify the code")
             return;
         }setIsLoading(true);
-        console.log(`http://192.168.1.21:8090/auth/verify/${code}`)
-        axios.post(`http://192.168.1.21:8090/auth/verify/${code}`)
+        console.log(`http://192.168.1.16:8090/auth/verify/${code}`)
+        axios.post(`http://192.168.1.16:8090/auth/verify/${code}`)
 
             .then((response) => {
                 if (response.status === 200) {

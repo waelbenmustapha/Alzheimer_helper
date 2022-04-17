@@ -49,11 +49,11 @@ const CheckMyDemantiasLocation = () => {
       AsyncStorage.getItem('user')
       .then(value=>
    { 
-     console.log(`http://172.16.22.246:8090/guardian/getMyDementiaLocation/${JSON.parse(value).id}`
+     console.log(`http://192.168.1.16:8090/guardian/getMyDementiaLocation/${JSON.parse(value).id}`
      )
      axios
       .get(
-        `http://192.168.1.21:8090/guardian/getMyDementiaLocation/${JSON.parse(value).id}`
+        `http://192.168.1.16:8090/guardian/getMyDementiaLocation/${JSON.parse(value).id}`
       )
       .then((res) => {
         setLocation(res.data);
@@ -73,9 +73,7 @@ const CheckMyDemantiasLocation = () => {
       .catch((err) => console.log("ell error" + err));}
   
   )}
-  function getEnableSafeZone(){
-return safezones.filter(safe =>safe.active==true)  }
- 
+  
 
 async function getAllSafeZones(){
    AsyncStorage.getItem('user')
@@ -83,7 +81,7 @@ async function getAllSafeZones(){
  {
    axios
     .get(
-      `http://172.16.22.246:8090/dementia/get-safezones/${JSON.parse(value).dementia.id}`
+      `http://192.168.1.16:8090/dementia/get-safezones/${JSON.parse(value).dementia.id}`
     ).then(res=> {
     setSafezones(res.data)
 
