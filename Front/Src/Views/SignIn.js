@@ -68,7 +68,7 @@ const SignIn = ({ navigation }) => {
     }
     setIsLoading(true);
     axios
-      .post(encodeURI(`http://192.168.1.60:8090/auth/login/${expoPushToken}`), {
+      .post(encodeURI(`http://192.168.1.21:8090/auth/login/${expoPushToken}`), {
         email: userEmail,
         password: userPassword,
       })
@@ -91,7 +91,7 @@ const SignIn = ({ navigation }) => {
   return (
     <LinearGradient
       // Button Linear Gradient
-      colors={["#5f0a87", "#a4508b"]}
+      colors={["#359A8E", "#4A0D66"]}
       style={styles.container}
       end={{ x: 0.8, y: 0.5 }}
     >
@@ -106,7 +106,7 @@ const SignIn = ({ navigation }) => {
         />
       </View>
 
-      <View style={{ flex: 3, backgroundColor: "white",borderTopLeftRadius:25,borderTopRightRadius:25 }}>
+      <View style={{ flex: 3, backgroundColor: "white", borderTopLeftRadius: 25, borderTopRightRadius: 25 }}>
         <Text style={styles.title}>Login</Text>
 
         <View>
@@ -127,14 +127,14 @@ const SignIn = ({ navigation }) => {
               onChangeText={(UserPassword) => setUserPassword(UserPassword)}
             />
           </View>
-        
-              <TouchableOpacity
-              style={{alignSelf:'flex-end',marginRight:'20%',marginBottom:10}}
-                onPress={() => navigation.replace("ForgotPassword")}
-              >
-                <Text style={{fontSize:13}}>Forgot password?</Text>
-              </TouchableOpacity>
-            
+
+          <TouchableOpacity
+            style={{ alignSelf: 'flex-end', marginRight: '20%', marginBottom: 10 }}
+            onPress={() => navigation.replace("ForgotPassword")}
+          >
+            <Text style={{ fontSize: 13 }}>Forgot password?</Text>
+          </TouchableOpacity>
+
           <View
             style={{
               display: "flex",
@@ -151,18 +151,21 @@ const SignIn = ({ navigation }) => {
                 style={{
                   textAlign: "center",
                   color: "white",
-                  fontSize:15,
+                  fontSize: 15,
                   fontWeight: "500",
                 }}
               >
                 Log In
               </Text>
             </TouchableOpacity>
-            
+
             <View style={styles.textCenter}>
-              
-                <Text style={{ fontSize: 13, opacity: 0.7 }}>Don't have an account? <Text  onPress={() => navigation.navigate("IntroSliderScreen")} style={{fontSize:15,color:'blue',opacity:0.85}}>Sign Up</Text></Text>
-             
+
+              <Text style={{ fontSize: 13, opacity: 0.7 }}>Don't have an account?
+                <Text onPress={() => navigation.navigate("IntroSliderScreen")}
+                  style={{ fontSize: 15, color: 'blue', opacity: 0.85 }}>Sign Up</Text>
+              </Text>
+
             </View>
           </View>
         </View>
@@ -175,7 +178,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-between",
-   
+
   },
 
   form: {
@@ -206,7 +209,7 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: 18,
     fontSize: 30,
-    padding:25,
+    padding: 25,
     color: "#5f0a87",
   },
   tilte2: {

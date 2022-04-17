@@ -5,7 +5,6 @@ import Swiper from 'react-native-swiper'
 
 const IntroSliderScreen = ({ navigation }) => {
   return (
-    <View style={styles.container}>
 
       <View style={styles.container}>
 
@@ -50,7 +49,6 @@ const IntroSliderScreen = ({ navigation }) => {
         {/* <TouchableOpacity style={styles.button}><Text style={styles.titlebutton}>Login</Text></TouchableOpacity> */}
 
       </View>
-    </View>
 
 
   )

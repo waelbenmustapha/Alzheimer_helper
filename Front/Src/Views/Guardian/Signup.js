@@ -11,6 +11,7 @@ const Signup = ({ navigation }) => {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
   const [userName, setUserName] = useState('');
+  const [userNumber, setUserNumber] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [userConfirmPassword, setConfirmUserPassword] = useState('');
@@ -26,7 +27,7 @@ const Signup = ({ navigation }) => {
 
 
 
- 
+
 
   // Birthdate
   const onChange = (event, selectedDate) => {
@@ -83,7 +84,7 @@ const Signup = ({ navigation }) => {
 
       setIsLoading(true);
 
-      axios.post(`http://192.168.1.60:8090/guardian/SignUp`, {
+      axios.post(`http://192.168.1.21:8090/guardian/SignUp`, {
         name: userName,
         email: userEmail,
         password: userPassword,
@@ -92,7 +93,7 @@ const Signup = ({ navigation }) => {
       }).then((response) => {
         console.log(response.status)
         if (response.status === 200) {
-          console.log("el reponse "+response)
+          console.log("el reponse " + response)
           navigation.navigate("VerifRegistration")
         }
         if (response.status === 226) {
@@ -104,9 +105,9 @@ const Signup = ({ navigation }) => {
 
 
   return (
-<LinearGradient
+    <LinearGradient
       // Button Linear Gradient
-      colors={["#5f0a87", "#a4508b"]}
+      colors={[ "#4A0D66", "#359A8E"]}
       style={styles.container}
       end={{ x: 0.8, y: 0.5 }}
     >
@@ -121,80 +122,88 @@ const Signup = ({ navigation }) => {
         />
       </View>
 
-      <View style={{flex:3, backgroundColor: "white",borderTopLeftRadius:25,borderTopRightRadius:25}}>
-<ScrollView>
-        <View style={{ flex: 1 }} >
-          <View  style={{ alignItems:"center" }}>
-            <Text style={styles.title}>Sign Up</Text>
-          </View>
-          <View style={styles.form} >
+      <View style={{ flex: 3, backgroundColor: "white", borderTopLeftRadius: 25, borderTopRightRadius: 25 }}>
+        <ScrollView>
+          <View style={{ flex: 1 }} >
+            <View style={{ alignItems: "center" }}>
+              <Text style={styles.title}>Sign Up</Text>
+            </View>
+            <View style={styles.form} >
 
-            <TextInput
-              style={styles.input}
-              value={userName}
-              placeholder='Name'
-              autoCapitalize="none"
-              placeholderTextColor='#00000080'
-              onChangeText={(UserName) => setUserName(UserName)}
-            />
+              <TextInput
+                style={styles.input}
+                value={userName}
+                placeholder='Name'
+                autoCapitalize="none"
+                placeholderTextColor='#00000080'
+                onChangeText={(UserName) => setUserName(UserName)}
+              />
 
+              <TextInput
+                style={styles.input}
+                value={userNumber}
+                placeholder='Phone Number'
+                autoCapitalize="none"
+                placeholderTextColor='#00000080'
+                onChangeText={(UserNumber) => setUserNumber(UserNumber)}
+              />
 
-            <TextInput
-              style={styles.input}
-              placeholder='Email'
-              autoCapitalize="none"
-              value={userEmail}
-              placeholderTextColor='#00000080'
-              onChangeText={(UserEmail) => setUserEmail(UserEmail)}
-            />
+              <TextInput
+                style={styles.input}
+                placeholder='Email'
+                autoCapitalize="none"
+                value={userEmail}
+                placeholderTextColor='#00000080'
+                onChangeText={(UserEmail) => setUserEmail(UserEmail)}
+              />
 
-            <TextInput
-              style={styles.input}
-              placeholder='Password'
-              autoCapitalize="none"
-              value={userPassword}
-              secureTextEntry={true}
-              placeholderTextColor='#00000080'
-              onChangeText={(UserPassword) => setUserPassword(UserPassword)}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder='Confirm Password'
-              autoCapitalize="none"
-              value={userConfirmPassword}
-              secureTextEntry={true}
-              placeholderTextColor='#00000080'
-              onChangeText={(UserConfirmPassword) => setConfirmUserPassword(UserConfirmPassword)}
-            />
- {isLoading==false?
-                 <TouchableOpacity style={styles.Signupbutton} onPress={handleSubmitPress} >
+              <TextInput
+                style={styles.input}
+                placeholder='Password'
+                autoCapitalize="none"
+                value={userPassword}
+                secureTextEntry={true}
+                placeholderTextColor='#00000080'
+                onChangeText={(UserPassword) => setUserPassword(UserPassword)}
+              />
+              <TextInput
+                style={styles.input}
+                placeholder='Confirm Password'
+                autoCapitalize="none"
+                value={userConfirmPassword}
+                secureTextEntry={true}
+                placeholderTextColor='#00000080'
+                onChangeText={(UserConfirmPassword) => setConfirmUserPassword(UserConfirmPassword)}
+              />
+              {isLoading == false ?
+                <TouchableOpacity style={styles.Signupbutton} onPress={handleSubmitPress} >
                   <Text
                     style={{
                       textAlign: "center",
                       color: "white",
-                      fontSize:15,
+                      fontSize: 15,
                       fontWeight: "500",
                     }}
                   >
                     Sign Up
                   </Text>
                 </TouchableOpacity>
-                
-                
-                
-           :<ActivityIndicator size={60} color="#0000ff" />
-}
+
+
+
+                : <ActivityIndicator size={60} color="#0000ff" />
+              }
+            </View>
+
           </View>
-               
-        </View>
-        <View style={styles.textCenter}>
-      
-          <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
-            <Text style={{ color: '#359A8E' }}>
-              Already have an account?</Text>
-          </TouchableOpacity>
-        
-        </View>
+          <View style={styles.textCenter}>
+
+            <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
+              <Text style={{ color: '#359A8E' }}>
+                Already have an account?</Text>
+            </TouchableOpacity>
+
+          </View>
         </ScrollView>
       </View>
     </LinearGradient>
@@ -207,7 +216,7 @@ const Signup = ({ navigation }) => {
 
 
 
-   
+
   )
 }
 
@@ -222,7 +231,7 @@ const styles = StyleSheet.create({
   },
   form: {
     alignItems: "center",
-    
+
   },
   input: {
     justifyContent: 'center',
@@ -247,9 +256,9 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  title: {  
+  title: {
     fontSize: 30,
-    padding:15,
+    padding: 15,
     color: "#5f0a87",
 
   },
@@ -260,8 +269,8 @@ const styles = StyleSheet.create({
   },
   Signupbutton: {
     display: "flex",
-marginTop:10,
-marginBottom:10,
+    marginTop: 10,
+    marginBottom: 10,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#5f0a87",

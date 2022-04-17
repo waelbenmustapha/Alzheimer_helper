@@ -35,12 +35,13 @@ const ProfileGuardian = () => {
       .then(value => {
         console.log(JSON.parse(value));
         if (JSON.parse(value).type) {
-          axios.put(`http://192.168.1.60:8090/dementia/edit-profile/${JSON.parse(value).dementia.id}`,
+          axios.put(`http://192.168.1.21:8090/dementia/edit-profile/${JSON.parse(value).dementia.id}`,
             {
               birthdate: JSON.parse(value).dementia.birthdate,
               email: JSON.parse(value).dementia.email,
               password: JSON.parse(value).dementia.password,
               name: JSON.parse(value).dementia.name,
+              number: JSON.parse(value).dementia.number,
               image: image
             })
             .then((response) => {
@@ -123,6 +124,7 @@ const ProfileGuardian = () => {
         <View style={styles.items}>
           <Text style={styles.subtitle}>Name</Text><TextInput style={styles.sectionTitle}>{userData.name}</TextInput>
           <Text style={styles.subtitle}>Email</Text><TextInput style={styles.sectionTitle}>{userData.email}</TextInput>
+          <Text style={styles.subtitle}>Number</Text><TextInput style={styles.sectionTitle}>{userData.number}</TextInput>
         </View>
 
         <Text style={styles.title}>Your Dementia informations:</Text>

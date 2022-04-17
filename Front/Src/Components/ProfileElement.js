@@ -29,7 +29,7 @@ const [guardiannumber,setGuardiannumber]=useState('');
 
 function getgnumb(id){
   console.log("hello")
-  axios.get(`http://192.168.1.60:8090/dementia/guardian-phone-number/${id}`).then((res)=>setGuardiannumber(res.data))
+  axios.get(`http://192.168.1.21:8090/dementia/guardian-phone-number/${id}`).then((res)=>setGuardiannumber(res.data))
 }
 
   useEffect(() => {
