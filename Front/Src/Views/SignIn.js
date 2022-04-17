@@ -112,7 +112,7 @@ const SignIn = ({ navigation }) => {
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity style={styles.Signupbutton} onPress={handleSubmitPress}>
+          <TouchableOpacity style={styles.Signupbutton} onPress={()=>handleSubmitPress()}>
             <AntDesign name="arrowright" style={styles.arrow} size={44} />
           </TouchableOpacity>
 
