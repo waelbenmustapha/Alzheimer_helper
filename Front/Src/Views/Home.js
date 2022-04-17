@@ -100,7 +100,8 @@ const Home = ({ navigation }) => {
 
           <View style={styles.firstItem}>
             <Text style={styles.Title}>Welcome {userData.name} </Text>
-            {userData.type == "dementia" ? <Text style={styles.Title}>Your age is {getAge(userData.birthdate)} </Text> : userData.type == "guardian" ? <Text style={styles.Title}>You are the guardian for {userData.dementia.name} </Text> : null}
+            {userData.type == "dementia" ? <Text style={styles.Title}>Your age is {getAge(userData.birthdate)} </Text>
+             : userData.type == "guardian" ? <Text style={styles.Title}>You are the guardian for {userData.dementia.name} </Text> : null}
             {/* <Text style={styles.Title}>Your age is  </Text> */}
           </View>
         </View>

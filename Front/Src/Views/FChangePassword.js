@@ -1,5 +1,5 @@
 import React, { useEffect, createRef, useState, hasError } from 'react'
-import { View, ScrollView, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
+import { View, ScrollView,ActivityIndicator, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
 import { MaterialCommunityIcons} from '@expo/vector-icons';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
@@ -7,6 +7,8 @@ import { useNavigation } from '@react-navigation/native';
 const FChangePassword = () => {
     const [email, setEmail]= useState("");
     const [password, setPassword] =useState("");
+    const [isLoading, setIsLoading] = useState(false);
+
     const navigation = useNavigation();
 
     const submitChangePassword = async () => {
@@ -39,9 +41,10 @@ const FChangePassword = () => {
                 <Text style={styles.title} >Change your password</Text>
 
                 <MaterialCommunityIcons style={{ justifyContent: "center", paddingTop: 15, color: "#359A8E" }} name="key-change" size={40} />
+                <ActivityIndicator size="large" color="#359A8E" animating={isLoading} />
 
                 <View style={styles.form} >
-                    <Text style={styles.title2} >Enter your Email</Text>
+                    <Text style={styles.title2} >Your Email</Text>
                     <View style={{ flexDirection: "row" }}>
                         <TextInput
                             style={styles.input}
@@ -51,7 +54,7 @@ const FChangePassword = () => {
                             onChangeText={(value) => setEmail(value)}
                         />
                     </View>
-                    <Text style={styles.title2} >Enter your new password</Text>
+                    <Text style={styles.title2} >Your new password</Text>
                     <View style={{ flexDirection: "row" }}>
                         <TextInput
                             style={styles.input}
@@ -62,7 +65,6 @@ const FChangePassword = () => {
                         />
                     </View>
                 </View>
-
                 <View style={{ justifyContent: "flex-end", }}>
                     <TouchableOpacity style={styles.Signupbutton} onPress={() => submitChangePassword()}>
                         <Text style={styles.title3} >Submit changes</Text>
