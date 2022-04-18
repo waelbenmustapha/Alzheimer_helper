@@ -11,7 +11,7 @@ const Signup = ({ navigation }) => {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
   const [userName, setUserName] = useState('');
-  const [userNumber, setUserNumber] = useState('');
+  const [phoneNumber, setphoneNumber] = useState(null);
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [userConfirmPassword, setConfirmUserPassword] = useState('');
@@ -59,16 +59,19 @@ const Signup = ({ navigation }) => {
 
   const isValid = () => {
 
-    if (!userName.trim() || !userEmail.trim() || !userPassword.trim() || !userConfirmPassword.trim())
+    if (!userName.trim() || !phoneNumber.trim() || !userEmail.trim() || !userPassword.trim() || !userConfirmPassword.trim())
       return alert("Please fill in all fields are required ");
 
     if (userName.length < 3)
       return alert("Invalid Name");
 
+    if (phoneNumber.length < 8)
+      return alert("Invalid phone number");
+
     if (!regx.test(userEmail))
       return alert("invalid Email");
 
-    if (!userPassword.length > 8)
+    if (userPassword.length < 8)
       return alert("Password is less then 8 characters!");
 
     if (userPassword !== userConfirmPassword)
@@ -86,6 +89,7 @@ const Signup = ({ navigation }) => {
 
       axios.post(`http://192.168.1.21:8090/guardian/SignUp`, {
         name: userName,
+        phoneNumber: phoneNumber,
         email: userEmail,
         password: userPassword,
         comfirmPassword: userConfirmPassword,
@@ -107,7 +111,7 @@ const Signup = ({ navigation }) => {
   return (
     <LinearGradient
       // Button Linear Gradient
-      colors={[ "#4A0D66", "#359A8E"]}
+      colors={["#4A0D66", "#359A8E"]}
       style={styles.container}
       end={{ x: 0.8, y: 0.5 }}
     >
@@ -141,11 +145,11 @@ const Signup = ({ navigation }) => {
 
               <TextInput
                 style={styles.input}
-                value={userNumber}
+                value={phoneNumber}
                 placeholder='Phone Number'
                 autoCapitalize="none"
                 placeholderTextColor='#00000080'
-                onChangeText={(UserNumber) => setUserNumber(UserNumber)}
+                onChangeText={(UserNumber) => setphoneNumber(UserNumber)}
               />
 
               <TextInput
