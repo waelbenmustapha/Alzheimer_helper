@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { View, ScrollView, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
+import { View, ScrollView,Image, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { validatePathConfig } from '@react-navigation/native';
+import { LinearGradient } from "expo-linear-gradient";
+
 const SignupDementia = ({ navigation }) => {
   const [date, setDate] = useState(null);
   const [mode, setMode] = useState('date');
@@ -110,12 +112,30 @@ const SignupDementia = ({ navigation }) => {
 
 
   return (
-    <View style={styles.container}>
-      <ScrollView>
+<LinearGradient
+      // Button Linear Gradient
+      colors={["#4A0D66", "#359A8E"]}
+      style={styles.container}
+      end={{ x: 0.8, y: 0.5 }}
+    >
+      <View
+        // Button Linear Gradient
 
-        <View style={{ flex: 1 }} >
-          <View style={styles.form} >
-            <Text style={styles.title}>Glad to see you here</Text>
+        style={{ flex: 2, justifyContent: "center", alignItems: "center" }}
+      >
+        <Image
+          source={require("../../../images/logo.png")}
+          style={{ height: 250, width: 250 }}
+        />
+      </View>
+
+      <View style={{ flex: 3, backgroundColor: "white", borderTopLeftRadius: 25, borderTopRightRadius: 25 }}>
+        <ScrollView>
+          <View style={{ flex: 1 }} >
+            <View style={{ alignItems: "center" }}>
+              <Text style={styles.title}>Sign Up</Text>
+            </View>
+            <View style={styles.form} >
 
             <TextInput
               style={styles.input}
@@ -181,49 +201,68 @@ const SignupDementia = ({ navigation }) => {
               placeholderTextColor='#00000080'
               onChangeText={(GuardianEmail) => setGuardianEmail(GuardianEmail)}
             />
+              {isLoading == false ?
+                <TouchableOpacity style={styles.Signupbutton} onPress={handleSubmitPress} >
+                  <Text
+                    style={{
+                      textAlign: "center",
+                      color: "white",
+                      fontSize: 15,
+                      fontWeight: "500",
+                    }}
+                  >
+                    Sign Up
+                  </Text>
+                </TouchableOpacity>
+
+
+
+                : <ActivityIndicator size={60} color="#0000ff" />
+              }
+            </View>
 
           </View>
-          <TouchableOpacity style={styles.Signupbutton} onPress={handleSubmitPress}>
-            <AntDesign name="arrowright" style={styles.arrow} size={44} />
-          </TouchableOpacity>
+          <View style={styles.textCenter}>
 
-        </View>
-        <View style={styles.textCenter}>
-          <TouchableOpacity>
-            <Text style={styles.textCenter}>Forgot password?</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
-            <Text style={{ color: '#359A8E' }}>
-              Already have an account</Text>
-          </TouchableOpacity>
-          <Text style={styles.textCenter}>Or login with</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
+              <Text style={{ color: '#359A8E' }}>
+                Already have an account?</Text>
+            </TouchableOpacity>
 
-          <View style={styles.containerLogo}>
-            <TouchableOpacity style={styles.textCenter}><MaterialCommunityIcons name="gmail" size={50} color="black" /></TouchableOpacity>
-            <TouchableOpacity style={styles.textCenter}><AntDesign name="twitter" size={44} color="black" /></TouchableOpacity>
-            <TouchableOpacity style={styles.textCenter}><AntDesign name="apple1" size={44} color="black" /></TouchableOpacity>
           </View>
-        </View>
-      </ScrollView>
-    </View>
+        </ScrollView>
+      </View>
+    </LinearGradient>
+
+
+
+
+
+
+
+
+
+
   )
 }
 
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row"
+    flex: 1,
+    justifyContent: "space-between",
   },
   containerLogo: {
-    padding: 5,
     flexDirection: "row",
   },
   form: {
-    alignItems: "center"
+    alignItems: "center",
+
   },
   input: {
-    alignItems: 'center',
-    width: 300,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    width: "60%",
     height: 50,
     backgroundColor: '#fff',
     borderColor: '#4A0D66',
@@ -238,15 +277,16 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
+
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
   },
   title: {
-    marginTop: 140,
-    marginBottom: 18,
-    fontSize: 24,
-    color: '#359A8E'
+    fontSize: 30,
+    padding: 15,
+    color: "#5f0a87",
+
   },
   tilte2: {
     marginTop: 12,
@@ -254,13 +294,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   Signupbutton: {
-    margin: 10,
-    marginLeft: "60%",
-    backgroundColor: '#359A8E',
-    width: 70,
-    height: 49,
+    display: "flex",
+    marginTop: 10,
+    marginBottom: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#5f0a87",
+    width: "50%",
+    height: 45,
+    textAlign: "center",
     borderRadius: 20,
-    marginEnd: 80,
+
     shadowColor: "#000000",
     shadowOffset: {
       width: 0,
@@ -288,7 +332,7 @@ const styles = StyleSheet.create({
     color: '#00000080',
     fontSize: 18
   },
-
 })
+
 
 export default SignupDementia;
