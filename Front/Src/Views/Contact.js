@@ -72,7 +72,7 @@ const Contact = ({ navigation, route }) => {
 
     const updateContact = () => {
         console.log(edit)
-        axios.put(`http://192.168.1.60:8090/contacts/edit/${edit}`,
+        axios.put(`https://alzhelper.herokuapp.com/contacts/edit/${edit}`,
             { number: phonenumber, name: name, image: image })
             .then(getData()
             )
@@ -84,12 +84,12 @@ const Contact = ({ navigation, route }) => {
 
     /*   function deleteContact(id) {
           console.log(id)
-          axios.delete(`http://192.168.1.60:8090/contacts/delete/${id}`);
+          axios.delete(`https://alzhelper.herokuapp.com/contacts/delete/${id}`);
           alert("Successful contact deleted!");
       } */
 
     const deleteContact = () => {
-        axios.delete(`http://192.168.1.60:8090/contacts/delete/${edit}`)
+        axios.delete(`https://alzhelper.herokuapp.com/contacts/delete/${edit}`)
             .then(getData())
         getData();
     }
@@ -110,7 +110,7 @@ const Contact = ({ navigation, route }) => {
             .then(value => {
                 console.log(JSON.parse(value));
                 if (JSON.parse(value).type) {
-                    axios.post(`http://192.168.1.60:8090/contacts/add/${JSON.parse(value).dementia.id}`,
+                    axios.post(`https://alzhelper.herokuapp.com/contacts/add/${JSON.parse(value).dementia.id}`,
                         { number: phonenumber, name: name, image: image }).then(res => getData())
                     alert("Successful contact added!");
                 }
@@ -123,7 +123,7 @@ const Contact = ({ navigation, route }) => {
                 console.log(JSON.parse(value));
                 console.log(JSON.parse(value).type)
                 if (JSON.parse(value).type == 'dementia') {
-                    axios.get(`http://192.168.1.60:8090/contacts/get-contacts/${JSON.parse(value).id}`)
+                    axios.get(`https://alzhelper.herokuapp.com/contacts/get-contacts/${JSON.parse(value).id}`)
                         .then((res) => {
                             console.log(res.data)
                             if (res.data != null)
@@ -131,7 +131,7 @@ const Contact = ({ navigation, route }) => {
                         })
                 }
                 else {
-                    axios.get(`http://192.168.1.60:8090/contacts/get-contacts/${JSON.parse(value).dementia.id}`)
+                    axios.get(`https://alzhelper.herokuapp.com/contacts/get-contacts/${JSON.parse(value).dementia.id}`)
                         .then((res) => {
                             setContact(res.data);
                             console.log(res.data)

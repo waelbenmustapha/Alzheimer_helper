@@ -16,8 +16,8 @@ const ForgotPassword = () => {
             alert("Please fell the field to send you an email rest password")
             return;
         }
-        console.log(`http://192.168.1.60:8090/auth/forgot-password/${email}`)
-        axios.post(`http://192.168.1.60:8090/auth/forgot-password/${email}`)
+        console.log(`https://alzhelper.herokuapp.com/auth/forgot-password/${email}`)
+        axios.post(`https://alzhelper.herokuapp.com/auth/forgot-password/${email}`)
         .then((response) => {
             if (response.status === 200) {
                 console.log('done');

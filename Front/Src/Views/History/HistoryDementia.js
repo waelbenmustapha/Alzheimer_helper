@@ -35,7 +35,7 @@
               if(JSON.parse(value).type =='dementia'){
                 axios
                 .get(
-                  `http://192.168.1.60:8090/story/get/${JSON.parse(value).id}`
+                  `https://alzhelper.herokuapp.com/story/get/${JSON.parse(value).id}`
                 )
 
                 .then((res) => {
@@ -50,7 +50,7 @@
             else {
               axios
               .get(
-                `http://192.168.1.60:8090/story/get/${JSON.parse(value).dementia.id}`
+                `https://alzhelper.herokuapp.com/story/get/${JSON.parse(value).dementia.id}`
               )
               .then((res) => {
                 console.log("************************");
