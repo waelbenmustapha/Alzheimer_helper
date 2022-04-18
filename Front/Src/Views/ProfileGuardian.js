@@ -16,8 +16,10 @@ import axios from 'axios';
 const ProfileGuardian = () => {
   const [userData, setuserData] = useState(null);
   const [image, setImage] = useState(null);
+  const [phoneNumber, setphoneNumber] = useState(null);
   const [loader, setloader] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisibleNumber, setModalVisibleNumber] = useState(false);
   const isFocused = useIsFocused()
   const [state, setState] = useState('valid');
 
@@ -41,7 +43,6 @@ const ProfileGuardian = () => {
               email: JSON.parse(value).dementia.email,
               password: JSON.parse(value).dementia.password,
               name: JSON.parse(value).dementia.name,
-              number: JSON.parse(value).dementia.number,
               image: image
             })
             .then((response) => {
@@ -59,7 +60,37 @@ const ProfileGuardian = () => {
       })
 
   }
+  const submitUpdateNumber = () => {
 
+    AsyncStorage.getItem('user')
+      .then(value => {
+        console.log(JSON.parse(value));
+        if (JSON.parse(value).type) {
+          axios.put(`http://192.168.1.21:8090/guardian/edit-profile/${JSON.parse(value).id}`,
+            {
+              birthdate: JSON.parse(value).dementia.birthdate,
+              email: JSON.parse(value).dementia.email,
+              password: JSON.parse(value).dementia.password,
+              name: JSON.parse(value).dementia.name,
+              phoneNumber:phoneNumber,
+              image: JSON.parse(value).dementia.image
+            })
+            .then((response) => {
+              console.log(response.status)
+              if (response.status === 200) {
+                const user = userData;
+                user.dementia.image = image;
+                user.phoneNumber =number;
+                updateUser(user);
+                
+                alert("Image added!")
+
+              }
+            })
+        }
+      })
+
+  }
 
 
 
@@ -122,9 +153,17 @@ const ProfileGuardian = () => {
       <ScrollView style={styles.scrollView}>
         <Text style={styles.title}>Your informations :</Text>
         <View style={styles.items}>
-          <Text style={styles.subtitle}>Name</Text><TextInput style={styles.sectionTitle}>{userData.name}</TextInput>
-          <Text style={styles.subtitle}>Email</Text><TextInput style={styles.sectionTitle}>{userData.email}</TextInput>
-          <Text style={styles.subtitle}>Number</Text><TextInput style={styles.sectionTitle}>{userData.number}</TextInput>
+          <Text style={styles.subtitle}>Name:</Text><Text style={styles.sectionTitle}>{userData.name}</Text>
+          <Text style={styles.subtitle}>Email:</Text><Text style={styles.sectionTitle}>{userData.email}</Text>
+          <Text style={styles.subtitle}>Number:</Text><Text style={styles.sectionTitle}>{userData.phoneNumber}</Text>
+
+          <View style={[styles.fixToText]}>
+            <TouchableOpacity
+              onPress={() => setModalVisibleNumber(true)}
+              style={styles.donebutton}>
+              <Text style={styles.text}>Update</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
         <Text style={styles.title}>Your Dementia informations:</Text>
@@ -166,13 +205,44 @@ const ProfileGuardian = () => {
                       <Image
                         resizeMode='stretch'
                         style={styles.image}
-                        source={{ uri: image }}
+                        source={{ uri: userData.image }}
                       />
                   </Pressable>
                 </View>
               <View style={styles.fixToText}>
                 <Pressable
                   onPress={() => { submitUpdate(); setModalVisible(!modalVisible); }}
+                  style={styles.donebutton}>
+                  <Text style={styles.text}>Update</Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+        </ScrollView>
+
+      </Modal>
+
+
+      <Modal animationType="slide"
+        transparent={true}
+        visible={modalVisibleNumber}
+        onRequestClose={() => {
+          setModalVisibleNumber(!modalVisibleNumber);
+        }}>
+        <ScrollView>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Pressable onPress={() => setModalVisibleNumber(!modalVisibleNumber)}>
+                <AntDesign name="closecircleo" size={40} color="black" />
+              </Pressable>
+                <View style={styles.form}>
+                <Text style={[styles.subtitle,{color:"#000"}]}>Number</Text>
+                <TextInput style={styles.input} onChangeText={(UserNumber) => setphoneNumber(UserNumber)}>{userData.phoneNumber}</TextInput>
+                
+                </View>
+              <View style={styles.fixToText}>
+                <Pressable
+                  onPress={() => { submitUpdateNumber(); setModalVisibleNumber(!modalVisibleNumber); }}
                   style={styles.donebutton}>
                   <Text style={styles.text}>Update</Text>
                 </Pressable>
@@ -302,7 +372,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 3,
     borderColor: "#359A8E",
-    backgroundColor: "#fff",
+    backgroundColor: "#359A8E",
     shadowColor: "#359A8E",
     shadowOpacity: 0.55,
     shadowRadius: 2.22,

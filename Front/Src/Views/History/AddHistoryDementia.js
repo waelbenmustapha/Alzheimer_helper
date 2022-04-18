@@ -53,14 +53,14 @@ const AddHistoryDementia = ({ navigation }) => {
       {userData && <ProfileElement userData={userData} />}
       <View style={styles.item}>
         <Text style={styles.sectionTitle}>Insert History</Text>
-        
+
         <ScrollView style={styles.scrollView}>
-          
-            <TextInput multiline numberOfLines={1}
-              value={history}
-              style={styles.square}
-              onChangeText={(text) => setHistory(text)} />
-          
+
+          <TextInput  multiline numberOfLines={4}
+            value={history}
+            style={styles.square}
+            onChangeText={(text) => setHistory(text)} />
+
           <View style={styles.fixToText}>
             <TouchableOpacity style={styles.donebutton} onPress={() => { AddHistory() }}>
               <Text style={styles.color}>Save</Text>
@@ -87,8 +87,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: '5%',
   },
- item: {
-    flex:3
+  item: {
+    flex: 3
   },
   color: {
     color: "black",
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     color: "#359A8E",
   },
   square: {
-    fontSize:22,
+    fontSize: 22,
     width: "100%",
     backgroundColor: "#fff",
     borderRadius: 20,
@@ -146,20 +146,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 3,
     borderColor: "#359A8E",
-    backgroundColor: "#fff",
+    backgroundColor: "#359A8E",
     shadowColor: "#359A8E",
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 11,
   },
 
-
   fixToText: {
+    margin: "15%",
     flexDirection: "row",
     justifyContent: "space-between",
-    margin: "5%",
-    paddingLeft: "20%",
-    marginRight: "15%",
+
   },
 
 

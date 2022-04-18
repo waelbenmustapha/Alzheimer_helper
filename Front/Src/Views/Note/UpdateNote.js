@@ -13,57 +13,57 @@ import { sendPushNotification } from "../../Utils/Notif";
 
 const UpdateNote = ({ route, navigation }) => {
 
-    const [date, setDate] = useState(new Date(1598051730000));
-    const [description, setDescription] = useState(route.params.el.description);
-    const [title, setTitle] = useState(route.params.el.title);
-    const messageUpdate = {   
-      'title': 'Note Update',
-     'body': 'Your dementia has Update a note'
-   } 
+  const [date, setDate] = useState(new Date(1598051730000));
+  const [description, setDescription] = useState(route.params.el.description);
+  const [title, setTitle] = useState(route.params.el.title);
+  const messageUpdate = {
+    'title': 'Note Update',
+    'body': 'Your dementia has Update a note'
+  }
 
 
-   function UpdateNote() {
+  function UpdateNote() {
 
     AsyncStorage.getItem('user')
-      .then(value=>{console.log(JSON.parse(value));
+      .then(value => {
+        console.log(JSON.parse(value));
         console.log(JSON.parse(value).type)
-        if(JSON.parse(value).type =='dementia'){
-        axios.put(`http://192.168.1.21:8090/pending-notes/edit-note/${route.params.el.id}`,
-        {description:description, title:title,date:date})
-        .then((res) => {
-          axios.get(`http://192.168.1.21:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
-            .then((res) =>{
-              sendPushNotification(res.data,messageUpdate.title,messageUpdate.body)
+        if (JSON.parse(value).type == 'dementia') {
+          axios.put(`http://192.168.1.21:8090/pending-notes/edit-note/${route.params.el.id}`,
+            { description: description, title: title, date: date })
+            .then((res) => {
+              axios.get(`http://192.168.1.21:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
+                .then((res) => {
+                  sendPushNotification(res.data, messageUpdate.title, messageUpdate.body)
+                })
+              navigation.navigate("CheckNotes")
             })
-          navigation.navigate("CheckNotes")})
 
-      }
-      else {
-           axios.put(`http://192.168.1.21:8090/notes/edit-note/${route.params.el.id}`,
-           {description: description, title: title, date: date })
-           .then((res) => navigation.navigate("CheckNotes"))
-     }})
+        }
+        else {
+          axios.put(`http://192.168.1.21:8090/notes/edit-note/${route.params.el.id}`,
+            { description: description, title: title, date: date })
+            .then((res) => navigation.navigate("CheckNotes"))
+        }
+      })
   }
   const [note, setNote] = useState(route.params.el);
   useEffect(() => {
     console.log(note);
   }, []);
-  
+
   return (
     <View style={styles.container}>
-      <View style={styles.items}>
-        <View style={styles.items}>
-          <Text style={styles.sectionTitle}>Check Note</Text>
-          <View style={styles.item}>
-            <TextInput value={title} onChangeText={(value) => setTitle(value)}></TextInput>
-            <Text>{note.date}</Text>
-          </View>
-        </View>
-      </View>
-
-      <ScrollView style={styles.scrollView}>
-        <View style={styles.item}>
-          <TextInput value={description} onChangeText={(value) => setDescription(value)} style={styles.square}></TextInput>
+      <ScrollView>
+        <View style={[styles.square, styles.items]}>
+          <Text style={styles.subtitle}>Title : </Text>
+          <TextInput style={styles.title}> {note.title}</TextInput>
+          <Text style={styles.subtitle}>Date : </Text>
+          <Text style={styles.title}>{JSON.stringify((note.date)
+          ).substring(1, 11)} {JSON.stringify((note.date)
+          ).substring(12, 20)}</Text>
+          <Text style={styles.subtitle}>Description : </Text>
+          <TextInput style={styles.title}>{note.description}</TextInput>
         </View>
 
         <View style={styles.fixToText}>
@@ -78,7 +78,10 @@ const UpdateNote = ({ route, navigation }) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      
     </View>
+
+    
   );
 };
 
@@ -94,6 +97,8 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    paddingTop: "10%"
+
   },
   sectionTitle: {
     margin: "5%",
@@ -104,6 +109,14 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     marginHorizontal: 5,
+  },
+  subtitle: {
+    fontSize: 26,
+    padding: "2%",
+    color: "#359A8E"
+  },
+  title: {
+    fontSize: 20
   },
   square: {
     width: 300,
@@ -145,7 +158,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 3,
     borderColor: "#359A8E",
-    backgroundColor: "#fff",
+    backgroundColor: "#359A8E",
     shadowColor: "#359A8E",
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
@@ -153,10 +166,9 @@ const styles = StyleSheet.create({
   },
   fixToText: {
     flexDirection: "row",
-  justifyContent: "space-between",
-  margin: "5%",
-  paddingLeft: "20%",
-  marginRight: "15%",
+    justifyContent: "center",
+    margin:"5%"
+   
   },
 });
 export default UpdateNote;

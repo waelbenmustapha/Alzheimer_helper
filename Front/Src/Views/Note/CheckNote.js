@@ -54,6 +54,7 @@ const CheckNote = ({ route, navigation }) => {
   }, []);
 
   return (
+
     <View style={styles.container}>
       <View style={[styles.square, styles.items]}>
         <Text style={styles.subtitle}>Title : </Text>
@@ -75,7 +76,7 @@ const CheckNote = ({ route, navigation }) => {
             }}
             style={styles.deletebutton}
           >
-            <Text> Delete</Text>
+            <Text style={{ color:"#fff"}}> Delete</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -83,7 +84,7 @@ const CheckNote = ({ route, navigation }) => {
             }}
             style={styles.donebutton}
           >
-            <Text >Update</Text>
+            <Text style={{ color:"#fff"}}>Update</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -111,7 +112,15 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingTop:"20%"
+    paddingTop: "10%"
+  },
+  Title: {
+    margin: "10%",
+
+    justifyContent: "flex-start",
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#359A8E",
   },
   sectionTitle: {
     margin: "5%",
@@ -125,23 +134,23 @@ const styles = StyleSheet.create({
   },
   square: {
     width: 300,
-  backgroundColor: "#fff",
-  borderRadius: 20,
-  padding: 15,
-  alignSelf: "center",
-  shadowColor: "#359A8E",
-  shadowOpacity: 0.55,
-  shadowRadius: 2.22,
-  elevation: 8,
-  fontSize:18,
+    backgroundColor: "#fff",
+    borderRadius: 20,
+    padding: 15,
+    alignSelf: "center",
+    shadowColor: "#359A8E",
+    shadowOpacity: 0.55,
+    shadowRadius: 2.22,
+    elevation: 8,
+    fontSize: 18,
   },
   subtitle: {
     fontSize: 26,
-    padding:"2%",
-    color:"#359A8E"
+    padding: "2%",
+    color: "#359A8E"
   },
-  title:{
-    fontSize:20
+  title: {
+    fontSize: 20
   },
   backarrow: {
     paddingLeft: 50,
@@ -153,12 +162,13 @@ const styles = StyleSheet.create({
   },
   deletebutton: {
     alignItems: "center",
+    justifyContent: "space-between",
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 10,
     elevation: 3,
     borderColor: "#D86363",
-    backgroundColor: "#fff",
+    backgroundColor: "#D86363",
     shadowColor: "#D86363",
     shadowOpacity: 0.2,
     shadowRadius: 1.22,
@@ -166,24 +176,23 @@ const styles = StyleSheet.create({
   },
   donebutton: {
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 10,
     elevation: 3,
     borderColor: "#359A8E",
-    backgroundColor: "#fff",
+    backgroundColor: "#359A8E",
     shadowColor: "#359A8E",
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 11,
   },
   fixToText: {
+    margin:"20%",
     flexDirection: "row",
-  justifyContent: "space-between",
-  margin: "5%",
-  paddingLeft: "35%",
-  marginRight: "15%",
+    justifyContent: "space-between",
+
   },
 });
 export default CheckNote;

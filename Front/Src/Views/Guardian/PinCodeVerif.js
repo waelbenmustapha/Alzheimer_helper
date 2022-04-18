@@ -1,4 +1,4 @@
-import { View, Text,ImageBackground, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, ImageBackground, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import React, { Component, useState } from 'react'
 import axios from 'axios';
@@ -46,29 +46,29 @@ const PinCodeVerif = ({ navigation }) => {
                 source={require("./../../../assets/old.png")} style={styles.image}
             >
                 <View style={styles.container}>
-                    <Text style={styles.passcodeText}>Pin Code</Text>
-                    <View style={styles.codeContainer}>
-                        <TextInput
-                            style={styles.code1}
-                            placeholder='****'
-                            secureTextEntry={true}
-                            maxLength={4}
-                            keyboardType="number-pad"
-                            onChangeText={(pincode) => setCode(pincode)}
-                        />
-                        <TouchableOpacity onPress={() => handleSubmitPress()}>
-                            <Text style={[styles.buttonText, { color: "#359A8E" }]}>Submit Pin Code</Text>
+                    <View style={{ backgroundColor: "#ffffff90", borderTopLeftRadius: 25, borderTopRightRadius: 25 }}>
+                        <Text style={styles.passcodeText}>Pin Code</Text>
+                        <View style={styles.codeContainer}>
+                            <TextInput
+                                style={styles.code1}
+                                placeholder='****'
+                                secureTextEntry={true}
+                                maxLength={4}
+                                keyboardType="number-pad"
+                                onChangeText={(pincode) => setCode(pincode)}
+                            />
+                            <TouchableOpacity onPress={() => handleSubmitPress()}>
+                                <Text style={[styles.buttonText, { color: "#359A8E" }]}>Submit Pin Code</Text>
+                            </TouchableOpacity>
+                        </View>
+
+
+                        <TouchableOpacity>
+                            <Text style={[styles.buttonText, { color: "red" }]}>Forgot Pin Code</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
 
-                <View style={styles.buttons}>
-
-                    <TouchableOpacity>
-                        <Text style={[styles.buttonText, { color: "red" }]}>Forgot Pin Code</Text>
-                    </TouchableOpacity>
-
-                </View>
             </ImageBackground>
         </SafeAreaView>
     )
@@ -78,26 +78,23 @@ const PinCodeVerif = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 20,
+        flex: 1,
         justifyContent: "flex-end",
-        alignItems: "center",
     },
 
-    image:{
-        
-    height: '100%',
-    width: '100%',
+    image: {
+
+        height: '100%',
+        width: '100%',
     },
 
     passcodeText: {
         fontSize: 32,
         color: '#359A8E',
         letterSpacing: 0.34,
-        justifyContent: "center",
-
+        padding: "10%",
     },
     codeContainer: {
-        marginTop: 12,
         flexDirection: 'column',
         alignItems: "center",
         justifyContent: 'center',
@@ -114,15 +111,7 @@ const styles = StyleSheet.create({
         borderColor: "#359A8E",
     },
 
-    buttons: {
-        marginTop: 73,
-        marginLeft: 46,
-        marginRight: 46,
-        flexDirection: 'row',
-        alignItems: "center",
-        justifyContent: 'space-between',
-    },
-
+   
     buttonText: {
         fontSize: 16,
         color: '#000',

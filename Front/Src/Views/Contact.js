@@ -1,4 +1,4 @@
-import { View, Modal, Text, Image, TouchableOpacity, ScrollView, Button, StyleSheet, SafeAreaView, StatusBar, Pressable, TextInput } from 'react-native'
+import { View, Modal,ImageBackground, Text, Image, TouchableOpacity, ScrollView, Button, StyleSheet, SafeAreaView, StatusBar, Pressable, TextInput } from 'react-native'
 import React, { isValidElement, useEffect, useState } from 'react'
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import axios from 'axios';
@@ -170,6 +170,30 @@ const Contact = ({ navigation, route }) => {
             <Text> Loading  </Text>
         )
     }
+
+    
+    if (userData.dementia.contact == null) {
+        return (
+         
+            <View>
+                  
+        <ImageBackground
+          source={require("./../../../Front/assets/Contact.png")} style={{  height: '100%',
+          width: '100%',}}
+        >
+
+          <View style={{ flex: 1, justifyContent: "center", backgroundColor: "#ffffff80" }}>
+            <TouchableOpacity onPress={() => navigation.navigate("Home")} >
+              <Text style={{ padding: "10%", fontSize: 32, textAlign: "center", color: "#359A8E", backgroundColor: "#ffffff" }}>You have no contact list for the moment. Contact your Guardian.</Text>
+            </TouchableOpacity>
+          </View>
+         </ImageBackground>
+      
+  </View>
+     
+        )
+    }
+
     return (
 
         <View style={styles.container}>

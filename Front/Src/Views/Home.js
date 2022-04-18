@@ -18,7 +18,7 @@ import { Icon } from "react-native-elements";
 import { useIsFocused } from '@react-navigation/native'
 import axios from "axios";
 import * as Linking from 'expo-linking';
-
+import { LinearGradient } from "expo-linear-gradient";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ProfileElement from "../Components/ProfileElement";
@@ -100,102 +100,97 @@ const Home = ({ navigation }) => {
 
   return (
 
+    <LinearGradient
+    // Button Linear Gradient
+    colors={["#359A8E50", "#4A0D6650"]}
+    style={styles.container}
+    end={{ x: 0.8, y: 0.5 }}
+  >
+    <View >
+      {userData && <ProfileElement userData={userData} />}
+      <ScrollView>
+        <View style={{ flex: 1, alignItems: "center", paddingTop: "2%" }}>
 
-    <View style={styles.container}>
-      <View style={{ flex: 3, alignItems: "center" }}>
-        <View style={{ flex: 1, width: "90%", flexDirection: "row", alignItems: "center" }}>
-          <Image
-            source={{ uri: userData.type == "dementia" ? userData.image : userData.dementia.image }}
-            style={styles.image}
-          ></Image>
-
-          <View style={styles.firstItem}>
-            <Text style={styles.Title}>Welcome {userData.name} </Text>
-            {userData.type == "dementia" ? <Text style={styles.Title}>Your age is {getAge(userData.birthdate)} </Text>
-              : userData.type == "guardian" ? <Text style={styles.Title}>You are the guardian for {userData.dementia.name} </Text> : null}
-            {/* <Text style={styles.Title}>Your age is  </Text> */}
-          </View>
-        </View>
           <View style={styles.searchSection}>
             <TextInput style={styles.input} placeholder="Search" onChangeText={(value) => setSearch(value)}></TextInput>
             <TouchableOpacity
-              
+
               onPress={() => GoogleApi()}>
               <Icon style={styles.searchIcon} name="search" size={20} color="#000" />
             </TouchableOpacity>
           </View>
-      </View>
+        </View>
 
-      <View style={{ flex: 6 }}>
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flex: 6 }}>
+          <View style={{ flexDirection: "row" }}>
 
-          <View style={{ flex: 2 }} >
-            <TouchableOpacity onPress={() => navigation.navigate("Contact")}
-              style={{ alignItems: "center" }}>
-              <Image
-                source={require("./../../assets/Contact.png")}
-                style={{
-                  width: 150,
-                  height: 250,
-                  borderRadius: 40 / 2,
-                  marginTop: 10,
-                }} />
-              <Text style={styles.Title2}>Contact</Text>
-            </TouchableOpacity>
-            {userData.type == "dementia" ? <TouchableOpacity style={{ alignItems: "center" }} onPress={() => navigation.navigate("HistoryDementia")}>
-              <Image
-                source={require("./../../assets/profile.png")}
-                style={{
-                  width: 150,
-                  height: 180,
-                  borderRadius: 40 / 2,
-                }} />
-              <Text style={styles.Title2}>History</Text>
+            <View style={{ flex: 2 }} >
+              <TouchableOpacity onPress={() => navigation.navigate("Contact")}
+                style={{ alignItems: "center" }}>
+                <Image
+                  source={require("./../../assets/Contact.png")}
+                  style={{
+                    width: 150,
+                    height: 250,
+                    borderRadius: 40 / 2,
+                    marginTop: 10,
+                  }} />
+                <Text style={styles.Title2}>Contact</Text>
+              </TouchableOpacity>
+              {userData.type == "dementia" ? <TouchableOpacity style={{ alignItems: "center" }} onPress={() => navigation.navigate("HistoryDementia")}>
+                <Image
+                  source={require("./../../assets/profile.png")}
+                  style={{
+                    width: 150,
+                    height: 180,
+                    borderRadius: 40 / 2,
+                  }} />
+                <Text style={styles.Title2}>History</Text>
 
-            </TouchableOpacity> : userData.type == "guardian" ? <TouchableOpacity style={{ alignItems: "center" }} onPress={() => navigation.navigate("AddHistoryDementia")}>
-              <Image
-                source={require("./../../assets/profile.png")}
-                style={{
-                  width: 150,
-                  height: 180,
-                  borderRadius: 40 / 2,
-                }} />
-              <Text style={styles.Title2}>History</Text>
+              </TouchableOpacity> : userData.type == "guardian" ? <TouchableOpacity style={{ alignItems: "center" }} onPress={() => navigation.navigate("AddHistoryDementia")}>
+                <Image
+                  source={require("./../../assets/profile.png")}
+                  style={{
+                    width: 150,
+                    height: 180,
+                    borderRadius: 40 / 2,
+                  }} />
+                <Text style={styles.Title2}>History</Text>
 
-            </TouchableOpacity> : null}
+              </TouchableOpacity> : null}
 
-          </View>
-
-
-          <View style={{ flex: 2 }} >
-            {userData.type == "dementia" ? <TouchableOpacity
-              style={{ alignItems: "center" }}
-              onPress={() => navigation.navigate("DemantiaLocation")}>
-              <Image
-                source={require("./../../assets/map.png")}
-                style={{
-                  width: 150,
-                  height: 180,
-                  borderRadius: 40 / 2,
-                  marginTop: 10,
-                }} />
-              <Text style={styles.Title2}>Location</Text>
-            </TouchableOpacity> : userData.type == "guardian" ? <TouchableOpacity
-              style={{ alignItems: "center" }}
-              onPress={() => navigation.navigate("Location")}>
-              <Image
-                source={require("./../../assets/map.png")}
-                style={{
-                  width: 150,
-                  height: 180,
-                  borderRadius: 40 / 2,
-                  marginTop: 10,
-                }} />
-              <Text style={styles.Title2}>Location</Text>
-            </TouchableOpacity> : null}
+            </View>
 
 
-            {/*  <Modal.Dialog>
+            <View style={{ flex: 2 }} >
+              {userData.type == "dementia" ? <TouchableOpacity
+                style={{ alignItems: "center" }}
+                onPress={() => navigation.navigate("DemantiaLocation")}>
+                <Image
+                  source={require("./../../assets/map.png")}
+                  style={{
+                    width: 150,
+                    height: 180,
+                    borderRadius: 40 / 2,
+                    marginTop: 10,
+                  }} />
+                <Text style={styles.Title2}>Location</Text>
+              </TouchableOpacity> : userData.type == "guardian" ? <TouchableOpacity
+                style={{ alignItems: "center" }}
+                onPress={() => navigation.navigate("Location")}>
+                <Image
+                  source={require("./../../assets/map.png")}
+                  style={{
+                    width: 150,
+                    height: 180,
+                    borderRadius: 40 / 2,
+                    marginTop: 10,
+                  }} />
+                <Text style={styles.Title2}>Location</Text>
+              </TouchableOpacity> : null}
+
+
+              {/*  <Modal.Dialog>
               <Modal.Body>
                 <TouchableOpacity style={styles.donebutton}
                   onPress={() => navigation.navigate('CheckDemantiaLocation')}>
@@ -209,41 +204,27 @@ const Home = ({ navigation }) => {
             </Modal.Dialog> */}
 
 
-            <TouchableOpacity
-              style={{ alignItems: "center" }}
-              onPress={() => navigation.navigate("CheckNotes")}>
-              <Image
-                source={require("./../../assets/Note.png")}
-                style={{
-                  width: 150,
-                  height: 250,
-                  borderRadius: 40 / 2,
-                }} />
-              <Text style={styles.Title2}>Notes</Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={{ alignItems: "center" }}
+                onPress={() => navigation.navigate("CheckNotes")}>
+                <Image
+                  source={require("./../../assets/Note.png")}
+                  style={{
+                    width: 150,
+                    height: 250,
+                    borderRadius: 40 / 2,
+                  }} />
+                <Text style={styles.Title2}>Notes</Text>
+              </TouchableOpacity>
+            </View>
+
           </View>
-
         </View>
-      </View>
 
-
-
-      {/* <Button
-      title="Go check my demantia location"
-      onPress={() =>
-        navigation.navigate('CheckDemantiaLocation')
-      }
-    />
-     <Button
-      title="Go my location"
-      onPress={() =>
-        navigation.navigate('DemantiaLocation')
-      }
-    />
- */}
-
-
+      </ScrollView>
+      
     </View>
+    </LinearGradient>
 
   );
 };
@@ -272,19 +253,20 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   Title2: {
+    paddingBottom: 2,
     fontWeight: "bold",
     fontSize: 18,
   },
   searchSection: {
-   
+    flex: 1,
   },
   searchIcon: {
-    alignItems:"flex-end",
+    alignItems: "flex-end",
   },
   input: {
-    margin:"2%",
+    margin: "2%",
     backgroundColor: "#fff",
-    width:"70%",
+    width: "70%",
     color: "#424242",
   },
   donebutton: {

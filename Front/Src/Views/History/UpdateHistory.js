@@ -50,24 +50,26 @@ const UpdateHistory = ({ route, navigation }) => {
     <View style={styles.container}>
       <View style={styles.items}>
         <View style={styles.items}>
-          <Text style={styles.sectionTitle}>Update and delete History</Text>
+          <Text style={styles.sectionTitle}>Update or delete your dementia story</Text>
         </View>
       </View>
 
       <ScrollView style={styles.scrollView}>
         <View style={styles.item}>
-          <TextInput value={history} onChangeText={(value) => setHistory(value)} style={styles.square}></TextInput>
+          <TextInput  multiline numberOfLines={4}
+          value={history} onChangeText={(value) => setHistory(value)} style={[styles.square,{}]}></TextInput>
         </View>
 
         <View style={styles.fixToText}>
+
+          <TouchableOpacity style={styles.deletebutton} onPress={() => {DeleteHistory()}}>
+            <Text style={styles.color}> Delete</Text>
+          </TouchableOpacity>
 
           <TouchableOpacity style={styles.updatebutton} onPress={() => {UpdateHistory()}}>
             <Text style={styles.color}>Update</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.deletebutton} onPress={() => {DeleteHistory()}}>
-            <Text style={styles.color}> Delete</Text>
-          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
@@ -86,8 +88,6 @@ const styles = StyleSheet.create({
     padding:"5%"
   },
   sectionTitle: {
-    margin: "5%",
-    marginLeft: "10%",
     fontSize: 28,
     fontWeight: "bold",
     color: "#359A8E",
@@ -127,8 +127,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 3,
     borderColor: "#D86363",
-    color:'#359A8E',
-    backgroundColor: "#fff",
+    backgroundColor: "#D86363",
     shadowColor: "#D86363",
     shadowOpacity: 0.2,
     shadowRadius: 1.22,
@@ -140,21 +139,19 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 10,
-    color:'#359A8E',
     elevation: 3,
     borderColor: "#359A8E",
-    backgroundColor: "#fff",
+    backgroundColor: "#359A8E",
     shadowColor: "#359A8E",
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 11,
   },
   fixToText: {
+    margin: "10%",
     flexDirection: "row",
     justifyContent: "space-between",
-    margin: "5%",
-    paddingLeft: "20%",
-    marginRight: "15%",
+
   },
 });
 export default UpdateHistory;
