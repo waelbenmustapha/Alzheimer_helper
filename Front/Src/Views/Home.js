@@ -102,29 +102,7 @@ const Home = ({ navigation }) => {
 
 
     <View style={styles.container}>
-      <View style={{ flex: 3, alignItems: "center" }}>
-        <View style={{ flex: 1, width: "90%", flexDirection: "row", alignItems: "center" }}>
-          <Image
-            source={{ uri: userData.type == "dementia" ? userData.image : userData.dementia.image }}
-            style={styles.image}
-          ></Image>
-
-          <View style={styles.firstItem}>
-            <Text style={styles.Title}>Welcome {userData.name} </Text>
-            {userData.type == "dementia" ? <Text style={styles.Title}>Your age is {getAge(userData.birthdate)} </Text>
-              : userData.type == "guardian" ? <Text style={styles.Title}>You are the guardian for {userData.dementia.name} </Text> : null}
-            {/* <Text style={styles.Title}>Your age is  </Text> */}
-          </View>
-        </View>
-          <View style={styles.searchSection}>
-            <TextInput style={styles.input} placeholder="Search" onChangeText={(value) => setSearch(value)}></TextInput>
-            <TouchableOpacity
-              
-              onPress={() => GoogleApi()}>
-              <Icon style={styles.searchIcon} name="search" size={20} color="#000" />
-            </TouchableOpacity>
-          </View>
-      </View>
+      <ProfileElement userData={userData}/>
 
       <View style={{ flex: 6 }}>
         <View style={{ flexDirection: "row" }}>
