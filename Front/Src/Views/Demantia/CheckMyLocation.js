@@ -10,6 +10,7 @@ import {
 import * as Location from "expo-location";
 import axios from "axios";
 import { URL } from "@env";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CheckMyLocation = () => {
@@ -17,6 +18,28 @@ const CheckMyLocation = () => {
   const [errorMsg, setErrorMsg] = useState(null);
   const [userData, setuserData] = useState(null);
   const [intervalName,setIntervalName]=useState(null);
+const [safeArea,setSafeArea]=useState(null);
+
+  async function getsafearea(){
+    AsyncStorage.getItem('user')
+     .then(value=>
+  {
+    axios
+     .get(
+       `https://alzhelper.herokuapp.com/dementia/get-safezones/${JSON.parse(value).id}`
+     ).then(res=> {
+ console.log("el result is")
+ console.log(res.data.filter(safe =>safe.active==true)[0]);
+ setSafeArea(res.data.filter(safe =>safe.active==true)[0])  
+  
+ 
+     // setSafeArea()  
+   }
+   )}
+   )}
+
+
+
   function postLocation(latitude, longitude,value) {
     console.log("**********************************");
     console.log(latitude + "and " + longitude),
@@ -47,6 +70,7 @@ const CheckMyLocation = () => {
   let interval;
 
   useEffect(() => {
+    getsafearea();
     AsyncStorage.getItem("user").then((value) => {
       setuserData(JSON.parse(value));
       getlocation(JSON.parse(value).id);
@@ -90,10 +114,13 @@ const CheckMyLocation = () => {
             longitudeDelta: 0.005,
           }}
         >
-          <Circle
-            center={{ latitude: 36.7399988, longitude: 10.2324613 }}
-            radius={300}
-          />
+          {safeArea&&<Circle
+            strokeColor="red"
+            strokeWidth={4}
+            fillColor="rgba(90, 162, 124, 0.2)"
+            center={{ latitude: safeArea.latitude, longitude: safeArea.longitude }}
+            radius={safeArea.diameter}
+          />}
           <Marker
             coordinate={{
               latitude: location.coords.latitude,

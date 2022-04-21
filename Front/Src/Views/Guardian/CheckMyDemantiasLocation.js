@@ -18,7 +18,6 @@ import * as Location from "expo-location";
 import axios from "axios";
 import { sendPushNotification } from "../../Utils/Notif";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 const CheckMyDemantiasLocation = () => {
   const[Danger, setDanger] = useState(false);
   const [safe, setSafeArea] = useState(null);

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { View, ScrollView, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
+import { View, ScrollView, TouchableOpacity,Image, Text, TextInput, StyleSheet, ActivityIndicator } from 'react-native'
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
+import { LinearGradient } from "expo-linear-gradient";
+
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { validatePathConfig } from '@react-navigation/native';
 const SignupDementia = ({ navigation }) => {
@@ -110,14 +112,32 @@ const SignupDementia = ({ navigation }) => {
 
 
   return (
-    <View style={styles.container}>
-      <ScrollView>
+    <LinearGradient
+      // Button Linear Gradient
+      colors={["#5f0a87", "#a4508b"]}
+      style={styles.container}
+      end={{ x: 0.8, y: 0.5 }}
+    >
+      <View
+        // Button Linear Gradient
 
+        style={{ flex: 2, justifyContent: "center", alignItems: "center" }}
+      >
+        <Image
+          source={require("../../../images/logo.png")}
+          style={{ height: 250, width: 250 }}
+        />
+      </View>
+
+      <View style={{flex:3, backgroundColor: "white",borderTopLeftRadius:25,borderTopRightRadius:25}}>
+<ScrollView>
         <View style={{ flex: 1 }} >
+          <View  style={{ alignItems:"center" }}>
+            <Text style={styles.title}>Sign Up</Text>
+          </View>
           <View style={styles.form} >
-            <Text style={styles.title}>Glad to see you here</Text>
 
-            <TextInput
+          <TextInput
               style={styles.input}
               value={userName}
               placeholder='Dementia Name'
@@ -181,38 +201,46 @@ const SignupDementia = ({ navigation }) => {
               placeholderTextColor='#00000080'
               onChangeText={(GuardianEmail) => setGuardianEmail(GuardianEmail)}
             />
-
+ {isLoading==false?
+                 <TouchableOpacity style={styles.Signupbutton} onPress={handleSubmitPress} >
+                  <Text
+                    style={{
+                      textAlign: "center",
+                      color: "white",
+                      fontSize:15,
+                      fontWeight: "500",
+                    }}
+                  >
+                    Sign Up
+                  </Text>
+                </TouchableOpacity>
+                
+                
+                
+           :<ActivityIndicator size={60} color="#0000ff" />
+}
           </View>
-          <TouchableOpacity style={styles.Signupbutton} onPress={handleSubmitPress}>
-            <AntDesign name="arrowright" style={styles.arrow} size={44} />
-          </TouchableOpacity>
-
+               
         </View>
         <View style={styles.textCenter}>
-          <TouchableOpacity>
-            <Text style={styles.textCenter}>Forgot password?</Text>
-          </TouchableOpacity>
+      
           <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
             <Text style={{ color: '#359A8E' }}>
-              Already have an account</Text>
+              Already have an account?</Text>
           </TouchableOpacity>
-          <Text style={styles.textCenter}>Or login with</Text>
-
-          <View style={styles.containerLogo}>
-            <TouchableOpacity style={styles.textCenter}><MaterialCommunityIcons name="gmail" size={50} color="black" /></TouchableOpacity>
-            <TouchableOpacity style={styles.textCenter}><AntDesign name="twitter" size={44} color="black" /></TouchableOpacity>
-            <TouchableOpacity style={styles.textCenter}><AntDesign name="apple1" size={44} color="black" /></TouchableOpacity>
-          </View>
+        
         </View>
-      </ScrollView>
-    </View>
-  )
-}
-
+        </ScrollView>
+      </View>
+    </LinearGradient>
+  
+  )}
+  
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row"
+    flex: 1,
+    justifyContent: "space-between",
   },
   containerLogo: {
     padding: 5,
@@ -243,8 +271,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   title: {
-    marginTop: 140,
-    marginBottom: 18,
+   margin:10,
     fontSize: 24,
     color: '#359A8E'
   },
@@ -254,22 +281,26 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   Signupbutton: {
-    margin: 10,
-    marginLeft: "60%",
-    backgroundColor: '#359A8E',
-    width: 70,
-    height: 49,
-    borderRadius: 20,
-    marginEnd: 80,
-    shadowColor: "#000000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
+    display: "flex",
+    marginTop:10,
+    marginBottom:10,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#5f0a87",
+        width: "50%",
+        height: 45,
+        textAlign: "center",
+        borderRadius: 20,
+    
+        shadowColor: "#000000",
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+      },
   arrow: {
     marginLeft: 13,
     color: "white"
