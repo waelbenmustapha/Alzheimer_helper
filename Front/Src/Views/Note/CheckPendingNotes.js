@@ -16,6 +16,7 @@ import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ProfileElement from "../../Components/ProfileElement";
+import { LinearGradient } from "expo-linear-gradient";
 
 const CheckPendingNotes = ({ navigation }) => {
   const isFocused = useIsFocused();
@@ -55,55 +56,49 @@ const CheckPendingNotes = ({ navigation }) => {
   //   }
 
   return (
+    <LinearGradient
+      // Button Linear Gradient
+      colors={["#359A8E50", "#4A0D6650"]}
+      style={styles.container}
+      end={{ x: 0.8, y: 0.5 }}
+    >
+      <View style={{ flex: 1, flexDirection: "column" }}>
 
-    <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
+        {userData && <ProfileElement userData={userData} />}
+        <View style={{ alignItems: "center" }}>
+          <SelectDropdown
+            buttonStyle={styles.donebutton}
+            data={vals}
+            onSelect={(selectedItem, index) => {
+              console.log(selectedItem, index)
+              {
+                selectedItem == "all" ? setNotes(notesCopy) :
+                  setNotes
+                    (notesCopy.filter(function (event) {
+                      return event.status == selectedItem
+                    }))
+              }
+            }}
 
-      {userData && <ProfileElement userData={userData} />}
-      <View style={{ alignItems: "center"}}>
-        <SelectDropdown
-        buttonStyle={styles.donebutton}
-          data={vals}
-          onSelect={(selectedItem, index) => {
-            console.log(selectedItem, index)
-            {
-              selectedItem == "all" ? setNotes(notesCopy) :
-                setNotes
-                  (notesCopy.filter(function (event) {
-                    return event.status == selectedItem
-                  }))
-            }
-          }}
+          />
+        </View>
 
-        />
-      </View>
-      <View style={[styles.container, { flex: 3, flexDirection: "column" }]}>
-          <View style={[styles.container, { flexDirection: "row" }]}>
-
-{/*           <View style={styles.barre} />
- */}
-          <View style={[styles.container, { flex: 10, flexDirection: "column" }]}>
-
-            <View style={{ flex: 1 }}>
-              <View >
-
-                <ScrollView style={styles.scrollView}>
-                  {notes.map((note) => (<TouchableOpacity key={note.id}
-                    onPress={() => note.action == "edit" && note.status == "pending" ? navigation.navigate("UpdatePendingNote", { note }) : navigation.navigate("CheckPendingNote", { note })} style={[note.status == "accepted" ? styles.item : note.status == "denied" ? styles.item3 : styles.item2]}>
-                    <Text style={styles.title}>{note.action}</Text>
-                    <Text style={styles.subtitle}>Title : </Text>
-                    <Text> {note.title}</Text>
-                    <Text style={styles.subtitle}>Date : </Text>
-                    <Text>{note.date}</Text>
-                    <Text style={styles.subtitle}>Description : </Text><Text>{note.description}</Text>
-                    <Text style={styles.littleitem}> {note.status.toUpperCase()}</Text>
-                  </TouchableOpacity>))}
-                </ScrollView>
-              </View>
-            </View>
-          </View>
+        <View style={[styles.container, { flex: 10, flexDirection: "column" }]}>
+          <ScrollView style={styles.scrollView}>
+            {notes.map((note) => (<TouchableOpacity key={note.id}
+              onPress={() => note.action == "edit" && note.status == "pending" ? navigation.navigate("UpdatePendingNote", { note }) : navigation.navigate("CheckPendingNote", { note })} style={[note.status == "accepted" ? styles.item : note.status == "denied" ? styles.item3 : styles.item2]}>
+              <Text style={styles.title}>{note.action}</Text>
+              <Text style={styles.subtitle}>Title : </Text>
+              <Text> {note.title}</Text>
+              <Text style={styles.subtitle}>Date : </Text>
+              <Text>{note.date}</Text>
+              <Text style={styles.subtitle}>Description : </Text><Text>{note.description}</Text>
+              <Text style={styles.littleitem}> {note.status.toUpperCase()}</Text>
+            </TouchableOpacity>))}
+          </ScrollView>
         </View>
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 
@@ -132,7 +127,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: "1%",
+    padding: "2%",
 
   },
   littleitem: {
@@ -176,11 +171,12 @@ const styles = StyleSheet.create({
   },
   donebutton: {
     alignItems: "center",
-    margin: 5,
+    margin: "5%",
     paddingVertical: 12,
     paddingHorizontal: 32,
     elevation: 3,
     borderColor: "#359A8E",
+    borderRadius:20,
     backgroundColor: "#fff",
     shadowColor: "#359A8E",
     shadowOpacity: 0.55,

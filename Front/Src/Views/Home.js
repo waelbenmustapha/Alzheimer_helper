@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     flex: 1,
-    padding: '5%',
+    padding: '2%',
   },
   firstItem: {
     alignItems: "flex-start",

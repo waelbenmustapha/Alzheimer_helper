@@ -1,10 +1,17 @@
 import { View, TouchableOpacity, StyleSheet, StatusBar, Text } from 'react-native'
 import React from 'react'
+import { LinearGradient } from "expo-linear-gradient";
 
 const Location = ({ navigation }) => {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.donebutton}
+
+ <LinearGradient
+    // Button Linear Gradient
+    colors={["#359A8E50", "#4A0D6650"]}
+    style={styles.container}
+    end={{ x: 0.8, y: 0.5 }}
+  >     
+   <TouchableOpacity style={styles.donebutton}
 
         onPress={() =>
           navigation.navigate('CheckDemantiaLocation')
@@ -16,19 +23,19 @@ const Location = ({ navigation }) => {
           navigation.navigate('DemantiaLocation')
         }
       ><Text>Go my location</Text></TouchableOpacity> */}
-       <TouchableOpacity style={styles.donebutton}
+      <TouchableOpacity style={styles.donebutton}
 
-onPress={() =>
-  navigation.navigate('SpecifySafeArea')
-}
-><Text>Specify Safe area</Text></TouchableOpacity>
-    </View>
+        onPress={() =>
+          navigation.navigate('SpecifySafeArea')
+        }
+      ><Text>Specify Safe area</Text></TouchableOpacity>
+    </LinearGradient>
   )
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight
+    padding:"10%",
   },
   donebutton: {
     alignItems: 'center',

@@ -4,7 +4,7 @@
   import axios from "axios";
   import * as Speech from 'expo-speech';
 
-
+  import { LinearGradient } from "expo-linear-gradient";
   import { Feather } from '@expo/vector-icons';
   import AsyncStorage from '@react-native-async-storage/async-storage';
   import ProfileElement from '../../Components/ProfileElement';
@@ -81,21 +81,27 @@
           }
       
     return (
-      <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
-        <View style={{ flex: 1, padding: '5%' }}>
+      <LinearGradient
+      // Button Linear Gradient
+      colors={["#359A8E50", "#4A0D6650"]}
+      style={styles.container}
+      end={{ x: 0.8, y: 0.5 }}
+    >
+      <View style={{ flex: 1, flexDirection: "column" }}>
+        <View style={{ flex: 1 }}>
 
         <ProfileElement userData={userData}/> 
 
         <ScrollView style={styles.scrollView}> 
         <TouchableOpacity style={styles.microphone} onPress={()=>runSpeech()}>
-          <Feather name='mic' size={40}></Feather></TouchableOpacity>
+          <Feather name='mic' size={50}></Feather></TouchableOpacity>
           <Text multiline 
               style={styles.square}>{history}</Text>
           </ScrollView>
 
         </View>
         </View>
-        
+        </LinearGradient>
 
     )
   }
@@ -107,7 +113,7 @@
     container: {
       flexDirection: "column",
       flex: 1,
-      padding: '5%',
+      padding: '2%',
     },
   
     image: {
@@ -147,7 +153,7 @@
   },
     microphone:{
      alignItems:"flex-end",
-      padding:15,
+      padding:45,
 
     },
     deletebutton: {

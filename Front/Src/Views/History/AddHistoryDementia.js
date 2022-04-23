@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ProfileElement from '../../Components/ProfileElement';
+import { LinearGradient } from "expo-linear-gradient";
 
 
 const AddHistoryDementia = ({ navigation }) => {
@@ -48,31 +49,37 @@ const AddHistoryDementia = ({ navigation }) => {
   }
 
   return (
-    <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
+    <LinearGradient
+      // Button Linear Gradient
+      colors={["#359A8E50", "#4A0D6650"]}
+      style={styles.container}
+      end={{ x: 0.8, y: 0.5 }}
+    >
+      <View style={{ flex: 1, flexDirection: "column" }}>
 
-      {userData && <ProfileElement userData={userData} />}
-      <View style={styles.item}>
-        <Text style={styles.sectionTitle}>Insert History</Text>
+        {userData && <ProfileElement userData={userData} />}
+        <View style={styles.item}>
+          <Text style={styles.sectionTitle}>Insert History</Text>
 
-        <ScrollView style={styles.scrollView}>
+          <ScrollView style={styles.scrollView}>
 
-          <TextInput  multiline numberOfLines={4}
-            value={history}
-            style={styles.square}
-            onChangeText={(text) => setHistory(text)} />
+            <TextInput multiline numberOfLines={4}
+              value={history}
+              style={styles.square}
+              onChangeText={(text) => setHistory(text)} />
 
-          <View style={styles.fixToText}>
-            <TouchableOpacity style={styles.donebutton} onPress={() => { AddHistory() }}>
-              <Text style={styles.color}>Save</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.updatebutton} onPress={() => navigation.navigate("UpdateHistory", { history: history })}>
-              <Text style={styles.color}>Update</Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
+            <View style={styles.fixToText}>
+              <TouchableOpacity style={styles.donebutton} onPress={() => { AddHistory() }}>
+                <Text style={styles.color}>Save</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.updatebutton} onPress={() => navigation.navigate("UpdateHistory", { history: history })}>
+                <Text style={styles.color}>Update</Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        </View>
       </View>
-    </View>
-
+    </LinearGradient>
 
 
 
@@ -85,7 +92,7 @@ export default AddHistoryDementia
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: '5%',
+    padding: '2%',
   },
   item: {
     flex: 3

@@ -5,6 +5,9 @@ import heure from '../../../assets/heure.png'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { sendPushNotification } from '../../Utils/Notif';
+import { LinearGradient } from "expo-linear-gradient";
+import { AntDesign, Entypo } from "@expo/vector-icons";
+
 
 const AddNotes = ({ navigation }) => {
   const [date, setDate] = useState(new Date(1598051730000));
@@ -83,10 +86,32 @@ const AddNotes = ({ navigation }) => {
 
   return (
 
-    <View style={styles.container}>
+    <LinearGradient
+      // Button Linear Gradient
+      colors={["#359A8E50", "#4A0D6650"]}
+      style={styles.container}
+      end={{ x: 0.8, y: 0.5 }}
+    >
 
+      <View style={{ padding: "3%", alignItems: "center" }}>
+        <View>
+          <TouchableOpacity onPress={showDatepicker}>
+            <Entypo style={styles.DateTimePicker} name="clock" size={50} color="#4A0D66" />
+          </TouchableOpacity>
+        </View>
 
-
+        {show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode={mode}
+            is24Hour={true}
+            display="spinner"
+            onChange={onChange}
+          />
+        )}
+      
+      </View>
       <View style={{ alignSelf: "center" }}>
         <View style={{ alignItems: "flex-start" }}>
           <Text style={styles.subtitle}>Note title</Text>
@@ -99,30 +124,13 @@ const AddNotes = ({ navigation }) => {
             placeholder="Description" />
         </View>
       </View>
-      <View style={{ padding: "3%", alignItems: "center" }}>
-        <View>
-          <TouchableOpacity onPress={showDatepicker}>
-            <Image style={styles.DateTimePicker} source={heure} />
-          </TouchableOpacity>
-        </View>
 
-        {show && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={date}
-            mode={mode}
-            is24Hour={true}
-            display="default"
-            onChange={onChange}
-          />
-        )}
-      </View>
       <View style={{ flex: 1, alignItems: "flex-end", }}>
         <TouchableOpacity onPress={() => { AddNote() }} >
           <Text style={styles.donebutton}>Save</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </LinearGradient>
     /*  <View style={styles.container}>
         <TextInput onChangeText={(text) => setTitle(text)} style={styles.input} placeholder="Note title" />
         <TextInput onChangeText={(text) => setDescription(text)} style={styles.inputDesc} placeholder="Description" />
@@ -138,7 +146,7 @@ const AddNotes = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: "10%",
+    paddingTop: "20%",
   },
 
   subtitle: {
@@ -156,6 +164,9 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "bold",
     color: "#359A8E",
+  },
+  title: {
+    fontSize: 20
   },
   square: {
     width: 300,
@@ -192,11 +203,10 @@ const styles = StyleSheet.create({
   },
 
   DateTimePicker: {
-    width: 50,
-    height: 50,
-    resizeMode: 'contain',
-    alignItems: "center"
-
+    alignItems: "center",
+    backgroundColor: "white",
+    borderRadius: 50,
+    padding: "5%"
   }
 
 });

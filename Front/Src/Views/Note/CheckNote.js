@@ -2,17 +2,19 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  TextInput,
+  Image,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Entypo } from "@expo/vector-icons";
 import axios from "axios";
 import { URL } from "@env"
 import UpdateNote from "./UpdateNote";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { sendPushNotification } from "../../Utils/Notif";
+import heure from '../../../assets/heure.png'
+import { LinearGradient } from "expo-linear-gradient";
 
 const CheckNote = ({ route, navigation }) => {
 
@@ -28,7 +30,7 @@ const CheckNote = ({ route, navigation }) => {
       .then(value => {
         console.log(JSON.parse(value).type)
         if (JSON.parse(value).type == 'dementia') {
-          axios.put(`http://192.168.1.21:8090/pending-notes/delete-note/${JSON.parse(value).id}/${route.params.el.id}`,
+          axios.post(`http://192.168.1.21:8090/pending-notes/delete-note/${route.params.el.id}`,
           )
             .then((res) => {
               axios.get(`http://192.168.1.21:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
@@ -54,19 +56,27 @@ const CheckNote = ({ route, navigation }) => {
   }, []);
 
   return (
-
+    <LinearGradient
+    // Button Linear Gradient
+    colors={["#359A8E50", "#4A0D6650"]}
+    style={styles.container}
+    end={{ x: 0.8, y: 0.5 }}
+  >
     <View style={styles.container}>
-      <View style={[styles.square, styles.items]}>
-        <Text style={styles.subtitle}>Title : </Text>
-        <Text style={styles.title}> {note.title}</Text>
-        <Text style={styles.subtitle}>Date : </Text>
+      <ScrollView>
+      <View style={styles.items}>
+        <Entypo style={styles.DateTimePicker} name="clock" size={50} color="#4A0D66" />
         <Text style={styles.title}>{JSON.stringify((note.date)
-        ).substring(1, 11)} {JSON.stringify((note.date)
+        ).substring(1, 11)}</Text>
+        <Text style={styles.title}> {JSON.stringify((note.date)
         ).substring(12, 20)}</Text>
-        <Text style={styles.subtitle}>Description : </Text><Text style={styles.title}>{note.description}</Text>
       </View>
-
-      <ScrollView style={styles.scrollView}>
+      <View style={styles.item}>
+        <Text style={styles.subtitle}>Title : </Text>
+        <Text style={styles.titleSouligner}> {note.title}</Text>
+        <Text style={styles.subtitle}>Description : </Text>
+        <Text style={styles.titleSouligner}>{note.description}</Text>
+      </View>
 
 
         <View style={styles.fixToText}>
@@ -76,7 +86,7 @@ const CheckNote = ({ route, navigation }) => {
             }}
             style={styles.deletebutton}
           >
-            <Text style={{ color:"#fff"}}> Delete</Text>
+            <Text style={{ color: "#fff" }}> Delete</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -84,35 +94,25 @@ const CheckNote = ({ route, navigation }) => {
             }}
             style={styles.donebutton}
           >
-            <Text style={{ color:"#fff"}}>Update</Text>
+            <Text style={{ color: "#fff" }}>Update</Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
+        </ScrollView>
     </View>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   items: {
-    padding: "5%",
+    alignItems: "center"
   },
   item: {
-    margin: "1%",
-    borderRadius: 10,
-    justifyContent: "space-between",
-    marginBottom: 0,
-    backgroundColor: "#fff",
-    borderRadius: 20,
-    padding: 15,
-    alignSelf: "center",
-    shadowColor: "#359A8E",
-    shadowOpacity: 0.55,
-    shadowRadius: 2.22,
-    elevation: 8,
+    margin: "10%",
   },
   container: {
     flex: 1,
-    paddingTop: "10%"
+    paddingTop:"10%"
   },
   Title: {
     margin: "10%",
@@ -129,6 +129,21 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#359A8E",
   },
+  subtitle: {
+    fontSize: 20,
+    color: "#00000090",
+    marginLeft: "1%",
+
+  },
+  titleSouligner: {
+    margin: "2%",
+    marginLeft: "5%",
+    fontSize: 24,
+    color: "black",
+    borderBottomWidth: 1,
+    borderBottomColor: "#00000010",
+
+  },
   scrollView: {
     marginHorizontal: 5,
   },
@@ -143,6 +158,13 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
     elevation: 8,
     fontSize: 18,
+  },
+  DateTimePicker: {
+    alignItems: "center",
+    backgroundColor: "white",
+    padding: 40,
+    borderRadius: 80,
+    margin: "5%"
   },
   subtitle: {
     fontSize: 26,
@@ -189,7 +211,7 @@ const styles = StyleSheet.create({
     elevation: 11,
   },
   fixToText: {
-    margin:"20%",
+    margin: "20%",
     flexDirection: "row",
     justifyContent: "space-between",
 

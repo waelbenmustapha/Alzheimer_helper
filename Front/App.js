@@ -96,8 +96,8 @@ else{
         
         <Stack.Screen name="Notif" options={{ headerShown: false }} component={Notif} />
         <Stack.Screen name="SpecifySafeArea" options={{ headerShown: false }} component={SpecifySafeArea} />
-        <Stack.Screen name="AddNotes" options={{ title: 'Add Note' }} component={AddNotes} />
-        <Stack.Screen name="CheckNote" options={{ title: 'Check Note' }} component={CheckNote} />
+        <Stack.Screen name="AddNotes" options={{ headerShown:false }} component={AddNotes} />
+        <Stack.Screen name="CheckNote" options={{ headerShown:false }} component={CheckNote} />
         <Stack.Screen name="CheckNotes" options={{ title: 'Notes' }} component={CheckNotes} />
         <Stack.Screen name="UpdateNote" options={{ headerShown: false }} component={UpdateNote} />
         <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />

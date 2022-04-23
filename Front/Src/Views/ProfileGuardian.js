@@ -9,7 +9,7 @@ import { Entypo, AntDesign, Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import DateTimePicker from '@react-native-community/datetimepicker';
-
+import { LinearGradient } from "expo-linear-gradient";
 import { BackgroundImage } from 'react-native-elements/dist/config';
 import axios from 'axios';
 
@@ -39,10 +39,15 @@ const ProfileGuardian = () => {
         if (JSON.parse(value).type) {
           axios.put(`http://192.168.1.21:8090/dementia/edit-profile/${JSON.parse(value).dementia.id}`,
             {
+              pushToken: JSON.parse(value).pushToken,
               birthdate: JSON.parse(value).dementia.birthdate,
               email: JSON.parse(value).dementia.email,
               password: JSON.parse(value).dementia.password,
               name: JSON.parse(value).dementia.name,
+              story: JSON.parse(value).dementia.story,
+              latitude: JSON.parse(value).dementia.latitude,
+              longitude: JSON.parse(value).dementia.longitude,
+              verified: JSON.parse(value).verified,
               image: image
             })
             .then((response) => {
@@ -51,7 +56,7 @@ const ProfileGuardian = () => {
                 const user = userData;
                 user.dementia.image = image;
                 updateUser(user);
-                
+                getData()
                 alert("Image added!")
 
               }
@@ -60,30 +65,35 @@ const ProfileGuardian = () => {
       })
 
   }
+
   const submitUpdateNumber = () => {
 
     AsyncStorage.getItem('user')
       .then(value => {
         console.log(JSON.parse(value));
         if (JSON.parse(value).type) {
+          console.log(JSON.parse(value).dementia.id)
           axios.put(`http://192.168.1.21:8090/guardian/edit-profile/${JSON.parse(value).id}`,
             {
-              birthdate: JSON.parse(value).dementia.birthdate,
-              email: JSON.parse(value).dementia.email,
-              password: JSON.parse(value).dementia.password,
-              name: JSON.parse(value).dementia.name,
-              phoneNumber:phoneNumber,
-              image: JSON.parse(value).dementia.image
+              pushToken: JSON.parse(value).pushToken,
+              email: JSON.parse(value).email,
+              password: JSON.parse(value).password,
+              name: JSON.parse(value).name,
+              pincode: JSON.parse(value).pincode,
+              dementia: JSON.parse(value).dementia,
+              verified: JSON.parse(value).verified,
+              pinCode: JSON.parse(value).pinCode,
+              phoneNumber: phoneNumber
             })
             .then((response) => {
               console.log(response.status)
               if (response.status === 200) {
                 const user = userData;
-                user.dementia.image = image;
-                user.phoneNumber =number;
+                user.phoneNumber = phoneNumber;
                 updateUser(user);
-                
-                alert("Image added!")
+                console.log(user)
+                getData()
+                alert("Phone Number updated!")
 
               }
             })
@@ -135,10 +145,13 @@ const ProfileGuardian = () => {
       })
   }
 
+  async function getData() {
+     const user = await AsyncStorage.getItem('user')
+      setuserData(JSON.parse(user))
+    }
+
   useEffect(() => {
-    AsyncStorage.getItem('user', (err, item) => { setuserData(JSON.parse(item)) })
-
-
+    getData()
   }, [isFocused]);
 
   if (userData == null) {
@@ -191,35 +204,41 @@ const ProfileGuardian = () => {
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}>
-        <ScrollView>
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Pressable onPress={() => setModalVisible(!modalVisible)}>
-                <AntDesign name="closecircleo" size={40} color="black" />
-              </Pressable>
+        <LinearGradient
+          // Button Linear Gradient
+          colors={["#359A8E50", "#4A0D6650"]}
+          style={styles.container}
+          end={{ x: 0.8, y: 0.5 }}
+        >
+          <ScrollView>
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Pressable onPress={() => setModalVisible(!modalVisible)}>
+                  <AntDesign name="closecircleo" size={40} color="black" />
+                </Pressable>
                 <View style={styles.form}>
                   <Pressable
                     onPress={() => pickFromGallery()}>
                     {loader == false ? <Entypo name="image" size={40} color="black" /> :
                       <Text>loading</Text>}
-                      <Image
-                        resizeMode='stretch'
-                        style={styles.image}
-                        source={{ uri: userData.image }}
-                      />
+                    <Image
+                      resizeMode='stretch'
+                      style={styles.image}
+                      source={{ uri: image }}
+                    />
                   </Pressable>
                 </View>
-              <View style={styles.fixToText}>
-                <Pressable
-                  onPress={() => { submitUpdate(); setModalVisible(!modalVisible); }}
-                  style={styles.donebutton}>
-                  <Text style={styles.text}>Update</Text>
-                </Pressable>
+                <View style={styles.fixToText}>
+                  <Pressable
+                    onPress={() => { submitUpdate(); setModalVisible(!modalVisible); }}
+                    style={styles.donebutton}>
+                    <Text style={styles.text}>Update</Text>
+                  </Pressable>
+                </View>
               </View>
             </View>
-          </View>
-        </ScrollView>
-
+          </ScrollView>
+        </LinearGradient>
       </Modal>
 
 
@@ -229,30 +248,37 @@ const ProfileGuardian = () => {
         onRequestClose={() => {
           setModalVisibleNumber(!modalVisibleNumber);
         }}>
-        <ScrollView>
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Pressable onPress={() => setModalVisibleNumber(!modalVisibleNumber)}>
-                <AntDesign name="closecircleo" size={40} color="black" />
-              </Pressable>
-                <View style={styles.form}>
-                <Text style={[styles.subtitle,{color:"#000"}]}>Number</Text>
-                <TextInput style={styles.input} onChangeText={(UserNumber) => setphoneNumber(UserNumber)}>{userData.phoneNumber}</TextInput>
-                
-                </View>
-              <View style={styles.fixToText}>
-                <Pressable
-                  onPress={() => { submitUpdateNumber(); setModalVisibleNumber(!modalVisibleNumber); }}
-                  style={styles.donebutton}>
-                  <Text style={styles.text}>Update</Text>
+        <LinearGradient
+          // Button Linear Gradient
+          colors={["#359A8E50", "#4A0D6650"]}
+          style={styles.container}
+          end={{ x: 0.8, y: 0.5 }}
+        >
+
+          <ScrollView>
+            <View style={styles.centeredView}>
+
+              <View style={styles.modalView}>
+                <Pressable onPress={() => setModalVisibleNumber(!modalVisibleNumber)}>
+                  <AntDesign name="closecircleo" size={40} color="black" />
                 </Pressable>
+                <View style={styles.form}>
+                  <Text style={[styles.subtitle, { color: "#000" }]}>Number</Text>
+                  <TextInput style={styles.input} onChangeText={(UserNumber) => setphoneNumber(UserNumber)}>{userData.phoneNumber}</TextInput>
+
+                </View>
+                <View style={styles.fixToText}>
+                  <Pressable
+                    onPress={() => { submitUpdateNumber(); setModalVisibleNumber(!modalVisibleNumber); }}
+                    style={styles.donebutton}>
+                    <Text style={styles.text}>Update</Text>
+                  </Pressable>
+                </View>
               </View>
             </View>
-          </View>
-        </ScrollView>
-
+          </ScrollView>
+        </LinearGradient>
       </Modal>
-
     </View>
   );
 };
@@ -312,9 +338,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-  }, 
+  },
   image: {
-    justifyContent:"center",
+    justifyContent: "center",
     padding: "30%",
     width: "50%",
     height: "50%",
@@ -383,5 +409,5 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     margin: "2%",
   },
-}); 
+});
 export default ProfileGuardian

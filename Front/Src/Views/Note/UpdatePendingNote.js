@@ -13,6 +13,7 @@ import { URL } from "@env"
 import UpdateNote from "./UpdateNote";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { sendPushNotification } from "../../Utils/Notif";
+import { LinearGradient } from "expo-linear-gradient";
 
 const UpdatePendingNote = ({ route, navigation }) => {
   const [note, setNote] = useState(route.params.note);
@@ -60,7 +61,12 @@ const UpdatePendingNote = ({ route, navigation }) => {
     )
   }
   return (
-    <View style={styles.container}>
+    <LinearGradient
+      // Button Linear Gradient
+      colors={["#359A8E50", "#4A0D6650"]}
+      style={styles.container}
+      end={{ x: 0.8, y: 0.5 }}
+    >
       <Text style={styles.sectionTitle}>New NOTE</Text>
       <View style={[styles.square, styles.items]}>
         <Text style={styles.subtitle}>Title : </Text>
@@ -85,25 +91,25 @@ const UpdatePendingNote = ({ route, navigation }) => {
 
 
       {note.status == "pending" ? <View style={styles.fixToText}>
-      <TouchableOpacity
+        <TouchableOpacity
           onPress={() => {
             DeclinePending();
           }}
           style={styles.deletebutton}
         >
-          <Text> Decline</Text>
-        </TouchableOpacity>   
+          <Text style={{ color: "white" }}> Decline</Text>
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             AcceptPending();
           }}
           style={styles.donebutton}
         >
-          <Text> Accept</Text>
+          <Text style={{ color: "white" }}> Accept</Text>
         </TouchableOpacity>
-       
+
       </View> : null}
-    </View>
+    </LinearGradient>
   );
 };
 
@@ -123,7 +129,6 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     margin: "10%",
-    marginLeft: "10%",
     fontSize: 28,
     fontWeight: "bold",
     color: "#359A8E",
@@ -135,7 +140,7 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 20,
     fontWeight: "bold",
-    padding:"2%"
+    padding: "2%"
 
   },
   scrollView: {
@@ -161,38 +166,41 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   deletebutton: {
-    alignItems: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: "5%",
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 10,
     elevation: 3,
     borderColor: "#D86363",
-    backgroundColor: "#fff",
+    backgroundColor: "#D86363",
     shadowColor: "#D86363",
     shadowOpacity: 0.2,
     shadowRadius: 1.22,
     elevation: 11,
   },
   donebutton: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: "5%",
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 10,
     elevation: 3,
     borderColor: "#359A8E",
-    backgroundColor: "#fff",
+    backgroundColor: "#359A8E",
     shadowColor: "#359A8E",
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 11,
   },
   fixToText: {
+    marginLeft: "20%",
+    marginRight: "20%",
     flexDirection: "row",
-  justifyContent: "space-between",
-  margin: "5%",
-  paddingLeft: "15%",
-  marginRight: "15%",
+    justifyContent: "space-between",
+
   },
 });
 export default UpdatePendingNote;

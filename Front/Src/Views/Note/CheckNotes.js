@@ -10,7 +10,7 @@ import React, { useState, useEffect } from "react";
 import NoteElement from "../../Components/NoteElement";
 import { AntDesign } from "@expo/vector-icons";
 import { URL } from "@env"
-
+import { LinearGradient } from "expo-linear-gradient";
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -65,18 +65,22 @@ const CheckNotes = ({ navigation }) => {
   //   }
 
   return (
+    <LinearGradient
+      // Button Linear Gradient
+      colors={["#359A8E50", "#4A0D6650"]}
+      style={styles.container}
+      end={{ x: 0.8, y: 0.5 }}
+    >
 
-    <View style={styles.container}>
-
-      {userData && <ProfileElement userData={userData} />}
+        {userData && <ProfileElement userData={userData} />}
 
 
-      <View style={[{ flex:4, flexDirection: "column" }]}>
-        <View style={[styles.container, { flexDirection: "row" }]}>
-          <View style={styles.barre} />
-          <View style={[styles.container, { flex: 10, flexDirection: "column" }]}>
-            <View style={{ flex: 1 }}>
-              <View >
+        <View style={[{ flex: 3, flexDirection: "column" }]}>
+          <View style={[styles.container, { flexDirection: "row" }]}>
+            <View style={styles.barre} />
+
+            <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
+              <View style={{ flex: 0 }}>
                 <ScrollView style={styles.scrollView}>
                   {notes.map((el) =>
                   (<TouchableOpacity key={el.id}
@@ -93,17 +97,16 @@ const CheckNotes = ({ navigation }) => {
                 </ScrollView>
               </View>
             </View>
-          </View>
-          <View style={styles.container1}>
-            <TouchableOpacity onPress={() => navigation.navigate("AddNotes")}>
-              <AntDesign name="pluscircleo" size={50} color="#4A0D66" />
-            </TouchableOpacity>
-          </View>
+            <View style={styles.container1}>
+              <TouchableOpacity onPress={() => navigation.navigate("AddNotes")}>
+                <AntDesign name="pluscircleo" size={50} color="#4A0D66" />
+              </TouchableOpacity>
+            </View>
 
 
+          </View>
         </View>
-      </View>
-    </View>
+    </LinearGradient>
   );
 };
 
@@ -124,19 +127,18 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding:20
+    padding: "2%"
 
   },
   subtitle: {
-    fontSize: 24  ,
-    padding:"2%",
-color:"#4A0D66"
+    fontSize: 24,
+    padding: "2%",
+    color: "#4A0D66"
   },
   container1:
   {
     position: "relative",
     justifyContent: "flex-end",
-    flex: 2,
     flexDirection: "column",
     paddingBottom: 20
   },
@@ -168,7 +170,7 @@ color:"#4A0D66"
   },
   Title: {
     fontSize: 20,
-    color:"#000"
+    color: "#000"
 
   },
   firstItem: {
@@ -176,7 +178,7 @@ color:"#4A0D66"
     justifyContent: "flex-start",
     margin: "4%",
   },
-  
+
   barre: {
     flex: 0,
     backgroundColor: "#4A0D66",

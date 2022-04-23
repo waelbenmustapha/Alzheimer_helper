@@ -10,44 +10,56 @@ import {
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { sendPushNotification } from "../../Utils/Notif";
+import { LinearGradient } from "expo-linear-gradient";
 
 const UpdateHistory = ({ route, navigation }) => {
 
-    const [history, setHistory] = useState(route.params.history);
-   
+  const [history, setHistory] = useState(route.params.history);
 
 
-   function UpdateHistory() {
+
+  function UpdateHistory() {
 
     AsyncStorage.getItem('user')
-      .then(value=>{console.log(JSON.parse(value));
+      .then(value => {
+        console.log(JSON.parse(value));
         console.log(JSON.parse(value).type)
-        if(JSON.parse(value).type =='guardian'){
-       
-           axios.put(`http://192.168.1.21:8090/story/update/${JSON.parse(value).dementia.id}`,
-           history,{headers:{ 
-            'Content-Type': 'text/plain'
-          }})
-           .then((res) => navigation.navigate("drawer"))
-     }})
+        if (JSON.parse(value).type == 'guardian') {
+
+          axios.put(`http://192.168.1.21:8090/story/update/${JSON.parse(value).dementia.id}`,
+            history, {
+              headers: {
+                'Content-Type': 'text/plain'
+              }
+          })
+            .then((res) => navigation.navigate("drawer"))
+        }
+      })
   }
 
-  function DeleteHistory(){
+  function DeleteHistory() {
     AsyncStorage.getItem('user')
-    .then(value=>{console.log(JSON.parse(value));
-      console.log(JSON.parse(value).type)
-      if(JSON.parse(value).type =='guardian'){
-     
-         axios.delete(`http://192.168.1.21:8090/story/delete/${JSON.parse(value).dementia.id}`,
-         {history:history })
-         .then((res) => navigation.navigate("drawer"))
-   }})
+      .then(value => {
+        console.log(JSON.parse(value));
+        console.log(JSON.parse(value).type)
+        if (JSON.parse(value).type == 'guardian') {
+
+          axios.delete(`http://192.168.1.21:8090/story/delete/${JSON.parse(value).dementia.id}`,
+            { history: history })
+            .then((res) => navigation.navigate("drawer"))
+        }
+      })
 
   }
 
-  
+
   return (
-    <View style={styles.container}>
+    <LinearGradient
+      // Button Linear Gradient
+      colors={["#359A8E50", "#4A0D6650"]}
+      style={styles.container}
+      end={{ x: 0.8, y: 0.5 }}
+    >
       <View style={styles.items}>
         <View style={styles.items}>
           <Text style={styles.sectionTitle}>Update or delete your dementia story</Text>
@@ -57,7 +69,7 @@ const UpdateHistory = ({ route, navigation }) => {
       <ScrollView style={styles.scrollView}>
         <View style={styles.item}>
           <TextInput  multiline numberOfLines={4}
-          value={history} onChangeText={(value) => setHistory(value)} style={[styles.square,{}]}></TextInput>
+          value={history} onChangeText={(value) => setHistory(value)} style={styles.square}></TextInput>
         </View>
 
         <View style={styles.fixToText}>
@@ -72,7 +84,7 @@ const UpdateHistory = ({ route, navigation }) => {
 
         </View>
       </ScrollView>
-    </View>
+      </LinearGradient>
   );
 };
 
@@ -81,11 +93,11 @@ const styles = StyleSheet.create({
     padding: "5%",
   },
   item: {
-    flex:3
+    flex: 1
   },
   container: {
     flex: 1,
-    padding:"5%"
+    padding: "5%"
   },
   sectionTitle: {
     fontSize: 28,
@@ -96,7 +108,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   square: {
-    fontSize:22,
+    fontSize: 22,
     width: "100%",
     backgroundColor: "#fff",
     borderRadius: 20,
@@ -106,7 +118,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.55,
     shadowRadius: 2.22,
     elevation: 8,
-    color:"black"
+    color: "black"
   },
   backarrow: {
     paddingLeft: 50,
