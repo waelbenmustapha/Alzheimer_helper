@@ -72,40 +72,40 @@ const CheckNotes = ({ navigation }) => {
       end={{ x: 0.8, y: 0.5 }}
     >
 
-        {userData && <ProfileElement userData={userData} />}
+      {userData && <ProfileElement userData={userData} />}
 
 
-        <View style={[{ flex: 3, flexDirection: "column" }]}>
-          <View style={[styles.container, { flexDirection: "row" }]}>
-            <View style={styles.barre} />
+      <View style={[{ flex: 3, flexDirection: "column" }]}>
+        <View style={[styles.container, { flexDirection: "row" }]}>
+          <View style={styles.barre} />
 
-            <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
-              <View style={{ flex: 0 }}>
-                <ScrollView style={styles.scrollView}>
-                  {notes.map((el) =>
-                  (<TouchableOpacity key={el.id}
-                    onPress={() => navigation.navigate("CheckNote", { el })} style={styles.item}>
-                    <View>
-                      <Text style={styles.subtitle}>Title : </Text><Text style={styles.Title}>{el.title}</Text>
-                      <Text style={styles.subtitle}>Date :</Text>
-                      <Text style={styles.Title}>{JSON.stringify((el.date)
-                      ).substring(1, 11)} at {JSON.stringify((el.date)
-                      ).substring(12, 20)}</Text>
-                      <Text style={styles.subtitle}>Description : </Text><Text style={styles.Title}>{el.description}</Text>
-                    </View>
-                  </TouchableOpacity>))}
-                </ScrollView>
-              </View>
+          <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
+            <View style={{ flex: 0 }}>
+              <ScrollView style={styles.scrollView}>
+                {notes.map((el) =>
+                (<TouchableOpacity key={el.id}
+                  onPress={() => navigation.navigate("CheckNote", { el })} style={styles.item}>
+                  <View>
+                    <Text style={styles.subtitle}>Title : </Text><Text style={styles.Title}>{el.title}</Text>
+                    <Text style={styles.subtitle}>Date :</Text>
+                    <Text style={styles.Title}>{JSON.stringify((el.date)
+                    ).substring(1, 11)} at {JSON.stringify((el.date)
+                    ).substring(12, 20)}</Text>
+                    <Text style={styles.subtitle}>Description : </Text><Text style={styles.Title}>{el.description}</Text>
+                  </View>
+                </TouchableOpacity>))}
+              </ScrollView>
             </View>
-            <View style={styles.container1}>
-              <TouchableOpacity onPress={() => navigation.navigate("AddNotes")}>
-                <AntDesign name="pluscircleo" size={50} color="#4A0D66" />
-              </TouchableOpacity>
-            </View>
-
-
           </View>
+          <View style={styles.container1}>
+            <TouchableOpacity onPress={() => navigation.navigate("AddNotes")}>
+              <AntDesign name="pluscircleo" size={50} color="#4A0D66" />
+            </TouchableOpacity>
+          </View>
+
+
         </View>
+      </View>
     </LinearGradient>
   );
 };
@@ -127,7 +127,9 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: "2%"
+    paddingTop: "2%",
+    paddingLeft: "2%",
+    paddingRight: "2%",
 
   },
   subtitle: {

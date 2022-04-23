@@ -1,4 +1,4 @@
-import { View, Modal,ImageBackground, Text, Image, TouchableOpacity, ScrollView, Button, StyleSheet, SafeAreaView, StatusBar, Pressable, TextInput } from 'react-native'
+import { View, Modal, ImageBackground, Text, Image, TouchableOpacity, ScrollView, Button, StyleSheet, SafeAreaView, StatusBar, Pressable, TextInput } from 'react-native'
 import React, { isValidElement, useEffect, useState } from 'react'
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import axios from 'axios';
@@ -7,6 +7,7 @@ import { useIsFocused } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import { Linking } from 'react-native';
+import { LinearGradient } from "expo-linear-gradient";
 
 const Contact = ({ navigation, route }) => {
 
@@ -171,33 +172,40 @@ const Contact = ({ navigation, route }) => {
         )
     }
 
-    
-    if (userData.dementia.contact == null) {
-        return (
-         
-            <View>
-                  
-        <ImageBackground
-          source={require("./../../../Front/assets/Contact.png")} style={{  height: '100%',
-          width: '100%',}}
-        >
 
-          <View style={{ flex: 1, justifyContent: "center", backgroundColor: "#ffffff80" }}>
-            <TouchableOpacity onPress={() => navigation.navigate("Home")} >
-              <Text style={{ padding: "10%", fontSize: 32, textAlign: "center", color: "#359A8E", backgroundColor: "#ffffff" }}>You have no contact list for the moment. Contact your Guardian.</Text>
-            </TouchableOpacity>
-          </View>
-         </ImageBackground>
-      
-  </View>
-     
+    /* if (userData.dementia.contact == null) {
+        return (
+
+            <View>
+
+                <ImageBackground
+                    source={require("./../../../Front/assets/Contact.png")} style={{
+                        height: '100%',
+                        width: '100%',
+                    }}
+                >
+
+                    <View style={{ flex: 1, justifyContent: "center", backgroundColor: "#ffffff80" }}>
+                        <TouchableOpacity onPress={() => navigation.navigate("Home")} >
+                            <Text style={{ padding: "10%", fontSize: 32, textAlign: "center", color: "#359A8E", backgroundColor: "#ffffff" }}>You have no contact list for the moment. Contact your Guardian.</Text>
+                        </TouchableOpacity>
+                    </View>
+                </ImageBackground>
+
+            </View>
+
         )
-    }
+    } */
 
     return (
 
-        <View style={styles.container}>
-            <Text style={styles.sectionTitle}>Contact</Text>
+        <LinearGradient
+            // Button Linear Gradient
+            colors={["#359A8E50", "#4A0D6650"]}
+            style={styles.container}
+            end={{ x: 0.8, y: 0.5 }}
+        >
+            <Text style={styles.sectionTitle}>Contacts</Text>
             <View style={[styles.container, { flexDirection: "column" }]}>
                 <ScrollView style={styles.scrollView}>
                     <View style={styles.contactview} >
@@ -231,7 +239,7 @@ const Contact = ({ navigation, route }) => {
 
                                             <Pressable style={{ alignItems: "flex-end" }}
                                                 onPress={() => [setedit(el.id), setModalVisibleUpdate(true)]}>
-                                                <AntDesign name="edit" size={40} color="black" />
+                                                <AntDesign style={{ paddingBottom: "5%", paddingRight: "5%" }} name="edit" size={40} color="black" />
                                             </Pressable>
                                             : null}
                                     </View>))}
@@ -257,7 +265,7 @@ const Contact = ({ navigation, route }) => {
                                                         {loader == false ? <Entypo name="image" size={40} color="black" /> :
                                                             <Text>loading</Text>}
                                                         <View >
-                                                           <Image
+                                                            <Image
                                                                 resizeMode='stretch'
                                                                 style={styles.image}
                                                                 source={{ uri: image }}
@@ -367,7 +375,7 @@ const Contact = ({ navigation, route }) => {
 
                 </View>
             </View>
-        </View >
+        </LinearGradient>
     );
 }
 const styles = StyleSheet.create({
@@ -377,7 +385,7 @@ const styles = StyleSheet.create({
         padding: '3%',
     },
     container1: {
-        backgroundColor: "#359A8E10",
+        backgroundColor: "#359A8E30",
         borderRadius: 20,
         margin: "2%",
     },
@@ -438,8 +446,9 @@ const styles = StyleSheet.create({
     },
     sectionTitle: {
         marginTop: "10%",
-        textAlign:"center",
-        fontSize: 28,
+        marginLeft:"10%",
+        justifyContent: "flex-start",
+        fontSize: 32,
         fontWeight: "bold",
         color: "#359A8E",
     },
