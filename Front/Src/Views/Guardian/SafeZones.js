@@ -61,6 +61,7 @@ const SafeZones = ({ navigation }) => {
 
             <View style={{ flex: 1 }}>
               <View >
+                <Text style={{fontSize:22,padding:20}}>List of Safe Zones :</Text>
                 <ScrollView style={styles.scrollView}>
                   {zone.map((el) =>
                   (<TouchableOpacity key={el.id}
@@ -88,19 +89,23 @@ const styles = StyleSheet.create({
     padding: 0,
   },
   item: {
-    backgroundColor: "#00FF00",
+    backgroundColor: "#00FF0080",
     margin: 5,
     padding: 5,
     paddingStart: 20,
-    borderRadius: 10,
-
+    borderWidth:2,
+    borderColor:"grey",
+    borderRadius: 75,
   },
   item1: {
     backgroundColor: "#fff",
     margin: 5,
     padding: 5,
     paddingStart: 20,
-    borderRadius: 10,
+    borderWidth:2,
+    borderColor:"grey",
+    borderRadius: 75,
+
 
   },
   container: {  
@@ -122,6 +127,7 @@ color:"#000"
   },
   scrollView: {
     marginHorizontal: 5,
+    backgroundColor:"white"
   },
 
   backarrow: {
