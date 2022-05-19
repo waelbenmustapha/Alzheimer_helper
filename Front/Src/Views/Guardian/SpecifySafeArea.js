@@ -11,8 +11,9 @@ import {
 import * as Location from "expo-location";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NavigationContainer } from "@react-navigation/native";
 
-const SpecifySafeArea = () => {
+const SpecifySafeArea = ({navigation}) => {
   const [marker, setMarker] = useState(null);
   const [title, setTitle] = useState(null);
 
@@ -24,8 +25,11 @@ function saveSafeArea(){
   console.log(marker.longitude.toFixed(7))
   AsyncStorage.getItem('user')
   .then(value=>
-  {axios.post(`http://192.168.1.16:8090/dementia/safezone/${JSON.parse(value).dementia.id}`,
-  {latitude:marker.latitude.toFixed(7),longitude:marker.longitude.toFixed(7),diameter:radius,title:title})})
+  {axios.post(`http://192.168.1.19:8090/dementia/safezone/${JSON.parse(value).dementia.id}`,
+  {latitude:marker.latitude.toFixed(7),longitude:marker.longitude.toFixed(7),diameter:radius,title:title})
+navigation.navigate("SafeZones");
+})
+  
 }
 
   function getlocation() {

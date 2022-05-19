@@ -29,7 +29,7 @@ const SafeZones = ({ navigation }) => {
     const user =JSON.parse(await AsyncStorage.getItem("user"))
     axios
      .get(
-       `http://192.168.1.16:8090/dementia/get-safezones/${user.dementia.id}`
+       `http://192.168.1.19:8090/dementia/get-safezones/${user.dementia.id}`
      ).then(res=> {
       setZone(res.data)
       console.log(res.data)
@@ -40,7 +40,7 @@ const SafeZones = ({ navigation }) => {
     console.log(user)
     axios
     .post(
-      `http://192.168.1.16:8090/dementia/enable-safezone/${user.dementia.id}/${zone.id}`
+      `http://192.168.1.19:8090/dementia/enable-safezone/${user.dementia.id}/${zone.id}`
     ).then(res=> 
       {
       alert("That zone are active")
@@ -61,14 +61,14 @@ const SafeZones = ({ navigation }) => {
 
             <View style={{ flex: 1 }}>
               <View >
-                <Text style={{fontSize:22,padding:20}}>List of Safe Zones :</Text>
+                <Text style={{fontSize:22,padding:20, textAlign:"center"}}>List of Safe Zones :</Text>
                 <ScrollView style={styles.scrollView}>
                   {zone.map((el) =>
                   (<TouchableOpacity key={el.id}
                     onPress={() => enableZone(el)} style={el.active==true?styles.item:styles.item1}>
                     <View>
                       <Text style={styles.subtitle}>{el.title}</Text>
-                        </View>
+                    </View>
                   </TouchableOpacity>))}
                 </ScrollView>
               </View>
