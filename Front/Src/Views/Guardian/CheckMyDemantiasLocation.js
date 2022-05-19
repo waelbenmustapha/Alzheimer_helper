@@ -73,9 +73,7 @@ const CheckMyDemantiasLocation = () => {
       .catch((err) => console.log("ell error" + err));}
   
   )}
-  function getEnableSafeZone(){
-return safezones.filter(safe =>safe.active==true)  }
- 
+  
 
 async function getAllSafeZones(){
    AsyncStorage.getItem('user')

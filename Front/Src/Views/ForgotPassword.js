@@ -23,7 +23,8 @@ const ForgotPassword = () => {
                 console.log('done');
                 navigation.navigate("FVerificationCode")
 
-            }})
+                }
+            })
     }
 
 

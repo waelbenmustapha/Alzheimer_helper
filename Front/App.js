@@ -36,6 +36,7 @@ import ForgotPassword from './Src/Views/ForgotPassword';
 import FVerificationCode from './Src/Views/FVerificationCode';
 import FChangePassword from './Src/Views/FChangePassword';
 import { getUserData } from './Src/Utils/user';
+import SafeZones from './Src/Views/Guardian/SafeZones';
 
 export default function App() {
   const [type, setType] = useState('');
@@ -60,7 +61,9 @@ else{
   return (
 
     <NavigationContainer>
-      <Stack.Navigator  initialRouteName={user == null ? "SignIn" : "drawer"} >
+      <Stack.Navigator initialRouteName={user == null ? "SignIn" : "drawer"} >
+      <Stack.Screen name="SafeZones"  component={SafeZones} />
+
       <Stack.Screen name="SignUpGuardian" options={{ headerShown: false }} component={Signup} />
 
        <Stack.Screen name="drawer" options={{ headerShown: false }} component={DrawerNav}/>
