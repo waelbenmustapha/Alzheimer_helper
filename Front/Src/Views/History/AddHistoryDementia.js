@@ -14,7 +14,7 @@ const AddHistoryDementia = ({ navigation }) => {
   function AddHistory() {
     AsyncStorage.getItem('user')
       .then(value => {
-        axios.post(`http://192.168.1.21:8090/story/add/${JSON.parse(value).dementia.id}`,
+        axios.post(`http://192.168.1.19:8090/story/add/${JSON.parse(value).dementia.id}`,
           history, {
           headers: {
             'Content-Type': 'text/plain'
@@ -41,7 +41,7 @@ const AddHistoryDementia = ({ navigation }) => {
   function getStory() {
     AsyncStorage.getItem('user')
       .then(value => {
-        axios.get(`http://192.168.1.21:8090/story/get/${JSON.parse(value).dementia.id}`
+        axios.get(`http://192.168.1.19:8090/story/get/${JSON.parse(value).dementia.id}`
         )
           .then((res) => setHistory(res.data))
       })
