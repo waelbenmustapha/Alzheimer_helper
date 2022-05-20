@@ -137,7 +137,8 @@ const Home = ({ navigation }) => {
                   }} />
                 <Text style={styles.Title2}>Contact</Text>
               </TouchableOpacity>
-              {userData.type == "dementia" ? <TouchableOpacity style={{ alignItems: "center" }} onPress={() => navigation.navigate("HistoryDementia")}>
+              {userData.type == "dementia"|| userData.dementia.story != null ? <TouchableOpacity style={{ alignItems: "center" }}
+               onPress={() => navigation.navigate("HistoryDementia")}>
                 <Image
                   source={require("./../../assets/profile.png")}
                   style={{
@@ -147,7 +148,8 @@ const Home = ({ navigation }) => {
                   }} />
                 <Text style={styles.Title2}>History</Text>
 
-              </TouchableOpacity> : userData.type == "guardian" ? <TouchableOpacity style={{ alignItems: "center" }} onPress={() => navigation.navigate("AddHistoryDementia")}>
+              </TouchableOpacity> :  <TouchableOpacity style={{ alignItems: "center" }} 
+              onPress={() => navigation.navigate("AddHistoryDementia")}>
                 <Image
                   source={require("./../../assets/profile.png")}
                   style={{
@@ -157,7 +159,7 @@ const Home = ({ navigation }) => {
                   }} />
                 <Text style={styles.Title2}>History</Text>
 
-              </TouchableOpacity> : null}
+              </TouchableOpacity> }
 
             </View>
 

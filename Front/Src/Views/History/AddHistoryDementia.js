@@ -49,7 +49,7 @@ const AddHistoryDementia = ({ navigation }) => {
   }
 
   return (
-    <LinearGradient
+     <LinearGradient
       // Button Linear Gradient
       colors={["#359A8E50", "#4A0D6650"]}
       style={styles.container}
@@ -57,32 +57,27 @@ const AddHistoryDementia = ({ navigation }) => {
     >
       <View style={{ flex: 1, flexDirection: "column" }}>
 
-        {userData && <ProfileElement userData={userData} />}
+         <ProfileElement userData={userData}/>
+
+    
         <View style={styles.item}>
-          <Text style={styles.sectionTitle}>Insert History</Text>
 
           <ScrollView style={styles.scrollView}>
-
-            <TextInput multiline numberOfLines={4}
-              value={history}
-              style={styles.square}
-              onChangeText={(text) => setHistory(text)} />
-
+        <View style={styles.item}>
+          <TextInput multiline numberOfLines={4} style={styles.square} onChangeText={(text) => setHistory(text)} placeholder="History"/>
+         
+       
             <View style={styles.fixToText}>
-              <TouchableOpacity style={styles.donebutton} onPress={() => { AddHistory() }}>
-                <Text style={styles.color}>Save</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.updatebutton} onPress={() => navigation.navigate("UpdateHistory", { history: history })}>
-                <Text style={styles.color}>Update</Text>
-              </TouchableOpacity>
+             <TouchableOpacity onPress={()=>{AddHistory()}}>
+        <Text style={styles.donebutton}>Save</Text>
+      </TouchableOpacity>
+      </View>
             </View>
           </ScrollView>
         </View>
       </View>
     </LinearGradient>
-
-
-
+    
   )
 }
 
@@ -130,6 +125,8 @@ const styles = StyleSheet.create({
 
   scrollView: {
     // marginHorizontal: 5,
+    margin: "5%",
+
   },
 
   updatebutton: {
@@ -147,7 +144,6 @@ const styles = StyleSheet.create({
   },
   donebutton: {
     alignItems: "center",
-    justifyContent: "center",
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 10,
@@ -161,9 +157,11 @@ const styles = StyleSheet.create({
   },
 
   fixToText: {
-    margin: "15%",
+    margin:"5%",
+    alignItems:"flex-end",
+
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
 
   },
 

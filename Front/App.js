@@ -31,7 +31,6 @@ import { set } from 'react-native-reanimated';
 import CheckPendingNote from './Src/Views/Note/CheckPendingNote';
 import UpdatePendingNote from './Src/Views/Note/UpdatePendingNote';
 import VerifRegistration from './Src/Views/Verification/VerifRegistration';
-import UpdateHistory from './Src/Views/History/UpdateHistory';
 import ForgotPassword from './Src/Views/ForgotPassword';
 import FVerificationCode from './Src/Views/FVerificationCode';
 import FChangePassword from './Src/Views/FChangePassword';
@@ -109,7 +108,6 @@ else{
         <Stack.Screen name="HistoryDementia" options={{ title: 'History' }} component={HistoryDementia} />
         <Stack.Screen name="AddHistoryDementia" options={{ title: 'Add History' }} component={AddHistoryDementia} />
         <Stack.Screen name="History" component={History} />
-        <Stack.Screen name="UpdateHistory" options={{ title: 'UpdateHistory' }} component={UpdateHistory} />
 
       </Stack.Navigator>
     </NavigationContainer>

@@ -1,4 +1,4 @@
-  import { View, Text,StyleSheet,Image,ScrollView,TouchableOpacity } from 'react-native'
+  import { View, Text,StyleSheet,TextInput,ScrollView,TouchableOpacity } from 'react-native'
   import React, { useState,useEffect  } from 'react'
   import { useIsFocused } from "@react-navigation/native"
   import axios from "axios";
@@ -24,6 +24,38 @@
           
         })
       }
+      function UpdateHistory() {
+
+        AsyncStorage.getItem('user')
+          .then(value => {
+            console.log(JSON.parse(value));
+            console.log(JSON.parse(value).type)
+            if (JSON.parse(value).type == 'guardian') {
+    
+              axios.put(`http://192.168.1.19:8090/story/update/${JSON.parse(value).dementia.id}`,
+                history, {
+                  headers: {
+                    'Content-Type': 'text/plain'
+                  }
+              })
+                .then((res) => navigation.navigate("drawer"))
+            }
+          })
+      }
+      function DeleteHistory() {
+    AsyncStorage.getItem('user')
+      .then(value => {
+        console.log(JSON.parse(value));
+        console.log(JSON.parse(value).type)
+        if (JSON.parse(value).type == 'guardian') {
+
+          axios.delete(`http://192.168.1.19:8090/story/delete/${JSON.parse(value).dementia.id}`,
+            { history: history })
+            .then((res) => navigation.navigate("drawer"))
+        }
+      })
+
+  }
 
 
       function getHistory() {
@@ -81,7 +113,7 @@
           }
       
     return (
-      <LinearGradient
+  /*     <LinearGradient
       // Button Linear Gradient
       colors={["#359A8E50", "#4A0D6650"]}
       style={styles.container}
@@ -95,15 +127,69 @@
         <ScrollView style={styles.scrollView}> 
         <TouchableOpacity style={styles.microphone} onPress={()=>runSpeech()}>
           <Feather name='mic' size={50}></Feather></TouchableOpacity>
-          <Text multiline 
-              style={styles.square}>{history}</Text>
+         <TextInput multiline numberOfLines={4}
+            value={history} onChangeText={(value) => setHistory(value)} style={styles.square}></TextInput>
+          
+
+             {userData.type == "guardian" ? <View style={styles.fixToText}>
+            <TouchableOpacity
+              onPress={() => DeleteHistory()}
+              style={styles.deletebutton}
+            >
+              <Text> Delete</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => UpdateHistory()}
+              style={styles.donebutton}
+            >
+              <Text >Updated</Text>
+            </TouchableOpacity>
+          </View> : null}
+
           </ScrollView>
 
         </View>
         </View>
         </LinearGradient>
 
-    )
+   */  
+        <LinearGradient
+        // Button Linear Gradient
+        colors={["#359A8E50", "#4A0D6650"]}
+        style={styles.container}
+        end={{ x: 0.8, y: 0.5 }}
+      >
+<View style={{ flex: 1, flexDirection: "column" }}>
+      <View style={{ flex: 1 }}>
+
+        <ProfileElement userData={userData} />
+
+        <ScrollView style={styles.scrollView}>
+          <TouchableOpacity style={styles.microphone} onPress={() => runSpeech()}>
+            <Feather name='mic' size={50}></Feather>
+            </TouchableOpacity>
+          <TextInput multiline numberOfLines={4}
+            value={history} onChangeText={(value) => setHistory(value)} style={styles.square}></TextInput>
+          {userData.type == "guardian" ? <View style={styles.fixToText}>
+            <TouchableOpacity
+              onPress={() => DeleteHistory()}
+              style={styles.deletebutton}
+            >
+              <Text> Delete</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => UpdateHistory()}
+              style={styles.donebutton}
+            >
+              <Text >Updated</Text>
+            </TouchableOpacity>
+          </View> : null}
+        </ScrollView>
+
+      </View>
+    </View>
+    </LinearGradient>
+        )
   }
 
   export default HistoryDementia
@@ -163,7 +249,7 @@
       borderRadius: 10,
       elevation: 3,
       borderColor: "#D86363",
-      backgroundColor: "#fff",
+      backgroundColor: "#D86363",
       shadowColor: "#D86363",
       shadowOpacity: 0.2,
       shadowRadius: 1.22,
@@ -177,7 +263,7 @@
       borderRadius: 10,
       elevation: 3,
       borderColor: "#359A8E",
-      backgroundColor: "#fff",
+      backgroundColor: "#359A8E",
       shadowColor: "#359A8E",
       shadowOpacity: 0.55,
       shadowRadius: 2.22,
@@ -185,10 +271,8 @@
     },
     fixToText: {
       flexDirection: "row",
-      justifyContent: "space-evenly",
+      justifyContent: "space-between",
       margin:"5%",
-      paddingLeft: "25%",
-      marginRight: "25%",
     },
   
 
