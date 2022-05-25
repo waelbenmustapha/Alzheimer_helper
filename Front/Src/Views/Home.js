@@ -108,6 +108,7 @@ const Home = ({ navigation }) => {
   >
     <View >
       {userData && <ProfileElement userData={userData} />}
+      
       <ScrollView>
         <View style={{ flex: 1, alignItems: "center", paddingTop: "2%" }}>
 

@@ -87,7 +87,7 @@ const Signup = ({ navigation }) => {
 
       setIsLoading(true);
 
-      axios.post(`http://192.168.1.19:8090/guardian/SignUp`, {
+      axios.post(`http://https://alzhelper.herokuapp.com/guardian/SignUp`, {
         name: userName,
         phoneNumber: phoneNumber,
         email: userEmail,

@@ -30,10 +30,10 @@ const CheckNote = ({ route, navigation }) => {
       .then(value => {
         console.log(JSON.parse(value).type)
         if (JSON.parse(value).type == 'dementia') {
-          axios.post(`http://192.168.1.19:8090/pending-notes/delete-note/${route.params.el.id}`,
+          axios.post(`http://https://alzhelper.herokuapp.com/pending-notes/delete-note/${route.params.el.id}`,
           )
             .then((res) => {
-              axios.get(`http://192.168.1.19:8090/dementia/guardian-push-token/${JSON.parse(value).id}`)
+              axios.get(`http://https://alzhelper.herokuapp.com/dementia/guardian-push-token/${JSON.parse(value).id}`)
                 .then((res) => {
                   sendPushNotification(res.data, messageDelete.title, messageDelete.body)
                 })
@@ -43,7 +43,7 @@ const CheckNote = ({ route, navigation }) => {
 
         }
         else {
-          axios.delete(`http://192.168.1.19:8090/notes/delete-note/${route.params.el.id}`,
+          axios.delete(`http://https://alzhelper.herokuapp.com/notes/delete-note/${route.params.el.id}`,
           )
             .then((res) => navigation.navigate("CheckNotes"))
         }

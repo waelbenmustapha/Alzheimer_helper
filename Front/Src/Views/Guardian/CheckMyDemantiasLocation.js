@@ -49,11 +49,11 @@ const CheckMyDemantiasLocation = () => {
       AsyncStorage.getItem('user')
       .then(value=>
    { 
-     console.log(`http://192.168.1.19:8090/guardian/getMyDementiaLocation/${JSON.parse(value).id}`
+     console.log(`http://https://alzhelper.herokuapp.com/guardian/getMyDementiaLocation/${JSON.parse(value).id}`
      )
      axios
       .get(
-        `http://192.168.1.19:8090/guardian/getMyDementiaLocation/${JSON.parse(value).id}`
+        `http://https://alzhelper.herokuapp.com/guardian/getMyDementiaLocation/${JSON.parse(value).id}`
       )
       .then((res) => {
         setLocation(res.data);
@@ -81,7 +81,7 @@ async function getAllSafeZones(){
  {
    axios
     .get(
-      `http://192.168.1.19:8090/dementia/get-safezones/${JSON.parse(value).dementia.id}`
+      `http://https://alzhelper.herokuapp.com/dementia/get-safezones/${JSON.parse(value).dementia.id}`
     ).then(res=> {
     setSafezones(res.data)
 

@@ -24,16 +24,22 @@ const [guardiannumber,setGuardiannumber]=useState('');
 
 
 
-  const [userData, setuserData] = useState(null);
+  const [today, setToday] = useState('');
   const isFocused = useIsFocused();
 
 function getgnumb(id){
   console.log("hello")
-  axios.get(`http://192.168.1.19:8090/dementia/guardian-phone-number/${id}`).then((res)=>setGuardiannumber(res.data))
+  axios.get(`http://https://alzhelper.herokuapp.com/dementia/guardian-phone-number/${id}`).then((res)=>setGuardiannumber(res.data))
+}
+
+function getToday(){
+  axios.get(`https://date-micro-service.herokuapp.com`).then((res)=>{console.log(res.data),setToday(res.data.datenotime)})
 }
 
   useEffect(() => {
     if(props.userData.type == "dementia"){getgnumb(props.userData.id)}
+    getToday()
+
   }, [])
   
   function getAge(dateString) {
@@ -75,6 +81,9 @@ function getgnumb(id){
         </View>
         {props.userData.type == "dementia"&&<View><TouchableOpacity onPress={() => Linking.openURL(`tel:${guardiannumber}`)} ><Image source={warn} style={{height:75,width:75}}/></TouchableOpacity>
         </View>}
+        <View> 
+       <Text style={styles.Title2}>{today}</Text>
+        </View>
       </View>
     </View>
   );

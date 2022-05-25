@@ -37,7 +37,7 @@ const ProfileGuardian = () => {
       .then(value => {
         console.log(JSON.parse(value));
         if (JSON.parse(value).type) {
-          axios.put(`http://192.168.1.19:8090/dementia/edit-profile/${JSON.parse(value).dementia.id}`,
+          axios.put(`http://https://alzhelper.herokuapp.com/dementia/edit-profile/${JSON.parse(value).dementia.id}`,
             {
               pushToken: JSON.parse(value).pushToken,
               birthdate: JSON.parse(value).dementia.birthdate,
@@ -73,7 +73,7 @@ const ProfileGuardian = () => {
         console.log(JSON.parse(value));
         if (JSON.parse(value).type) {
           console.log(JSON.parse(value).dementia.id)
-          axios.put(`http://192.168.1.19:8090/guardian/edit-profile/${JSON.parse(value).id}`,
+          axios.put(`http://https://alzhelper.herokuapp.com/guardian/edit-profile/${JSON.parse(value).id}`,
             {
               pushToken: JSON.parse(value).pushToken,
               email: JSON.parse(value).email,

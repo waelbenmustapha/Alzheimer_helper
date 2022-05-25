@@ -14,8 +14,8 @@ const FVerificationCode = () => {
             alert("Please fell the field to verify the code")
             return;
         }
-        console.log(`http://192.168.1.19:8090/auth/verify/${code}`)
-        axios.post(`http://192.168.1.19:8090/auth/verify/${code}`)
+        console.log(`http://https://alzhelper.herokuapp.com/auth/verify/${code}`)
+        axios.post(`http://https://alzhelper.herokuapp.com/auth/verify/${code}`)
 
             .then((response) => {
                 if (response.status === 200) {

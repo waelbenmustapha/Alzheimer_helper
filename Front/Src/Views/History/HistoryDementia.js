@@ -32,7 +32,7 @@
             console.log(JSON.parse(value).type)
             if (JSON.parse(value).type == 'guardian') {
     
-              axios.put(`http://192.168.1.19:8090/story/update/${JSON.parse(value).dementia.id}`,
+              axios.put(`http://https://alzhelper.herokuapp.com/story/update/${JSON.parse(value).dementia.id}`,
                 history, {
                   headers: {
                     'Content-Type': 'text/plain'
@@ -49,7 +49,7 @@
         console.log(JSON.parse(value).type)
         if (JSON.parse(value).type == 'guardian') {
 
-          axios.delete(`http://192.168.1.19:8090/story/delete/${JSON.parse(value).dementia.id}`,
+          axios.delete(`http://https://alzhelper.herokuapp.com/story/delete/${JSON.parse(value).dementia.id}`,
             { history: history })
             .then((res) => navigation.navigate("drawer"))
         }
@@ -67,7 +67,7 @@
               if(JSON.parse(value).type =='dementia'){
                 axios
                 .get(
-                  `http://192.168.1.19:8090/story/get/${JSON.parse(value).id}`
+                  `http://https://alzhelper.herokuapp.com/story/get/${JSON.parse(value).id}`
                 )
 
                 .then((res) => {
@@ -82,7 +82,7 @@
             else {
               axios
               .get(
-                `http://192.168.1.19:8090/story/get/${JSON.parse(value).dementia.id}`
+                `http://https://alzhelper.herokuapp.com/story/get/${JSON.parse(value).dementia.id}`
               )
               .then((res) => {
                 console.log("************************");

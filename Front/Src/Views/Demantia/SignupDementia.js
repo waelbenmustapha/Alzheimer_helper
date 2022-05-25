@@ -86,7 +86,7 @@ const SignupDementia = ({ navigation }) => {
     if (isValid()) {
       setIsLoading(true);
 
-      axios.post(`http://192.168.1.19:8090/dementia/SignUp/${guardianEmail}`, {
+      axios.post(`http://https://alzhelper.herokuapp.com/dementia/SignUp/${guardianEmail}`, {
         name: userName,
         email: userEmail,
         password: userPassword,
