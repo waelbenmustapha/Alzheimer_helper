@@ -16,9 +16,9 @@ const FChangePassword = () => {
             alert("Please fell all field ")
             return;
         }
-        console.log(`http://https://alzhelper.herokuapp.com/auth/change-password/${email}`)
-        console.log(`http://https://alzhelper.herokuapp.com/auth/change-password/${password}`)
-        axios.put(`http://https://alzhelper.herokuapp.com/auth/change-password/${email}`,
+        console.log(`https://alzhelper.herokuapp.com/auth/change-password/${email}`)
+        console.log(`https://alzhelper.herokuapp.com/auth/change-password/${password}`)
+        axios.put(`https://alzhelper.herokuapp.com/auth/change-password/${email}`,
         password,{headers:{ 
             'Content-Type': 'text/plain'
           }})

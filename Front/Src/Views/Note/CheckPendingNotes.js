@@ -32,14 +32,14 @@ const CheckPendingNotes = ({ navigation }) => {
   function getData() {
     // axios
     //   .get(
-    //     `http://https://alzhelper.herokuapp.com/notes/get-notes-by-dementia-id/`
+    //     `https://alzhelper.herokuapp.com/notes/get-notes-by-dementia-id/`
     //   )
 
     AsyncStorage.getItem('user')
       .then(value => {
         console.log(JSON.parse(value));
 
-        axios.get(`http://https://alzhelper.herokuapp.com/pending-notes/get/${JSON.parse(value).dementia.id}`)
+        axios.get(`https://alzhelper.herokuapp.com/pending-notes/get/${JSON.parse(value).dementia.id}`)
           .then((res) => { setNotes(res.data); setNotesCopy(res.data); console.log(res.data) })
       })
   }

@@ -23,7 +23,7 @@ const CheckMyLocation = () => {
       console.log("**********************************");
     axios
       .post(
-        `http://https://alzhelper.herokuapp.com/dementia/post-location/${
+        `https://alzhelper.herokuapp.com/dementia/post-location/${
           value
         }/${latitude.toFixed(7)}/${longitude.toFixed(7)}`
       )

@@ -68,7 +68,7 @@ const SignIn = ({ navigation }) => {
     }
     setIsLoading(true);
     axios
-      .post(encodeURI(`http://https://alzhelper.herokuapp.com/auth/login/${expoPushToken}`), {
+      .post(encodeURI(`https://alzhelper.herokuapp.com/auth/login/${expoPushToken}`), {
         email: userEmail,
         password: userPassword,
       })

@@ -16,8 +16,8 @@ const VerifRegistration = ({ navigation }) => {
                     alert("Please Entry security code");
                     return;
                 }
-                console.log(`http://https://alzhelper.herokuapp.com/auth/verify/${verificationcode}`)
-                axios.post(`http://https://alzhelper.herokuapp.com/auth/verify/${verificationcode}`, 
+                console.log(`https://alzhelper.herokuapp.com/auth/verify/${verificationcode}`)
+                axios.post(`https://alzhelper.herokuapp.com/auth/verify/${verificationcode}`, 
                 { verificationcode: verificationcode})
                     .then((response) => {
                         console.log(response.status)

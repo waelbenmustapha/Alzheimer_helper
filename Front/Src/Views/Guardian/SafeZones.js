@@ -29,7 +29,7 @@ const SafeZones = ({ navigation }) => {
     const user =JSON.parse(await AsyncStorage.getItem("user"))
     axios
      .get(
-       `http://https://alzhelper.herokuapp.com/dementia/get-safezones/${user.dementia.id}`
+       `https://alzhelper.herokuapp.com/dementia/get-safezones/${user.dementia.id}`
      ).then(res=> {
       setZone(res.data)
       console.log(res.data)
@@ -40,7 +40,7 @@ const SafeZones = ({ navigation }) => {
     console.log(user)
     axios
     .post(
-      `http://https://alzhelper.herokuapp.com/dementia/enable-safezone/${user.dementia.id}/${zone.id}`
+      `https://alzhelper.herokuapp.com/dementia/enable-safezone/${user.dementia.id}/${zone.id}`
     ).then(res=> 
       {
       alert("That zone are active")

@@ -27,10 +27,10 @@ const AddNotes = ({ navigation }) => {
         console.log(JSON.parse(value));
         console.log(JSON.parse(value).type)
         if (JSON.parse(value).type == 'dementia') {
-          axios.post(`http://https://alzhelper.herokuapp.com/pending-notes/add-note/${JSON.parse(value).id}`,
+          axios.post(`https://alzhelper.herokuapp.com/pending-notes/add-note/${JSON.parse(value).id}`,
             { description: description, title: title, date: date })
             .then((res) => {
-              axios.get(`http://https://alzhelper.herokuapp.com/dementia/guardian-push-token/${JSON.parse(value).id}`)
+              axios.get(`https://alzhelper.herokuapp.com/dementia/guardian-push-token/${JSON.parse(value).id}`)
                 .then((res) => {
                   sendPushNotification(res.data, message.title, message.body)
                 })
@@ -39,7 +39,7 @@ const AddNotes = ({ navigation }) => {
 
         }
         else {
-          axios.post(`http://https://alzhelper.herokuapp.com/notes/add-note/${JSON.parse(value).dementia.id}`,
+          axios.post(`https://alzhelper.herokuapp.com/notes/add-note/${JSON.parse(value).dementia.id}`,
             { description: description, title: title, date: date })
             .then((res) => navigation.navigate("CheckNotes"))
         }
@@ -58,7 +58,7 @@ const AddNotes = ({ navigation }) => {
       setShow(true);
     }
     else {
-      axios.post(`http://https://alzhelper.herokuapp.com/notes/add-note/${JSON.parse(value).dementia.id}`,
+      axios.post(`https://alzhelper.herokuapp.com/notes/add-note/${JSON.parse(value).dementia.id}`,
         { description: description, title: title, date: date })
         .then((res) => navigation.navigate("CheckNotes"))
     }

@@ -29,7 +29,7 @@ const [guardiannumber,setGuardiannumber]=useState('');
 
 function getgnumb(id){
   console.log("hello")
-  axios.get(`http://https://alzhelper.herokuapp.com/dementia/guardian-phone-number/${id}`).then((res)=>setGuardiannumber(res.data))
+  axios.get(`https://alzhelper.herokuapp.com/dementia/guardian-phone-number/${id}`).then((res)=>setGuardiannumber(res.data))
 }
 
 function getToday(){

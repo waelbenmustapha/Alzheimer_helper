@@ -19,7 +19,7 @@ const PinCode = ({ navigation }) => {
                     alert("Please Entry Pin code");
                     return;
                 }
-                axios.post(`http://https://alzhelper.herokuapp.com/guardian/add-pin-code/${JSON.parse(value).id}/${pincode}`,
+                axios.post(`https://alzhelper.herokuapp.com/guardian/add-pin-code/${JSON.parse(value).id}/${pincode}`,
                     { pincode: pincode })
                     .then((response) => {
                         console.log(response.status)

@@ -21,7 +21,7 @@ const UpdatePendingNote = ({ route, navigation }) => {
 
 
   function AcceptPending() {
-    axios.post(`http://https://alzhelper.herokuapp.com/pending-notes/accept/${route.params.note.id}`)
+    axios.post(`https://alzhelper.herokuapp.com/pending-notes/accept/${route.params.note.id}`)
       .then((res) => {
 
         navigation.replace("CheckNotes"
@@ -30,7 +30,7 @@ const UpdatePendingNote = ({ route, navigation }) => {
 
   }
   function DeclinePending() {
-    axios.post(`http://https://alzhelper.herokuapp.com/pending-notes/deny/${route.params.note.id}`)
+    axios.post(`https://alzhelper.herokuapp.com/pending-notes/deny/${route.params.note.id}`)
       .then((res) => {
 
         navigation.replace("CheckNotes"
@@ -44,7 +44,7 @@ const UpdatePendingNote = ({ route, navigation }) => {
   useEffect(() => {
     console.log(route.params.note.noteToEditId)
 
-    axios.get(`http://https://alzhelper.herokuapp.com/notes/get-note/${route.params.note.noteToEditId}`)
+    axios.get(`https://alzhelper.herokuapp.com/notes/get-note/${route.params.note.noteToEditId}`)
       .then((res) => {
 
         setOldNote(res.data)
