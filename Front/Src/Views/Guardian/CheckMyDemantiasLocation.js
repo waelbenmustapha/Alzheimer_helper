@@ -12,12 +12,13 @@ import {
   View,
   Dimensions,
   TouchableOpacity,
-  Button,
+  ActivityIndicator,
 } from "react-native";
 import * as Location from "expo-location";
 import axios from "axios";
 import { sendPushNotification } from "../../Utils/Notif";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LinearGradient } from "expo-linear-gradient";
 
 const CheckMyDemantiasLocation = () => {
   const[Danger, setDanger] = useState(false);
@@ -111,9 +112,14 @@ getDemantiaLocation(res.data.filter(safe =>safe.active==true)[0]);
 
   if (location == null||safe==null) {
     return (
-      <View>
-        <Text>Loading </Text>
-      </View>
+      <LinearGradient
+      // Button Linear Gradient
+      colors={["#359A8E50", "#4A0D6650"]}
+      style={styles.container}
+      end={{ x: 0.8, y: 0.5 }}
+    >
+        <ActivityIndicator size={60} color="#0000ff" style={{justifyContent:"center", alignContent:"center"}} />
+      </LinearGradient>
     );
   } else {
     return (

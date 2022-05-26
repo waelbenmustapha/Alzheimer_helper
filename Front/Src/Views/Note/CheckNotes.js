@@ -35,7 +35,7 @@ const CheckNotes = ({ navigation }) => {
         console.log(JSON.parse(value));
         console.log(JSON.parse(value).type)
         if (JSON.parse(value).type == 'dementia') {
-          axios.get(`https://alzhelper.herokuapp.com/notes/get-notes-by-dementia-id/${JSON.parse(value).id}`)
+          axios.get(`http://alzhelper.herokuapp.com/notes/get-notes-by-dementia-id/${JSON.parse(value).id}`)
             .then((res) => {
               console.log(res.data)
               if (res.data != null)
@@ -47,7 +47,7 @@ const CheckNotes = ({ navigation }) => {
 
         }
         else {
-          axios.get(`https://alzhelper.herokuapp.com/notes/get-notes-by-dementia-id/${JSON.parse(value).dementia.id}`)
+          axios.get(`http://alzhelper.herokuapp.com/notes/get-notes-by-dementia-id/${JSON.parse(value).dementia.id}`)
             .then((res) => { setNotes(res.data); console.log(res.data) })
         }
       })
@@ -76,7 +76,7 @@ const CheckNotes = ({ navigation }) => {
 
 
       <View style={[{ flex: 3, flexDirection: "column" }]}>
-        <View style={[styles.container, { flexDirection: "row" }]}>
+        <View style={{ flexDirection: "row" }}>
           <View style={styles.barre} />
 
           <View style={[styles.container, { flex: 1, flexDirection: "column" }]}>
@@ -127,9 +127,10 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingTop: "2%",
+    paddingTop: "15%",
     paddingLeft: "2%",
     paddingRight: "2%",
+    
 
   },
   subtitle: {
@@ -182,6 +183,7 @@ const styles = StyleSheet.create({
   },
 
   barre: {
+    paddingTop:2,
     flex: 0,
     backgroundColor: "#4A0D66",
     padding: 1,

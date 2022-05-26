@@ -1,4 +1,4 @@
-import { View, Modal, Text, Pressable, StyleSheet, Image } from 'react-native'
+import { View, Modal, Text, Pressable, StyleSheet, Image ,ActivityIndicator} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler'
 import { useIsFocused } from '@react-navigation/native';
@@ -157,12 +157,17 @@ const ProfileGuardian = () => {
   if (userData == null) {
     return (
       <View>
-        <Text>loading</Text>
+                <ActivityIndicator size={60} color="#0000ff" style={{justifyContent:"center", alignContent:"center"}} />
       </View>
     )
   }
   return (
-    <View style={styles.container}>
+    <LinearGradient
+    // Button Linear Gradient
+    colors={["#359A8E50", "#4A0D6650"]}
+    style={styles.container}
+    end={{ x: 0.8, y: 0.5 }}
+  >
       <ScrollView style={styles.scrollView}>
         <Text style={styles.title}>Your informations :</Text>
         <View style={styles.items}>
@@ -206,7 +211,7 @@ const ProfileGuardian = () => {
         }}>
         <LinearGradient
           // Button Linear Gradient
-          colors={["#359A8E50", "#4A0D6650"]}
+          colors={[ "#4A0D6650","#359A8E50"]}
           style={styles.container}
           end={{ x: 0.8, y: 0.5 }}
         >
@@ -250,7 +255,7 @@ const ProfileGuardian = () => {
         }}>
         <LinearGradient
           // Button Linear Gradient
-          colors={["#359A8E50", "#4A0D6650"]}
+          colors={["#4A0D6650","#359A8E50"]}
           style={styles.container}
           end={{ x: 0.8, y: 0.5 }}
         >
@@ -279,7 +284,7 @@ const ProfileGuardian = () => {
           </ScrollView>
         </LinearGradient>
       </Modal>
-    </View>
+    </LinearGradient>
   );
 };
 

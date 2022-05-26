@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Text,
   View,
+  ActivityIndicator,
   Dimensions,
   TextInput,
 } from "react-native";
@@ -12,6 +13,7 @@ import * as Location from "expo-location";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationContainer } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
 
 const SpecifySafeArea = ({navigation}) => {
   const [marker, setMarker] = useState(null);
@@ -50,9 +52,14 @@ navigation.navigate("SafeZones");
   }, []);
   if (location == null) {
     return (
-      <View>
-        <Text>Loading</Text>
-      </View>
+      <LinearGradient
+      // Button Linear Gradient
+      colors={["#359A8E50", "#4A0D6650"]}
+      style={styles.container}
+      end={{ x: 0.8, y: 0.5 }}
+    >
+        <ActivityIndicator size={60} color="#0000ff" style={{justifyContent:"center", alignContent:"center"}} />
+      </LinearGradient>
     );
   }
   return (

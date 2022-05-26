@@ -71,9 +71,9 @@ else{
      <Stack.Screen name="SignIn" options={{ headerShown: false }} component={SignIn} />
           
        
-       <Stack.Screen name="CheckPendingNote" options={{ headerShown: false }} component={CheckPendingNote }/>
+       <Stack.Screen name="CheckPendingNote" component={CheckPendingNote }/>
 
-       <Stack.Screen name="UpdatePendingNote" options={{ headerShown: false }} component={UpdatePendingNote }/>
+       <Stack.Screen name="UpdatePendingNote" component={UpdatePendingNote }/>
 
    
        <Stack.Screen name="ForgotPassword" component={ForgotPassword}  />
@@ -90,23 +90,23 @@ else{
 
 
 
-      <Stack.Screen name="Contact"options={{ headerShown: false }}  component={Contact} />
+      <Stack.Screen name="Contact" options={{ headerShown: false }}  component={Contact} />
 
-      <Stack.Screen name="PinCode"options={{ headerShown: false }}  component={PinCode} />
-      <Stack.Screen name="PinCodeVerif"options={{ headerShown: false }}  component={PinCodeVerif} />
+      <Stack.Screen name="PinCode" component={PinCode} />
+      <Stack.Screen name="PinCodeVerif"  component={PinCodeVerif} />
 
         
         <Stack.Screen name="Notif" options={{ headerShown: false }} component={Notif} />
         <Stack.Screen name="SpecifySafeArea" options={{ headerShown: false }} component={SpecifySafeArea} />
-        <Stack.Screen name="AddNotes" options={{ headerShown:false }} component={AddNotes} />
-        <Stack.Screen name="CheckNote" options={{ headerShown:false }} component={CheckNote} />
-        <Stack.Screen name="CheckNotes" options={{ title: 'Notes' }} component={CheckNotes} />
-        <Stack.Screen name="UpdateNote" options={{ headerShown: false }} component={UpdateNote} />
+        <Stack.Screen name="AddNotes"  options={{ headerShown: false }}component={AddNotes} />
+        <Stack.Screen name="CheckNote" options={{ headerShown: false }} component={CheckNote} />
+        <Stack.Screen name="CheckNotes" options={{ headerShown: false }} component={CheckNotes} />
+        <Stack.Screen name="UpdateNote" options={{ headerShown: false }}  component={UpdateNote} />
         <Stack.Screen name="DemantiaLocation" component={CheckMyLocation} />
         <Stack.Screen name="Location" component={Location} />
         <Stack.Screen name="CheckDemantiaLocation" component={CheckMyDemantiasLocation} />
-        <Stack.Screen name="HistoryDementia" options={{ title: 'History' }} component={HistoryDementia} />
-        <Stack.Screen name="AddHistoryDementia" options={{ title: 'Add History' }} component={AddHistoryDementia} />
+        <Stack.Screen name="HistoryDementia"  component={HistoryDementia} />
+        <Stack.Screen name="AddHistoryDementia" component={AddHistoryDementia} />
         <Stack.Screen name="History" component={History} />
 
       </Stack.Navigator>

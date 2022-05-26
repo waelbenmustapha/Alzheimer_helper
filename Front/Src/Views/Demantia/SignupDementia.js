@@ -5,6 +5,7 @@ import axios from 'axios';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { validatePathConfig } from '@react-navigation/native';
 import { LinearGradient } from "expo-linear-gradient";
+import { ActivityIndicator } from 'react-native';
 
 const SignupDementia = ({ navigation }) => {
   const [date, setDate] = useState(null);

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, StyleSheet, ActivityIndicator, ScrollView, TouchableOpacity, TextInput } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -33,7 +33,9 @@ const AddHistoryDementia = ({ navigation }) => {
 
   if (userData == null) {
     return (
-      <View><Text>Loading</Text></View>
+      <View>
+        <ActivityIndicator size={60} color="#0000ff" style={{justifyContent:"center", alignContent:"center"}} />
+      </View>
     )
   }
 

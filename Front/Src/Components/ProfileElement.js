@@ -28,7 +28,7 @@ const [guardiannumber,setGuardiannumber]=useState('');
   const isFocused = useIsFocused();
 
 function getgnumb(id){
-  console.log("hello")
+  console.log("ProfileElementFhoneNumber")
   axios.get(`https://alzhelper.herokuapp.com/dementia/guardian-phone-number/${id}`).then((res)=>setGuardiannumber(res.data))
 }
 

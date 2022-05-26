@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  TextInput,
+  ActivityIndicator,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
@@ -56,7 +56,7 @@ const UpdatePendingNote = ({ route, navigation }) => {
   if (Oldnote == null) {
     return (
       <View>
-        <Text>loading</Text>
+                <ActivityIndicator size={60} color="#0000ff" style={{justifyContent:"center", alignContent:"center"}} />
       </View>
     )
   }
@@ -67,6 +67,7 @@ const UpdatePendingNote = ({ route, navigation }) => {
       style={styles.container}
       end={{ x: 0.8, y: 0.5 }}
     >
+      <ScrollView>
       <Text style={styles.sectionTitle}>New NOTE</Text>
       <View style={[styles.square, styles.items]}>
         <Text style={styles.subtitle}>Title : </Text>
@@ -109,6 +110,7 @@ const UpdatePendingNote = ({ route, navigation }) => {
         </TouchableOpacity>
 
       </View> : null}
+      </ScrollView>
     </LinearGradient>
   );
 };
@@ -125,10 +127,10 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: "5%"
+    padding: "2%"
   },
   sectionTitle: {
-    margin: "10%",
+    margin: "2%",
     fontSize: 28,
     fontWeight: "bold",
     color: "#359A8E",

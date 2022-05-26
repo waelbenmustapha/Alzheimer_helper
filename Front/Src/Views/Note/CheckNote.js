@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingTop:"10%"
+    paddingTop:"2%"
   },
   Title: {
     margin: "10%",
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     elevation: 11,
   },
   fixToText: {
-    margin: "20%",
+    margin: "15%",
     flexDirection: "row",
     justifyContent: "space-between",
 

@@ -440,8 +440,8 @@ const styles = StyleSheet.create({
         elevation: 11,
     },
     image: {
-        height: 300,
-        width: 300,
+        height: 250,
+        width: 250,
         borderRadius: 20
     },
     sectionTitle: {

@@ -5,7 +5,7 @@ import {
   Button,
   ScrollView,
   StyleSheet,
-  SafeAreaView,
+  ActivityIndicator,
   StatusBar,
   Image,
   TextInput,
@@ -75,9 +75,14 @@ const Home = ({ navigation }) => {
 
   if (userData == null) {
     return (
-      <View>
-        <Text>loading</Text>
-      </View>
+      <LinearGradient
+      // Button Linear Gradient
+      colors={["#359A8E50", "#4A0D6650"]}
+      style={styles.container}
+      end={{ x: 0.8, y: 0.5 }}
+    >
+        <ActivityIndicator size={60} color="#0000ff" style={{justifyContent:"center", alignContent:"center"}} />
+      </LinearGradient>
     )
   }
 
@@ -109,7 +114,7 @@ const Home = ({ navigation }) => {
     <View >
       {userData && <ProfileElement userData={userData} />}
       
-      <ScrollView>
+      <ScrollView style={styles.scrollView}>
         <View style={{ flex: 1, alignItems: "center", paddingTop: "2%" }}>
 
           <View style={styles.searchSection}>
@@ -262,6 +267,9 @@ const styles = StyleSheet.create({
   },
   searchSection: {
     flex: 1,
+  },
+    scrollView: {
+    marginHorizontal: 5,
   },
   searchIcon: {
     alignItems: "flex-end",

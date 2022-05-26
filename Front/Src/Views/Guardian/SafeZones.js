@@ -17,6 +17,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import ProfileElement from "../../Components/ProfileElement";
 import { color } from "react-native-reanimated";
 import { getUserData } from "../../Utils/user";
+import { LinearGradient } from "expo-linear-gradient";
 
 const SafeZones = ({ navigation }) => {
   const isFocused = useIsFocused();
@@ -54,7 +55,12 @@ const SafeZones = ({ navigation }) => {
 
 
   return (
-
+    <LinearGradient
+    // Button Linear Gradient
+    colors={["#359A8E50", "#4A0D6650"]}
+    style={styles.container}
+    end={{ x: 0.8, y: 0.5 }}
+  >
     <View style={styles.container}>
 
 
@@ -75,7 +81,7 @@ const SafeZones = ({ navigation }) => {
             </View>
           </View>
        
-
+</LinearGradient>
 
         
   );
@@ -115,7 +121,6 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 24  ,
     padding:"2%",
-color:"#000"
   },
   container1:
   {
@@ -127,7 +132,6 @@ color:"#000"
   },
   scrollView: {
     marginHorizontal: 5,
-    backgroundColor:"white"
   },
 
   backarrow: {

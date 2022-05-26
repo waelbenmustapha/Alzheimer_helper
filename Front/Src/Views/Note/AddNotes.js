@@ -94,9 +94,9 @@ const AddNotes = ({ navigation }) => {
     >
 
       <View style={{ padding: "3%", alignItems: "center" }}>
-        <View>
+        <View style={styles.items}>
           <TouchableOpacity onPress={showDatepicker}>
-            <Entypo style={styles.DateTimePicker} name="clock" size={50} color="#4A0D66" />
+          <Entypo style={styles.DateTimePicker} name="clock" size={50} color="#4A0D66" />
           </TouchableOpacity>
         </View>
 
@@ -146,7 +146,7 @@ const AddNotes = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: "20%",
+    paddingTop: "2%",
   },
 
   subtitle: {
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
 
   },
   items: {
-    padding: "1%",
+alignItems:"center"
   },
   sectionTitle: {
     marginTop: "10%",
@@ -205,8 +205,9 @@ const styles = StyleSheet.create({
   DateTimePicker: {
     alignItems: "center",
     backgroundColor: "white",
-    borderRadius: 50,
-    padding: "5%"
+    padding: 40,
+    borderRadius: 80,
+    margin: "5%"
   }
 
 });

@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   sectionTitle: {
-    marginTop: "20%",
+    marginTop: "2%",
     marginLeft: "10%",
     fontSize: 28,
     fontWeight: "bold",
